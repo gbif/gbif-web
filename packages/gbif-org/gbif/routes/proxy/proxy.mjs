@@ -108,6 +108,10 @@ async function fetchFromGraphQL({ query, variables, locale, preview }) {
     });
 }
 
+// English pages request header and home with the English cmsLocale (src/config/languagesOptions.tsx),
+// so warming them under 'en' filled a cache entry no visitor reads.
+const ENGLISH_CMS_LOCALE = 'en-GB';
+
 function refreshAll() {
   // currently er only prepopulate the cache for english, but this could be extended to other languages if needed
   // But even when jsut asking for english, it still triggers the same graphql calls, meaning that the other caches (e.g. content requests) will be warmed up on on start up and cached in other layers
@@ -116,11 +120,17 @@ function refreshAll() {
     console.error('Failed to initialize cache for network', err);
   });
   // english version only
-  refreshCache('header-en', { query: HEADER_QUERY }).catch((err) => {
+  refreshCache(`header-${ENGLISH_CMS_LOCALE}`, {
+    query: HEADER_QUERY,
+    locale: ENGLISH_CMS_LOCALE,
+  }).catch((err) => {
     // silently ignore, we do not need the data right away
     console.error('Failed to initialize cache for header', err);
   });
-  refreshCache('home-en', { query: HOMEPAGE_QUERY }).catch((err) => {
+  refreshCache(`home-${ENGLISH_CMS_LOCALE}`, {
+    query: HOMEPAGE_QUERY,
+    locale: ENGLISH_CMS_LOCALE,
+  }).catch((err) => {
     // silently ignore, we do not need the data right away
     console.error('Failed to initialize cache for home', err);
   });

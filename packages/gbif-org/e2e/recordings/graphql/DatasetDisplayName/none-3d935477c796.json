@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "48769858-fe3b-415b-9ac8-3feeb42a9bae"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Type Specimens Of Birds In The American Museum Of Natural History Part 12. Passeriformes: Ploceidae, Sturnidae, Buphagidae, Oriolidae, Dicruridae, Callaeidae, Grallinidae, Corcoracidae, Artamidae, Cracticidae, Ptilonorhynchidae, Cnemophilidae, Paradisaeidae, And Corvidae"
+      }
+    }
+  }
+}

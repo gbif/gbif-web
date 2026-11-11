@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "b6a3a56d-6000-4c77-ac49-3f45d381bffa"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Global Register of Introduced and Invasive Species - Bermuda"
+      }
+    }
+  }
+}

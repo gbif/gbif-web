@@ -1,0 +1,3122 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query LiteratureTableSearch($from: Int, $size: Int, $predicate: Predicate, $q: String) {\n    literatureSearch(predicate: $predicate, q: $q) {\n      documents(from: $from, size: $size) {\n        from\n        size\n        total\n        results {\n          id\n          title\n          authors {\n            firstName\n            lastName\n          }\n          countriesOfCoverage\n          countriesOfResearcher\n          year\n          identifiers {\n            doi\n          }\n          gbifDOIs\n          literatureType\n          relevance\n          source\n          topics\n          websites\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "in",
+          "key": "gbifNetworkKey",
+          "values": [
+            "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+          ]
+        },
+        "size": 50,
+        "from": 0
+      },
+      "operationName": "LiteratureTableSearch"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "literatureSearch": {
+        "documents": {
+          "from": 0,
+          "size": 50,
+          "total": 4901,
+          "results": [
+            {
+              "id": "97a0e4c2-adab-32c5-8271-4c8d18b49d78",
+              "title": "Coral Intel: a YOLOv8 deep learning framework for monitoring Caribbean corals",
+              "authors": [
+                {
+                  "firstName": "Elvin",
+                  "lastName": "Cordero"
+                },
+                {
+                  "firstName": "Clark E.",
+                  "lastName": "Sherman"
+                },
+                {
+                  "firstName": "Priyanka",
+                  "lastName": "Yadav"
+                },
+                {
+                  "firstName": "Venkatesh",
+                  "lastName": "Kumar Raju"
+                },
+                {
+                  "firstName": "Joseph E.",
+                  "lastName": "Townsend"
+                },
+                {
+                  "firstName": "Travis A.",
+                  "lastName": "Courtney"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s44295-026-00107-5"
+              },
+              "gbifDOIs": [
+                "10.15468/dd.4hpa4h"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Intelligent Marine Technology and Systems",
+              "topics": [
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s44295-026-00107-5"
+              ]
+            },
+            {
+              "id": "27d79031-2dd9-3a20-9360-b81c3293fe6b",
+              "title": "Biogeography of pollination under climate change: integrating pollinator effectiveness into species distribution models for mango in South Africa",
+              "authors": [
+                {
+                  "firstName": "Matthew Phillips",
+                  "lastName": "Sánchez"
+                },
+                {
+                  "firstName": "Richard",
+                  "lastName": "Pearson"
+                }
+              ],
+              "countriesOfCoverage": [
+                "ZA"
+              ],
+              "countriesOfResearcher": [
+                "GB"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.21425/fob.19.180771"
+              },
+              "gbifDOIs": [
+                "10.15468/dd.gj873p"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Frontiers of Biogeography",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "BIOGEOGRAPHY",
+                "AGRICULTURE"
+              ],
+              "websites": [
+                "https://doi.org/10.21425/fob.19.180771"
+              ]
+            },
+            {
+              "id": "0a5ab2b7-f5f7-30fc-aadf-7cfc716931ad",
+              "title": "Core–Periphery Organization and Spatial Heterogeneity in Pseudopus apodus (Anguidae) Across Its Western Palearctic Range",
+              "authors": [
+                {
+                  "firstName": "Mehmet Kürşat",
+                  "lastName": "Şahin"
+                },
+                {
+                  "firstName": "Azra",
+                  "lastName": "Topal"
+                },
+                {
+                  "firstName": "Muammer",
+                  "lastName": "Kurnaz"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "TR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3390/d18060367"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.wdjfd2"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Diversity",
+              "topics": [
+                "BIOGEOGRAPHY"
+              ],
+              "websites": [
+                "https://doi.org/10.3390/d18060367"
+              ]
+            },
+            {
+              "id": "955a13a3-09a2-303e-b537-6afd6d6afb2b",
+              "title": "Vers des modèles intégrés de distribution des plantes de montagne – futurs scénarios et stratégies de conservation",
+              "authors": [
+                {
+                  "firstName": "Gabrielle",
+                  "lastName": "Deschamps"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "FR"
+              ],
+              "year": 2025,
+              "identifiers": {
+                "doi": "10.70675/88960b4ez2351z4732zb07bz13dcd69709e7"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2bhy85",
+                "10.15468/dl.6am8ch",
+                "10.15468/dl.6ptbvk",
+                "10.15468/dl.6q3zpq",
+                "10.15468/dl.cswgt4",
+                "10.15468/dl.gdta5n",
+                "10.15468/dl.nmbycd",
+                "10.15468/dl.rxfzz3",
+                "10.15468/dl.tn2b3w",
+                "10.15468/dl.trbz6u",
+                "10.15468/dl.wzfhjd",
+                "10.15468/dl.y8nfqw",
+                "10.15468/ksqxep"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "ECOLOGY",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.70675/88960b4ez2351z4732zb07bz13dcd69709e7"
+              ]
+            },
+            {
+              "id": "7c0cadf9-6f68-38e9-bd46-417a8291e52e",
+              "title": "Bathysciadium pacificum (Gastropoda: Bathysciadiidae), a new record from the tropical eastern Pacific",
+              "authors": [
+                {
+                  "firstName": "Adriana Gracia",
+                  "lastName": "C."
+                },
+                {
+                  "firstName": "Nancy Yolimar",
+                  "lastName": "Suárez-Mozo"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "MX",
+                "CO"
+              ],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/nmcdsv"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "The Nautilus",
+              "topics": [
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://www.researchgate.net/profile/Adriana-Gracia-C/publication/406994533"
+              ]
+            },
+            {
+              "id": "86987ca9-c064-357d-b094-b88c396e7702",
+              "title": "Contrasting Climatic and Land-Use Scenarios Reveal Divergent Futures for the Mexican Narrow-Mouthed Toad, Amphibia, Microhylidae Hypopachus variolosus (Cope, 1866)",
+              "authors": [
+                {
+                  "firstName": "Armando",
+                  "lastName": "Sunny"
+                },
+                {
+                  "firstName": "Laura",
+                  "lastName": "Gilchrist"
+                },
+                {
+                  "firstName": "Germán",
+                  "lastName": "Martínez-Alva"
+                },
+                {
+                  "firstName": "Irving Yahan",
+                  "lastName": "Rojas-Velasco"
+                },
+                {
+                  "firstName": "Alexis Josué",
+                  "lastName": "Sánchez-Lara"
+                },
+                {
+                  "firstName": "Amanda",
+                  "lastName": "Solano-Gómez"
+                },
+                {
+                  "firstName": "Liliana",
+                  "lastName": "Gutierrez-Tovar"
+                },
+                {
+                  "firstName": "Javier",
+                  "lastName": "Manjarrez"
+                },
+                {
+                  "firstName": "Carmen",
+                  "lastName": "Zepeda-Gómez"
+                },
+                {
+                  "firstName": "Yuriana",
+                  "lastName": "Gómez-Ortiz"
+                },
+                {
+                  "firstName": "Hublester",
+                  "lastName": "Domínguez-Vega"
+                },
+                {
+                  "firstName": "Leroy",
+                  "lastName": "Soria-Díaz"
+                },
+                {
+                  "firstName": "Claudia C.",
+                  "lastName": "Astudillo-Sánchez"
+                },
+                {
+                  "firstName": "Luis Fernando",
+                  "lastName": "Gopar-Merino"
+                },
+                {
+                  "firstName": "Rene",
+                  "lastName": "Bolom-Huet"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MX"
+              ],
+              "countriesOfResearcher": [
+                "MX"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3390/conservation6020073"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.5c5m4p"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Conservation",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.3390/conservation6020073"
+              ]
+            },
+            {
+              "id": "30ecd4c0-fbfc-3b76-a790-0011a92e579e",
+              "title": "First record on the central Venezuelan coast of the species Sigmops elongatus (Gonostomatidae, Stomiiformes) and data on its distribution in the country",
+              "authors": [
+                {
+                  "firstName": "Ángel Rafael Fariña",
+                  "lastName": "Pestano"
+                },
+                {
+                  "firstName": "Eric Ricardo Martínez",
+                  "lastName": "Gómez"
+                },
+                {
+                  "firstName": "Ruth Emilia Vásquez",
+                  "lastName": "Levy"
+                }
+              ],
+              "countriesOfCoverage": [
+                "VE"
+              ],
+              "countriesOfResearcher": [
+                "VE"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.25268/bimc.invemar.2025.55.1.1375"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.xs9x5r"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Boletín de Investigaciones Marinas y Costeras",
+              "topics": [
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.25268/bimc.invemar.2025.55.1.1375"
+              ]
+            },
+            {
+              "id": "ba331099-ccb5-39e1-9815-302ebced60d4",
+              "title": "Combined phylogenetic and geographic data can predict plant–pest interactions with high accuracy",
+              "authors": [
+                {
+                  "firstName": "Elvira",
+                  "lastName": "Hernández‐Gutiérrez"
+                },
+                {
+                  "firstName": "Richard A.",
+                  "lastName": "Nichols"
+                },
+                {
+                  "firstName": "Laura J.",
+                  "lastName": "Kelly"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "GB"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1111/nph.71306"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.7sjwt9"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "New Phytologist",
+              "topics": [
+                "PHYLOGENETICS"
+              ],
+              "websites": [
+                "https://doi.org/10.1111/nph.71306"
+              ]
+            },
+            {
+              "id": "e62c3722-12a7-30cb-9e23-dd70c7f41e59",
+              "title": "Impact of global change on the distribution of mountain mammals and birds",
+              "authors": [
+                {
+                  "firstName": "Chiara",
+                  "lastName": "Dragonetti"
+                },
+                {
+                  "firstName": "Wilfried",
+                  "lastName": "Thuiller"
+                },
+                {
+                  "firstName": "Maya",
+                  "lastName": "Guéguen"
+                },
+                {
+                  "firstName": "Julien",
+                  "lastName": "Renaud"
+                },
+                {
+                  "firstName": "Piero",
+                  "lastName": "Visconti"
+                },
+                {
+                  "firstName": "Moreno Di",
+                  "lastName": "Marco"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "AT",
+                "IT",
+                "FR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1111/cobi.70339"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2kffec"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Conservation Biology",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1111/cobi.70339"
+              ]
+            },
+            {
+              "id": "0025e572-6732-35b0-bac7-66c461dc4101",
+              "title": "Crimean–congo haemorrhagic fever virus circulates within broad ecological networks of ticks and vertebrates",
+              "authors": [
+                {
+                  "firstName": "Agustín",
+                  "lastName": "Estrada-Peña"
+                },
+                {
+                  "firstName": "Oliver",
+                  "lastName": "Carnell"
+                },
+                {
+                  "firstName": "Sara R.",
+                  "lastName": "Wijburg"
+                },
+                {
+                  "firstName": "Maya",
+                  "lastName": "Holding"
+                },
+                {
+                  "firstName": "Hein",
+                  "lastName": "Sprong"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "GB",
+                "ES",
+                "NL"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1371/journal.pntd.0013783"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2ugeey",
+                "10.15468/dl.32srrz",
+                "10.15468/dl.38dgud",
+                "10.15468/dl.3jtcxt",
+                "10.15468/dl.3qjbcq",
+                "10.15468/dl.6bu4cv",
+                "10.15468/dl.6e4kgm",
+                "10.15468/dl.7587hj",
+                "10.15468/dl.7qfhzu",
+                "10.15468/dl.7vxe4x",
+                "10.15468/dl.96n8yy",
+                "10.15468/dl.9dhvkm",
+                "10.15468/dl.a94rdk",
+                "10.15468/dl.akxg7k",
+                "10.15468/dl.ckfsyd",
+                "10.15468/dl.d7wjqn",
+                "10.15468/dl.d92vcx",
+                "10.15468/dl.dqumac",
+                "10.15468/dl.eha28h",
+                "10.15468/dl.esmypu",
+                "10.15468/dl.eyupng",
+                "10.15468/dl.fn8z8t",
+                "10.15468/dl.g586yx",
+                "10.15468/dl.ggy6uc",
+                "10.15468/dl.grk2fy",
+                "10.15468/dl.h5z7j4",
+                "10.15468/dl.hnj5uj",
+                "10.15468/dl.jxcnr2",
+                "10.15468/dl.kdz63g",
+                "10.15468/dl.m56tgg",
+                "10.15468/dl.mkcrmh",
+                "10.15468/dl.mnppbq",
+                "10.15468/dl.mrpdsx",
+                "10.15468/dl.n4cncx",
+                "10.15468/dl.nj9uv7",
+                "10.15468/dl.nnmvcd",
+                "10.15468/dl.p66q7s",
+                "10.15468/dl.pnu5rj",
+                "10.15468/dl.pr39ws",
+                "10.15468/dl.pr5wuh",
+                "10.15468/dl.qjxwnv",
+                "10.15468/dl.rz7mzh",
+                "10.15468/dl.sex3gk",
+                "10.15468/dl.sw2apb",
+                "10.15468/dl.syj5y7",
+                "10.15468/dl.tk47bc",
+                "10.15468/dl.ubct8s",
+                "10.15468/dl.ukbmrp",
+                "10.15468/dl.vgugv6",
+                "10.15468/dl.vjtued",
+                "10.15468/dl.vux27w",
+                "10.15468/dl.w5tbav",
+                "10.15468/dl.wdsnwb",
+                "10.15468/dl.wkak83",
+                "10.15468/dl.wmaa9j",
+                "10.15468/dl.wurvz7",
+                "10.15468/dl.yaj3vd",
+                "10.15468/dl.znekcc",
+                "10.15468/dl.zzevfw"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "PLOS Neglected Tropical Diseases",
+              "topics": [
+                "HUMAN_HEALTH"
+              ],
+              "websites": [
+                "https://doi.org/10.1371/journal.pntd.0013783"
+              ]
+            },
+            {
+              "id": "b76b14bf-7d96-3e30-9a66-782ce9db7342",
+              "title": "Phylogenetic and Environmental Insights Into the Biogeography of the Western Blacknose Dace, Rhinichthys obtusus ",
+              "authors": [
+                {
+                  "firstName": "Adelina",
+                  "lastName": "Rodriguez"
+                },
+                {
+                  "firstName": "Timothy S.",
+                  "lastName": "Earley"
+                },
+                {
+                  "firstName": "Samuel",
+                  "lastName": "Taylor"
+                },
+                {
+                  "firstName": "Thomas E.",
+                  "lastName": "Dowling"
+                },
+                {
+                  "firstName": "Phillip M.",
+                  "lastName": "Harris"
+                },
+                {
+                  "firstName": "Jeremy",
+                  "lastName": "Wright"
+                },
+                {
+                  "firstName": "Antonio",
+                  "lastName": "Machado‐Allison"
+                },
+                {
+                  "firstName": "Barry",
+                  "lastName": "Chernoff"
+                }
+              ],
+              "countriesOfCoverage": [
+                "US"
+              ],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1002/ece3.73849"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.486vjw",
+                "10.15468/dl.dpsbew",
+                "10.15468/dl.jt8gdk"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Ecology and Evolution",
+              "topics": [
+                "EVOLUTION",
+                "BIOGEOGRAPHY",
+                "PHYLOGENETICS"
+              ],
+              "websites": [
+                "https://doi.org/10.1002/ece3.73849"
+              ]
+            },
+            {
+              "id": "a44d8c8d-26b1-3238-b257-d939b803ce76",
+              "title": "Simultaneous Automated Insect Monitoring Across a Remote Tropical Elevation Gradient With Mothbox",
+              "authors": [
+                {
+                  "firstName": "Hubert A",
+                  "lastName": "Szczygieł"
+                },
+                {
+                  "firstName": "Andrew",
+                  "lastName": "Quitmeyer"
+                },
+                {
+                  "firstName": "Brianna",
+                  "lastName": "Johns"
+                },
+                {
+                  "firstName": "Daisy H",
+                  "lastName": "Dent"
+                },
+                {
+                  "firstName": "Yash",
+                  "lastName": "Sondhi"
+                },
+                {
+                  "firstName": "Daniel",
+                  "lastName": "Zuleta"
+                },
+                {
+                  "firstName": "Alexandre",
+                  "lastName": "Antonelli"
+                }
+              ],
+              "countriesOfCoverage": [
+                "PA",
+                "CR"
+              ],
+              "countriesOfResearcher": [
+                "DE",
+                "PA",
+                "SE",
+                "AU",
+                "CH",
+                "GB",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1093/icb/icag072"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.6nxkw6"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Integrative And Comparative Biology",
+              "topics": [
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1093/icb/icag072"
+              ]
+            },
+            {
+              "id": "4a634936-5d53-317b-9b39-55e3aaae961c",
+              "title": "The late Middle Miocene (late Sarmatian) flora of Graz-Andritz (Austria): Environmental, climatic, and biogeographic patterns",
+              "authors": [
+                {
+                  "firstName": "Thomas",
+                  "lastName": "Denk"
+                },
+                {
+                  "firstName": "Johannes M.",
+                  "lastName": "Bouchal"
+                },
+                {
+                  "firstName": "Lukas",
+                  "lastName": "Dirr"
+                },
+                {
+                  "firstName": "Simon",
+                  "lastName": "Nickel"
+                },
+                {
+                  "firstName": "Martin",
+                  "lastName": "Gross"
+                }
+              ],
+              "countriesOfCoverage": [
+                "AT"
+              ],
+              "countriesOfResearcher": [
+                "SE",
+                "AT"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3897/fr.29.187793"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.22ya6f",
+                "10.15468/dl.8xcg7n",
+                "10.15468/dl.cvzj6h",
+                "10.15468/dl.ebeade",
+                "10.15468/dl.utn4ex",
+                "10.15468/dl.wwhpx9"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Fossil Record",
+              "topics": [
+                "BIOGEOGRAPHY"
+              ],
+              "websites": [
+                "https://doi.org/10.3897/fr.29.187793"
+              ]
+            },
+            {
+              "id": "f86ef895-3785-3d32-b5d5-53947e54495d",
+              "title": "A bioblitz approach to assessing biodiversity in Newfoundland's terrestrial publicly nominated protected areas",
+              "authors": [
+                {
+                  "firstName": "Lena",
+                  "lastName": "Dietz Chiasson"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CA"
+              ],
+              "countriesOfResearcher": [
+                "CA"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.48336/438"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.j3d8gf"
+              ],
+              "literatureType": "thesis",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CITIZEN_SCIENCE",
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.48336/438"
+              ]
+            },
+            {
+              "id": "efc5e29a-aebf-3e42-8dd4-88d50252e76d",
+              "title": "Sublethal pesticide exposure facilitates the potential northward range shifts of ticks by increasing cold tolerance and overwintering survival",
+              "authors": [
+                {
+                  "firstName": "Kennan J.",
+                  "lastName": "Oyen"
+                },
+                {
+                  "firstName": "Thomas",
+                  "lastName": "Arya"
+                },
+                {
+                  "firstName": "Benjamin",
+                  "lastName": "Davies"
+                },
+                {
+                  "firstName": "Elise M.",
+                  "lastName": "Didion"
+                },
+                {
+                  "firstName": "Joshua B.",
+                  "lastName": "Benoit"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1111/1365-2664.70460"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.4w5sud"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Applied Ecology",
+              "topics": [
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1111/1365-2664.70460"
+              ]
+            },
+            {
+              "id": "48d42b8f-92d9-3ef7-b79b-ee2a47a004f7",
+              "title": "N‐SDM 2.0: a reengineered software with extended features for nested species distribution modelling",
+              "authors": [
+                {
+                  "firstName": "Antoine",
+                  "lastName": "Adde"
+                },
+                {
+                  "firstName": "Teresa",
+                  "lastName": "Goicolea"
+                },
+                {
+                  "firstName": "Antoine",
+                  "lastName": "Guisan"
+                },
+                {
+                  "firstName": "Florian",
+                  "lastName": "Altermatt"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CH",
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1002/ecog.08547"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.fktyas",
+                "10.15468/x9z635"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Ecography",
+              "topics": [
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1002/ecog.08547"
+              ]
+            },
+            {
+              "id": "ed58044f-bd29-3a20-8826-6e423d17596c",
+              "title": "The Blenny Guide - Hypsoblennius gentilis",
+              "authors": [
+                {
+                  "firstName": "Uma",
+                  "lastName": "Mezzanotte"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.rnxj9w"
+              ],
+              "literatureType": "web_page",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [],
+              "websites": [
+                "https://blennyguide.org/species/hypsoblennius-gentilis2026-05-26"
+              ]
+            },
+            {
+              "id": "11f4107d-6512-356a-a010-66f01364c460",
+              "title": "The Blenny Guide - Hypleurochilus pseudoaequipinnis",
+              "authors": [
+                {
+                  "firstName": "Uma",
+                  "lastName": "Mezzanotte"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.ktuva8"
+              ],
+              "literatureType": "web_page",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [],
+              "websites": [
+                "https://blennyguide.org/species/hypleurochilus-pseudoaequipinnis#references"
+              ]
+            },
+            {
+              "id": "4d102c57-3931-38a9-9f62-42782b4a4945",
+              "title": "The Blenny Guide - Acanthemblemaria macrospilus",
+              "authors": [
+                {
+                  "firstName": "Uma",
+                  "lastName": "Mezzanotte"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.ycudn6"
+              ],
+              "literatureType": "web_page",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [],
+              "websites": [
+                "https://blennyguide.org/species/acanthemblemaria-macrospilus"
+              ]
+            },
+            {
+              "id": "c5b86b21-2ff7-378d-9f7d-37fc5107a136",
+              "title": "Synthetic biology as a game-changer for endangered medicinal orchids: biosynthesis, engineering and conservation",
+              "authors": [
+                {
+                  "firstName": "Lin",
+                  "lastName": "Qiu"
+                },
+                {
+                  "firstName": "Xianghui",
+                  "lastName": "Chen"
+                },
+                {
+                  "firstName": "Zhan",
+                  "lastName": "Luo"
+                },
+                {
+                  "firstName": "Min",
+                  "lastName": "Jiang"
+                },
+                {
+                  "firstName": "Hu",
+                  "lastName": "Chen"
+                },
+                {
+                  "firstName": "Biyu",
+                  "lastName": "Hou"
+                },
+                {
+                  "firstName": "Haizheng",
+                  "lastName": "Yu"
+                },
+                {
+                  "firstName": "Ning",
+                  "lastName": "Li"
+                },
+                {
+                  "firstName": "Lei",
+                  "lastName": "Zhang"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1039/d6np00027d"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.nhr959"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Natural Product Reports",
+              "topics": [
+                "CONSERVATION",
+                "HUMAN_HEALTH"
+              ],
+              "websites": [
+                "https://doi.org/10.1039/d6np00027d"
+              ]
+            },
+            {
+              "id": "e25c4e53-4bf1-34b1-8f48-3c3cb0169d7b",
+              "title": "Ninety-year trends reveal sharpest insect declines in the mid-twentieth century",
+              "authors": [
+                {
+                  "firstName": "Felix",
+                  "lastName": "Neff"
+                },
+                {
+                  "firstName": "Kurt",
+                  "lastName": "Bollmann"
+                },
+                {
+                  "firstName": "Yannick",
+                  "lastName": "Chittaro"
+                },
+                {
+                  "firstName": "Martin M.",
+                  "lastName": "Gossner"
+                },
+                {
+                  "firstName": "Felix",
+                  "lastName": "Herzog"
+                },
+                {
+                  "firstName": "Fränzi",
+                  "lastName": "Korner-Nievergelt"
+                },
+                {
+                  "firstName": "Glenn",
+                  "lastName": "Litsios"
+                },
+                {
+                  "firstName": "Carlos",
+                  "lastName": "Martínez-Núñez"
+                },
+                {
+                  "firstName": "Marco",
+                  "lastName": "Moretti"
+                },
+                {
+                  "firstName": "Emmanuel",
+                  "lastName": "Rey"
+                },
+                {
+                  "firstName": "Andreas",
+                  "lastName": "Sanchez"
+                },
+                {
+                  "firstName": "Eva",
+                  "lastName": "Knop"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CH",
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1038/s41559-026-03074-6"
+              },
+              "gbifDOIs": [
+                "10.15468/atyl1j",
+                "10.15468/cjmjy2",
+                "10.15468/dl.mak332"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Nature Ecology & Evolution",
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE"
+              ],
+              "websites": [
+                "https://doi.org/10.1038/s41559-026-03074-6"
+              ]
+            },
+            {
+              "id": "769de745-e0ad-3de8-896f-fcb1c56a514a",
+              "title": "Effects of UV Exposure on Fecundity, Survival, And Performance of a Stored Grain Pest, Callosobruchus maculatus",
+              "authors": [
+                {
+                  "firstName": "Colby",
+                  "lastName": "Christensen"
+                },
+                {
+                  "firstName": "Fielding",
+                  "lastName": "Mumford"
+                },
+                {
+                  "firstName": "Spencer",
+                  "lastName": "Brinton"
+                },
+                {
+                  "firstName": "Anna",
+                  "lastName": "Goates"
+                },
+                {
+                  "firstName": "Md Mirajul",
+                  "lastName": "Islam"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.59620/2993-3323.1020"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.7wumjg"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Curiosity",
+              "topics": [
+                "AGRICULTURE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.59620/2993-3323.1020"
+              ]
+            },
+            {
+              "id": "96a73d15-74e5-30b9-8ce5-af161de5b8bd",
+              "title": "Biological invasions in Morocco: First national inventory and management prioritization",
+              "authors": [
+                {
+                  "firstName": "Jazila EL",
+                  "lastName": "JAMAAI"
+                },
+                {
+                  "firstName": "Elena",
+                  "lastName": "Angulo"
+                },
+                {
+                  "firstName": "Susan",
+                  "lastName": "Canavan"
+                },
+                {
+                  "firstName": "Nard",
+                  "lastName": "Bennas"
+                },
+                {
+                  "firstName": "Mohammed L’bachir El",
+                  "lastName": "Kbiach"
+                },
+                {
+                  "firstName": "Ahmed",
+                  "lastName": "Taheri"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MA"
+              ],
+              "countriesOfResearcher": [
+                "MA",
+                "IE"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.21203/rs.3.rs-9794069/v1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.9j6th7"
+              ],
+              "literatureType": "working_paper",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Research Square",
+              "topics": [
+                "INVASIVES"
+              ],
+              "websites": [
+                "https://doi.org/10.21203/rs.3.rs-9794069/v1"
+              ]
+            },
+            {
+              "id": "13b8edc8-9b21-365c-9303-e3378f881692",
+              "title": "Closing biodiversity data gaps is essential for monitoring Wetlands of International Importance [Policy Brief]",
+              "authors": [
+                {
+                  "firstName": "Yanina V.",
+                  "lastName": "Sica"
+                },
+                {
+                  "firstName": "Shawn",
+                  "lastName": "Dove"
+                },
+                {
+                  "firstName": "Hanno",
+                  "lastName": "Seebens"
+                },
+                {
+                  "firstName": "Andrew",
+                  "lastName": "Rodrigues"
+                },
+                {
+                  "firstName": "Filip",
+                  "lastName": "Aggestam"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.5281/zenodo.21506165"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.je5pet",
+                "10.15468/dl.msj7xs"
+              ],
+              "literatureType": "report",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.5281/zenodo.21506165"
+              ]
+            },
+            {
+              "id": "38958c0b-0bfd-37b8-bad6-fb12b9385f44",
+              "title": "D6.1 Biodiversity change",
+              "authors": [
+                {
+                  "firstName": "Shawn",
+                  "lastName": "Dove"
+                },
+                {
+                  "firstName": "Yanina V.",
+                  "lastName": "Sica"
+                },
+                {
+                  "firstName": "Maarten",
+                  "lastName": "Trekels"
+                },
+                {
+                  "firstName": "Hanno",
+                  "lastName": "Seebens"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.je5pet",
+                "10.15468/dl.msj7xs"
+              ],
+              "literatureType": "report",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://b-cubed.eu/storage/app/uploads/public/6a9/a89/0a0/6a9a890a027ef433155766.pdf"
+              ]
+            },
+            {
+              "id": "82da4e49-cc6f-3175-9078-4502646020cb",
+              "title": "Trabajo universitario",
+              "authors": [
+                {
+                  "firstName": "Emily",
+                  "lastName": "Arrocha"
+                }
+              ],
+              "countriesOfCoverage": [
+                "PA",
+                "CO",
+                "CR"
+              ],
+              "countriesOfResearcher": [
+                "PA"
+              ],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.v2zu78"
+              ],
+              "literatureType": "generic",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [],
+              "websites": null
+            },
+            {
+              "id": "67f1b9c2-83db-3c9c-b6ca-c32ed09a0044",
+              "title": "Discovering the mesophotic fauna of Malpelo Ridge: biodiversity insights in a remote marine sanctuary",
+              "authors": [
+                {
+                  "firstName": "Cristina",
+                  "lastName": "Cedeño-Posso"
+                },
+                {
+                  "firstName": "Luis",
+                  "lastName": "Chasqui"
+                },
+                {
+                  "firstName": "Nicoll",
+                  "lastName": "Lizarazo"
+                },
+                {
+                  "firstName": "Eliana",
+                  "lastName": "Barrios-Vásquez"
+                },
+                {
+                  "firstName": "Adriana",
+                  "lastName": "Osorno"
+                },
+                {
+                  "firstName": "Daniel",
+                  "lastName": "Giraldo"
+                },
+                {
+                  "firstName": "Estefanía",
+                  "lastName": "Marín-Pulgarín"
+                },
+                {
+                  "firstName": "Juliana",
+                  "lastName": "Sánchez"
+                },
+                {
+                  "firstName": "Juan Felipe",
+                  "lastName": "Lazarus"
+                },
+                {
+                  "firstName": "Giomar",
+                  "lastName": "Borrero-Pérez"
+                },
+                {
+                  "firstName": "Javier Leonardo",
+                  "lastName": "Vásquez Acosta"
+                },
+                {
+                  "firstName": "Miller José",
+                  "lastName": "Florián-Sánchez"
+                },
+                {
+                  "firstName": "Martín",
+                  "lastName": "Caicedo-Amaranto"
+                },
+                {
+                  "firstName": "Armando",
+                  "lastName": "Rodríguez-Toscano"
+                },
+                {
+                  "firstName": "Erika",
+                  "lastName": "Montoya-Cadavid"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CO"
+              ],
+              "countriesOfResearcher": [
+                "CO"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3389/fmars.2026.1879566"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.df3kq5"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Frontiers in Marine Science",
+              "topics": [
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.3389/fmars.2026.1879566"
+              ]
+            },
+            {
+              "id": "04d990fd-6f02-3bd4-8947-b9b19aa5964a",
+              "title": "Should species with smaller distribution ranges always be prioritised for conservation?",
+              "authors": [
+                {
+                  "firstName": "Tabea",
+                  "lastName": "Giese"
+                },
+                {
+                  "firstName": "Beatriz",
+                  "lastName": "Prado-Monteiro"
+                },
+                {
+                  "firstName": "Luiza F. A.",
+                  "lastName": "de Paula"
+                },
+                {
+                  "firstName": "Miguel",
+                  "lastName": "Inácio"
+                },
+                {
+                  "firstName": "Wassila",
+                  "lastName": "Ibrahim Seidou"
+                },
+                {
+                  "firstName": "Julius",
+                  "lastName": "Köhler"
+                },
+                {
+                  "firstName": "Andressa",
+                  "lastName": "Cabral"
+                },
+                {
+                  "firstName": "Aboubacar-Oumar",
+                  "lastName": "Zon"
+                },
+                {
+                  "firstName": "Stefan",
+                  "lastName": "Porembski"
+                },
+                {
+                  "firstName": "Luiz",
+                  "lastName": "Bondi"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "BR",
+                "DE",
+                "BF",
+                "CI",
+                "LT",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10531-026-03381-1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2298zs",
+                "10.15468/dl.23smj6",
+                "10.15468/dl.26h4xy",
+                "10.15468/dl.27wr9f",
+                "10.15468/dl.28ycp2",
+                "10.15468/dl.2bac3d",
+                "10.15468/dl.2du7jn",
+                "10.15468/dl.2j4ya8",
+                "10.15468/dl.2j85fg",
+                "10.15468/dl.2krpnn",
+                "10.15468/dl.2m7evw",
+                "10.15468/dl.2uk6z3",
+                "10.15468/dl.2uz55d",
+                "10.15468/dl.2w7hjj",
+                "10.15468/dl.33k6bd",
+                "10.15468/dl.3eyvcr",
+                "10.15468/dl.3grqxn",
+                "10.15468/dl.3rrvn2",
+                "10.15468/dl.3tmkpy",
+                "10.15468/dl.3trncs",
+                "10.15468/dl.3wg7vn",
+                "10.15468/dl.42336d",
+                "10.15468/dl.4a35fn",
+                "10.15468/dl.4e9y4h",
+                "10.15468/dl.4hfbhc",
+                "10.15468/dl.4hhv6k",
+                "10.15468/dl.4ms43y",
+                "10.15468/dl.4n449x",
+                "10.15468/dl.4pek7h",
+                "10.15468/dl.4pjhjr",
+                "10.15468/dl.4qkycx",
+                "10.15468/dl.4r6ekh",
+                "10.15468/dl.4rf6ce",
+                "10.15468/dl.4smyuc",
+                "10.15468/dl.4u7yvh",
+                "10.15468/dl.4xrf5t",
+                "10.15468/dl.4z7rsv",
+                "10.15468/dl.4zt397",
+                "10.15468/dl.53g72r",
+                "10.15468/dl.56bfsv",
+                "10.15468/dl.5hhk74",
+                "10.15468/dl.5m7wdb",
+                "10.15468/dl.5mdju7",
+                "10.15468/dl.5quw65",
+                "10.15468/dl.5sremd",
+                "10.15468/dl.5u77u2",
+                "10.15468/dl.5uud4g",
+                "10.15468/dl.5vyu6h",
+                "10.15468/dl.62mnf6",
+                "10.15468/dl.646as8",
+                "10.15468/dl.6677cg",
+                "10.15468/dl.698qkw",
+                "10.15468/dl.69baj9",
+                "10.15468/dl.6c9ztx",
+                "10.15468/dl.6f4hvs",
+                "10.15468/dl.6hmwga",
+                "10.15468/dl.6k7jc6",
+                "10.15468/dl.6mf4vv",
+                "10.15468/dl.6nrsvt",
+                "10.15468/dl.6pwvgd",
+                "10.15468/dl.6q76fn",
+                "10.15468/dl.6r72gy",
+                "10.15468/dl.6vh9hg",
+                "10.15468/dl.6xsqsg",
+                "10.15468/dl.6y7be5",
+                "10.15468/dl.76qb8a",
+                "10.15468/dl.7aeqcg",
+                "10.15468/dl.7bamba",
+                "10.15468/dl.7j4fhq",
+                "10.15468/dl.7k7ff4",
+                "10.15468/dl.7khsy2",
+                "10.15468/dl.7pppyw",
+                "10.15468/dl.7vmwrt",
+                "10.15468/dl.7xkaek",
+                "10.15468/dl.7yjd8k",
+                "10.15468/dl.7zywft",
+                "10.15468/dl.82wkxt",
+                "10.15468/dl.84bsa6",
+                "10.15468/dl.8hy8j9",
+                "10.15468/dl.8ng3dd",
+                "10.15468/dl.8q88sf",
+                "10.15468/dl.8r8yub",
+                "10.15468/dl.8trmju",
+                "10.15468/dl.93cpxk",
+                "10.15468/dl.93r2t5",
+                "10.15468/dl.98f432",
+                "10.15468/dl.9avcdb",
+                "10.15468/dl.9aygvn",
+                "10.15468/dl.9csppx",
+                "10.15468/dl.9gwnej",
+                "10.15468/dl.9rd92u",
+                "10.15468/dl.9uawx5",
+                "10.15468/dl.a3hgeg",
+                "10.15468/dl.a7as3z",
+                "10.15468/dl.a9tgsp",
+                "10.15468/dl.ahznv9",
+                "10.15468/dl.apnykz",
+                "10.15468/dl.at9m53",
+                "10.15468/dl.atkrnf",
+                "10.15468/dl.auv9qf",
+                "10.15468/dl.avrds9",
+                "10.15468/dl.azjcre",
+                "10.15468/dl.b73j9x",
+                "10.15468/dl.ba8gp7",
+                "10.15468/dl.becmgd",
+                "10.15468/dl.bf6pxj",
+                "10.15468/dl.bfzt9p",
+                "10.15468/dl.bq2wu8",
+                "10.15468/dl.brw9km",
+                "10.15468/dl.bswgb4",
+                "10.15468/dl.bx8thv",
+                "10.15468/dl.c66s7c",
+                "10.15468/dl.c9v9rh",
+                "10.15468/dl.cbmtcn",
+                "10.15468/dl.ceebkb",
+                "10.15468/dl.cfgra3",
+                "10.15468/dl.cgs4jd",
+                "10.15468/dl.cke9zn",
+                "10.15468/dl.cmwwns",
+                "10.15468/dl.cndpau",
+                "10.15468/dl.cyn2mv",
+                "10.15468/dl.d3ytby",
+                "10.15468/dl.d59eff",
+                "10.15468/dl.d6jhr9",
+                "10.15468/dl.d6sc3j",
+                "10.15468/dl.d7bq8c",
+                "10.15468/dl.d7yq3k",
+                "10.15468/dl.dafh4z",
+                "10.15468/dl.dea6tj",
+                "10.15468/dl.dgvmch",
+                "10.15468/dl.dn3w7t",
+                "10.15468/dl.dpm3g2",
+                "10.15468/dl.dvctg3",
+                "10.15468/dl.dx9hp4",
+                "10.15468/dl.dzhvby",
+                "10.15468/dl.e5nqq9",
+                "10.15468/dl.e8sbpb",
+                "10.15468/dl.eczrnm",
+                "10.15468/dl.ehea4s",
+                "10.15468/dl.ekk9fu",
+                "10.15468/dl.emp5nx",
+                "10.15468/dl.epbqcq",
+                "10.15468/dl.eqmadm",
+                "10.15468/dl.eseasq",
+                "10.15468/dl.et4dwe",
+                "10.15468/dl.euea3q",
+                "10.15468/dl.evnxrg",
+                "10.15468/dl.f529nm",
+                "10.15468/dl.ffzdam",
+                "10.15468/dl.fgf6s4",
+                "10.15468/dl.fns8vw",
+                "10.15468/dl.frchjk",
+                "10.15468/dl.fu9dsg",
+                "10.15468/dl.fw7ngm",
+                "10.15468/dl.fy5f76",
+                "10.15468/dl.g2dbs3",
+                "10.15468/dl.g6dnze",
+                "10.15468/dl.gdhn3z",
+                "10.15468/dl.gen6n3",
+                "10.15468/dl.gkjxpw",
+                "10.15468/dl.grv3hs",
+                "10.15468/dl.gvfkbd",
+                "10.15468/dl.gzfvm3",
+                "10.15468/dl.h38cvb",
+                "10.15468/dl.h42xye",
+                "10.15468/dl.h78xms",
+                "10.15468/dl.h885my",
+                "10.15468/dl.hgn9q4",
+                "10.15468/dl.hjqzcy",
+                "10.15468/dl.hmpnq7",
+                "10.15468/dl.hpdjsj",
+                "10.15468/dl.hv5594",
+                "10.15468/dl.hxccfx",
+                "10.15468/dl.j43tqx",
+                "10.15468/dl.j568ks",
+                "10.15468/dl.j7e6tv",
+                "10.15468/dl.japukw",
+                "10.15468/dl.jb8ken",
+                "10.15468/dl.jda3g5",
+                "10.15468/dl.jnuegy",
+                "10.15468/dl.jxfrsy",
+                "10.15468/dl.jycdrx",
+                "10.15468/dl.k5hxv2",
+                "10.15468/dl.k6eka7",
+                "10.15468/dl.k6jspn",
+                "10.15468/dl.k7vbgr",
+                "10.15468/dl.k8qdxz",
+                "10.15468/dl.k9mbkq",
+                "10.15468/dl.kaxfbp",
+                "10.15468/dl.kb97qr",
+                "10.15468/dl.ke2gxv",
+                "10.15468/dl.kjrpja",
+                "10.15468/dl.kr7gbe",
+                "10.15468/dl.ktn4qp",
+                "10.15468/dl.ku38h4",
+                "10.15468/dl.kvxbuh",
+                "10.15468/dl.m49rbn",
+                "10.15468/dl.m4pmmc",
+                "10.15468/dl.m4w6rh",
+                "10.15468/dl.m8jywm",
+                "10.15468/dl.m9rq8d",
+                "10.15468/dl.mc6zqm",
+                "10.15468/dl.mev4ch",
+                "10.15468/dl.mpefs7",
+                "10.15468/dl.mpnexj",
+                "10.15468/dl.n52wrd",
+                "10.15468/dl.n63ua8",
+                "10.15468/dl.nbsddt",
+                "10.15468/dl.ncvmhc",
+                "10.15468/dl.nfqtwa",
+                "10.15468/dl.nnpkuu",
+                "10.15468/dl.nnvwym",
+                "10.15468/dl.npnhhm",
+                "10.15468/dl.ntkmb3",
+                "10.15468/dl.nx4pse",
+                "10.15468/dl.nxy7m6",
+                "10.15468/dl.nysvzz",
+                "10.15468/dl.p34w5f",
+                "10.15468/dl.p4szxw",
+                "10.15468/dl.pdy6fj",
+                "10.15468/dl.petm8e",
+                "10.15468/dl.pfykca",
+                "10.15468/dl.phbv6k",
+                "10.15468/dl.php9yn",
+                "10.15468/dl.pmnuqm",
+                "10.15468/dl.pnxv3a",
+                "10.15468/dl.ps6mdw",
+                "10.15468/dl.pupthf",
+                "10.15468/dl.pv5vq2",
+                "10.15468/dl.pznhwz",
+                "10.15468/dl.q2brh4",
+                "10.15468/dl.q6487f",
+                "10.15468/dl.qk7txw",
+                "10.15468/dl.qmfuxz",
+                "10.15468/dl.qmu23t",
+                "10.15468/dl.qn5f4q",
+                "10.15468/dl.qp5hf8",
+                "10.15468/dl.qwzbxg",
+                "10.15468/dl.qywftz",
+                "10.15468/dl.qz2n6y",
+                "10.15468/dl.r2sdq5",
+                "10.15468/dl.r4kujm",
+                "10.15468/dl.r6247a",
+                "10.15468/dl.ra3s87",
+                "10.15468/dl.rb76jm",
+                "10.15468/dl.rfsbps",
+                "10.15468/dl.rjsf4g",
+                "10.15468/dl.rr3cxv",
+                "10.15468/dl.rr4nrq",
+                "10.15468/dl.rr7h9b",
+                "10.15468/dl.s4h6jx",
+                "10.15468/dl.sa9zab",
+                "10.15468/dl.sccdse",
+                "10.15468/dl.scjhe7",
+                "10.15468/dl.sgt2tu",
+                "10.15468/dl.snkpaq",
+                "10.15468/dl.sp37at",
+                "10.15468/dl.strqx6",
+                "10.15468/dl.suyyuq",
+                "10.15468/dl.sym7kq",
+                "10.15468/dl.t5vsy8",
+                "10.15468/dl.t6ppej",
+                "10.15468/dl.t8vs2q",
+                "10.15468/dl.t9bqts",
+                "10.15468/dl.tc6vaj",
+                "10.15468/dl.td7jpp",
+                "10.15468/dl.tdve7b",
+                "10.15468/dl.tekt8z",
+                "10.15468/dl.tewn6z",
+                "10.15468/dl.tgqkfw",
+                "10.15468/dl.thgc6z",
+                "10.15468/dl.thmyfs",
+                "10.15468/dl.ts2vtx",
+                "10.15468/dl.tsuzdp",
+                "10.15468/dl.tt5kbz",
+                "10.15468/dl.tumgu7",
+                "10.15468/dl.u46p8v",
+                "10.15468/dl.u7jbpr",
+                "10.15468/dl.uedr97",
+                "10.15468/dl.upva47",
+                "10.15468/dl.usveyj",
+                "10.15468/dl.uu9ttf",
+                "10.15468/dl.uuvqb7",
+                "10.15468/dl.uvqmw6",
+                "10.15468/dl.uweaw5",
+                "10.15468/dl.uywgqw",
+                "10.15468/dl.v34edm",
+                "10.15468/dl.v6deag",
+                "10.15468/dl.v7bte4",
+                "10.15468/dl.v7y6ux",
+                "10.15468/dl.vdajbu",
+                "10.15468/dl.vde2cc",
+                "10.15468/dl.vet62p",
+                "10.15468/dl.vqx8mx",
+                "10.15468/dl.vzzhtk",
+                "10.15468/dl.w5mmwh",
+                "10.15468/dl.w5nw3n",
+                "10.15468/dl.w7xj3c",
+                "10.15468/dl.we3am5",
+                "10.15468/dl.wjab47",
+                "10.15468/dl.wnqdnc",
+                "10.15468/dl.wqpewp",
+                "10.15468/dl.x2x8ej",
+                "10.15468/dl.x6cyth",
+                "10.15468/dl.x6jrdk",
+                "10.15468/dl.x8kzf4",
+                "10.15468/dl.xb5sv7",
+                "10.15468/dl.xba4pw",
+                "10.15468/dl.xd6ake",
+                "10.15468/dl.xfep7a",
+                "10.15468/dl.xk46dh",
+                "10.15468/dl.xqes2y",
+                "10.15468/dl.xrecnp",
+                "10.15468/dl.xsh9uu",
+                "10.15468/dl.xuwydq",
+                "10.15468/dl.xw9qxx",
+                "10.15468/dl.xzt4gf",
+                "10.15468/dl.y35mxa",
+                "10.15468/dl.y96d4u",
+                "10.15468/dl.yeta3s",
+                "10.15468/dl.yfu9nx",
+                "10.15468/dl.yfy33v",
+                "10.15468/dl.yjqekh",
+                "10.15468/dl.yjspn5",
+                "10.15468/dl.yn5g4f",
+                "10.15468/dl.ynkgvh",
+                "10.15468/dl.z282q4",
+                "10.15468/dl.z4srkk",
+                "10.15468/dl.z6cdrs",
+                "10.15468/dl.z8m9zb",
+                "10.15468/dl.z9k99v",
+                "10.15468/dl.zejbzk",
+                "10.15468/dl.zsgpw2",
+                "10.15468/dl.zvdfg9"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Biodiversity and Conservation",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10531-026-03381-1"
+              ]
+            },
+            {
+              "id": "b20f7920-e7df-3df2-acda-50b991408c40",
+              "title": "Cystopeltidae redefined: integrative taxonomy of the Australian endemic slug Cystopelta with the description of 11 new species and subspecies (Punctoidea: Stylommatophora)",
+              "authors": [
+                {
+                  "firstName": "Isabel",
+                  "lastName": "Hyman"
+                },
+                {
+                  "firstName": "Frank",
+                  "lastName": "Köhler"
+                }
+              ],
+              "countriesOfCoverage": [
+                "AU"
+              ],
+              "countriesOfResearcher": [
+                "AU"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1093/zoolinnean/zlag067"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.tusbdd"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Zoological Journal of the Linnean Society",
+              "topics": [
+                "TAXONOMY"
+              ],
+              "websites": [
+                "https://doi.org/10.1093/zoolinnean/zlag067"
+              ]
+            },
+            {
+              "id": "01a39e50-baf7-3067-b049-4bfaecab7708",
+              "title": "ECOSAIC: A dual Ecologically-Informed Deep Learning Framework for Interpretable and Validatable Habitat Mapping",
+              "authors": [
+                {
+                  "firstName": "Iván Felipe",
+                  "lastName": "Benavides Martínez"
+                },
+                {
+                  "firstName": "Cristiam Victoriano",
+                  "lastName": "Portilla-Cabrera"
+                },
+                {
+                  "firstName": "Katherine E",
+                  "lastName": "Mills"
+                },
+                {
+                  "firstName": "Claire",
+                  "lastName": "Enterline"
+                },
+                {
+                  "firstName": "Jose",
+                  "lastName": "Vargas"
+                },
+                {
+                  "firstName": "Andrew",
+                  "lastName": "Allyn"
+                },
+                {
+                  "firstName": "Auroop R.",
+                  "lastName": "Ganguly"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CO"
+              ],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.22541/authorea.15003981/v1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.rt2v73"
+              ],
+              "literatureType": "working_paper",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Authorea",
+              "topics": [
+                "ECOLOGY",
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.22541/authorea.15003981/v1"
+              ]
+            },
+            {
+              "id": "afed32a5-4f7c-343e-bcb2-eab208e39bd9",
+              "title": "Seasonality and water masses shape energetics of a high Arctic fish: quantifying energy density and condition indices",
+              "authors": [
+                {
+                  "firstName": "Robynne C.",
+                  "lastName": "Nowicki"
+                },
+                {
+                  "firstName": "Geir W.",
+                  "lastName": "Gabrielsen"
+                },
+                {
+                  "firstName": "Katrine",
+                  "lastName": "Borgå"
+                },
+                {
+                  "firstName": "Janne E.",
+                  "lastName": "Søreide"
+                },
+                {
+                  "firstName": "Øystein",
+                  "lastName": "Varpe"
+                }
+              ],
+              "countriesOfCoverage": [
+                "SJ"
+              ],
+              "countriesOfResearcher": [
+                "NO"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3354/meps15150"
+              },
+              "gbifDOIs": [
+                "10.15468/88nfp9"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_PUBLISHED"
+              ],
+              "source": "Marine Ecology Progress Series",
+              "topics": [
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.3354/meps15150"
+              ]
+            },
+            {
+              "id": "566e829a-8146-39a0-9ece-943349314198",
+              "title": "Discovery of Homalometron species (Trematoda: Megaperidae) in sympatry in striped mojarra from Veracruz, Mexico: new species and taxonomic change of Crassicutis archosargi Sparks & Thatcher, 1960",
+              "authors": [
+                {
+                  "firstName": "Olga Carolina",
+                  "lastName": "García-Rodríguez"
+                },
+                {
+                  "firstName": "Linda Yacsiri G.",
+                  "lastName": "Marmolejo-Guzmán"
+                },
+                {
+                  "firstName": "Víctor Manuel",
+                  "lastName": "Sosa-Jiménez"
+                },
+                {
+                  "firstName": "David Iván",
+                  "lastName": "Hernández-Mena"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MX"
+              ],
+              "countriesOfResearcher": [
+                "MX"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1080/14772000.2026.2659883"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.maw7v8"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Systematics and Biodiversity",
+              "topics": [
+                "TAXONOMY"
+              ],
+              "websites": [
+                "https://doi.org/10.1080/14772000.2026.2659883"
+              ]
+            },
+            {
+              "id": "eeb2be68-a5b4-3e67-9d63-498beace3ac3",
+              "title": "Tracking the Flight: Evidence of Temperate Insect Range Shifts from Open-Access Biological Collections Data",
+              "authors": [
+                {
+                  "firstName": "Julie",
+                  "lastName": "Davis"
+                },
+                {
+                  "firstName": "Cade",
+                  "lastName": "Ayris"
+                },
+                {
+                  "firstName": "Ari",
+                  "lastName": "Berrios"
+                },
+                {
+                  "firstName": "Olivia",
+                  "lastName": "Bestic"
+                },
+                {
+                  "firstName": "Hughie",
+                  "lastName": "Duffy"
+                },
+                {
+                  "firstName": "Sydney",
+                  "lastName": "Duffy"
+                },
+                {
+                  "firstName": "Anna",
+                  "lastName": "Farmer"
+                },
+                {
+                  "firstName": "Jonah",
+                  "lastName": "Feld"
+                },
+                {
+                  "firstName": "James",
+                  "lastName": "Hua"
+                },
+                {
+                  "firstName": "Charles",
+                  "lastName": "Jenkins"
+                },
+                {
+                  "firstName": "Martin",
+                  "lastName": "Kacin"
+                },
+                {
+                  "firstName": "Caroline",
+                  "lastName": "Miller"
+                },
+                {
+                  "firstName": "Alex",
+                  "lastName": "Meyers"
+                },
+                {
+                  "firstName": "Luis",
+                  "lastName": "Quintero"
+                },
+                {
+                  "firstName": "Soren",
+                  "lastName": "Timura"
+                },
+                {
+                  "firstName": "Jerry",
+                  "lastName": "Wang"
+                },
+                {
+                  "firstName": "Christopher",
+                  "lastName": "Paradise"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.22541/authorea.15004707/v1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2rzhds",
+                "10.15468/dl.2t6274",
+                "10.15468/dl.4zpz77",
+                "10.15468/dl.63s2ay",
+                "10.15468/dl.6vvb5z",
+                "10.15468/dl.7wn6b7",
+                "10.15468/dl.7y3pxc",
+                "10.15468/dl.8q3bu3",
+                "10.15468/dl.9rb234",
+                "10.15468/dl.9s6hcz",
+                "10.15468/dl.bgex6e",
+                "10.15468/dl.c88tzc",
+                "10.15468/dl.cmkecr",
+                "10.15468/dl.e3n2dd",
+                "10.15468/dl.eee8w5",
+                "10.15468/dl.gtzbfq",
+                "10.15468/dl.gy97mk",
+                "10.15468/dl.hfdest",
+                "10.15468/dl.hfgyp7",
+                "10.15468/dl.hhtcq6",
+                "10.15468/dl.hk86w8",
+                "10.15468/dl.jv4ft8",
+                "10.15468/dl.kw94vf",
+                "10.15468/dl.m7ayn3",
+                "10.15468/dl.mcwu6r",
+                "10.15468/dl.p78usg",
+                "10.15468/dl.pbp23m",
+                "10.15468/dl.psbngd",
+                "10.15468/dl.qu9euv",
+                "10.15468/dl.s26396",
+                "10.15468/dl.s3c3g9",
+                "10.15468/dl.spv5tc",
+                "10.15468/dl.vcthd5",
+                "10.15468/dl.yhkrrh",
+                "10.15468/dl.ynbxzv"
+              ],
+              "literatureType": "working_paper",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Authorea",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.22541/authorea.15004707/v1"
+              ]
+            },
+            {
+              "id": "e3a0430d-244e-3e4d-80e4-15262e4cdba0",
+              "title": "First Record of the Whitelipped eel Catfish Paraplotosus albilabris (Valenciennes, 1840) (Siluriformes: Plotosidae) from the East Coast of Peninsular Malaysia",
+              "authors": [
+                {
+                  "firstName": "Danial Hariz",
+                  "lastName": "Zainal Abidin"
+                },
+                {
+                  "firstName": "Muhammad Syahmi",
+                  "lastName": "Mohd Shah"
+                },
+                {
+                  "firstName": "Ying Giat",
+                  "lastName": "Seah"
+                },
+                {
+                  "firstName": "Tun Nurul Aimi",
+                  "lastName": "Mat Jaafar"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MY"
+              ],
+              "countriesOfResearcher": [
+                "MY"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s41208-026-01154-9"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.gfea5k"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Thalassas: An International Journal of Marine Sciences",
+              "topics": [
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s41208-026-01154-9"
+              ]
+            },
+            {
+              "id": "433c0fdd-8234-3570-baf5-d886b2e53689",
+              "title": "First Record of the Genus Exarmidium (Odontotremataceae, Ascomycota) from Bulgaria",
+              "authors": [
+                {
+                  "firstName": "Veselin",
+                  "lastName": "Shivarov"
+                },
+                {
+                  "firstName": "Snezhina",
+                  "lastName": "Popova"
+                }
+              ],
+              "countriesOfCoverage": [
+                "BG"
+              ],
+              "countriesOfResearcher": [
+                "BG"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.7546/crabs.2026.05.03"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.jbjrap"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Proceedings of the Bulgarian Academy of Sciences",
+              "topics": [
+                "TAXONOMY",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.7546/crabs.2026.05.03"
+              ]
+            },
+            {
+              "id": "1a658b78-60b5-3b39-8ba2-0eb4c8c16109",
+              "title": "Integrating global and regional niches with nested hierarchical SDMs reveals niche features and invasion-phase shifts under climate change in oceanic-island grass …",
+              "authors": [
+                {
+                  "firstName": "Ruymán David",
+                  "lastName": "Cedrés-Perdomo"
+                },
+                {
+                  "firstName": "Juan José",
+                  "lastName": "García-Alvarado"
+                },
+                {
+                  "firstName": "Cristina",
+                  "lastName": "González-Montelongo"
+                },
+                {
+                  "firstName": "María Concepción Martínez",
+                  "lastName": "González"
+                },
+                {
+                  "firstName": "José Ramón",
+                  "lastName": "Arévalo"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10531-026-03379-9"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.gac3cr",
+                "10.15468/dl.kpzns8",
+                "10.15468/dl.xnvdkb"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Biodiversity and Conservation",
+              "topics": [
+                "INVASIVES",
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10531-026-03379-9"
+              ]
+            },
+            {
+              "id": "c24c391b-13ef-3622-bad5-c210fb10988e",
+              "title": "Life on the edge: distinctive and diverse communities in the chemotone peripheral to Arctic seeps",
+              "authors": [
+                {
+                  "firstName": "Arunima",
+                  "lastName": "Sen"
+                },
+                {
+                  "firstName": "Brian",
+                  "lastName": "Sevin"
+                },
+                {
+                  "firstName": "Antonia",
+                  "lastName": "Kotliarov"
+                },
+                {
+                  "firstName": "Wei Li",
+                  "lastName": "Hong"
+                },
+                {
+                  "firstName": "Beata",
+                  "lastName": "Szymczycha"
+                },
+                {
+                  "firstName": "Magdalena",
+                  "lastName": "Diak"
+                },
+                {
+                  "firstName": "Aivo",
+                  "lastName": "Lepland"
+                },
+                {
+                  "firstName": "Jochen",
+                  "lastName": "Knies"
+                }
+              ],
+              "countriesOfCoverage": [
+                "NO"
+              ],
+              "countriesOfResearcher": [
+                "NO",
+                "SE",
+                "HR",
+                "FR",
+                "PL",
+                "CA",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s00227-026-04853-2"
+              },
+              "gbifDOIs": [
+                "10.15468/kebbzs"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_PUBLISHED"
+              ],
+              "source": "Marine Biology",
+              "topics": [
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s00227-026-04853-2"
+              ]
+            },
+            {
+              "id": "0cfb58a9-dea5-3138-b68f-c01c11d94f40",
+              "title": "Modeling human-wildlife space-use patterns in peri-urban landscapes: implications for spatial planning and zoning",
+              "authors": [
+                {
+                  "firstName": "Amin",
+                  "lastName": "Rastandeh"
+                },
+                {
+                  "firstName": "Sara",
+                  "lastName": "Borgström"
+                }
+              ],
+              "countriesOfCoverage": [
+                "SE"
+              ],
+              "countriesOfResearcher": [
+                "SE"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.ufug.2026.129539"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.mek3g9"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Urban Forestry & Urban Greening",
+              "topics": [
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.ufug.2026.129539"
+              ]
+            },
+            {
+              "id": "61e36d6b-b74b-333e-ba1d-75963c781dc4",
+              "title": "New and Rare Species of Plants—Invaders in the Republic of Buryatia",
+              "authors": [
+                {
+                  "firstName": "D. G.",
+                  "lastName": "Chimitov"
+                },
+                {
+                  "firstName": "N. G.",
+                  "lastName": "Borisova"
+                },
+                {
+                  "firstName": "A. I.",
+                  "lastName": "Starkov"
+                }
+              ],
+              "countriesOfCoverage": [
+                "RU"
+              ],
+              "countriesOfResearcher": [
+                "RU"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1134/s207511172560048x"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.3424b4",
+                "10.15468/dl.6brg39",
+                "10.15468/dl.9sd6u3",
+                "10.15468/dl.dk34xb",
+                "10.15468/dl.yttuzw"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Russian Journal of Biological Invasions",
+              "topics": [
+                "INVASIVES"
+              ],
+              "websites": [
+                "https://doi.org/10.1134/s207511172560048x"
+              ]
+            },
+            {
+              "id": "8285ecf6-290b-3a42-ac2d-9a6ede066711",
+              "title": "Habitat suitability and range mapping of the Philippine endemic Tectona philippinensis for spatial conservation",
+              "authors": [
+                {
+                  "firstName": "Almyt A.",
+                  "lastName": "Poblete"
+                },
+                {
+                  "firstName": "Nikki Heherson A.",
+                  "lastName": "Dagamac"
+                }
+              ],
+              "countriesOfCoverage": [
+                "PH"
+              ],
+              "countriesOfResearcher": [
+                "PH"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s11355-026-00729-1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.3fynep"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Landscape and Ecological Engineering",
+              "topics": [
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s11355-026-00729-1"
+              ]
+            },
+            {
+              "id": "33153310-5bac-34fb-bc96-6c69145033a2",
+              "title": "The Brazilian Cerrado through herbarium lenses: vegetation structure and composition across savanna, forest and grassland formations",
+              "authors": [
+                {
+                  "firstName": "Marco Antonio",
+                  "lastName": "Chiminazzo"
+                }
+              ],
+              "countriesOfCoverage": [
+                "BR"
+              ],
+              "countriesOfResearcher": [
+                "BR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1093/aob/mcag162"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.6wxapw"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Annals of Botany",
+              "topics": [
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1093/aob/mcag162"
+              ]
+            },
+            {
+              "id": "30c3b6d7-532e-328e-a031-523dde021ea0",
+              "title": "Beyond thinning: equalized sampling based on global sampling intensity gradients for species distribution models",
+              "authors": [
+                {
+                  "firstName": "Brice B.",
+                  "lastName": "Hanberry"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3389/fevo.2026.1831501"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.6bkr63",
+                "10.15468/dl.6fehdk",
+                "10.15468/dl.92s77y",
+                "10.15468/dl.9kafm2",
+                "10.15468/dl.bgdfdm",
+                "10.15468/dl.cqsusc",
+                "10.15468/dl.ewt6xj",
+                "10.15468/dl.f4xa7r",
+                "10.15468/dl.jhu36x",
+                "10.15468/dl.k6k2cg",
+                "10.15468/dl.mnzxje",
+                "10.15468/dl.ne6zep",
+                "10.15468/dl.neehbu",
+                "10.15468/dl.nr9yek",
+                "10.15468/dl.nzcwed",
+                "10.15468/dl.rd7gf4",
+                "10.15468/dl.u8exef",
+                "10.15468/dl.uaskaz",
+                "10.15468/dl.w2krf2",
+                "10.15468/dl.yr2fv8"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Frontiers in Ecology and Evolution",
+              "topics": [
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.3389/fevo.2026.1831501"
+              ]
+            },
+            {
+              "id": "985d6699-dc1d-30af-a733-6d7ca8a956ba",
+              "title": "Modelling the global invasion potential of Pelagia noctiluca under climate change",
+              "authors": [
+                {
+                  "firstName": "Mohamed Nisin",
+                  "lastName": "Kattassery Mohamed Nisai"
+                },
+                {
+                  "firstName": "Sreenath",
+                  "lastName": "Kannanchery Ramanathan"
+                },
+                {
+                  "firstName": "Miriam Paul",
+                  "lastName": "Sreeram"
+                },
+                {
+                  "firstName": "Saravanan",
+                  "lastName": "Raju"
+                },
+                {
+                  "firstName": "Sobhana",
+                  "lastName": "Kizhakkecheruvil Sivadas"
+                },
+                {
+                  "firstName": "Grinson",
+                  "lastName": "George"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "IN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1038/s41598-026-48886-5"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.wsbxxn"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Scientific Reports",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "INVASIVES",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1038/s41598-026-48886-5"
+              ]
+            },
+            {
+              "id": "fe8675e0-6f6e-349b-a5dd-eee2934364d1",
+              "title": "weatherxbiodiversity-lizards",
+              "authors": [
+                {
+                  "firstName": "Anne",
+                  "lastName": "Fouilloux"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.5281/zenodo.20266646"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.rh4rfn"
+              ],
+              "literatureType": "computer_program",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Zenodo",
+              "topics": [
+                "BIODIVERSITY_SCIENCE"
+              ],
+              "websites": [
+                "https://doi.org/10.5281/zenodo.20266646"
+              ]
+            },
+            {
+              "id": "3e238d89-1f17-3c7f-9131-d805fa359d4f",
+              "title": "Taxonomic invisibility and knowledge shortfalls in terrestrial molluscs of the Caatinga Dominion, a seasonally dry tropical region",
+              "authors": [
+                {
+                  "firstName": "Emerson Santos",
+                  "lastName": "Castro"
+                },
+                {
+                  "firstName": "Edenísio Zacarias Galvão",
+                  "lastName": "Costa"
+                },
+                {
+                  "firstName": "Edson Lourenço",
+                  "lastName": "Silva"
+                },
+                {
+                  "firstName": "Rodrigo Brincalepe",
+                  "lastName": "Salvador"
+                },
+                {
+                  "firstName": "Tamaris Gimenez",
+                  "lastName": "Pinheiro"
+                }
+              ],
+              "countriesOfCoverage": [
+                "BR"
+              ],
+              "countriesOfResearcher": [
+                "BR",
+                "FI"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1038/s41598-026-58663-z"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.4n668v"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Scientific Reports",
+              "topics": [
+                "TAXONOMY"
+              ],
+              "websites": [
+                "https://doi.org/10.1038/s41598-026-58663-z"
+              ]
+            },
+            {
+              "id": "30586083-32ad-3cdb-a8f7-3e43ac45e6ba",
+              "title": "Hydrological seasonality shapes microbial biomass and diversity in an equatorial estuarine mangrove",
+              "authors": [
+                {
+                  "firstName": "Emma",
+                  "lastName": "Jamon‐Haon"
+                },
+                {
+                  "firstName": "Cécile",
+                  "lastName": "Militon"
+                },
+                {
+                  "firstName": "Adriana",
+                  "lastName": "Spedicato"
+                },
+                {
+                  "firstName": "Emma",
+                  "lastName": "Michaud"
+                },
+                {
+                  "firstName": "Gérard",
+                  "lastName": "Thouzeau"
+                },
+                {
+                  "firstName": "Clément",
+                  "lastName": "Gauchot"
+                },
+                {
+                  "firstName": "Jérémy",
+                  "lastName": "Devesa"
+                },
+                {
+                  "firstName": "Olivier",
+                  "lastName": "Grosso"
+                },
+                {
+                  "firstName": "Léa",
+                  "lastName": "Sylvi"
+                },
+                {
+                  "firstName": "Sandrine",
+                  "lastName": "Chifflet"
+                },
+                {
+                  "firstName": "Maud",
+                  "lastName": "Fiard"
+                },
+                {
+                  "firstName": "Philippe",
+                  "lastName": "Cuny"
+                }
+              ],
+              "countriesOfCoverage": [
+                "GF"
+              ],
+              "countriesOfResearcher": [
+                "FR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1002/lno.70409"
+              },
+              "gbifDOIs": [
+                "10.15468/ysbx6p"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_PUBLISHED"
+              ],
+              "source": "Limnology and Oceanography",
+              "topics": [
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1002/lno.70409"
+              ]
+            },
+            {
+              "id": "bfa133f8-348f-3b33-aa6f-756a5b15594a",
+              "title": "Cystopeltidae redefined: integrative taxonomy of the Australian endemic slug Cystopelta with the description of 11 new species and subspecies (Punctoidea: Stylommatophora)",
+              "authors": [
+                {
+                  "firstName": "Isabel",
+                  "lastName": "Hyman"
+                },
+                {
+                  "firstName": "Frank",
+                  "lastName": "Köhler"
+                }
+              ],
+              "countriesOfCoverage": [
+                "AU"
+              ],
+              "countriesOfResearcher": [
+                "AU"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1093/zoolinnean/zlag067"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.tusbdd"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Zoological Journal of the Linnean Society",
+              "topics": [
+                "TAXONOMY"
+              ],
+              "websites": [
+                "https://doi.org/10.1093/zoolinnean/zlag067"
+              ]
+            },
+            {
+              "id": "c862ce2a-e42a-37a6-a88d-43fd9f0bf927",
+              "title": "Igapodendron (Ochnaceae), a new genus with six new species from northern Amazonia",
+              "authors": [
+                {
+                  "firstName": "Matthew C.",
+                  "lastName": "Pace"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s12228-026-09880-3"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.b7uwem"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Brittonia",
+              "topics": [
+                "TAXONOMY"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s12228-026-09880-3"
+              ]
+            },
+            {
+              "id": "0d01cdd0-689b-3464-bd15-bdf244ea2bb0",
+              "title": "Navigating Spatial Trade-offs in Restoration Planning: A Multi-Objective Optimization Framework Integrating Ecological Feasibility",
+              "authors": [
+                {
+                  "firstName": "Matías",
+                  "lastName": "Moreno-Faguett"
+                },
+                {
+                  "firstName": "Jessica",
+                  "lastName": "Castillo"
+                },
+                {
+                  "firstName": "Jose",
+                  "lastName": "Salgado Rojas"
+                },
+                {
+                  "firstName": "Maria Jose",
+                  "lastName": "Martinez-Harms"
+                },
+                {
+                  "firstName": "Barbara",
+                  "lastName": "Larrain Barros"
+                },
+                {
+                  "firstName": "Micaela",
+                  "lastName": "Poutay"
+                },
+                {
+                  "firstName": "Eduardo",
+                  "lastName": "Fuentes-Lillo"
+                },
+                {
+                  "firstName": "Pablo",
+                  "lastName": "Ramírez de Arellano"
+                },
+                {
+                  "firstName": "Patricio",
+                  "lastName": "Pliscoff"
+                },
+                {
+                  "firstName": "Cecilia",
+                  "lastName": "Smith-Ramírez"
+                },
+                {
+                  "firstName": "Olga",
+                  "lastName": "Barbosa Prieto"
+                },
+                {
+                  "firstName": "Aníbal",
+                  "lastName": "Pauchard"
+                },
+                {
+                  "firstName": "Jordi",
+                  "lastName": "Garcia-Gonzalo"
+                },
+                {
+                  "firstName": "Virgilio",
+                  "lastName": "Hermoso"
+                },
+                {
+                  "firstName": "Eduardo",
+                  "lastName": "Álvarez-Miranda"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CL",
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.32942/x21t2z"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.bxj99t",
+                "10.15468/dl.mk7wfj"
+              ],
+              "literatureType": "working_paper",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "EcoEvoRxiv",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.32942/x21t2z"
+              ]
+            },
+            {
+              "id": "33e24450-3932-3681-b775-ad4bdf3e7688",
+              "title": "Extensive variation between chromosomes of North American and European hop",
+              "authors": [
+                {
+                  "firstName": "Sandip Mallikarjun",
+                  "lastName": "Kale"
+                },
+                {
+                  "firstName": "Heidrun",
+                  "lastName": "Gundlach"
+                },
+                {
+                  "firstName": "Oliver",
+                  "lastName": "Gericke"
+                },
+                {
+                  "firstName": "Nadia",
+                  "lastName": "Kamal"
+                },
+                {
+                  "firstName": "Aldo",
+                  "lastName": "Almeida"
+                },
+                {
+                  "firstName": "Nicholi",
+                  "lastName": "Pitra"
+                },
+                {
+                  "firstName": "Nicholas",
+                  "lastName": "Price"
+                },
+                {
+                  "firstName": "Georg",
+                  "lastName": "Haberer"
+                },
+                {
+                  "firstName": "Thomas",
+                  "lastName": "Lux"
+                },
+                {
+                  "firstName": "Flavia",
+                  "lastName": "Krsticevic"
+                },
+                {
+                  "firstName": "Oliver",
+                  "lastName": "Kemp"
+                },
+                {
+                  "firstName": "Louise",
+                  "lastName": "de Bang"
+                },
+                {
+                  "firstName": "Axel",
+                  "lastName": "Himmelbach"
+                },
+                {
+                  "firstName": "Sudharsan",
+                  "lastName": "Padmarasu"
+                },
+                {
+                  "firstName": "Mark-Timothy",
+                  "lastName": "Rabanus-Wallace"
+                },
+                {
+                  "firstName": "Lucie",
+                  "lastName": "Horáková"
+                },
+                {
+                  "firstName": "Václav",
+                  "lastName": "Bačovský"
+                },
+                {
+                  "firstName": "Kasper",
+                  "lastName": "Nielsen"
+                },
+                {
+                  "firstName": "Nanna",
+                  "lastName": "Bjarnholt"
+                },
+                {
+                  "firstName": "Nikola",
+                  "lastName": "Micic"
+                },
+                {
+                  "firstName": "Isabella",
+                  "lastName": "Kruse-Andersen"
+                },
+                {
+                  "firstName": "Birger Lindberg",
+                  "lastName": "Møller"
+                },
+                {
+                  "firstName": "Christian",
+                  "lastName": "Janfelt"
+                },
+                {
+                  "firstName": "Birgitte",
+                  "lastName": "Skadhauge"
+                },
+                {
+                  "firstName": "Paul D.",
+                  "lastName": "Matthews"
+                },
+                {
+                  "firstName": "Klaus F. X.",
+                  "lastName": "Mayer"
+                },
+                {
+                  "firstName": "Nils",
+                  "lastName": "Stein"
+                },
+                {
+                  "firstName": "Martin",
+                  "lastName": "Mascher"
+                },
+                {
+                  "firstName": "Manuel",
+                  "lastName": "Spannagl"
+                },
+                {
+                  "firstName": "Alexander",
+                  "lastName": "Feiner"
+                },
+                {
+                  "firstName": "Ilka",
+                  "lastName": "Braumann"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "DE",
+                "AU",
+                "DK",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1038/s41467-026-72379-8"
+              },
+              "gbifDOIs": [
+                "10.15468/dd.ecvxze",
+                "10.15468/dl.6ye7ug",
+                "10.15468/dl.8jnu9g",
+                "10.15468/dl.cr37wu",
+                "10.15468/dl.mn7b6d",
+                "10.15468/dl.rzwt9h",
+                "10.15468/dl.w53rkc"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Nature Communications",
+              "topics": [
+                "EVOLUTION",
+                "AGRICULTURE"
+              ],
+              "websites": [
+                "https://doi.org/10.1038/s41467-026-72379-8"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

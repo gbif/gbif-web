@@ -20,6 +20,7 @@ export function FooterButton({ icon, toolTip, onClick, disable }: Props) {
             className="g-h-8 g-w-8 g-p-0"
           >
             {icon}
+            <span className="g-sr-only">{toolTip}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>{toolTip}</TooltipContent>

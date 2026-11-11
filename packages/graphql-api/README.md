@@ -37,6 +37,7 @@ Once running, the server is available at `http://localhost:<port>/graphql` (the 
 | `npm test` | Run the test suite with ts-mocha. Needs a `.env` file (see [Configuration](#configuration)). |
 | `npm run write-enums` | Regenerate `src/helpers/enums/enums.json` from the GBIF enumeration API. |
 | `npm run write-interpretation-remark` | Regenerate interpretation remark definitions. |
+| `npx tsx tools/printSchema.ts <file>` | Write the schema in this repository to a file as SDL. Used by the schema drift check in gbif-org (`npm run e2e:schema-drift`). |
 
 ## Code layout
 

@@ -1,0 +1,93 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: countriesOfCoverage\n        }\n        facet {\n          results: countriesOfCoverage(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "publishingOrganizationKey",
+          "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "countriesOfCoverage"
+            },
+            {
+              "type": "equals",
+              "key": "publishingOrganizationKey",
+              "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 8353
+        },
+        "cardinality": {
+          "total": 217
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "US",
+              "count": 591
+            },
+            {
+              "key": "MX",
+              "count": 339
+            },
+            {
+              "key": "CN",
+              "count": 275
+            },
+            {
+              "key": "BR",
+              "count": 224
+            },
+            {
+              "key": "CA",
+              "count": 202
+            },
+            {
+              "key": "IN",
+              "count": 147
+            },
+            {
+              "key": "CO",
+              "count": 124
+            },
+            {
+              "key": "RU",
+              "count": 118
+            },
+            {
+              "key": "ZA",
+              "count": 89
+            },
+            {
+              "key": "AU",
+              "count": 87
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/dataset/search?limit=0&publishingOrg=cfed3807-e316-48b6-ba3c-9c63f496b9c1"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "json",
+  "body": {
+    "offset": 0,
+    "limit": 0,
+    "endOfRecords": false,
+    "count": 1,
+    "results": [],
+    "facets": []
+  }
+}

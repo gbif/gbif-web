@@ -1,0 +1,73 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query LiteratureResearcherCountryFacet($predicate: Predicate) {\n      search: literatureSearch(predicate: $predicate) {\n        facet {\n          field: countriesOfResearcher {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "in",
+          "key": "countriesOfResearcher",
+          "values": [
+            "GB"
+          ]
+        },
+        "size": 1
+      },
+      "operationName": "LiteratureResearcherCountryFacet"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "facet": {
+          "field": [
+            {
+              "name": "GB",
+              "count": 4083
+            },
+            {
+              "name": "US",
+              "count": 1061
+            },
+            {
+              "name": "DE",
+              "count": 815
+            },
+            {
+              "name": "ES",
+              "count": 546
+            },
+            {
+              "name": "FR",
+              "count": 514
+            },
+            {
+              "name": "AU",
+              "count": 509
+            },
+            {
+              "name": "NL",
+              "count": 421
+            },
+            {
+              "name": "IT",
+              "count": 406
+            },
+            {
+              "name": "BE",
+              "count": 405
+            },
+            {
+              "name": "BR",
+              "count": 397
+            }
+          ]
+        }
+      }
+    }
+  }
+}

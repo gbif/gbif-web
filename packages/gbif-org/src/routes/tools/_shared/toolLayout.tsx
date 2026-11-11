@@ -29,11 +29,16 @@ const TOOL_LAYOUT_QUERY = /* GraphQL */ `
   }
 `;
 
+// The CMS entry is optional: the page falls back to its default title. graphql-api answers a
+// missing entry with HTTP 404, which would otherwise become the page status. Other statuses pass
+// through unchanged.
 export function createToolLayoutLoader(machineIdentifier: string) {
   return (args: LoaderArgs) =>
-    args.graphql.query<ToolLayoutQuery, { machineIdentifier: string }>(TOOL_LAYOUT_QUERY, {
-      machineIdentifier,
-    });
+    args.graphql
+      .query<ToolLayoutQuery, { machineIdentifier: string }>(TOOL_LAYOUT_QUERY, {
+        machineIdentifier,
+      })
+      .then((response) => (response.status === 404 ? { data: undefined } : response));
 }
 
 function extractCmsResource(data?: ToolLayoutQuery): ToolPageFragment | null {

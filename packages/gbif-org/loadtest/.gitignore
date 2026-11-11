@@ -1,3 +1,7 @@
+# The endpoint overlay holds no secrets and is the source the README copies from; the root
+# .gitignore ignores every .env.* file.
+!.env.loadtest
+
 # CPU profiles are large, machine-specific, and regenerated on every profiling run.
 profiles/
 *.cpuprofile

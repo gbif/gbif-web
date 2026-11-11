@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "15147db1-27c3-49b5-9c69-c78d55a4b8ff"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Global Register of Introduced and Invasive Species - Australia"
+      }
+    }
+  }
+}

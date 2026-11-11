@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "a368d019-028c-4f87-adcf-90771fd666f9"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Global Register of Introduced and Invasive Species - Saint Barthelemy"
+      }
+    }
+  }
+}

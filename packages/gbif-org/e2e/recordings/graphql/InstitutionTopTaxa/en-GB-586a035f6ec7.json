@@ -1,0 +1,93 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstitutionTopTaxa($predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(size: 0) {\n        total\n      }\n      facet {\n        taxonKey(size: 10) {\n          count\n          taxon {\n            formattedName: label\n          }\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "institutionKey",
+          "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+        }
+      },
+      "operationName": "InstitutionTopTaxa"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 508372
+        },
+        "facet": {
+          "taxonKey": [
+            {
+              "count": 501913,
+              "taxon": {
+                "formattedName": "Animalia"
+              }
+            },
+            {
+              "count": 417074,
+              "taxon": {
+                "formattedName": "Arthropoda"
+              }
+            },
+            {
+              "count": 403863,
+              "taxon": {
+                "formattedName": "Insecta"
+              }
+            },
+            {
+              "count": 151728,
+              "taxon": {
+                "formattedName": "Lepidoptera"
+              }
+            },
+            {
+              "count": 112752,
+              "taxon": {
+                "formattedName": "Coleoptera"
+              }
+            },
+            {
+              "count": 50024,
+              "taxon": {
+                "formattedName": "Mollusca"
+              }
+            },
+            {
+              "count": 43301,
+              "taxon": {
+                "formattedName": "Geometridae"
+              }
+            },
+            {
+              "count": 40443,
+              "taxon": {
+                "formattedName": "Diptera"
+              }
+            },
+            {
+              "count": 39181,
+              "taxon": {
+                "formattedName": "Noctuidae"
+              }
+            },
+            {
+              "count": 36945,
+              "taxon": {
+                "formattedName": "Gastropoda"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

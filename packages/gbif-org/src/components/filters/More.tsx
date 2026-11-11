@@ -104,7 +104,9 @@ const ContentWrapper = React.forwardRef(
           </CommandList>
         </Command>
         {activeFilterHandle && (
-          <div>
+          // Suggest lists are absolutely positioned, so they add no height of their own and the
+          // popover's overflow-hidden clips them. Reserve room for the list (max-h-80) below the input.
+          <div className="g-min-h-[min(26rem,calc(var(--radix-popover-content-available-height,100dvh)-1rem))]">
             <div className="g-flex g-flex-nowrap g-items-center g-border-b">
               <Button
                 size="sm"

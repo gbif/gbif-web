@@ -1,0 +1,2557 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://hp-search.gbif.org/content?contentType=project&gbifProgramme=82243&limit=0"
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "documents": {
+      "size": 20,
+      "from": 0,
+      "total": 155,
+      "results": [
+        {
+          "leadPartner": {
+            "id": "501SBw10fP1kFZjGOEF1rC",
+            "title": {
+              "en-GB": "Asociación Nacional de Empresarios de Colombia"
+            },
+            "url": "https://www.andi.com.co/"
+          },
+          "title": {
+            "en-GB": "Unlocking business biodiversity data in Colombia and Brazil through GBIF"
+          },
+          "body": {
+            "en-GB": "Over 24 months, this project unites business associations ANDI (Colombia) and CNI (Brazil) with technical nodes SiB Colombia/Instituto Humboldt and SiBBr to mobilize corporate biodiversity data and enable its reuse. In regulated sectors, companies generate extensive biodiversity information through environmental impact assessments (EIAs) and monitoring. However, previous assessments by the partners identifed that this data remain fragmented and under-utilized, creating a disconnect between data availability and the rigorous evidence required by the rising adoption of the Taskforce on Nature-related Financial Disclosures (TNFD).\n\n Aligned with BID objectives, the project addresses these needs through three consolidated areas:\n\n 1. Regional networks: Strengthening business data networks led by ANDI and CNI through a Colombia–Brazil exchange, a bilingual Community of Practice and early commitments.\n\n 2. Data mobilization: Directing 50 per cent of funding to data publication sprints, the project will mobilize more than 1.5 million new or upgraded records across more than 400 datasets via GBIF, ensuring open licensing and high quality.\n\n 3. Data use: The project bridges the data-decision gap through a diagnostic of the GBIF–TNFD connection through surveys and interviews and four business cases, documenting how open biodiversity datasets directly support nature risk and opportunity assessments.\n\n Crucially, this project builds upon the successful collaboration between ANDI and SiB Colombia developed under previous [GBIF CESP grants](/project/CESP2022-010/enhancing-data-publication-access-and-use-capacities-in-the-private-sector). It scales this proven infrastructure to Brazil by translating resources, launching a corporate microsite, and expanding the training pathway with a new Module 6 (GBIF–TNFD). In the long-term, this creates a sustainable pipeline of open evidence in LAC, transforming corporate reporting culture from compliance to a transparent, citable contribution to biodiversity knowledge."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "LATIN_AMERICA",
+          "createdAt": "2026-11-09T12:17:19.165Z",
+          "publishedVersion": 36,
+          "end": "2028-09-02",
+          "matchingFunds": 36500,
+          "id": "BID-REG2025-156",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-11-09T12:17:19.165Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/1ciXBL4sd2X8vPDa9SOlMm/f87b42b80a73a637d62fe57d7c8d6c8d/BID_Colombia_and_Brazil_TNFD__1_.png",
+                "details": {
+                  "size": 2527565,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID Colombia and Brazil TNFD (1).png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Smooth-billed ani (<i>Crotophaga ani</i>) <a href=\"/occurrence/2818719274\">observed</a> in Quindío, Colombia by Patricia Salazar</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID Colombia and Brazil TNFD"
+            }
+          },
+          "start": "2026-09-02",
+          "fundsAllocated": 90000,
+          "officialTitle": "Business Biodiversity Data to TNFD-Ready Evidence: Mobilizing Business Biodiversity Data in Colombia & Brazil via GBIF",
+          "leadContact": "Dora Moncada\nAsociación Nacional de Empresarios de Colombia\nCalle 73 # 8 – 13\nPiso 7 Torre A\nBogotá 110221\nColombia",
+          "searchable": true,
+          "contractCountry": "CO",
+          "revision": 1,
+          "call": {
+            "id": "1yUb3ZutCxnLSNA72cLG28",
+            "title": {
+              "en-GB": "BID 2025 regional"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "REGIONAL",
+          "projectId": "BID-REG2025-156",
+          "additionalPartners": [
+            {
+              "id": "8616",
+              "country": "BR",
+              "title": {
+                "en-GB": "Brazil"
+              }
+            },
+            {
+              "id": "8523",
+              "country": "CO",
+              "title": {
+                "en-GB": "Colombia"
+              }
+            },
+            {
+              "id": "5Vw97zLQ3Th0X2OEHhZow1",
+              "title": {
+                "en-GB": "Ministry of Science, Technology and Innovation (Brazil)"
+              }
+            },
+            {
+              "id": "WU6b3nF3Vpr9t7EnDFS4E",
+              "title": {
+                "en-GB": "Terrasos S.A.S."
+              }
+            },
+            {
+              "id": "5m8wCUhvH73Lv0bBpi65Pf",
+              "title": {
+                "en-GB": "Empresas Públicas de Medellín E.S.P."
+              }
+            },
+            {
+              "id": "2y4zy9DvcYoliDDiAhUKQ4",
+              "title": {
+                "en-GB": "Parex Resources (Colombia) AG Sucursal"
+              }
+            },
+            {
+              "id": "4BgZTdJpBvxMgjMq5EKGtG",
+              "title": {
+                "en-GB": "Ecopetrol S.A."
+              }
+            },
+            {
+              "id": "6OthFxomaDFfwvFXrrCQy2",
+              "title": {
+                "en-GB": "Aris Mining PSN"
+              }
+            },
+            {
+              "id": "1dKLY7OZSl8ltkad5blxD9",
+              "title": {
+                "en-GB": "Frontera Energy"
+              }
+            },
+            {
+              "id": "2RU8bPOsV8X4FFite1Aryt",
+              "title": {
+                "en-GB": "Instituto Técnológico Vale"
+              }
+            },
+            {
+              "id": "7mrysQDcT5OxMHEvf1kjEB",
+              "title": {
+                "en-GB": "TransNorte Energia"
+              }
+            },
+            {
+              "id": "7Dj3GcJfzP2RgyMUqyxkMR",
+              "title": {
+                "en-GB": "Samarco Mineração"
+              }
+            },
+            {
+              "id": "1LGLkhpZD5KQFDEUlTfHv1",
+              "title": {
+                "en-GB": "GeoPark Colombia S.A.S."
+              }
+            },
+            {
+              "id": "LI1XfiBkzO7xr2zI4180J",
+              "title": {
+                "en-GB": "Parex Resources Colombia - AG Sucursal"
+              }
+            },
+            {
+              "id": "61uDpnMmAVeh5sBHsLl7uZ",
+              "title": {
+                "en-GB": "Confederação Nacional da Indústria"
+              }
+            }
+          ],
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "leadPartner": {
+            "id": "WLJ0DfUeykGgg4kDAmx47",
+            "title": {
+              "en-GB": "Charles Darwin Foundation"
+            }
+          },
+          "title": {
+            "en-GB": "Mobilizing and publishing regional marine data through the MBON Pole to Pole Network"
+          },
+          "body": {
+            "en-GB": "This project mobilizes marine biodiversity data from Latin America and the Caribbean (LAC) through institutional collaboration, technical training and the use of international data standards. It strengthens regional biodiversity information systems by enabling the publication of previously unshared marine datasets to GBIF, ensuring open access to high-quality data for research, conservation and policy.\n\nA key regional challenge is that large volumes of marine biodiversity data derived from visual and image-based surveys are unpublished or fragmented across institutions. This gap has been identified through the Marine Biodiversity Observation Network Pole to Pole of the Americas (MBON Pole to Pole), which includes participants from Argentina, Brazil, Chile, Colombia, Ecuador, Honduras, Mexico, Peru, Puerto Rico, Trinidad and Tobago, Uruguay, the United States and Canada. \n\nRegional exchanges and workshops have highlighted limited capacity for data mobilization, lack of harmonized workflows and the need for targeted training in data standardization and open-access publication. A standardized intertidal survey methodology developed by MBON Pole to Pole has been applied across multiple LAC countries, generating over 40,000 photo-quadrats of rocky shores, with the potential to yield more than 200,000 species occurrence records and sampling events. Building on these efforts, the project will conduct two hands-on workshops and develop workflows to transform diverse data types following Darwin Core and Ecological Metadata Language standards for publication in GBIF. In the second year, additional MBON countries will join the network, with increased emphasis on data use in research and policy. \n\nOverall, the project enhances institutional capacity, strengthens regional data infrastructure, and promotes open biodiversity data sharing to support marine conservation and long-term regional collaboration in LAC."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "LATIN_AMERICA",
+          "createdAt": "2026-11-09T12:14:24.670Z",
+          "publishedVersion": 39,
+          "end": "2028-09-30T00:00+00:00",
+          "matchingFunds": 130383,
+          "id": "BID-REG2025-098",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-11-09T14:15:45.683Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/6Eu3408vUUf61CxsICgdX2/fce8ad8075a387be8359c157fb6b271b/CESP_MBON_Pole_to_Pole_network.png",
+                "details": {
+                  "size": 3075811,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "CESP MBON Pole to Pole network.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Patagonian red octopus (<i>Enteroctopus megalocyathus</i>) <a href=\"/occurrence/4945680408\">observed</a> in Santa Cruz, Argentina by Daniel Fernando Vidal</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID MBON Pole to Pole network"
+            }
+          },
+          "start": "2026-10-01T00:00+00:00",
+          "fundsAllocated": 69999,
+          "officialTitle": "From Image to Decision-Making: mobilizing and publishing Regional Marine Biodiversity Data through the MBON Pole to Pole Network",
+          "leadContact": "Nicolas Moity\nCharles Darwin Foundation\nAv. Charles Darwin s/n\nPuerto Ayora 200350\nEcuador",
+          "searchable": true,
+          "contractCountry": "EC",
+          "revision": 2,
+          "call": {
+            "id": "1yUb3ZutCxnLSNA72cLG28",
+            "title": {
+              "en-GB": "BID 2025 regional"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "REGIONAL",
+          "projectId": "BID-REG2025-098",
+          "additionalPartners": [
+            {
+              "id": "16yOAmbxzEUBQT92Pg81eI",
+              "title": {
+                "en-GB": "Universidade Estadual do Norte Fluminense"
+              }
+            },
+            {
+              "id": "PSlLLa2CWL1zACkhdXpnT",
+              "title": {
+                "en-GB": "IBIOMAR-CONICET"
+              }
+            }
+          ],
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "leadPartner": {
+            "id": "7xi2nopa6zzWEbzdViPEzN",
+            "title": {
+              "en-GB": "Centro de Estudios Conservacionistas, Universidad de San Carlos de Guatemala"
+            }
+          },
+          "title": {
+            "en-GB": "Increasing open biodiversity information in Central America through digitized collections"
+          },
+          "body": {
+            "en-GB": "Scientific collections are indispensable for documenting and preserving reliable biodiversity information. In Central America, at least 60 institutions in seven countries hold active zoological, botanical and paleontological collections. However, only ten publishers in four countries are sharing collection data to GBIF (noting no fossil records are currently shared). Costa Rica and Guatemala have contributed 96 per cent of the available specimen records on GBIF from the region, but three countries, including El Salvador, have not yet mobilized collections to GBIF.\n\nFollowing the priorities established in the 2026 BID Latin America and the Caribbean engagement meeting and Targets 20-21 outlined in the Kunming-Montreal Global Biodiversity Framework, this project strengthens the collaboration between institutions in Central America by facilitating mentorship from experienced participants to build and sustain regional capacity for collection data mobilization and use (integrating FAIR and CARE principles). This is achieved through expanding the GBIF network in the region. \n\nBased on the successful model designed for the Guatemalan collections (comprised of four GBIF publishers, more than 25 collections, 50,000 occurrences and 18,000 images), a customized Symbiota portal will be activated to enable and sustain digitization, management and mobilization of Central American collections to GBIF. During the first year of the project, a series of tailored webinars and open sessions will be facilitated to mobilize 25 new collections (targeting Guatemala, El Salvador and Costa Rica), and review of quality data for more than 40 existing collection datasets. A hybrid meeting in Costa Rica aims to allow partners to interact, share preliminary results and participate in data use training for research and policy making, including validation of 33 checklist datasets. \n\nBy the end of the project, the consolidation of a Central American Network of Digitized Collections will promote continued collaboration and regional network growth."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "LATIN_AMERICA",
+          "createdAt": "2026-09-22T14:02:32.759Z",
+          "publishedVersion": 72,
+          "end": "2028-08-31",
+          "matchingFunds": 171648,
+          "id": "BID-REG2025-081",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-09-24T06:38:08.672Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/7at0UCeJkyDBVW7v9joQNI/2b175cd595c2c03ab98864ff14b473a3/BID_project_collections__1_.png",
+                "details": {
+                  "size": 1208816,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID project collections (1).png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "<i>Euglossa mixta</i> <a href=\"/occurrence/5888848314\">collected</a> in Alajuela, Costa Rica. Housed in Museo de Insectos, Centro de Investigaciones en Protección de Cultivos (CIPROC), Escuela de Agronomía, Universidad de Costa Rica. Image by Monzerrat Sánchez Salas </a> (<a href=\"https://creativecommons.org/licenses/by/4.0/deed.en\">CC BY 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID project collections"
+            }
+          },
+          "start": "2026-09-02",
+          "fundsAllocated": 90000,
+          "officialTitle": "Increasing Open Biodiversity Information in Central America Through a Network of Digitized Scientific Collections",
+          "leadContact": "Maura Quezada\nCentro de Estudios Conservacionistas, Universidad de San Carlos de Guatemala\nAvenida la Reforma 0-63 zona 10\nGuatemala City 1010\nGuatemala",
+          "searchable": true,
+          "contractCountry": "GT",
+          "revision": 2,
+          "call": {
+            "id": "1yUb3ZutCxnLSNA72cLG28",
+            "title": {
+              "en-GB": "BID 2025 regional"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "REGIONAL",
+          "projectId": "BID-REG2025-081",
+          "additionalPartners": [
+            {
+              "id": "4St1cOkEctXhmczs3cbTwE",
+              "country": "GT",
+              "title": {
+                "en-GB": "Guatemala"
+              }
+            },
+            {
+              "id": "8524",
+              "country": "CR",
+              "title": {
+                "en-GB": "Costa Rica"
+              }
+            },
+            {
+              "id": "4D4wSqI7NXbEY6Kx80eoyi",
+              "country": "US",
+              "title": {
+                "en-GB": "Symbiota Support Hub"
+              }
+            },
+            {
+              "id": "2U3jxZpQm5hH8Th6H7E05K",
+              "title": {
+                "en-GB": "Sistema de Colecciones, Escuela de Biología, Universidad de San Carlos de Guatemala"
+              }
+            },
+            {
+              "id": "5tcPIPTw6kSCEs7szOHFKy",
+              "title": {
+                "en-GB": "Instituto Nacional de Bosques de Guatemala"
+              }
+            },
+            {
+              "id": "3dW7vU4G5UiVeuGu5qpIfG",
+              "title": {
+                "en-GB": "Museo de Insectos, Centro de Investigaciones en Protección de Cultivos, Universidad de Costa Rica"
+              }
+            },
+            {
+              "id": "13E0SBKB5XJQ8AZTy0bP7X",
+              "title": {
+                "en-GB": "Centro de Investigación en Biodiversidad y Ecología Tropical, Universidad de Costa Rica"
+              }
+            },
+            {
+              "id": "63agwPYlvZYTKvgGyJ4yNt",
+              "title": {
+                "en-GB": "Organización de Estudios Tropicales"
+              }
+            },
+            {
+              "id": "23bp50YBkGFgIOwAlTeiaa",
+              "title": {
+                "en-GB": "Escuela de Biología, Universidad de El Salvador"
+              }
+            }
+          ],
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "leadPartner": {
+            "id": "2TpfQnh1aEqgQcWbsUi30D",
+            "title": {
+              "en-GB": "Freshwater Research Centre"
+            }
+          },
+          "title": {
+            "en-GB": "Utilizing freshwater fish biodiversity data for capacity building and decision-making in sub-Saharan Africa"
+          },
+          "body": {
+            "en-GB": "Freshwater ecosystems hold a disproportionate share of life, supporting over half of all fish species in less than one per cent of the Earth’s surface area. Africa is a hotspot for freshwater fish diversity, but despite their critical role in regulating aquatic ecosystems and their underappreciated contribution to human nutrition and livelihoods, freshwater fish are in sharp decline with one quarter of species threatened with extinction. Reversing this trend requires improved data access and capacity for data-driven freshwater decision-making.\n\nGroundwork including stakeholder engagement, literature review  and baseline data analysis revealed that access to reliable freshwater fish records for sub-Saharan Africa is inadequate and that large data gaps exist and capacity for adding and using GBIF freshwater fish data is insufficient. These factors limit data-driven freshwater conservation planning and decision-making across the region.\n\nThis project directly addresses these challenges by identifying and engaging a network of freshwater fish data users and providers in at least 20 sub-Saharan African countries, mobilizing a total of 300,000 freshwater fish occurrence records for sub-Saharan Africa to GBIF and building capacity among key freshwater data users to use these records in data-driven research and decision-making.\n\nThe project builds on the success of our award-winning Freshwater Biodiversity Information System (FBIS) project, which more than doubled the number of GBIF freshwater fish occurrence records for South Africa from 24,861 to 60,837. Through powerful data analysis and visualization tools, the FBIS adds value to GBIF data and is being effectively used to support improved freshwater science and management at a national scale. This project will scale-up this success from South Africa to sub-Saharan Africa, for improved freshwater fish data access, research and decision-making across the region."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-09-10T13:31:27.272Z",
+          "publishedVersion": 45,
+          "end": "2028-09-04",
+          "matchingFunds": 54059,
+          "id": "BID-REG2025-094",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-09-10T13:31:27.272Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/79UUAkRPlIZJXPAK14OnSc/bdf2bb77f5bff27e28288dd9de1995c3/CESP_freshwater_fish__1_.png",
+                "details": {
+                  "size": 460532,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "CESP freshwater fish (1).png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Spinky catfish (<i>Clarotes laticeps</i>) <a href=\"/occurrence/199241574\">observed</a> in Taita Taveta, Kenya by Joshua Rains</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "CESP freshwater fish"
+            }
+          },
+          "start": "2026-09-02",
+          "fundsAllocated": 88814,
+          "officialTitle": "Mobilising freshwater fish biodiversity data and building capacity for data-driven decision-making in Sub-Saharan Africa",
+          "leadContact": "Jeremy Shelton\nFreshwater Research Centre\nUnit 2A, Imhoff Farm\nKommetjie Road\nCape Town 7975\nSouth Africa",
+          "searchable": true,
+          "contractCountry": "ZA",
+          "revision": 1,
+          "call": {
+            "id": "1yUb3ZutCxnLSNA72cLG28",
+            "title": {
+              "en-GB": "BID 2025 regional"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "REGIONAL",
+          "projectId": "BID-REG2025-094",
+          "additionalPartners": [
+            {
+              "id": "527wDjj2ojpbyd6m9xxYy3",
+              "title": {
+                "en-GB": "The Nature Conservancy"
+              }
+            },
+            {
+              "id": "6taiI3lp56QiFnqrnj7B3X",
+              "title": {
+                "en-GB": "International Union for Conservation of Nature"
+              }
+            },
+            {
+              "id": "1Hre7dxsSBnC7kuD3Y23Qk",
+              "title": {
+                "en-GB": "The Wilderness Project/National Geographic Okavango Wilderness Project"
+              }
+            },
+            {
+              "id": "3n1cBBFEDh8VuK2jvdFxVJ",
+              "title": {
+                "en-GB": "African Parks"
+              }
+            },
+            {
+              "id": "6b95g43pxOVFF8AfEaQJOC",
+              "title": {
+                "en-GB": "American Museum of Natural History"
+              }
+            }
+          ],
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "leadPartner": {
+            "id": "611nYar1eQJ5m1szWV1R4h",
+            "title": {
+              "en-GB": "Fundação de Apoio à Pesquisa Edmundo Gastal"
+            }
+          },
+          "title": {
+            "en-GB": "Exploring macrofauna and earthworms in Africa and Latin America"
+          },
+          "body": {
+            "en-GB": "Soil macrofauna communities include more than 50 invertebrate taxa that live at least part of their life cycle in the soil or leaf litter. These taxa represent over one million species worldwide (approximately 23 per cent of all known species). However, they are poorly represented in GBIF datasets in countries across both Africa and Latin America and the Caribbean. \n\nEarthworms are important soil ecosystem engineers and are highly diversified in the tropics, among the highest endemism rates of the soil fauna, but most of the currently available open species datasets on these earthworms are from temperate regions. \n\nThrough this project, more than 140 sampling event datasets on earthworms across more than 40 countries will be mobilized to GBIF. This includes at least 80 sampling event datasets on earthworm communities, including over 400 species-level distributions and abundances, several checklists and six collection catalogues. \n\nThis initiative expands cross-regional cooperation, with the mobilized datasets used to support data analysis, training and national soil biodiversity management. "
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "LATIN_AMERICA",
+          "createdAt": "2026-09-10T13:26:12.341Z",
+          "publishedVersion": 84,
+          "end": "2028-09-01",
+          "matchingFunds": 1672100,
+          "id": "BID-CRG2025-061",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "events": [
+            {
+              "id": "a4fde0-161b-4974-850e-75f80e7",
+              "title": {
+                "en-GB": "Kick-off workshop: Soil biodiversity in Africa and Latin America"
+              },
+              "body": {
+                "en-GB": "This meeting is for the participants of the BID project [Exploring macrofauna and earthworms in Africa and Latin America](https://www.gbif.org/project/BID-CRG2025-061/exploring-macrofauna-and-earthworms-in-africa-and-latin-america). It is the first of a series of online workshops and webinars aiming to build capacity and stimulate data mobilization by the participants, promote cooperation between countries, GBIF nodes and publishers.\n\nProject: BID-CRG2025-061"
+              }
+            },
+            {
+              "id": "1113fc-51ae-4935-aa78-e14f03d",
+              "title": {
+                "en-GB": "Webinar: Data governance and sovereignty (BID project BID-CRG2025-061)"
+              },
+              "body": {
+                "en-GB": "This webinar is associated with the BID project _[exploring macrofauna and earthworms in Africa and Latin America](https://www.gbif.org/project/BID-CRG2025-061/exploring-macrofauna-and-earthworms-in-africa-and-latin-america)_. This event brings together parters from around the world to discuss topics such as data governance and sovereignty in connection to the project. "
+              }
+            }
+          ],
+          "updatedAt": "2026-10-26T09:32:48.090Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/4JvqaYc062duVDaKc7yFS1/502578ca5f9a839108de13c7919a1986/BID_earthworms.png",
+                "details": {
+                  "size": 3549023,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID earthworms.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Redworm (<i>Eisenia fetida</i>) <a href=\"/occurrence/3112564297\"> observed</a> in Buenos Aires, Argentina by Michelle Delaloye</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID earthworms"
+            }
+          },
+          "start": "2026-09-02",
+          "fundsAllocated": 117200,
+          "officialTitle": "Soil biodiversity in Africa and Latin America: macrofauna and earthworm communities",
+          "leadContact": "George Brown\nFundação de Apoio à Pesquisa Edmundo Gastal\nAv. Domingos de Almeida, 1785\nSala 24\nPelotas 96085-470\nBrazil",
+          "searchable": true,
+          "contractCountry": "BR",
+          "revision": 4,
+          "call": {
+            "id": "1xlhsQPf89nlCCNLlKBkNf",
+            "title": {
+              "en-GB": "BID 2025 cross-regional"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "CROSS_REGIONAL",
+          "projectId": "BID-CRG2025-061",
+          "additionalPartners": [
+            {
+              "id": "8616",
+              "country": "BR",
+              "title": {
+                "en-GB": "Brazil"
+              }
+            },
+            {
+              "id": "5jXTJZkvfCkiXTu4ZNdTph",
+              "title": {
+                "en-GB": "Wageningen University & Ecosur"
+              }
+            },
+            {
+              "id": "2WSl7TzoV92azTuxnIIsFb",
+              "title": {
+                "en-GB": "Wachemo University"
+              }
+            },
+            {
+              "id": "1ksKEzWOhFAxF7Sv0qc2o6",
+              "title": {
+                "en-GB": "Université de Montpellier"
+              },
+              "url": "https://www.umontpellier.fr"
+            },
+            {
+              "id": "6z9FG4F50nn7wp1XRcJeDR",
+              "title": {
+                "en-GB": "Université d'Antananarivo"
+              }
+            },
+            {
+              "id": "1ZRIEIQg4uRY0eTGML8HHU",
+              "title": {
+                "en-GB": "University of Wisconsin-Madison"
+              }
+            },
+            {
+              "id": "2Ogoeg46uM3uCDmiyUuqsm",
+              "title": {
+                "en-GB": "University of Western Ontario"
+              }
+            },
+            {
+              "id": "4Y77GRlUiyf69GWhoj56gE",
+              "title": {
+                "en-GB": "University of Western Australia"
+              }
+            },
+            {
+              "id": "2dmHhgpJ4A6YsGekryUoIn",
+              "title": {
+                "en-GB": "University of West Indies"
+              }
+            },
+            {
+              "id": "2IzUwQjjapE3XN4DNFvKpQ",
+              "title": {
+                "en-GB": "University of Vermont"
+              }
+            },
+            {
+              "id": "1QqeTHOwO8YccTh4A3pdYP",
+              "title": {
+                "en-GB": "University of the Antilles"
+              }
+            },
+            {
+              "id": "4E958ICOm2xlkhTvkkN9wD",
+              "title": {
+                "en-GB": "University of São Paulo"
+              }
+            },
+            {
+              "id": "6VqeSK7EVoWFfXd3q0eqPS",
+              "title": {
+                "en-GB": "University of Nairobi"
+              }
+            },
+            {
+              "id": "1WxExaFhlxotMdjLQpAWR8",
+              "title": {
+                "en-GB": "University of Mpumalanga"
+              }
+            },
+            {
+              "id": "66UZyxbOuKRtFySWCOSZpJ",
+              "title": {
+                "en-GB": "University of Limpopo"
+              }
+            },
+            {
+              "id": "6Pv6KNIvrUtHfiDQIFT8bX",
+              "title": {
+                "en-GB": "University of Helsinki"
+              }
+            },
+            {
+              "id": "5byfwsbmZUYCJl9x01RRpo",
+              "title": {
+                "en-GB": "University of Georgetown"
+              }
+            },
+            {
+              "id": "36xIWlftVFQrYXYNti9Pz",
+              "title": {
+                "en-GB": "University of Embu"
+              }
+            },
+            {
+              "id": "waF52hKkI1jpzQ5E9rla6",
+              "title": {
+                "en-GB": "University of Coimbra"
+              }
+            },
+            {
+              "id": "56BmDYSxiSQisKN39SsZMH",
+              "title": {
+                "en-GB": "University of Cape Town"
+              }
+            },
+            {
+              "id": "58IuDCRNDDklcP1SfMtWMC",
+              "title": {
+                "en-GB": "University of Bamenda"
+              }
+            },
+            {
+              "id": "6nt1GPI95gdOJ5hkftpHPN",
+              "title": {
+                "en-GB": "Universitat de les Illes Balears"
+              }
+            },
+            {
+              "id": "3yjvlXlbPOccnWCBwvL3EE",
+              "title": {
+                "en-GB": "Universidade Nacional de Córdoba"
+              }
+            },
+            {
+              "id": "3qu82Uzby0HZOpDIgKhDJO",
+              "title": {
+                "en-GB": "Universidade Federal Fluminense"
+              }
+            },
+            {
+              "id": "4IjIEJjkN6Rza1Wvze1KkA",
+              "title": {
+                "en-GB": "Universidade Federal do Paraná"
+              }
+            },
+            {
+              "id": "3eZD4LbGwM7aNQmDCmy1sQ",
+              "title": {
+                "en-GB": "Universidade Federal do Maranhão"
+              }
+            },
+            {
+              "id": "6vgPhJqfOttrH7hIMxtWG",
+              "title": {
+                "en-GB": "Universidade Federal de Viçosa"
+              }
+            },
+            {
+              "id": "1UVDQuOR6jpW5PY5LMyxNI",
+              "title": {
+                "en-GB": "Universidade Federal de Santa Maria"
+              }
+            },
+            {
+              "id": "2ivQXs6PvVOW81KyIpPDXa",
+              "title": {
+                "en-GB": "Universidade Federal de Santa Catarina - Campus Curitibanos"
+              }
+            },
+            {
+              "id": "3mJG57aliF9W2QyygezxXP",
+              "title": {
+                "en-GB": "Universidade Federal de Santa Catarina"
+              }
+            },
+            {
+              "id": "3GSKNYjlDKYTbKniaSjjFM",
+              "title": {
+                "en-GB": "Universidade Estadual do Sudoeste da Bahia"
+              }
+            },
+            {
+              "id": "8ZjNSJ97e54FVrEYiFrK4",
+              "title": {
+                "en-GB": "Universidade Estadual do Mato Grosso do Sul"
+              }
+            },
+            {
+              "id": "1hbBCP2Qe4FXLfEau8J918",
+              "title": {
+                "en-GB": "Universidade Estadual do Maranhão"
+              }
+            },
+            {
+              "id": "PflQoNoLDPEAExT1Jw5UE",
+              "title": {
+                "en-GB": "Universidade do Estado de Santa Catarina"
+              }
+            },
+            {
+              "id": "5QwHVeCKr7Db8GaOARUsjo",
+              "title": {
+                "en-GB": "Universidad Veracruzana"
+              }
+            },
+            {
+              "id": "6y5Dfshb523vGDb2wQa57o",
+              "title": {
+                "en-GB": "Universidad Tecnologica de Pereira"
+              }
+            },
+            {
+              "id": "7nZWcsfjLVIAfmJ7OTf1G6",
+              "title": {
+                "en-GB": "Universidad Nacional de Río Cuarto"
+              }
+            },
+            {
+              "id": "7AjzpFh27YMBmC9oQUw22v",
+              "title": {
+                "en-GB": "Universidad Nacional de Mar del Plata"
+              }
+            },
+            {
+              "id": "2c5ySpgE8AQz67mXjgqgoz",
+              "title": {
+                "en-GB": "Universidad Nacional de Luján"
+              }
+            },
+            {
+              "id": "7uux18ofKqFbUiCgQbHHTj",
+              "title": {
+                "en-GB": "Universidad Nacional de General Sarmiento"
+              }
+            },
+            {
+              "id": "3g00KzCcJb42v5kNJI7yQ6",
+              "title": {
+                "en-GB": "Universidad Nacional de Colombia"
+              }
+            },
+            {
+              "id": "4VK6tvORFPkNGaox3XEJId",
+              "title": {
+                "en-GB": "Universidad Nacional Autónoma de Alto Amazonas"
+              }
+            },
+            {
+              "id": "5FkEKyCTLNkUJjFiPeoooB",
+              "title": {
+                "en-GB": "Universidad Nacional Autonoma de Nicaragua"
+              }
+            },
+            {
+              "id": "3jvLktsAoALKbMsp1nv9bj",
+              "title": {
+                "en-GB": "Universidad de la Republica"
+              }
+            },
+            {
+              "id": "17TYT0oi1BaENv2zSvqaBm",
+              "title": {
+                "en-GB": "Universidad Complutense de Madrid"
+              }
+            },
+            {
+              "id": "52yJUmid1fmugWtGJVrpZh",
+              "title": {
+                "en-GB": "Universidad Antonio Nariño"
+              }
+            },
+            {
+              "id": "IJdFy14Lb1sFKwxN0dO8I",
+              "title": {
+                "en-GB": "United States Forest Service"
+              }
+            },
+            {
+              "id": "3xaphx2NOkJkXAH1q6Vk7W",
+              "title": {
+                "en-GB": "Sorbonne Université"
+              }
+            },
+            {
+              "id": "1yxzNzQwFj6cmvOn4USFig",
+              "title": {
+                "en-GB": "Shire Maytsebri Agricultural Research Centre"
+              }
+            },
+            {
+              "id": "78hG9WkhSfXj8dXgSIWdh7",
+              "title": {
+                "en-GB": "Senckenberg Museum"
+              }
+            },
+            {
+              "id": "3X3mpONSo4hH8hvEPUMOJi",
+              "title": {
+                "en-GB": "SENA Regional Amazonas"
+              }
+            },
+            {
+              "id": "278kMYknUXcYDYO80r4yzL",
+              "title": {
+                "en-GB": "SEAPI-RS"
+              }
+            },
+            {
+              "id": "43id9YnGrWpb3n6bZAMoD9",
+              "title": {
+                "en-GB": "Rwanda Institute for Conservation Agriculture"
+              }
+            },
+            {
+              "id": "1P0f80gnx6zeyB4zlUZmfd",
+              "title": {
+                "en-GB": "Pyrenean Institute of Ecology-CSIC"
+              }
+            },
+            {
+              "id": "2xnYnUqYy3WFBUIEl292Ma",
+              "title": {
+                "en-GB": "Nangui Abrogoua University"
+              }
+            },
+            {
+              "id": "5Tjq5GNwQlisJl0ukmviK8",
+              "title": {
+                "en-GB": "Museu Paraense Emilio Goeldi"
+              }
+            },
+            {
+              "id": "64i6NLoc1ySrcs2dLSXmyZ",
+              "title": {
+                "en-GB": "Moi University"
+              }
+            },
+            {
+              "id": "4EuT8RgRf6pMCaGemvTFtK",
+              "title": {
+                "en-GB": "Ministério da Ciencia, Tecnologia e Inovação"
+              }
+            },
+            {
+              "id": "4bQ3vVlDmWxrVKbzCmUjcH",
+              "title": {
+                "en-GB": "Ministère de l'Agriculture, de l'Eau, des Ressources et des Ressources Animales et Halieutiques"
+              }
+            },
+            {
+              "id": "2lj48sc1XvkRISbXJCSxal",
+              "title": {
+                "en-GB": "Maharishi International University"
+              }
+            },
+            {
+              "id": "38Q2D7QsguPmoMubXgEet6",
+              "title": {
+                "en-GB": "KwaZulu-Natal Museum"
+              }
+            },
+            {
+              "id": "1ZjkJPln5QPWsCnu074Dr1",
+              "title": {
+                "en-GB": "Instituto Federal do Piauí"
+              }
+            },
+            {
+              "id": "bGjbZHw7R41IBTWV9fKoZ",
+              "title": {
+                "en-GB": "Instituto de Ecorregiones Andinas"
+              }
+            },
+            {
+              "id": "2zkBD63lcQ0uQT6K3wExMl",
+              "title": {
+                "en-GB": "Instituto de Ecologia"
+              }
+            },
+            {
+              "id": "6PHWMHf4w8xlLynD2mqcwZ",
+              "title": {
+                "en-GB": "Institut de Recherche pour le Développement"
+              }
+            },
+            {
+              "id": "23ApBR7MR8pI5HZtdZu74M",
+              "title": {
+                "en-GB": "Indiana University Bloomington"
+              }
+            },
+            {
+              "id": "48FueEJwLHHLTgrbbQfsKD",
+              "title": {
+                "en-GB": "iDiv-Leipzig University"
+              }
+            },
+            {
+              "id": "7u3UnVAfL0mSauyvuZUenm",
+              "title": {
+                "en-GB": "Fundação de Apoio à Pesquisa e Desenvolvimento Edmundo Gastal"
+              }
+            },
+            {
+              "id": "1pxDFglII5GkhQhkx2xlc7",
+              "title": {
+                "en-GB": "Food and Agriculture Organization of the United Nations"
+              }
+            },
+            {
+              "id": "1MIOPwHcyPpoDeDcJw6532",
+              "title": {
+                "en-GB": "Federal University of Paraná"
+              }
+            },
+            {
+              "id": "6XwbdR8IDcr5L06yFEka2",
+              "title": {
+                "en-GB": "Eszterházy Károly Catholic University"
+              }
+            },
+            {
+              "id": "3ZmpQMYuZZrUuAiiWG6LDd",
+              "title": {
+                "en-GB": "Embrapa Forestry"
+              }
+            },
+            {
+              "id": "6FUz5ktgO8Gwvv7qlFH6fu",
+              "title": {
+                "en-GB": "Embrapa Clima Temperado"
+              }
+            },
+            {
+              "id": "54zQdZcitEC7IZ1ebpPCDr",
+              "title": {
+                "en-GB": "Embrapa Agrobiologia"
+              }
+            },
+            {
+              "id": "BcApcB7rE8oobNLS7eJLt",
+              "title": {
+                "en-GB": "Embrapa Cerrados"
+              }
+            },
+            {
+              "id": "5ciCI0LnfEaXHPLkpF5ifR",
+              "title": {
+                "en-GB": "Colorado State University"
+              }
+            },
+            {
+              "id": "GEsgJn5Jkfp0CXsWy7p8f",
+              "title": {
+                "en-GB": "CIRAD"
+              },
+              "url": "https://www.cirad.fr"
+            },
+            {
+              "id": "7i1gWAlXGrLmnDVsz5jGCN",
+              "title": {
+                "en-GB": "CIAT-WUR"
+              }
+            },
+            {
+              "id": "3PLRBCpR4wWwUlntDfEsWA",
+              "title": {
+                "en-GB": "Centre d'Ecologie Fonctionelle et Evolutive"
+              }
+            },
+            {
+              "id": "2s1DcV3d0coxwtXHhRnOsE",
+              "title": {
+                "en-GB": "Bern University of Applied Sciences"
+              }
+            },
+            {
+              "id": "3BX7ZcsO2Krf1LIatKCH0f",
+              "title": {
+                "en-GB": "Asociación de Becarios de Casanare,"
+              }
+            },
+            {
+              "id": "0z9rZjmfu0i1SE4VeQjWP",
+              "title": {
+                "en-GB": "Africa University"
+              }
+            }
+          ],
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Improving global access to Nigeria’s biodiversity collections"
+          },
+          "body": {
+            "en-GB": "Nigeria’s rich biodiversity collections include herbaria, zoological, entomological, fossils and microbial repositories and support research, conservation planning and sustainable development. However, a large portion of these collections remain  inaccessible to global audiences due to low digitization and data sharing. Nigeria has hundreds of biodiversity data holding institutions which have being active since the colonial era that house an array of rich datasets that span over several decades. These invaluable resources are held in cabinets and shelves of herbaria and museums, currently only useful locally as teaching aids or reference materials for identification.\n\nIt has been reported that 70 per cent of herbaria in Nigeria are globally not indexed and 90 per cent of such collections are not digitized. This project aims to mobilize, clean and digitize specimen data from selected Nigerian biodiversity collections to global biodiversity databases including GBIF. The project will create interoperable datasets, train curatorial staff in biodiversity data mobilization and digitization, thereby strengthening institutional digital data infrastructure and capacity. Researches (including undergraduate and postgraduate students), policy makers from government and non-governmental organizations as well as community leaders will benefit from the capacity enhancement workshops on biodiversity data mobilization, cleaning, geo-referencing publication and usage.\n\nThe project enhances Nigeria’s contribution to global biodiversity knowledge and support evidence-based decision-making for conservation and development."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-22T09:21:19.943Z",
+          "publishedVersion": 40,
+          "end": "2028-06-30",
+          "matchingFunds": 18808,
+          "id": "BID-AF2025-MIG-193",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-22T09:21:19.943Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/54CT22TK2857X8aY9tWqxb/9a672ecbcbc2a1dbf43763228ba22c80/BID-_Africa_5-_Nigerian_biodiversity.png",
+                "details": {
+                  "size": 4129447,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 5- Nigerian biodiversity.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "African nose-horn adder (<i>Bitis nasicornis</i>) <a href=\"/occurrence/4405195707\">observed</a> in Cross River, Nigeria by Adedotun Ajibade</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 5- Nigerian biodiversity"
+            }
+          },
+          "start": "2026-07-06",
+          "fundsAllocated": 59440,
+          "officialTitle": "Improving Global Access to Nigeria’s Biodiversity Collections through Data Mobilization and Digitization",
+          "leadContact": "Yahuza Tanimu\nAhmadu Bello University, Department of Botany\nSOKOTO ROAD\nSamaru\n81001 ZARIA\nNigeria",
+          "searchable": true,
+          "contractCountry": "NG",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-193",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Unlocking biodiversity data: Central Africa’s Wildlife Data System at OFAC (COMIFAC)"
+          },
+          "body": {
+            "en-GB": "Led by OFAC under COMIFAC, the project launches the Central African Wildlife Information System (SIFAC) to mobilize, standardize and publish existing wildlife datasets to GBIF.\n\nCurrently, regional data are fragmented, inconsistent and often locked in legacy formats with unclear licensing and weak quality control. A 2025 consultation of 120 organizations established priorities for a trusted hub at OFAC (SIFAC), common standards and routine for quality assurance and checking, digitization and curation of historical sources, clear governance and open licensing, hands-on skills for GBIF publishing, and simple tools for reporting and day-to-day management. Building on OFAC’s role as COMIFAC’s observatory and its existing platforms, the project extends preparatory work to map stakeholders and assembled initial datasets. The consortium brings together proven expertise in data formatting and mobilization with the aim to enable rapid movement from agreements to open data and widespread usage in the region.\n\nExpected project benefits include citable open datasets, a public governance charter and documented, maintainable data pipelines. Together, these outputs support faster and more transparent decision-making in protected areas and concessions, reducing costs through reusable workflows, strengthening institutional knowledge and improving data comparability across 11 countries. This work facilitates CBD reporting aligned with the Kunming–Montreal Global Biodiversity Framework and builds trust through a balanced approach to data openness and sensitivity."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-21T07:47:48.111Z",
+          "publishedVersion": 48,
+          "end": "2027-12-31",
+          "matchingFunds": 34034,
+          "id": "BID-AF2025-MIG-204",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-21T07:47:48.111Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/1HFwcENqXUBXWaL2LEBQGD/4054acf8b43f33264a315f57558ebf8f/BID-_Africa_8_-_Multi_institutional_project_-_Cameroon.png",
+                "details": {
+                  "size": 2838405,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 8 - Multi institutional project - Cameroon.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Kordofan giraffe (<i>Giraffa camelopardalis subsp. antiquorum</i>) <a href=\"/occurrence/6185292430\">observed</a> in Extrême-Nord, Cameroon by My World of Bird Photography</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 8 - Multi institutional project - Cameroon"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 59998,
+          "officialTitle": "Putting Lost Data to Use: Central Africa’s Wildlife Data System at OFAC (COMIFAC)",
+          "leadContact": "Florence Palla\nObservatoire des Forêts d'Afrique Centrale/Commission des Forêts d'Afrique Centrale\nEtoudi-Nouvelle cité ministérielle, Yaoundé 1er\n\n20818 Yaoundé\nCameroon",
+          "searchable": true,
+          "contractCountry": "CM",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-204",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Liberating biodiversity data for the Magaliesberg Biosphere (LiBDaMaB)"
+          },
+          "body": {
+            "en-GB": "The project aims to strengthen biodiversity knowledge and conservation planning within the Magaliesberg Biosphere by building partnerships and capacity for biodiversity data sharing, digitizing valuable species records and promoting the effective use of these data in research and decision-making. \n\nThrough stakeholder engagement, training and collaboration, the project will identify and support the digitization of both historical and contemporary biodiversity collections, including records from ecologically and culturally significant sites such as the Kgaswane Mountain Reserve, Ramsar Wetlands, afrotemperate forests and the Cradle of Humankind World Heritage Site. \n\nThe resulting digitized datasets will be published through GBIF and used to assess knowledge gaps, guide future biodiversity surveys and research, support restoration and conservation planning and inform actions toward achieving the Nature Positive goals of the Global Biodiversity Framework. The project will also ensure that these outputs are integrated into ongoing capacity-building efforts, enabling public and private sector decision-makers to better address biodiversity loss."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-17T09:15:10.577Z",
+          "publishedVersion": 13,
+          "end": "2028-06-30",
+          "matchingFunds": 15000,
+          "id": "BID-AF2025-INS-331",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-17T09:15:10.577Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/2Vy7BSri1QNudYZJuMwCYh/122e68b28628b5940ca38c638a45fd15/BID-_Africa_14_-_Biosphere.png",
+                "details": {
+                  "size": 3360920,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 14 - Biosphere.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "<i>Rhysida afra</i> <a href=\"/occurrence/3031825135\">observed</a> in North West, South Africa by Jonathan Breytenbach</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)\n"
+            },
+            "title": {
+              "en-GB": "BID- Africa 14 - Biosphere"
+            }
+          },
+          "start": "2026-07-06",
+          "fundsAllocated": 30000,
+          "officialTitle": "Liberating biodiversity data for the Magaliesberg Biosphere (LiBDaMaB)",
+          "leadContact": "Nigel Barker\nUniversity of Pretoria\nPrivate Bag X20\n28 Pretoria\nSouth Africa",
+          "searchable": true,
+          "contractCountry": "ZA",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "INSTITUTIONAL",
+          "projectId": "BID-AF2025-INS-331",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Advancing biodiversity data from Equatorial Guinea"
+          },
+          "body": {
+            "en-GB": "Strengthening institutional capacities and establishing a management unit are crucial for addressing gaps in open biodiversity data availability in Equatorial Guinea. As a developing country, there are high levels of rich biodiversity in Equatorial Guinea, but data infrastructures are currently lacking. Compounded with threats including habitat loss, there is an urgent need for greater support to manage, mobilize and publish biodiversity data.\n\nThis project enables Equatorial Guinea to connect with organizations that manage biodiversity data in the subregion including neighbouring GBIF nodes. Seminars will be held with academic institutions and management organizations such as the National Institute for Forestry Development and Management of the National System of Protected Areas (INDEFOR-AP) to share knowledge and improve biodiversity data capabilities in the country. Reports will be prepared to alert authorities and inform stakeholders of existing information on the country's biodiversity. \n\nEnhancing technical skills and improving processes for data management are key aspects of this project. Crucially, biodiversity reports such as the National Biodiversity Strategy and Action Plan will benefit from realistic data, as much information published in scientific articles and technical documents is currently unavailable. Moreover, improved availability of biodiversity data allows for the development of strengthened management strategies for natural areas to better monitor species of commercial interest and to inform national policies."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-14T08:54:16.510Z",
+          "publishedVersion": 89,
+          "end": "2028-06-30",
+          "matchingFunds": 16719,
+          "id": "BID-AF2025-INS-200",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-14T08:54:16.510Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/3z23k9HINuXOVtK0CFqvqt/ee3fc4759598f705309d84029c0248ae/BID-_Africa_6-_Equatorial_Guinea.png",
+                "details": {
+                  "size": 1438499,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 6- Equatorial Guinea.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Bioko montane chameleon (<i>Trioceros feae</i>) <a href=\"/occurrence/2580271116\">observed</a> in Bioko Sur, Equatorial Guinea by Chris Quirin</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 6- Equatorial Guinea"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 29312,
+          "officialTitle": "Capacity building for the management, mobilization, processing, and publication of biodiversity data at the National University of Equatorial Guinea.",
+          "leadContact": "Maximiliano Fero Meñe\nUniversidad Nacional de Guinea Ecuatorial\nAvd. Hassan II\n\n661 Malabo\nGuinea",
+          "searchable": true,
+          "contractCountry": "GN",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "INSTITUTIONAL",
+          "projectId": "BID-AF2025-INS-200",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Advancing conservation of endemic herpetofauna in Colombia"
+          },
+          "body": {
+            "en-GB": "The protection of endemic species in Colombia falls under the jurisdiction of national environmental authorities, who rely on accurate species data to make informed decisions. However, this basic information is lacking for many endemic reptiles and amphibians in Colombia. Building on activities and tools developed through previous BID projects, this proposal unites the Colombian herpetological community to compile a first-of-its-kind list of Colombian endemic reptiles and amphibians.\n\nActivities through this project include databasing, georeferencing and mobilizing specimen datasets from partner herpetological collections in Colombia, enhancing spatial coverage of biodiversity data, filling knowledge gaps on endemism and strengthening institutional ties. The partnerships established in this project ensure alignment with national biodiversity policies and support evidence-based decision-making in herpetofauna conservation.\n\nCurrently, data on herpetofaunal type specimens are scattered across scientific papers and museum records worldwide. This pioneering initiative digitizes images and published data for at least 1,000 type specimens from the ICN and Instituto Humboldt collections, facilitating specimen consultation, improving species validation and stimulating taxonomic and systematic research.\n\nThe project anticipates establishing a hosted portal that leverages GBIF’s infrastructure to centralize information on amphibian and reptile type specimens. Protocols developed through the project enhance future participation of additional institutions and ensure the sustainability, updating and expansion of the portal over time. Workshops with partner institutions and government agencies at the start of the project aim to identify conservation and management needs, while collaborative sessions with collection managers and contributing members of the herpetological community facilitate ongoing data curation and sharing."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "LATIN_AMERICA",
+          "createdAt": "2026-07-13T12:35:11.492Z",
+          "publishedVersion": 60,
+          "end": "2028-01-31",
+          "matchingFunds": 133505,
+          "id": "BID-LAC2025-MIG-042",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-13T12:35:11.492Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/4jb9N2JCZTmJJZGe7PjZ7j/3e7634444d03031277b85be0e6ab38bf/Colombia_herpetofauna_.png",
+                "details": {
+                  "size": 2811647,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "Colombia herpetofauna .png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Paisa frog (<i>Hyloscirtus antioquia</i>) <a href=\"/occurrence/3456616333\"> observed</a> in Antioquia, Colombia by Khristian Venegas Valencia </a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)\n"
+            },
+            "title": {
+              "en-GB": "Colombia herpetofauna"
+            }
+          },
+          "start": "2026-02-01",
+          "fundsAllocated": 59668,
+          "officialTitle": ": Strengthening conservation of the Colombian endemic herpetofauna",
+          "leadContact": "Lauren Raz\nUniversidad Nacional de Colombia\nCarrera 45 # 26-85\nEdificio Uriel Gutiérrez\n11001 Bogota\nColombia",
+          "searchable": true,
+          "contractCountry": "CO",
+          "revision": 1,
+          "call": {
+            "id": "7bhZzMZoMUq2omfJtsa7km",
+            "title": {
+              "en-GB": "BID 2025 LAC"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-LAC2025-MIG-042",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Digitizing Uganda’s herpetofauna for open access and policy integration"
+          },
+          "body": {
+            "en-GB": "NatureUganda will mobilize and share institutional biodiversity information on amphibians and reptiles through GBIF, supporting evidence based restoration and policy efforts in Uganda. This project will focus on digitizing and publishing historical collections, monitoring datasets, validated taxonomic checklists and biodiversity data from ESIA reports held by Uganda’s NEMA.\n\nStudents and assistants previously compiled more than 50,000 records through a multi year field program supported by the JRS Biodiversity Foundation and other sources. This project will help transform these records into GBIF ready formats and support data mining activities to mobilize biodiversity information from ESIA archives at NEMA. The work will strengthen national herpetofauna databases and address gaps in species distribution records.\n\nBy mobilizing this data, NatureUganda responds to regional needs identified through fieldwork, reviews of ESIA reports and stakeholder consultations while building on its experience in data management and regional collaboration. The project’s long term impact will come from integrating biodiversity data into restoration policies, land use planning and global conservation frameworks."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-01T14:02:28.903Z",
+          "publishedVersion": 63,
+          "end": "2027-07-02",
+          "matchingFunds": 2950,
+          "id": "BID-AF2025-INS-201",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-02T06:54:57.844Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/4FfaX37ZQydtuzw5RT6f63/ae9c35e122b55c94bd73861d97f594fd/BID-_Africa_7-_Ugandan_herpetofauna.png",
+                "details": {
+                  "size": 2203186,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 7- Ugandan herpetofauna.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Nile crocodile (<i>Crocodylus niloticus</i>) <a href=\"/occurrence/5187572638\">observed</a> in Gulu, Uganda by \tmathieu_fr</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 7- Ugandan herpetofauna"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 29501,
+          "officialTitle": "Digitizing Uganda’s Amphibian and Reptile Biodiversity for Open Access and Policy Integration",
+          "leadContact": "Mathias Behangana\nNature Uganda\nBwindi Trust House, Plot 1, Katalima Crescent, Naguru\n\n256 Kampala\nUganda",
+          "searchable": true,
+          "contractCountry": "UG",
+          "revision": 2,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "INSTITUTIONAL",
+          "projectId": "BID-AF2025-INS-201",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Sharing museum collection data for science, conservation and society in Africa"
+          },
+          "body": {
+            "en-GB": "This project mobilizes biodiversity data and strengthens institutional and regional capacity to promote open data supporting research, conservation and policy across Africa. The initiative aims to train students, museum staff and conservation practitioners in AI-assisted specimen digitization, biodiversity data management, GBIF data publishing and the development of district-level species distribution models to guide restoration and conservation planning. The project responds to major biodiversity data gaps in Africa, where many species-rich regions remain poorly documented and underrepresented in global databases. By digitizing museum collections and mobilizing existing biodiversity records, the project increase the visibility and accessibility of African biodiversity data while supporting evidence-based decision-making.\n\nBuilding on previous GBIF-funded CESP projects ([CESP2024-013](/project/CESP2024-013/building-capacity-within-biodiversity-data-between-ethiopia-and-gbif-nodes-in-sweden-and-finland) and([CESP2024-016](/project/CESP2024-016/ai-for-specimen-labels), this project establishes sustainable institutional systems for biodiversity data management and fosters a regional community of practice for long-term data sharing. Mobilized datasets will be published through GBIF and integrated with existing records to produce high-resolution habitat suitability maps for multi-purpose trees and medicinal plants. These outputs support conservation planning, ecological restoration, Red List assessments and biodiversity policy development, while embedding training and data management capacity within participating institutions to ensure lasting impact.\n\nProject collaborators: \n1. Anagaw Atickem, Addis Ababa University - Role in the project: Coordination and facilitation, Country: Ethiopia anagawam@gmail.com\n2. Makerere University, - Perpetra Akite, Country: Uganda, perpetra.akite@gmail.com\n3. Eduardo Mondlane University - Dr Angelina Martins, Country: Mozambique, angelick.martins@gmail.com\n4. University of Nairobi - Nicholas O. Oguge, Role in the project: Moblizing data from Kenya, otienoh.oguge@gmail.com\n5. University of Oslo - Desalegn Chala, Norway, d.c.gelete@nhm.uio.no\n6. The Swedish Museum of Natural History Sweden, - Veronika Johansson, veronika.johansson@nrm.se\n7. Ethiopian Biodiversity Institute, Ethiopia - Abiyot Berhanu, abiyot.berhanu@ebi.gov.et\n8. Makerere University, Uganda - Mary Namaganda, mary.namaganda@mak.ac.ug\n9. GBIF Sweden - Lena Thöle, lena.thole@nrm.se"
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-01T13:48:30.601Z",
+          "publishedVersion": 67,
+          "end": "2028-06-30",
+          "matchingFunds": 101500,
+          "id": "BID-AF2025-MIG-363",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-20T11:24:32.349Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/7GIVZiRnpZCMzMwCTLgi29/28b92efd3e4c6436abdff29ccaf999b2/BID-_Africa_18_-_Ethiopia_museum_collection_digitization.png",
+                "details": {
+                  "size": 2056128,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 18 - Ethiopia museum collection digitization.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "<i>Alchemilla abyssinica</i> <a href=\"/occurrence/2626878372\">observed</a> collected</a> in Ethiopia, housed by United Herbaria of the University and ETH Zurich </a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)\n"
+            },
+            "title": {
+              "en-GB": "BID- Africa 18 - Ethiopia museum collection digitization"
+            }
+          },
+          "start": "2026-10-01",
+          "fundsAllocated": 60000,
+          "officialTitle": "From silent shelves to impactful science: empowering museum collection digitisation and data use for science, conservation, and society in Africa",
+          "leadContact": "Anagaw Atickem\nAddis Ababa University\nKing George6th Street\nAddis Ababa, Ethiopia\nPOBox 3434 Addis Ababa\nEthiopia",
+          "searchable": true,
+          "contractCountry": "ET",
+          "revision": 2,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-363",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "BuzzKenya: a multi-institutional effort to mobilize wild bee data"
+          },
+          "body": {
+            "en-GB": "BuzzKenya is a Kenyan-led, multi-institutional effort to mobilize wild bee spatio-temporal records from selected iconic Kenyan National Parks. As of September 2025, Kenya has approximately 5.5 million biodiversity records available in GBIF, but only 24,548 (0.45 per cent) are Hymenoptera. Of the 387 recorded bee species, more than 36 per cent (140 species) lack public GBIF occurrences, a shortfall that limits research, conservation planning and IUCN assessments. BuzzKenya addresses this by standardizing legacy specimen metadata and recent survey records across partner institutions.\n\nThe consortium draws on Kenya’s strong GBIF data publishing and geo-referencing experience. The project will reuse standard operating procedures from recent bee digitization efforts (templates, updated conversion tools of Word/Excel/CSV to Darwin Core) to ensure standard compliance. Through co-funding, 2D and 3D scans for  approximately 100 Kenyan species will also be created, enabling reusable identification and training assets.\n\nThrough the project, the consortium will co-develop end-to-end standard operating procedures for unique-identifier and scannable-code labelling, imaging, transcription, name resolution, georeferencing, QA/QC, licensing and GBIF publication, as well as train approximately eight staff. \n\nLong-term benefits include delivering open, citable datasets and atlas products to guide surveys, protected-area and landscape planning, agri-pollination strategies and IUCN Red List work. Embedding capacity and publishing pipelines in Kenyan institutions sustains impact beyond the grant and positions Kenya as a regional leader in open pollinator data."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-07-01T13:43:03.423Z",
+          "publishedVersion": 65,
+          "end": "2028-06-29",
+          "matchingFunds": 60000,
+          "id": "BID-AF2025-MIG-404",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-01T13:43:03.423Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/3MJVmyzchAmobjrfEQfY3R/8b605e7c72427308405e2318303194e6/BID-_Africa_19_-_BuuzKenya.png",
+                "details": {
+                  "size": 2325344,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 19 - BuuzKenya.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Big-headed large carpenter bee (<i>Xylocopa inconstans</i>) <a href=\"/occurrence/6274253092\">observed</a> in Kakamega, Kenya by gustinoj</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 19 - BuuzKenya"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 60000,
+          "officialTitle": "BuzzKenya: a multi-institutional effort to mobilise wild bee spatio-temporal occurrence data in Kenya",
+          "leadContact": "Kiatoko Nkoba\nInternational Centre of Insect Physiology and Ecology\nP.O. Box 30772-00100 Nairobi\nKenya",
+          "searchable": true,
+          "contractCountry": "KE",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-404",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Establishing a local biodiversity monitoring hub in Côte d’Ivoire"
+          },
+          "body": {
+            "en-GB": "West Africa is underrepresented in global insect datasets. With the ongoing insect extinction crisis, affordable and scalable methods are needed to address these data gaps and support sustainable biodiversity monitoring in lower-resource settings.\n\nIn collaboration with partners in Germany and Belgium, this project aims to establish a sustainable local hub for biodiversity monitoring, digitization and data mobilization, using ants as a pilot taxonomic group. Biodiversity discovery pipelines hosted by the Museum für Naturkunde will integrate semi-automated specimen sorting, DNA barcoding, imaging and open data workflows to accelerate species discovery and specimen-based monitoring at scale.\n\nIn the long term, the project will create a validated phylogenetic database and photographic library of ants. By integrating images, DNA barcodes and morphological data, it will provide a robust foundation for future research and biodiversity monitoring. A preliminary checklist of the ants of Côte d’Ivoire will also be prepared and published in a peer-reviewed journal, helping to fill a critical gap in regional biodiversity knowledge.\n"
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-26T11:46:13.863Z",
+          "publishedVersion": 21,
+          "end": "2028-06-30",
+          "matchingFunds": 40000,
+          "id": "BID-AF2025-INS-345",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-07-09T06:53:02.872Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/4XW658yKTJwAqScgJLqfhN/a532fc1a245031ab155864d4f4d66809/af1ccab8-7c3f-425b-8bb3-6afbde4684bd.png",
+                "details": {
+                  "size": 2094301,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 17 - Ants in Côte d’Ivoire .png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "African weaver ant (<i>Oecophylla longinoda</i>) <a href=\"/occurrence/4954588163\">observed</a> in Bas-Sassandra, Côte d’Ivoire by Benjamin Zelvelder </a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 17 - Ants in Côte d’Ivoire"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 30000,
+          "officialTitle": "Frugal Innovation for Insect Biodiversity Monitoring in West Africa: Establishing a Discovery and Data Mobilization Hub in Côte d’Ivoire",
+          "leadContact": "**Lead**\nLombart M Maurice KOUAKOU\nUniversity NANGUI ABROGOUA/Centre de Recherche en Ecologie\nAutoroute express Abobo-Adjamé\n\n02 BP 801 Abidjan 02\nIvory Coast\n+225 07 07 94 38 44\n\n**Partners** \nMuseum für Naturkunde (MfN), Berlin, Germany\nRoyal Belgian Institute of Natural Sciences (RBINS), Brussels, Belgium\nPeleforo Gon Coulibaly University, Korhogo, Ivory Coast\n",
+          "searchable": true,
+          "contractCountry": "CI",
+          "revision": 2,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "INSTITUTIONAL",
+          "projectId": "BID-AF2025-INS-345",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Mobilizing and publishing aquatic biodiversity data in Zimbabwe"
+          },
+          "body": {
+            "en-GB": "This project aims to mobilize, digitize and publish biodiversity data on waterbirds and freshwater fishes from Matabeleland North and Mashonaland West provinces of Zimbabwe. These regions host ecologically significant systems such as Lake Kariba and the Zambezi River which support high species diversity but are poorly represented in open biodiversity databases, with less than 10 per cent of aquatic records currently accessible through GBIF. The project will mobilize approximately 20,000 species-occurrence records from three main sources: museum collections (approx. 30 per cent), field and research survey data (approx. 50 per cent), community and citizen-science observations (approx. 20 per cent). All records will be standardized to Darwin Core format, georeferenced and published via the GBIF IPT.\n\nThis project improves data accessibility, enhancing institutional capacity in biodiversity informatics and strengthening the integration of biodiversity data into conservation policy and planning. The project responds to gaps identified in Zimbabwe’s National Reports to the Convention on Biological Diversity (CBD) and National Biodiversity Strategy and Action Plans (NBSAPs), which highlight inadequate and inaccessible aquatic biodiversity data. By training at least 15 early-career scientists (with 40 per cent female representation) in data digitization, quality control and GBIF publishing, the project will build lasting national expertise. Its outcomes will generate six open datasets with DOIs, two metadata papers and ten species-distribution maps, advancing Zimbabwe’s capacity for evidence-based wetland management, biodiversity reporting and contributions to the CBD and the Ramsar Convention."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-26T11:44:52.762Z",
+          "publishedVersion": 38,
+          "end": "2028-06-30",
+          "matchingFunds": 15956,
+          "id": "BID-AF2025-MIG-341",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-06-26T11:44:52.762Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/GyXPvkr4cvUnEZK5sUQfJ/62b888fc265b765d561e690b44e04ec8/BID-_Africa_16_-_Waterbirds_in_Zimbabwe.png",
+                "details": {
+                  "size": 3540227,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 16 - Waterbirds in Zimbabwe.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Reed cormorant (<i>Microcarbo africanus</i>) <a href=\"/occurrence/2294661774\">observed</a> in Marshonaland West, Zimbabwe by Shirley Hitschmann </a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)\n"
+            },
+            "title": {
+              "en-GB": "BID- Africa 16 - Waterbirds in Zimbabwe"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 59858,
+          "officialTitle": "Mobilizing and Publishing Aquatic Biodiversity Data from Northwestern Zimbabwe for Conservation and Policy Integration.",
+          "leadContact": "**Lead**\nKudzanai Dhliwayo\nMarondera University of Agricultural Science and Technology, Department of Wildlife and Fisheries, Faculty of Earth and Environmental Science, CSC Campus.\nCold Storage Company (CSC) Complex\nPlot 15 Longlands Roads\n263 Marondera\nZimbabwe\n\n**Partners** \nMarondera University of Agricultural Sciences and Technology (MUAST)\nNational University of Science and Technology (NUST)\nBirdLife Zimbabwe, the Natural History Museum (NHM)\nZimbabwe Parks and Wildlife Management Authority (ZPWMA)",
+          "searchable": true,
+          "contractCountry": "ZW",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-341",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Biodiversity information optimization for resilient wetland conservation in Africa (BIOFOWARD)"
+          },
+          "body": {
+            "en-GB": "The United Nations' Convention on Biological Diversity Secretariat (2021) confirms that wetlands in Sub-Saharan Africa are vital ecosystems that support biodiversity, regulate water cycles and sustain the livelihoods of millions of people. However, wetlands face increasing degradation through land-use changes, pollution and unsustainable resource extraction, which threaten both ecological integrity and the well-being of communities dependent on them. \n\nBuilding on past GBIF-supported initiatives and national data mobilization efforts, BIOFORWARD seeks to strengthen the regional capacity for managing, sharing and applying biodiversity data to guide sustainable wetland conservation. The project will systematically identify, assess, mobilize, standardize and digitize existing wetland biodiversity datasets currently held in institutional repositories, monitoring programs and archived research collections. \n\nThrough collaborative partnerships among GBIF nodes, research institutions, government agencies and conservation organizations in West Africa, East Africa and Southern Africa, BIOFORWARD will establish sustainable biodiversity infrastructures that promote interoperability and long-term accessibility through GBIF."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-26T11:43:26.830Z",
+          "publishedVersion": 27,
+          "end": "2028-06-30",
+          "matchingFunds": 20000,
+          "id": "BID-AF2025-MIG-175",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-06-26T11:43:26.830Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/iX88l5X8QSZYC5jxzbiMR/68bd0f3a1531d8549fa105ccc91398cd/Wetlands_in_Africa.png",
+                "details": {
+                  "size": 3385720,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "Wetlands in Africa.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Cape hippopotamus (<i>Hippopotamus amphibius</i>) <a href=\"/occurrence/5935205910\">observed</a> in Narok, Kenya by Wayne and Pam Osborn</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "Wetlands in Africa"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 60000,
+          "officialTitle": "Biodiversity Information Optimisation for Resilient Wetland Conservation in Africa (BIOFOWARD)",
+          "leadContact": "Jacob Agyekum\nCouncil for Scientific and Industrial Research, Water Research Institute\n1st Csir Cl\n\n233 Accra\nGhana",
+          "searchable": true,
+          "contractCountry": "GH",
+          "revision": 1,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-175",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Enhancing regional partnerships to strengthen collaboration across Central Africa"
+          },
+          "body": {
+            "en-GB": "This project aims to address biodiversity data gaps in Central Africa by strengthening science-policy interfaces and transforming information into informed decision-making. By collaborating with biodiversity nodes in the DRC and Burundi to mobilize, standardize and publish open data through GBIF, this initiative addresses information fragmentation and strengthens the technical and institutional capacities needed to support environmental agencies in responding to the growing anthropogenic pressures threatening biodiversity in the region.\n\nThe project builds on previous BID projects with collaborating partners. By leveraging the CSB's regional network, it disseminates best practices at the national level and aims to transition data mobilization and publishing efforts from isolated initiatives to an integrated approach based on standardized workflows. This includes establishing scientific committees and consolidating regional communities of practice.\n\nA monitoring and evaluation plan ensures transparency and fosters long-term ownership throughout the project. Historical data published by Belgian institutions provide a temporal baseline for contextualizing contemporary analyses. In the long term, the project strengthens data governance, institutional autonomy and regional cooperation, contributing to the Kunming-Montreal Global Biodiversity Framework and enhancing the resilience of socio-ecological systems.\n"
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-19T10:53:24.829Z",
+          "publishedVersion": 49,
+          "end": "2028-06-30",
+          "matchingFunds": 121825,
+          "id": "BID-AF2025-MIG-419",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-06-23T07:21:27.927Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/4zpVfOqPZFaMa7lIKSjVn/325710e63abda0490035f24e98d2a0ca/BID-_Africa_21_-_Biodiversity_in_central_africa.png",
+                "details": {
+                  "size": 1726997,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 21 - Biodiversity in central africa.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Bangweulu tsessebe (<i>Damaliscus lunatus subsp. superstes</i>) <a href=\"/occurrence/3903543060\">observed</a> in Katanga, Democratic Republic of the Congo by Roger Le Guen</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 21 - Biodiversity in central africa"
+            }
+          },
+          "start": "2026-07-04",
+          "fundsAllocated": 59982,
+          "officialTitle": "From data gaps to decisions: A long-standing international partnership to strengthen emerging biodiversity nodes and the science-policy interface in Central Africa",
+          "leadContact": "Franck Masudi Muenye Mali\nCentre de Surveillance de la Biodiversité de l'Université de Kisangani\nAvenue Kithima n°4 Commune Makiso\nAvenue Munyororo N° 500 Commune Makiso\n5010400 Kisangani\nDemocratic Republic of the Congo",
+          "searchable": true,
+          "contractCountry": "CD",
+          "revision": 2,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-419",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Mobilization of biodiversity data for Southern African woodland conservation"
+          },
+          "body": {
+            "en-GB": "Significant biodiversity data gaps across Southern Africa limit evidence-based conservation, woodland restoration and progress toward the Kunming–Montreal Global Biodiversity Framework (GBF). National commitments under Targets two (restoration), nine (sustainable use) and 10 (forest biodiversity) depend on accessible, interoperable occurrence data, yet large volumes of plant records from Southern Africa (e.g. Zimbabwe, Zambia, Malawi, and South Africa) remain unpublished or stored in non-standardized formats.\n\nThis project aims to collect, digitize and standardize occurrence records for trees and shrubs plants across woodland landscapes, publishing them as open-access datasets through GBIF. These needs were identified through analysis of GBIF data coverage, consultations within the SEOSAW (Socio-Ecological Observatory for Studying African Woodlands) network and national biodiversity assessments highlighting critical taxonomic and geographic gaps.\n\nThe project builds on prior [BID support](/project/d5AD8O2jAcecQIGawemcI/mobilization-of-data-on-non-timber-forest-species-in-biodiversity-hotspots-of-zimbabwe), which developed capacity in data mobilization, Darwin Core standardization and stakeholder engagement. This effort will deepen that impact by expanding geographic and taxonomic scope, onboarding new data-holding partners and delivering training in GBIF IPT workflows.\n\nLong-term benefits include a sustainable cross-border data-sharing network anchored in SEOSAW, strengthened biodiversity informatics capacity across partner institutions and a growing repository of quality occurrence data. These outputs will inform restoration prioritization, species recovery tracking, and national GBF reporting strengthening the scientific basis for conservation and sustainable land management across Southern Africa."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-19T10:52:05.368Z",
+          "publishedVersion": 20,
+          "end": "2028-06-30",
+          "matchingFunds": 60000,
+          "id": "BID-AF2025-MIG-323",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-06-23T07:21:16.736Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/14DjXAmcC0Jb8sRkdwO0ER/b60e16f6c7b61300b46f023c72c42d8a/BID-_Africa_13_-_Southern_Africa_woodlands__1_.png",
+                "details": {
+                  "size": 1968319,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 13 - Southern Africa woodlands (1).png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Knobbly climbing bushwillow (<i>Combretum mossambicense</i>) <a href=\"/occurrence/5134870088\">observed</a> in Limpopo, South Africa by Phillip Nieuwoudt</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 13 - Southern Africa woodlands"
+            }
+          },
+          "start": "2026-07-15",
+          "fundsAllocated": 60000,
+          "officialTitle": "Mobilization of Biodiversity Data for Southern African Woodlands Conservation",
+          "leadContact": "Justice Muvengwi\nUniversity of the Witwatersrand\nJan Smuts Avenue\nBraamfontein\n2193 Johannesburg\nSouth Africa",
+          "searchable": true,
+          "contractCountry": "ZA",
+          "revision": 2,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-323",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Upscaling biodiversity data mobilization and use for the private sector in Uganda"
+          },
+          "body": {
+            "en-GB": "High quality biodiversity data is required to aid Environmental and Social Impact Assessment (ESIA) practitioners and industry professional in measuring impacts to biodiversity in compliance with regulatory frameworks. Substantial data gaps in many operational areas are a hindrance to being able to deliver robust biodiversity metrics for assessments. These gaps partly exist because current data is not accessible in user-friendly formats.\n\nThis project focuses on mobilizing data from companies and practitioners of ESIAs to increase data publishing capacity within institutions. Stakeholder collaboration is an essential aspect of this project, including piloting the use of biodiversity information products (BIPs) and metrics to support industries to mobilize biodiversity data beyond this project.\n\nThe project responds to priorities of the Africa region to fill known data gaps and improve access to data held by development companies and private practitioners. It is relevant to national biodiversity policies including the National Biodiversity Strategy and Action Plan (NBSAP) which encourages the transformation of biodiversity data into user-friendly formats to facilitate awareness raising, conservation action and reporting. \n\nThis work builds on [previous](/project/5MKPHm718koog2OYmgqKKI/increasing-capacity-for-conservation-of-threatened-fish-species-through-data-mobilization-and-training) BID-funded projects that mobilized data on freshwater biodiversity and established substantial gaps in areas not frequented by research institutions but are possibly surveyed and monitored by practitioners of ESIAs."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-19T10:45:55.871Z",
+          "publishedVersion": 72,
+          "end": "2028-06-30",
+          "matchingFunds": 37593,
+          "id": "BID-AF2025-MIG-301",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "updatedAt": "2026-06-23T07:21:08.683Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/6IERkJUhAbjqzIQhUCHPhb/340f6c88e1b0d25ed538760f2b3c9d7a/BID-_Africa_12_-_EIAS_in_Uganda.png",
+                "details": {
+                  "size": 2460081,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 12 - EIAS in Uganda.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "African hairy bush viper (<i>Atheris hispida</i>) <a href=\"/occurrence/2265842472\">observed</a> in Mubende, Uganda by Gert Jan Verspui </a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)"
+            },
+            "title": {
+              "en-GB": "BID- Africa 12 - EIAS in Uganda"
+            }
+          },
+          "start": "2026-07-03",
+          "fundsAllocated": 60000,
+          "officialTitle": "Building capacity and upscaling data mobilisation and use to the private sector and practitioners of Environmental and Social Impact Assessments (ESIA) in Uganda",
+          "leadContact": "Mark Olokotum\nNational Fisheries Resources Research Institute, Jinja, Uganda\nNile Crescent, Jinja\n\n256 Jinja\nUganda",
+          "searchable": true,
+          "contractCountry": "UG",
+          "revision": 2,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "MULTI_INSTITUTIONAL",
+          "projectId": "BID-AF2025-MIG-301",
+          "status": "APPROVED",
+          "homepage": true
+        },
+        {
+          "title": {
+            "en-GB": "Unlocking open access to Kenyan marine biodiversity data"
+          },
+          "body": {
+            "en-GB": "Coastal Kenya faces pressures from habitat degradation, overfishing, climate change and infrastructure development. Despite KMFRI’s extensive research, much of the marine biodiversity data remains inaccessible to planners, conservationists and policy makers. This project unlocks historical and recent datasets and support Kenya’s commitments on the conservation and sustainable use of the oceans, seas and marine resources for sustainable development under the Sustainable Development Goals (SDG 14).\n\nThis project aims to mobilize, standardize and publish marine biodiversity data from Kenya’s critical habitats collected by Kenya Marine and Fisheries Research Institute (KMFRI) researchers over the past two decades. By making these datasets openly accessible through GBIF and OBIS, the project addresses key knowledge gaps, strengthens institutional and national capacity and promotes evidence-based decision making for marine conservation and sustainable blue economy development.\n\nThe project will mobilize, digitize and publish at least 15 marine biodiversity datasets to GBIF and OBIS, improving access to species occurrence and habitat data from underrepresented ecosystems. This will be done by training KMFRI researchers and technical staff in data digitization and publishing in global platforms such as GBIF ensuring sustained data digitization and publishing capacity. Training workshops will be conducted to engage various fisheries stakeholders, scientists, conservationists, policy makers and managers on how to access and apply biodiversity data for evidence based policies such as marine spatial planning (MSP)."
+          },
+          "type": "Entry",
+          "locale": [
+            "en-GB"
+          ],
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "uo17ejk9rkwj"
+            }
+          },
+          "gbifRegion": "AFRICA",
+          "createdAt": "2026-06-17T09:50:43.682Z",
+          "publishedVersion": 23,
+          "end": "2028-01-31",
+          "matchingFunds": 15439,
+          "id": "BID-AF2025-INS-410",
+          "programme": {
+            "id": "82243",
+            "summary": {
+              "en-GB": "This multi-year EU-funded programme aims to increase the amount of biodiversity information available in sub-Saharan Africa, the Caribbean and the Pacific"
+            },
+            "title": {
+              "en-GB": "BID: Biodiversity Information for Development"
+            },
+            "body": {
+              "en-GB": "![](/sites/default/files/images/2015-September/BID-v2.png)**Biodiversity Information for Development** (BID) is a multi-year programme funded by the [European Union](http://europa.eu) and led by GBIF with the aim of enhancing capacity for effective mobilization and use of biodiversity data in research and policy in Africa, Latin America and the Caribbean, and the Pacific islands.\n\n[Funding from the programme's first phase](/news/82375) has supported capacity enhancement activities and projects to mobilize biodiversity data and strengthened national and regional biodiversity information facilities in these regions. Its [impacts to date](//assets.ctfassets.net/uo17ejk9rkwj/7ezmj33g285s8mRb1HTpE/36359b4b635e64f28a6ce3ff2b50fd89/191127-BID-Impact-Summary.pdf) have focused on data that support the regions' policy needs, particularly in connection with protected areas, threatened species and invasive alien species.\n\n---\n\n[![EU small flag](//images.ctfassets.net/uo17ejk9rkwj/ZM2kbuCIzpIaflYUCa3ab/b8b2abc18456f023c6e17ec6b8a6336c/flag-yellow-sm.jpg)](https://www.europa.eu \"European Union\") &nbsp;_This programme is funded by the [European Union](http://www.europa.eu)._"
+            }
+          },
+          "contentType": "project",
+          "events": [
+            {
+              "id": "baf761-f899-452b-aade-a9af089",
+              "country": "KE",
+              "title": {
+                "en-GB": "Inception and sensitization meeting on project BID-AF2025-INS-410"
+              },
+              "body": {
+                "en-GB": "Kenya Marine and Fisheries Research Institute (KMFRI) held an inception and sensitization meeting on 2 September 2026 for the project, “Unlocking Marine Biodiversity Data to support Evidence-Based Policies.” The meeting brings together key researchers to introduce the project, build a shared understanding of its objectives and lay the foundation for collaborative implementation.\n\nParticipants were introduced to GBIF and OBIS and explored why mobilizing and openly sharing biodiversity data matters. The sessions covered the data mobilization process, data standards, and the Darwin Core principles that support the organization and publication of high-quality biodiversity datasets through GBIF and OBIS.\n\nThe meeting ended with a clear commitment to action. Participants identified priority datasets and their data holders for mobilization and publication and jointly developed a preliminary roadmap for turning these datasets into accessible, high-quality biodiversity information.\nThe project marks an important step towards ensuring that Kenya’s marine biodiversity data do not remain hidden in reports, databases and institutional archives but are unlocked, shared and transformed into evidence that can inform research, conservation and sound marine policy.\n\nThis is connected to project: BID-AF2025-INS-410"
+              }
+            }
+          ],
+          "updatedAt": "2026-09-04T06:05:50.183Z",
+          "contentful_metadata_tags": [
+            "noTranslation"
+          ],
+          "primaryImage": {
+            "file": {
+              "en-GB": {
+                "url": "//images.ctfassets.net/uo17ejk9rkwj/7dSqbJeNsD5PIB6Yh1b3Vm/7e2a7d8c535723dad60dd56cb805c691/BID-_Africa_19_-_Kenya_marine_ecosystems.png",
+                "details": {
+                  "size": 3451511,
+                  "image": {
+                    "width": 2340,
+                    "height": 844
+                  }
+                },
+                "fileName": "BID- Africa 19 - Kenya marine ecosystems.png",
+                "contentType": "image/png"
+              }
+            },
+            "description": {
+              "en-GB": "Goldfin permit (<i>Trachinotus blochii</i>) <a href=\"/occurrence/5837965609\">observed</a> in Kwale, Kenya by Dzivula Gube</a> (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.en\">CC BY-NC 4.0</a>)\n"
+            },
+            "title": {
+              "en-GB": "BID- Africa 19 - Kenya marine ecosystems"
+            }
+          },
+          "start": "2026-07-06",
+          "fundsAllocated": 29498,
+          "officialTitle": "Unlocking Open Access to Marine Biodiversity Data from Kenya's Critical Habitats to Support Evidence-Based Policies",
+          "leadContact": "Fatuma Mzingirwa\nKenya Marine and Fisheries Research Institute\nSilos Road\n\n81651-80100 Mombasa\nKenya",
+          "searchable": true,
+          "contractCountry": "KE",
+          "revision": 3,
+          "call": {
+            "id": "DFptkcapsP44Shk1bZuET",
+            "title": {
+              "en-GB": "BID 2025 Africa"
+            }
+          },
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "gbifProgrammeAcronym": "BID",
+          "grantType": "INSTITUTIONAL",
+          "projectId": "BID-AF2025-INS-410",
+          "status": "APPROVED",
+          "homepage": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1195 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $hasPredicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {\n      search: occurrenceSearch(q: $q, predicate: $hasPredicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: iucnRedListCategory(checklistKey: $checklistKey)\n        }\n        facet {\n          results: iucnRedListCategory(size: $size, from: $from, checklistKey: $checklistKey) {\n            key\n            count\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "networkKey",
+          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "iucnRedListCategory",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "equals",
+              "key": "networkKey",
+              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+            }
+          ]
+        },
+        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b",
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 318848397
+        },
+        "cardinality": {
+          "total": 10
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "NE",
+              "count": 149214522,
+              "occurrences": {
+                "metaPredicate": 62074370,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "NE",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "NE",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "NE"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "LC",
+              "count": 146638034,
+              "occurrences": {
+                "metaPredicate": 62073666,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "LC",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "LC",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "LC"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "VU",
+              "count": 9584013,
+              "occurrences": {
+                "metaPredicate": 62072570,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "VU",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "VU",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "VU"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "NT",
+              "count": 7129596,
+              "occurrences": {
+                "metaPredicate": 62074579,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "NT",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "NT",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "NT"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "CR",
+              "count": 2904490,
+              "occurrences": {
+                "metaPredicate": 62074474,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "CR",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "CR",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "CR"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "EN",
+              "count": 1855698,
+              "occurrences": {
+                "metaPredicate": 62074100,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "EN",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "EN",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "EN"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "DD",
+              "count": 1519133,
+              "occurrences": {
+                "metaPredicate": 62074133,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "DD",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "DD",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "DD"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "EX",
+              "count": 2594,
+              "occurrences": {
+                "metaPredicate": 62074118,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "EX",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "EX",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "EX"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "EW",
+              "count": 309,
+              "occurrences": {
+                "metaPredicate": 62074119,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "EW",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "EW",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "EW"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "CD",
+              "count": 8,
+              "occurrences": {
+                "metaPredicate": 62074428,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "isNotNull",
+                            "key": "iucnRedListCategory",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "networkKey",
+                            "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "iucnRedListCategory",
+                        "value": "CD",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "isNotNull",
+                              "parameter": "IUCN_RED_LIST_CATEGORY",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "NETWORK_KEY",
+                              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "IUCN_RED_LIST_CATEGORY",
+                          "value": "CD",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "exists": {
+                                        "field": "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.iucnRedListCategoryCode": {
+                                          "value": "CD"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

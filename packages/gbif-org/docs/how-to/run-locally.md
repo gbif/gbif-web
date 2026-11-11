@@ -11,7 +11,7 @@ Install the dependencies and copy the example configuration, which points at the
 endpoints:
 
 ```
-CYPRESS_INSTALL_BINARY=0 npm ci   # the Cypress binary is not needed to run the site
+npm ci
 cp .env.example .env
 ```
 

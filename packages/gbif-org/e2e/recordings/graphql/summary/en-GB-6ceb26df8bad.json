@@ -1,0 +1,125 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: topics\n        }\n        facet {\n          results: topics(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "publishingOrganizationKey",
+          "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "topics"
+            },
+            {
+              "type": "equals",
+              "key": "publishingOrganizationKey",
+              "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 50,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 8353
+        },
+        "cardinality": {
+          "total": 18
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "ECOLOGY",
+              "count": 2097
+            },
+            {
+              "key": "CONSERVATION",
+              "count": 1803
+            },
+            {
+              "key": "CLIMATE_CHANGE",
+              "count": 1488
+            },
+            {
+              "key": "SPECIES_DISTRIBUTIONS",
+              "count": 1178
+            },
+            {
+              "key": "INVASIVES",
+              "count": 1110
+            },
+            {
+              "key": "BIODIVERSITY_SCIENCE",
+              "count": 583
+            },
+            {
+              "key": "EVOLUTION",
+              "count": 569
+            },
+            {
+              "key": "BIOGEOGRAPHY",
+              "count": 520
+            },
+            {
+              "key": "TAXONOMY",
+              "count": 479
+            },
+            {
+              "key": "AGRICULTURE",
+              "count": 393
+            },
+            {
+              "key": "PHYLOGENETICS",
+              "count": 325
+            },
+            {
+              "key": "HUMAN_HEALTH",
+              "count": 323
+            },
+            {
+              "key": "MARINE",
+              "count": 270
+            },
+            {
+              "key": "CITIZEN_SCIENCE",
+              "count": 265
+            },
+            {
+              "key": "FRESHWATER",
+              "count": 126
+            },
+            {
+              "key": "DATA_PAPER",
+              "count": 94
+            },
+            {
+              "key": "ECOSYSTEM_SERVICES",
+              "count": 69
+            },
+            {
+              "key": "DATA_MANAGEMENT",
+              "count": 41
+            }
+          ]
+        }
+      }
+    }
+  }
+}

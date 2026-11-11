@@ -92,6 +92,20 @@ script; run `npx eslint src` instead.
 Unit tests use [Vitest](https://vitest.dev/) (configured in `gbif/vite.config.ts`) and sit next to
 the code they test, as `*.test.ts` files.
 
+End-to-end tests use [Playwright](https://playwright.dev/) and live in `e2e/`. They run against a
+production build, with all upstream responses replayed from recordings, so they work offline and give
+the same result every time. They cover gbif.org with server-side rendering as well as a hosted portal.
+
+```
+npm run e2e:build
+npm run e2e
+```
+
+Rebuild after changing anything in `src/`; the tests refuse to run against an out-of-date build. If
+you change a query or add a page, record new responses with `npm run e2e:record` and commit the
+updated `e2e/recordings/`. [`e2e/README.md`](e2e/README.md) explains recording, re-recording and
+writing new tests.
+
 ## Environment Variables
 
 Environment variables are sourced from various `.env` files, depending on the running environment.  

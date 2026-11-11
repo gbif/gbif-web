@@ -37,7 +37,7 @@ const REAL = {
     process.env.REAL_TRANSLATIONS || 'https://react-components.gbif-dev.org/lib/translations',
   webUtils: process.env.REAL_WEB_UTILS || 'https://graphql.gbif.org/unstable-api',
   forms: process.env.REAL_FORMS || 'https://graphql.gbif.org/forms',
-  content: process.env.REAL_CONTENT || 'https://graphql.gbif.org/content',
+  content: process.env.REAL_CONTENT || 'https://hp-search.gbif.org/content',
   apiV2: process.env.REAL_API_V2 || 'https://api.gbif.org/v2',
   apiV1: process.env.REAL_API_V1 || 'https://api.gbif.org/v1',
   api: process.env.REAL_API || 'https://api.gbif.org',

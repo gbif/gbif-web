@@ -1,0 +1,1510 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query Dataset($key: ID!) {\n    literatureSearch(gbifDatasetKey: [$key]) {\n      documents {\n        total\n      }\n    }\n    # totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {\n    #   count\n    # }\n    # accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {\n    #   count\n    # }\n    # synonyms: taxonSearch(\n    #   datasetKey: [$key]\n    #   origin: [SOURCE]\n    #   status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]\n    # ) {\n    #   count\n    # }\n    dataset(key: $key) {\n      key\n      checklistBankDataset {\n        key\n      }\n      type\n      title\n      created\n      modified\n      deleted\n      duplicateOfDataset {\n        key\n        title\n      }\n      dwca {\n        extensions\n      }\n      pubDate\n      description\n      dataLanguage\n      purpose\n      temporalCoverages\n      logoUrl\n      publishingOrganizationKey\n      publishingOrganizationTitle\n      homepage\n      additionalInfo\n      acknowledgements\n      installation {\n        key\n        title\n        organization {\n          key\n          title\n        }\n      }\n      volatileContributors(limit: 101) {\n        key\n        firstName\n        lastName\n        position\n        organization\n        address\n        city\n        postalCode\n        province\n        country\n        userId\n        email\n        phone\n        type\n        _highlighted\n        roles\n      }\n      contactsCitation {\n        key\n        abbreviatedName\n        firstName\n        lastName\n        userId\n        roles\n      }\n      geographicCoverages {\n        description\n        boundingBox {\n          minLatitude\n          maxLatitude\n          minLongitude\n          maxLongitude\n          globalCoverage\n        }\n      }\n      taxonomicCoverages {\n        description\n        coverages {\n          scientificName\n          commonName\n          rank {\n            interpreted\n          }\n        }\n      }\n      publishingOrganization {\n        title\n        homepage\n        logoUrl\n      }\n      bibliographicCitations(limit: 201) {\n        identifier\n        text\n      }\n      samplingDescription {\n        studyExtent\n        sampling\n        qualityControl\n        methodSteps\n      }\n      dataDescriptions {\n        charset\n        name\n        format\n        formatVersion\n        url\n      }\n      keywordCollections {\n        thesaurus\n        keywords\n      }\n      citation {\n        text\n      }\n      license\n      project {\n        title\n        abstract\n        studyAreaDescription\n        designDescription\n        funding\n        contacts {\n          firstName\n          lastName\n\n          organization\n          position\n          roles\n          type\n\n          address\n          city\n          postalCode\n          province\n          country\n\n          homepage\n          email\n          phone\n          userId\n        }\n        identifier\n        gbifProject {\n          title\n          primaryImage {\n            ...ArticleBanner\n          }\n        }\n      }\n      endpoints {\n        key\n        type\n        url\n      }\n      identifiers(limit: 50) {\n        key\n        type\n        identifier\n      }\n      doi\n      machineTags {\n        namespace\n        name\n        value\n      }\n      localContexts {\n        project_page\n        title\n        notice {\n          name\n          img_url\n        }\n        labels {\n          name\n          img_url\n          communityName\n        }\n      }\n      networks(visibleOnDatasetPage: true) {\n        key\n        title\n      }\n    }\n  }\n\n  fragment ArticleBanner on AssetImage {\n    description\n    title\n    file {\n      url\n      details {\n        image {\n          width\n          height\n        }\n      }\n      normal: thumbor(width: 1200, height: 500)\n      mobile: thumbor(width: 800, height: 400)\n    }\n  }\n",
+      "variables": {
+        "key": "4fa7b334-ce0d-4e88-aaae-2e0c138d049e"
+      },
+      "operationName": "Dataset"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "literatureSearch": {
+        "documents": {
+          "total": 1433
+        }
+      },
+      "dataset": {
+        "key": "4fa7b334-ce0d-4e88-aaae-2e0c138d049e",
+        "checklistBankDataset": null,
+        "type": "SAMPLING_EVENT",
+        "title": "EOD – eBird Observation Dataset",
+        "created": "2010-09-16T11:58:24.000+00:00",
+        "modified": "2026-10-27T13:05:35.448+00:00",
+        "deleted": null,
+        "duplicateOfDataset": null,
+        "dwca": {
+          "extensions": [
+            "http://rs.tdwg.org/eco/terms/Event",
+            "http://rs.tdwg.org/dwc/terms/Occurrence"
+          ]
+        },
+        "pubDate": "2026-10-01T00:00:00.000+00:00",
+        "description": "<p>eBird is a collective enterprise that takes a novel approach to citizen science by developing cooperative partnerships among experts in a wide range of fields: population ecologists, conservation biologists, quantitative ecologists, statisticians, computer scientists, GIS and informatics specialists, application developers, and data administrators. Managed by the Cornell Lab of Ornithology eBird’s goal is to increase data quantity through participant recruitment and engagement globally, but also to quantify and control for data quality issues such as observer variability, imperfect detection of species, and both spatial and temporal bias in data collection. eBird data are openly available and used by a broad spectrum of students, teachers, scientists, NGOs, government agencies, land managers, and policy makers. The result is that eBird has become a major source of biodiversity data, increasing our knowledge of the dynamics of species distributions, and having a direct impact on the conservation of birds and their habitats.</p>",
+        "dataLanguage": "eng",
+        "purpose": null,
+        "temporalCoverages": [
+          {
+            "@type": "range",
+            "start": "1800-01-01T00:00:00.000+00:00",
+            "end": "2025-12-31T00:00:00.000+00:00"
+          }
+        ],
+        "logoUrl": null,
+        "publishingOrganizationKey": "e2e717bf-551a-4917-bdc9-4fa0f342c530",
+        "publishingOrganizationTitle": "Cornell Lab of Ornithology",
+        "homepage": "https://ebird.org/",
+        "additionalInfo": "<p>Data released annually. These data are made available through the Cornell Lab of Ornithology at Cornell University. No warranty either expressed or implied is made regarding the accuracy of these data.</p>",
+        "acknowledgements": null,
+        "installation": {
+          "key": "7182d304-b0a2-404b-baba-2086a325c221",
+          "title": "Cornell Lab of Ornithology Data",
+          "organization": {
+            "key": "e2e717bf-551a-4917-bdc9-4fa0f342c530",
+            "title": "Cornell Lab of Ornithology"
+          }
+        },
+        "volatileContributors": [
+          {
+            "key": "7660887",
+            "firstName": "Jasdev",
+            "lastName": "Imani",
+            "position": [
+              "Technical Lead"
+            ],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [
+              "ebird@cornell.edu"
+            ],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR",
+              "ADMINISTRATIVE_POINT_OF_CONTACT"
+            ]
+          },
+          {
+            "key": "7660888",
+            "firstName": "Christine",
+            "lastName": "Audette",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660889",
+            "firstName": "Thomas",
+            "lastName": "Auer",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660890",
+            "firstName": "Sara",
+            "lastName": "Barker",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660891",
+            "firstName": "Jessie",
+            "lastName": "Barry",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660892",
+            "firstName": "Mike",
+            "lastName": "Charnoky",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660893",
+            "firstName": "Cynthia",
+            "lastName": "Crowley",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660894",
+            "firstName": "Jenna",
+            "lastName": "Curtis",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660895",
+            "firstName": "Ian",
+            "lastName": "Davies",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660896",
+            "firstName": "Courtney",
+            "lastName": "Davis",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660897",
+            "firstName": "Renata",
+            "lastName": "Diaz",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660898",
+            "firstName": "Sasha",
+            "lastName": "Feinberg",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660899",
+            "firstName": "Daniel",
+            "lastName": "Fink",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660900",
+            "firstName": "Joshua",
+            "lastName": "Ganger",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660901",
+            "firstName": "John",
+            "lastName": "Garrett",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660902",
+            "firstName": "Cullen",
+            "lastName": "Hanks",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660903",
+            "firstName": "Mike",
+            "lastName": "Hayes",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660904",
+            "firstName": "Wesley",
+            "lastName": "Hochachka",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660905",
+            "firstName": "Marshall",
+            "lastName": "Iliff",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660906",
+            "firstName": "Adam",
+            "lastName": "Jordan",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660907",
+            "firstName": "Shawn",
+            "lastName": "Ligocki",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660908",
+            "firstName": "Taylor",
+            "lastName": "Long",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660909",
+            "firstName": "William",
+            "lastName": "Morris",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660910",
+            "firstName": "Stephen",
+            "lastName": "Morrow",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660911",
+            "firstName": "Lauren",
+            "lastName": "Oldham",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660912",
+            "firstName": "Francisco",
+            "lastName": "Padilla Obregon",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660913",
+            "firstName": "Orin",
+            "lastName": "Robinson",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660914",
+            "firstName": "Amanda",
+            "lastName": "Rodewald",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660915",
+            "firstName": "Matt",
+            "lastName": "Schloss",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660916",
+            "firstName": "Barry",
+            "lastName": "Sims",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660917",
+            "firstName": "Alli",
+            "lastName": "Smith",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660918",
+            "firstName": "Jeremy",
+            "lastName": "Smith",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660919",
+            "firstName": "Matt",
+            "lastName": "Smith",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660920",
+            "firstName": "Andrew",
+            "lastName": "Stillman",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660921",
+            "firstName": "Myles",
+            "lastName": "Stokowski",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660922",
+            "firstName": "Matt",
+            "lastName": "Strimas-Mackey",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660923",
+            "firstName": "Brian",
+            "lastName": "Sullivan",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Biodiversity Studies and Higher Education, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660924",
+            "firstName": "Alexander",
+            "lastName": "Tedeschi",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660925",
+            "firstName": "Drew",
+            "lastName": "Weber",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Macaulay Library, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660926",
+            "firstName": "Heather",
+            "lastName": "Wolf",
+            "position": [],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": "7660927",
+            "firstName": "Christopher",
+            "lastName": "Wood",
+            "position": [
+              "Program Director"
+            ],
+            "organization": "Cornell Lab of Ornithology",
+            "address": [
+              "Center for Avian Population Studies, 159 Sapsucker Woods Road"
+            ],
+            "city": "Ithaca",
+            "postalCode": "14850",
+            "province": "NY",
+            "country": "US",
+            "userId": [],
+            "email": [
+              "ebird@cornell.edu"
+            ],
+            "phone": [],
+            "type": "ORIGINATOR",
+            "_highlighted": true,
+            "roles": [
+              "ORIGINATOR"
+            ]
+          }
+        ],
+        "contactsCitation": [
+          {
+            "key": 7660887,
+            "abbreviatedName": "Imani J",
+            "firstName": "Jasdev",
+            "lastName": "Imani",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660888,
+            "abbreviatedName": "Audette C",
+            "firstName": "Christine",
+            "lastName": "Audette",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660889,
+            "abbreviatedName": "Auer T",
+            "firstName": "Thomas",
+            "lastName": "Auer",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660890,
+            "abbreviatedName": "Barker S",
+            "firstName": "Sara",
+            "lastName": "Barker",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660891,
+            "abbreviatedName": "Barry J",
+            "firstName": "Jessie",
+            "lastName": "Barry",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660892,
+            "abbreviatedName": "Charnoky M",
+            "firstName": "Mike",
+            "lastName": "Charnoky",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660893,
+            "abbreviatedName": "Crowley C",
+            "firstName": "Cynthia",
+            "lastName": "Crowley",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660894,
+            "abbreviatedName": "Curtis J",
+            "firstName": "Jenna",
+            "lastName": "Curtis",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660895,
+            "abbreviatedName": "Davies I",
+            "firstName": "Ian",
+            "lastName": "Davies",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660896,
+            "abbreviatedName": "Davis C",
+            "firstName": "Courtney",
+            "lastName": "Davis",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660897,
+            "abbreviatedName": "Diaz R",
+            "firstName": "Renata",
+            "lastName": "Diaz",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660898,
+            "abbreviatedName": "Feinberg S",
+            "firstName": "Sasha",
+            "lastName": "Feinberg",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660899,
+            "abbreviatedName": "Fink D",
+            "firstName": "Daniel",
+            "lastName": "Fink",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660900,
+            "abbreviatedName": "Ganger J",
+            "firstName": "Joshua",
+            "lastName": "Ganger",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660901,
+            "abbreviatedName": "Garrett J",
+            "firstName": "John",
+            "lastName": "Garrett",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660902,
+            "abbreviatedName": "Hanks C",
+            "firstName": "Cullen",
+            "lastName": "Hanks",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660903,
+            "abbreviatedName": "Hayes M",
+            "firstName": "Mike",
+            "lastName": "Hayes",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660904,
+            "abbreviatedName": "Hochachka W",
+            "firstName": "Wesley",
+            "lastName": "Hochachka",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660905,
+            "abbreviatedName": "Iliff M",
+            "firstName": "Marshall",
+            "lastName": "Iliff",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660906,
+            "abbreviatedName": "Jordan A",
+            "firstName": "Adam",
+            "lastName": "Jordan",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660907,
+            "abbreviatedName": "Ligocki S",
+            "firstName": "Shawn",
+            "lastName": "Ligocki",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660908,
+            "abbreviatedName": "Long T",
+            "firstName": "Taylor",
+            "lastName": "Long",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660909,
+            "abbreviatedName": "Morris W",
+            "firstName": "William",
+            "lastName": "Morris",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660910,
+            "abbreviatedName": "Morrow S",
+            "firstName": "Stephen",
+            "lastName": "Morrow",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660911,
+            "abbreviatedName": "Oldham L",
+            "firstName": "Lauren",
+            "lastName": "Oldham",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660912,
+            "abbreviatedName": "Padilla Obregon F",
+            "firstName": "Francisco",
+            "lastName": "Padilla Obregon",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660913,
+            "abbreviatedName": "Robinson O",
+            "firstName": "Orin",
+            "lastName": "Robinson",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660914,
+            "abbreviatedName": "Rodewald A",
+            "firstName": "Amanda",
+            "lastName": "Rodewald",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660915,
+            "abbreviatedName": "Schloss M",
+            "firstName": "Matt",
+            "lastName": "Schloss",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660916,
+            "abbreviatedName": "Sims B",
+            "firstName": "Barry",
+            "lastName": "Sims",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660917,
+            "abbreviatedName": "Smith A",
+            "firstName": "Alli",
+            "lastName": "Smith",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660918,
+            "abbreviatedName": "Smith J",
+            "firstName": "Jeremy",
+            "lastName": "Smith",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660919,
+            "abbreviatedName": "Smith M",
+            "firstName": "Matt",
+            "lastName": "Smith",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660920,
+            "abbreviatedName": "Stillman A",
+            "firstName": "Andrew",
+            "lastName": "Stillman",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660921,
+            "abbreviatedName": "Stokowski M",
+            "firstName": "Myles",
+            "lastName": "Stokowski",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660922,
+            "abbreviatedName": "Strimas-Mackey M",
+            "firstName": "Matt",
+            "lastName": "Strimas-Mackey",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660923,
+            "abbreviatedName": "Sullivan B",
+            "firstName": "Brian",
+            "lastName": "Sullivan",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660924,
+            "abbreviatedName": "Tedeschi A",
+            "firstName": "Alexander",
+            "lastName": "Tedeschi",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660925,
+            "abbreviatedName": "Weber D",
+            "firstName": "Drew",
+            "lastName": "Weber",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660926,
+            "abbreviatedName": "Wolf H",
+            "firstName": "Heather",
+            "lastName": "Wolf",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          },
+          {
+            "key": 7660927,
+            "abbreviatedName": "Wood C",
+            "firstName": "Christopher",
+            "lastName": "Wood",
+            "userId": [],
+            "roles": [
+              "ORIGINATOR"
+            ]
+          }
+        ],
+        "geographicCoverages": [
+          {
+            "description": "<p>Worldwide</p>",
+            "boundingBox": {
+              "minLatitude": -90,
+              "maxLatitude": 90,
+              "minLongitude": -180,
+              "maxLongitude": 180,
+              "globalCoverage": true
+            }
+          }
+        ],
+        "taxonomicCoverages": [
+          {
+            "description": "<p>Taxonomic authority: The Clements Checklist of Birds, Sixth Edition, v2025</p>",
+            "coverages": [
+              {
+                "scientificName": "Aves",
+                "commonName": "birds",
+                "rank": {
+                  "interpreted": "CLASS"
+                }
+              }
+            ]
+          }
+        ],
+        "publishingOrganization": {
+          "title": "Cornell Lab of Ornithology",
+          "homepage": [
+            "http://www.birds.cornell.edu"
+          ],
+          "logoUrl": null
+        },
+        "bibliographicCitations": [],
+        "samplingDescription": null,
+        "dataDescriptions": [],
+        "keywordCollections": [
+          {
+            "thesaurus": "GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml",
+            "keywords": [
+              "Occurrence"
+            ]
+          },
+          {
+            "thesaurus": "GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml",
+            "keywords": [
+              "Observation"
+            ]
+          }
+        ],
+        "citation": {
+          "text": "Imani J, Audette C, Auer T, Barker S, Barry J, Charnoky M, Crowley C, Curtis J, Davies I, Davis C, Diaz R, Feinberg S, Fink D, Ganger J, Garrett J, Hanks C, Hayes M, Hochachka W, Iliff M, Jordan A, Ligocki S, Long T, Morris W, Morrow S, Oldham L, Padilla Obregon F, Robinson O, Rodewald A, Schloss M, Sims B, Smith A, Smith J, Smith M, Stillman A, Stokowski M, Strimas-Mackey M, Sullivan B, Tedeschi A, Weber D, Wolf H, Wood C (2026). EOD – eBird Observation Dataset. Cornell Lab of Ornithology. Sampling event dataset https://doi.org/10.15468/aomfnb accessed via GBIF.org on 2026-11-10."
+        },
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode",
+        "project": null,
+        "endpoints": [
+          {
+            "key": "1332635",
+            "type": "DWC_ARCHIVE",
+            "url": "https://hosted-datasets.gbif.org/ebird/ebird2025.tar.zst"
+          },
+          {
+            "key": "600905",
+            "type": "OTHER",
+            "url": "https://ebird.org/science/download-ebird-data-products"
+          }
+        ],
+        "identifiers": [
+          {
+            "key": "490026",
+            "type": "CLB_DATASET_KEY",
+            "identifier": "43"
+          },
+          {
+            "key": "28386",
+            "type": "UUID",
+            "identifier": "4fa7b334-ce0d-4e88-aaae-2e0c138d049e"
+          },
+          {
+            "key": "23613",
+            "type": "UNKNOWN",
+            "identifier": "CLOEODMETADATA.05192014.1"
+          },
+          {
+            "key": "11965",
+            "type": "GBIF_PORTAL",
+            "identifier": "43"
+          }
+        ],
+        "doi": "10.15468/aomfnb",
+        "machineTags": [
+          {
+            "namespace": "citizenScience.gbif.org",
+            "name": "status",
+            "value": "not_reviewed"
+          },
+          {
+            "namespace": "citizenScience.gbif.org",
+            "name": "status",
+            "value": "not_reviewed"
+          },
+          {
+            "namespace": "citizenScience.mgrosjean.gbif.org",
+            "name": "status",
+            "value": "not_reviewed"
+          },
+          {
+            "namespace": "crawler.gbif.org",
+            "name": "omitFromScheduledCrawl",
+            "value": "true"
+          },
+          {
+            "namespace": "crawler.gbif.org",
+            "name": "crawl_attempt",
+            "value": "28"
+          }
+        ],
+        "localContexts": [],
+        "networks": []
+      }
+    }
+  }
+}

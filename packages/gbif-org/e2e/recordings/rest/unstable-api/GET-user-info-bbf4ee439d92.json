@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://graphql.gbif.org/unstable-api/user-info?lang=en"
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "country": "DK",
+    "countryName": "Denmark"
+  }
+}

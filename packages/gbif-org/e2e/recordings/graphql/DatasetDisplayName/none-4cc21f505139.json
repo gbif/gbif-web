@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "9f44e53c-8e18-4916-bde3-6f999bf9e4f1"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Resolución de 26 de noviembre de 2021, de la Dirección General de Calidad y Evaluación Ambiental, por la que se formula declaración ambiental estratégica de la revisión del Plan Director del Aeropuerto de Jerez"
+      }
+    }
+  }
+}

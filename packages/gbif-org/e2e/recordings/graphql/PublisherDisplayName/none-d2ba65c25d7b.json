@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query PublisherDisplayName($key:ID!) {item:organization(key: $key) {title}}",
+      "variables": {
+        "key": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "iNaturalist.org"
+      }
+    }
+  }
+}

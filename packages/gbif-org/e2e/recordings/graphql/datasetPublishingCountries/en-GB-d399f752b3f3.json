@@ -1,0 +1,1035 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query datasetPublishingCountries($sitePredicate: Predicate) {\n    occurrenceSearch(predicate: $sitePredicate) {\n      facet {\n        publishingCountry(size: 500) {\n          key\n          count\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "sitePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "DATASET_KEY",
+              "value": "4fa7b334-ce0d-4e88-aaae-2e0c138d049e"
+            }
+          ]
+        }
+      },
+      "operationName": "datasetPublishingCountries"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "facet": {
+          "publishingCountry": [
+            {
+              "key": "US",
+              "count": 1007838572
+            },
+            {
+              "key": "CA",
+              "count": 160022994
+            },
+            {
+              "key": "AU",
+              "count": 57363665
+            },
+            {
+              "key": "IN",
+              "count": 51763795
+            },
+            {
+              "key": "GB",
+              "count": 50556580
+            },
+            {
+              "key": "ES",
+              "count": 35006421
+            },
+            {
+              "key": "BR",
+              "count": 20517882
+            },
+            {
+              "key": "CR",
+              "count": 20160755
+            },
+            {
+              "key": "CO",
+              "count": 17475090
+            },
+            {
+              "key": "MX",
+              "count": 16573694
+            },
+            {
+              "key": "TW",
+              "count": 13203361
+            },
+            {
+              "key": "AR",
+              "count": 11919340
+            },
+            {
+              "key": "PT",
+              "count": 11508678
+            },
+            {
+              "key": "EC",
+              "count": 8720948
+            },
+            {
+              "key": "DE",
+              "count": 8547819
+            },
+            {
+              "key": "ZA",
+              "count": 7513488
+            },
+            {
+              "key": "FR",
+              "count": 7376413
+            },
+            {
+              "key": "NZ",
+              "count": 7267372
+            },
+            {
+              "key": "PE",
+              "count": 6518718
+            },
+            {
+              "key": "PA",
+              "count": 6267493
+            },
+            {
+              "key": "CL",
+              "count": 6106969
+            },
+            {
+              "key": "TH",
+              "count": 5682502
+            },
+            {
+              "key": "IL",
+              "count": 5625224
+            },
+            {
+              "key": "BZ",
+              "count": 5458741
+            },
+            {
+              "key": "CN",
+              "count": 5104756
+            },
+            {
+              "key": "PL",
+              "count": 4629876
+            },
+            {
+              "key": "SE",
+              "count": 3996953
+            },
+            {
+              "key": "CZ",
+              "count": 3927908
+            },
+            {
+              "key": "JP",
+              "count": 3571212
+            },
+            {
+              "key": "VE",
+              "count": 3547968
+            },
+            {
+              "key": "NL",
+              "count": 3509296
+            },
+            {
+              "key": "GT",
+              "count": 3503744
+            },
+            {
+              "key": "IT",
+              "count": 3307628
+            },
+            {
+              "key": "TR",
+              "count": 3121090
+            },
+            {
+              "key": "KE",
+              "count": 3071969
+            },
+            {
+              "key": "FI",
+              "count": 2969422
+            },
+            {
+              "key": "MY",
+              "count": 2577679
+            },
+            {
+              "key": "CH",
+              "count": 2387526
+            },
+            {
+              "key": "LK",
+              "count": 2374747
+            },
+            {
+              "key": "HN",
+              "count": 2264684
+            },
+            {
+              "key": "NO",
+              "count": 2221488
+            },
+            {
+              "key": "IE",
+              "count": 2031191
+            },
+            {
+              "key": "GR",
+              "count": 1981245
+            },
+            {
+              "key": "AE",
+              "count": 1908247
+            },
+            {
+              "key": "PR",
+              "count": 1894898
+            },
+            {
+              "key": "UG",
+              "count": 1830622
+            },
+            {
+              "key": "TZ",
+              "count": 1732208
+            },
+            {
+              "key": "HK",
+              "count": 1698590
+            },
+            {
+              "key": "NP",
+              "count": 1680361
+            },
+            {
+              "key": "SG",
+              "count": 1602030
+            },
+            {
+              "key": "BE",
+              "count": 1494961
+            },
+            {
+              "key": "IS",
+              "count": 1494399
+            },
+            {
+              "key": "ID",
+              "count": 1471608
+            },
+            {
+              "key": "UY",
+              "count": 1463524
+            },
+            {
+              "key": "PH",
+              "count": 1363146
+            },
+            {
+              "key": "RU",
+              "count": 1291208
+            },
+            {
+              "key": "KR",
+              "count": 1290494
+            },
+            {
+              "key": "CU",
+              "count": 1253120
+            },
+            {
+              "key": "NI",
+              "count": 1252149
+            },
+            {
+              "key": "DK",
+              "count": 1231732
+            },
+            {
+              "key": "BO",
+              "count": 1187284
+            },
+            {
+              "key": "BG",
+              "count": 1174990
+            },
+            {
+              "key": "AT",
+              "count": 1056710
+            },
+            {
+              "key": "HU",
+              "count": 1032541
+            },
+            {
+              "key": "SV",
+              "count": 1012703
+            },
+            {
+              "key": "KH",
+              "count": 950792
+            },
+            {
+              "key": "PY",
+              "count": 942132
+            },
+            {
+              "key": "TT",
+              "count": 895839
+            },
+            {
+              "key": "UA",
+              "count": 864288
+            },
+            {
+              "key": "RS",
+              "count": 863060
+            },
+            {
+              "key": "ZM",
+              "count": 780258
+            },
+            {
+              "key": "NA",
+              "count": 776407
+            },
+            {
+              "key": "BW",
+              "count": 735532
+            },
+            {
+              "key": "MA",
+              "count": 730249
+            },
+            {
+              "key": "ZW",
+              "count": 729223
+            },
+            {
+              "key": "SK",
+              "count": 680084
+            },
+            {
+              "key": "VN",
+              "count": 635834
+            },
+            {
+              "key": "GH",
+              "count": 614106
+            },
+            {
+              "key": "BD",
+              "count": 614073
+            },
+            {
+              "key": "HR",
+              "count": 594627
+            },
+            {
+              "key": "BS",
+              "count": 590802
+            },
+            {
+              "key": "DO",
+              "count": 567670
+            },
+            {
+              "key": "ET",
+              "count": 563162
+            },
+            {
+              "key": "RO",
+              "count": 554957
+            },
+            {
+              "key": "BT",
+              "count": 524856
+            },
+            {
+              "key": "IR",
+              "count": 521847
+            },
+            {
+              "key": "CY",
+              "count": 521525
+            },
+            {
+              "key": "GM",
+              "count": 503323
+            },
+            {
+              "key": "BM",
+              "count": 488447
+            },
+            {
+              "key": "LT",
+              "count": 473482
+            },
+            {
+              "key": "MG",
+              "count": 468987
+            },
+            {
+              "key": "PG",
+              "count": 447766
+            },
+            {
+              "key": "IM",
+              "count": 439576
+            },
+            {
+              "key": "GY",
+              "count": 439065
+            },
+            {
+              "key": "SI",
+              "count": 428321
+            },
+            {
+              "key": "SN",
+              "count": 413345
+            },
+            {
+              "key": "JM",
+              "count": 412691
+            },
+            {
+              "key": "GE",
+              "count": 394755
+            },
+            {
+              "key": "OM",
+              "count": 380349
+            },
+            {
+              "key": "GP",
+              "count": 371013
+            },
+            {
+              "key": "BY",
+              "count": 357075
+            },
+            {
+              "key": "PS",
+              "count": 350305
+            },
+            {
+              "key": "RW",
+              "count": 346170
+            },
+            {
+              "key": "MN",
+              "count": 339942
+            },
+            {
+              "key": "KY",
+              "count": 320216
+            },
+            {
+              "key": "SA",
+              "count": 309422
+            },
+            {
+              "key": "EE",
+              "count": 290753
+            },
+            {
+              "key": "EG",
+              "count": 288722
+            },
+            {
+              "key": "KZ",
+              "count": 272269
+            },
+            {
+              "key": "LV",
+              "count": 266015
+            },
+            {
+              "key": "KW",
+              "count": 263823
+            },
+            {
+              "key": "MM",
+              "count": 262222
+            },
+            {
+              "key": "PK",
+              "count": 255991
+            },
+            {
+              "key": "AW",
+              "count": 255205
+            },
+            {
+              "key": "CW",
+              "count": 252380
+            },
+            {
+              "key": "MZ",
+              "count": 248813
+            },
+            {
+              "key": "GF",
+              "count": 240158
+            },
+            {
+              "key": "BQ",
+              "count": 213549
+            },
+            {
+              "key": "FK",
+              "count": 205538
+            },
+            {
+              "key": "SR",
+              "count": 189484
+            },
+            {
+              "key": "VI",
+              "count": 180946
+            },
+            {
+              "key": "LA",
+              "count": 171920
+            },
+            {
+              "key": "MW",
+              "count": 166753
+            },
+            {
+              "key": "BB",
+              "count": 157847
+            },
+            {
+              "key": "AZ",
+              "count": 153092
+            },
+            {
+              "key": "NG",
+              "count": 139838
+            },
+            {
+              "key": "CD",
+              "count": 137430
+            },
+            {
+              "key": "AQ",
+              "count": 137090
+            },
+            {
+              "key": "GD",
+              "count": 123206
+            },
+            {
+              "key": "JO",
+              "count": 122042
+            },
+            {
+              "key": "CM",
+              "count": 121155
+            },
+            {
+              "key": "KG",
+              "count": 117970
+            },
+            {
+              "key": "FJ",
+              "count": 117929
+            },
+            {
+              "key": "AM",
+              "count": 114541
+            },
+            {
+              "key": "QA",
+              "count": 108099
+            },
+            {
+              "key": "PW",
+              "count": 99202
+            },
+            {
+              "key": "AO",
+              "count": 98078
+            },
+            {
+              "key": "LC",
+              "count": 97198
+            },
+            {
+              "key": "CI",
+              "count": 92371
+            },
+            {
+              "key": "TN",
+              "count": 80890
+            },
+            {
+              "key": "SJ",
+              "count": 80264
+            },
+            {
+              "key": "HT",
+              "count": 80220
+            },
+            {
+              "key": "MD",
+              "count": 79968
+            },
+            {
+              "key": "FO",
+              "count": 79412
+            },
+            {
+              "key": "UZ",
+              "count": 78928
+            },
+            {
+              "key": "LU",
+              "count": 77247
+            },
+            {
+              "key": "MK",
+              "count": 77153
+            },
+            {
+              "key": "ME",
+              "count": 76400
+            },
+            {
+              "key": "GS",
+              "count": 75176
+            },
+            {
+              "key": "AG",
+              "count": 74354
+            },
+            {
+              "key": "AL",
+              "count": 72556
+            },
+            {
+              "key": "PM",
+              "count": 66852
+            },
+            {
+              "key": "TL",
+              "count": 66200
+            },
+            {
+              "key": "JE",
+              "count": 65874
+            },
+            {
+              "key": "GA",
+              "count": 65148
+            },
+            {
+              "key": "LB",
+              "count": 64384
+            },
+            {
+              "key": "SZ",
+              "count": 61212
+            },
+            {
+              "key": "PF",
+              "count": 59497
+            },
+            {
+              "key": "NC",
+              "count": 57857
+            },
+            {
+              "key": "MP",
+              "count": 57541
+            },
+            {
+              "key": "TC",
+              "count": 56452
+            },
+            {
+              "key": "SC",
+              "count": 56322
+            },
+            {
+              "key": "CG",
+              "count": 55617
+            },
+            {
+              "key": "IQ",
+              "count": 52097
+            },
+            {
+              "key": "MT",
+              "count": 50283
+            },
+            {
+              "key": "TJ",
+              "count": 49534
+            },
+            {
+              "key": "UM",
+              "count": 49304
+            },
+            {
+              "key": "MO",
+              "count": 47082
+            },
+            {
+              "key": "DZ",
+              "count": 46752
+            },
+            {
+              "key": "MS",
+              "count": 45791
+            },
+            {
+              "key": "CV",
+              "count": 45574
+            },
+            {
+              "key": "GW",
+              "count": 45436
+            },
+            {
+              "key": "BA",
+              "count": 45238
+            },
+            {
+              "key": "NF",
+              "count": 44594
+            },
+            {
+              "key": "VC",
+              "count": 44319
+            },
+            {
+              "key": "LR",
+              "count": 42823
+            },
+            {
+              "key": "DM",
+              "count": 40878
+            },
+            {
+              "key": "VU",
+              "count": 40565
+            },
+            {
+              "key": "GI",
+              "count": 40058
+            },
+            {
+              "key": "SB",
+              "count": 39897
+            },
+            {
+              "key": "MQ",
+              "count": 39562
+            },
+            {
+              "key": "AI",
+              "count": 38968
+            },
+            {
+              "key": "BF",
+              "count": 38741
+            },
+            {
+              "key": "MU",
+              "count": 38011
+            },
+            {
+              "key": "MF",
+              "count": 37642
+            },
+            {
+              "key": "KN",
+              "count": 32794
+            },
+            {
+              "key": "SL",
+              "count": 32493
+            },
+            {
+              "key": "ST",
+              "count": 32138
+            },
+            {
+              "key": "BH",
+              "count": 31683
+            },
+            {
+              "key": "GG",
+              "count": 31532
+            },
+            {
+              "key": "GL",
+              "count": 30315
+            },
+            {
+              "key": "GQ",
+              "count": 29540
+            },
+            {
+              "key": "SX",
+              "count": 28862
+            },
+            {
+              "key": "XK",
+              "count": 27571
+            },
+            {
+              "key": "GN",
+              "count": 25676
+            },
+            {
+              "key": "TD",
+              "count": 25433
+            },
+            {
+              "key": "VG",
+              "count": 24646
+            },
+            {
+              "key": "TG",
+              "count": 24644
+            },
+            {
+              "key": "MR",
+              "count": 23415
+            },
+            {
+              "key": "BN",
+              "count": 22827
+            },
+            {
+              "key": "AD",
+              "count": 20765
+            },
+            {
+              "key": "LS",
+              "count": 20467
+            },
+            {
+              "key": "WS",
+              "count": 20147
+            },
+            {
+              "key": "BJ",
+              "count": 19961
+            },
+            {
+              "key": "DJ",
+              "count": 19881
+            },
+            {
+              "key": "GU",
+              "count": 19428
+            },
+            {
+              "key": "EH",
+              "count": 18864
+            },
+            {
+              "key": "CX",
+              "count": 18851
+            },
+            {
+              "key": "RE",
+              "count": 18748
+            },
+            {
+              "key": "LY",
+              "count": 18625
+            },
+            {
+              "key": "YE",
+              "count": 17421
+            },
+            {
+              "key": "CF",
+              "count": 15838
+            },
+            {
+              "key": "SO",
+              "count": 13570
+            },
+            {
+              "key": "NE",
+              "count": 13057
+            },
+            {
+              "key": "ML",
+              "count": 12940
+            },
+            {
+              "key": "AF",
+              "count": 12622
+            },
+            {
+              "key": "SD",
+              "count": 11784
+            },
+            {
+              "key": "FM",
+              "count": 11424
+            },
+            {
+              "key": "SH",
+              "count": 10176
+            },
+            {
+              "key": "BI",
+              "count": 9863
+            },
+            {
+              "key": "SS",
+              "count": 9571
+            },
+            {
+              "key": "CC",
+              "count": 8985
+            },
+            {
+              "key": "MV",
+              "count": 8820
+            },
+            {
+              "key": "TF",
+              "count": 8580
+            },
+            {
+              "key": "TO",
+              "count": 8237
+            },
+            {
+              "key": "AS",
+              "count": 8177
+            },
+            {
+              "key": "CK",
+              "count": 8032
+            },
+            {
+              "key": "LI",
+              "count": 7922
+            },
+            {
+              "key": "SY",
+              "count": 6730
+            },
+            {
+              "key": "IO",
+              "count": 6475
+            },
+            {
+              "key": "ER",
+              "count": 6443
+            },
+            {
+              "key": "YT",
+              "count": 6230
+            },
+            {
+              "key": "MC",
+              "count": 5992
+            },
+            {
+              "key": "TM",
+              "count": 5525
+            },
+            {
+              "key": "VA",
+              "count": 5388
+            },
+            {
+              "key": "MH",
+              "count": 4891
+            },
+            {
+              "key": "KP",
+              "count": 4704
+            },
+            {
+              "key": "KM",
+              "count": 4392
+            },
+            {
+              "key": "BL",
+              "count": 4214
+            },
+            {
+              "key": "KI",
+              "count": 3946
+            },
+            {
+              "key": "SM",
+              "count": 3315
+            },
+            {
+              "key": "PN",
+              "count": 3056
+            },
+            {
+              "key": "NU",
+              "count": 1063
+            },
+            {
+              "key": "WF",
+              "count": 791
+            },
+            {
+              "key": "HM",
+              "count": 391
+            },
+            {
+              "key": "ZZ",
+              "count": 301
+            },
+            {
+              "key": "TV",
+              "count": 223
+            },
+            {
+              "key": "BV",
+              "count": 176
+            },
+            {
+              "key": "TK",
+              "count": 150
+            },
+            {
+              "key": "NR",
+              "count": 89
+            }
+          ]
+        }
+      }
+    }
+  }
+}

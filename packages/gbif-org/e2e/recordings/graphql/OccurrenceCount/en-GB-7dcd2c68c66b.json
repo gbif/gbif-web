@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query OccurrenceCount($predicate: Predicate) {\n    search: occurrenceSearch(predicate: $predicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "Z",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "equals",
+              "key": "publishingCountry",
+              "value": "DK"
+            }
+          ]
+        }
+      },
+      "operationName": "OccurrenceCount"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 21013
+        }
+      }
+    }
+  }
+}

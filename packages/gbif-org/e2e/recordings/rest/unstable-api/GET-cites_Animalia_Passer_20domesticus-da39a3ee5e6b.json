@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://graphql.gbif.org/unstable-api/cites/Animalia/Passer%20domesticus"
+  },
+  "status": 404,
+  "contentType": "text/html; charset=utf-8",
+  "encoding": "utf8",
+  "body": "No entry found"
+}

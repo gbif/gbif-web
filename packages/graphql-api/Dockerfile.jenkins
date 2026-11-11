@@ -1,5 +1,0 @@
-FROM node:24-alpine
-WORKDIR /app
-COPY packages/graphql-api ./
-CMD ["node", "dist/index.js"]
-EXPOSE 6812
