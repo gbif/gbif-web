@@ -99,7 +99,25 @@ async function main() {
       env.PUBLIC_FORMS_ENDPOINT_CLIENT,
     ].filter((endpoint) => typeof endpoint === 'string');
 
-    helmetConfig.contentSecurityPolicy.directives.defaultSrc.push(...environmentEndpoints);
+    // A local production run (npm start) may point any PUBLIC_* service at localhost. Allow the
+    // origins of those, now that the CSP no longer allows localhost:* wholesale. Deployed
+    // environments never use localhost, so this adds nothing there.
+    const localOrigins = Object.entries(env)
+      .filter(([key, value]) => key.startsWith('PUBLIC_') && typeof value === 'string')
+      .map(([, value]) => {
+        try {
+          const url = new URL(value.trim());
+          return ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) ? url.origin : null;
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    helmetConfig.contentSecurityPolicy.directives.defaultSrc.push(
+      ...environmentEndpoints,
+      ...new Set(localOrigins)
+    );
 
     app.use(helmet(helmetConfig));
   }
