@@ -6,6 +6,7 @@ const cors = require('cors');
 const config = require('./config');
 var queue = require('express-queue');
 const { loggingMiddleware, errorLoggingMiddleware, admissionGate } = require('./middleware');
+const { clientGone } = require('./clientGone');
 const { randomUUID } = require('crypto');
 const {
   registerQueue,
@@ -351,6 +352,8 @@ function searchResource(resource, metaOnly = false) {
           query,
         });
       }
+      // the client may have gone while the predicate was converted; don't query for nobody
+      if (clientGone(req)) return endForGoneClient(res);
       const { result, esBody } = await dataSource.query({
         query,
         aggs,
@@ -378,9 +381,20 @@ function searchResource(resource, metaOnly = false) {
         ...(includeMeta && { meta }),
       });
     } catch (err) {
+      // nobody to answer, and not an error worth logging
+      if (clientGone(req)) return endForGoneClient(res);
       next(err);
     }
   };
+}
+
+/**
+ * End the response of a client that has disconnected. It still has to be ended, as the request queue
+ * only frees the slot when the response ends.
+ */
+function endForGoneClient(res) {
+  if (!res.headersSent) res.status(499);
+  res.end();
 }
 
 function parseQuery(req, res, next, { get2predicate, get2metric }) {

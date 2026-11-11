@@ -13,6 +13,7 @@
  */
 const env = require('../../config');
 const logger = require('../../logger');
+const { clientGone } = require('../../clientGone');
 
 const TIMEOUT_MS = Number(env.occurrence?.recordLookupTimeout) || 10000;
 const RETRY_DELAY_MS = 200;
@@ -31,8 +32,12 @@ async function fetchRecord(key, req, signal) {
     headers: getHeaders(req),
     signal: AbortSignal.any([signal, AbortSignal.timeout(TIMEOUT_MS)]),
   });
-  if (response.status === 404) throw new NotFound();
-  if (!response.ok) throw new Error(`status ${response.status}`);
+  if (!response.ok) {
+    // release the connection; we don't need the body
+    await response.body?.cancel().catch(() => {});
+    if (response.status === 404) throw new NotFound();
+    throw new Error(`status ${response.status}`);
+  }
   return response.json();
 }
 
@@ -50,6 +55,13 @@ function wait(ms, signal) {
   });
 }
 
+// A record we couldn't load. The response then mustn't be cached, or a short problem in the API
+// would show those records as unavailable to everyone for as long as the cache lasts.
+function unavailable(key, req) {
+  if (req?.res && !req.res.headersSent) req.res.set('Cache-Control', 'no-store');
+  return { key };
+}
+
 async function getRecord(key, req, signal) {
   for (let attempt = 1; ; attempt += 1) {
     try {
@@ -57,10 +69,10 @@ async function getRecord(key, req, signal) {
     } catch (err) {
       // the caller went away; stop instead of trying again
       if (signal.aborted) throw signal.reason;
-      if (err instanceof NotFound) return { key };
+      if (err instanceof NotFound) return unavailable(key, req);
       if (attempt >= 2) {
         logger.warn('occurrence record lookup failed', { key, error: err.message });
-        return { key };
+        return unavailable(key, req);
       }
       await wait(RETRY_DELAY_MS, signal);
     }
@@ -76,9 +88,12 @@ async function getRecords(keys, req) {
     if (!req?.res?.writableEnded) controller.abort(new Error('client closed the request'));
   };
   req?.res?.once('close', onClose);
+  // the client may already have gone while Elasticsearch was queried
+  if (clientGone(req)) onClose();
   try {
     const records = [];
     for (const key of keys) {
+      controller.signal.throwIfAborted();
       records.push(await getRecord(key, req, controller.signal));
     }
     return records;

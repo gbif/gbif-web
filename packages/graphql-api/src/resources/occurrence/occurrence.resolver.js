@@ -248,7 +248,7 @@ export default {
     occurrencePublisherSuggest: (_parent, { predicate, q, size = 10 }, { dataSources }) => {
       return dataSources.occurrenceAPI.publisherSuggest({ predicate, q, size });
     },
-    occurrence: (_parent, { key }, { dataSources }) => dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
+    occurrence: (_parent, { key }, { dataSources }) => dataSources.occurrenceV1API.getOccurrenceByKey({ key }),
     globe: async (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
       const roundedLat = Math.floor(pLat / 30) * 30;
       const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
@@ -474,7 +474,7 @@ export default {
     },
     volatile: (occurrence) => occurrence,
     related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
-      return dataSources.occurrenceAPI.getRelated({ key }).then((response) => {
+      return dataSources.occurrenceV1API.getRelated({ key }).then((response) => {
         return {
           size,
           from,
@@ -485,12 +485,12 @@ export default {
       });
     },
     groups: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceAPI
+      return dataSources.occurrenceV1API
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => groupResolver({ occurrence, verbatim }));
     },
     terms: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceAPI
+      return dataSources.occurrenceV1API
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => termResolver({ occurrence, verbatim }));
     },
@@ -502,7 +502,7 @@ export default {
     // not part of the v1 record, so read it from the verbatim record (the occurrence page fetches
     // that anyway for the terms, and the request is only made once)
     verbatimScientificName: async ({ key }, _args, { dataSources }) => {
-      const verbatim = await dataSources.occurrenceAPI.getVerbatim({ key }).catch(ignore404);
+      const verbatim = await dataSources.occurrenceV1API.getVerbatim({ key }).catch(ignore404);
       return verbatim?.['http://rs.tdwg.org/dwc/terms/scientificName'] ?? null;
     },
     datasetTitle: async ({ datasetKey }, _args, { dataSources }) => {
@@ -923,7 +923,7 @@ export default {
   },
   RelatedOccurrence: {
     occurrence: (related, _args, { dataSources }) =>
-      dataSources.occurrenceAPI
+      dataSources.occurrenceV1API
         .getOccurrenceByKey({
           key: related.occurrence.gbifId,
         })
@@ -941,7 +941,7 @@ export default {
   },
   RelatedCurrentOccurrence: {
     occurrence: (current, _args, { dataSources }) =>
-      dataSources.occurrenceAPI.getOccurrenceByKey({
+      dataSources.occurrenceV1API.getOccurrenceByKey({
         key: current.gbifId,
       }),
     stub: (current) => current,

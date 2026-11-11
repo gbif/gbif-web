@@ -2,7 +2,6 @@ import { stringify } from 'qs';
 import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getOccurrenceAgent } from '@/requestAgents';
 import QueuedRESTDataSource from '@/QueuedRESTDataSource';
-import { NotFoundError } from '@/helpers/GraphQL404Error';
 import v1ToOccurrence, { isUnavailable } from './helpers/v1ToOccurrence';
 
 const MAX_RESULTS = 6000;
@@ -21,7 +20,8 @@ class OccurrenceAPI extends QueuedRESTDataSource {
 
   willSendRequest(path, request) {
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers.Authorization = `ApiKey-v1 ${this.config.apiEsKey}`;
+    // only es-api gets the key, not the absolute URLs to other APIs (e.g. the v2 map API)
+    if (!/^https?:\/\//i.test(path)) request.headers.Authorization = `ApiKey-v1 ${this.config.apiEsKey}`;
     request.headers['User-Agent'] = this.context.userAgent;
     if (this.context.referer) request.headers.referer = this.context.referer;
     if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
@@ -74,30 +74,6 @@ class OccurrenceAPI extends QueuedRESTDataSource {
       _predicate: body.predicate,
       _q: query.q,
     };
-  }
-
-  async getOccurrenceByKey({ key }) {
-    // Validate key: must be numeric and within the valid range for a long
-    if (!/^\d+$/.test(String(key)) || BigInt(key) > 9223372036854775807n) {
-      throw new NotFoundError();
-    }
-    const record = await this.get(`${this.config.apiv1}/occurrence/${key}`);
-    return v1ToOccurrence(record);
-  }
-
-  async getRelated({ key }) {
-    return this.get(`${this.config.apiv1}/occurrence/${key}/experimental/related`);
-  }
-
-  async getFragment({ key }) {
-    return this.get(`${this.config.apiv1}/occurrence/${key}/fragment`);
-  }
-
-  async getVerbatim({ key }) {
-    return this.get(`${this.config.apiv1}/occurrence/${key}/verbatim`, undefined, {
-      signal: this.context.abortController?.signal,
-      enQueue: true,
-    });
   }
 
   async meta({ query }) {
