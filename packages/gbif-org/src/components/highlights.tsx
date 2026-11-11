@@ -284,9 +284,11 @@ export function TypeStatus({ types, className }: { className?: string; types?: s
 }
 
 export function IIIF({ url }: { url: string }) {
+  const href = safeHref(url);
+  if (!href) return null;
   return (
     <GenericFeature>
-      <a href={safeHref(url)} target="_blank" rel="noopener noreferrer">
+      <a href={href} target="_blank" rel="noopener noreferrer">
         <IIIFLogoIcon />
       </a>
     </GenericFeature>

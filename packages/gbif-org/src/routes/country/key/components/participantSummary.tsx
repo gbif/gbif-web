@@ -150,13 +150,15 @@ type SocialLinkProps = {
 };
 
 function SocialLink({ url, label, Icon }: SocialLinkProps) {
+  const href = safeHref(url);
+  if (!href) return null;
   return (
     <Button
       asChild
       variant="secondary"
       className="g-flex g-items-center g-gap-2 g-whitespace-nowrap"
     >
-      <a href={safeHref(url)}>
+      <a href={href}>
         {Icon && <Icon />}
         {label}
       </a>

@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import ExpandableSection from './ExpandableSection';
 import { optionStyles } from './utils';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
+import { SafeLink } from '@/components/safeLink';
 
 interface TaxonomySelectorProps {
   value: string;
@@ -45,14 +46,14 @@ export default function TaxonomySelector({
                 {checklist.metadata && (
                   <p className={optionStyles.optionDescription}>
                     <FormattedMessage id="occurrenceDownloadFlow.taxonomySelector.version" />:{' '}
-                    <a
+                    <SafeLink
                       className={optionStyles.optionLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       href={checklist.metadata.link}
                     >
                       {checklist.metadata.version} <ExternalLinkIcon className="g-align-baseline" />
-                    </a>
+                    </SafeLink>
                   </p>
                 )}
               </div>
