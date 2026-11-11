@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { useState } from 'react';
-import { MdLink } from 'react-icons/md';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { MdInfoOutline, MdLink } from 'react-icons/md';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { ReportFile } from '../../data/normalizeReport';
 import type { DwcExtension } from '../../data/types';
 import { useLabels } from '../useLabels';
@@ -62,7 +62,6 @@ function FileFacts({
   extensions: Record<string, DwcExtension>;
 }) {
   const labels = useLabels();
-  const [showDescription, setShowDescription] = useState(false);
 
   if (file.fileType === 'METADATA') {
     return (
@@ -106,31 +105,27 @@ function FileFacts({
             <FormattedMessage id="tools.dataValidator.fileType.title" defaultMessage="Row type" />
           </dt>
           <dd>
-            {extension?.description ? (
-              <button
-                type="button"
-                className="g-text-primary-600 hover:g-underline g-text-start"
-                aria-expanded={showDescription}
-                onClick={() => setShowDescription((show) => !show)}
-              >
-                {labels.rowType(file.rowType, extensions)}
-              </button>
-            ) : (
-              <span className="g-break-all">{labels.rowType(file.rowType, extensions)}</span>
-            )}
-            {extension?.url && (
-              <a
-                href={extension.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="g-ms-1 g-inline-block g-align-middle g-text-slate-400 hover:g-text-primary-600"
-              >
-                <MdLink />
-                <span className="g-sr-only">{extension.url}</span>
-              </a>
-            )}
-            {showDescription && extension?.description && (
-              <span className="g-block g-text-slate-500 g-mt-1">{extension.description}</span>
+            <span className="g-break-all">{labels.rowType(file.rowType, extensions)}</span>
+            {(extension?.description || extension?.url) && (
+              <span className="g-ms-1.5 g-inline-flex g-items-center g-gap-1 g-align-middle">
+                {extension.description && (
+                  <RowTypeHelp
+                    title={labels.rowType(file.rowType, extensions)}
+                    description={extension.description}
+                  />
+                )}
+                {extension.url && (
+                  <a
+                    href={extension.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={ICON_BUTTON}
+                  >
+                    <MdLink aria-hidden />
+                    <span className="g-sr-only">{extension.url}</span>
+                  </a>
+                )}
+              </span>
             )}
           </dd>
         </>
@@ -162,5 +157,33 @@ function FileFacts({
         </>
       )}
     </dl>
+  );
+}
+
+const ICON_BUTTON =
+  'g-inline-flex g-h-5 g-w-5 g-items-center g-justify-center g-rounded g-text-base g-text-slate-400 hover:g-text-primary-600 focus-visible:g-outline-none focus-visible:g-ring-2 focus-visible:g-ring-primary-500';
+
+function RowTypeHelp({ title, description }: { title: string; description: string }) {
+  const { formatMessage } = useIntl();
+  return (
+    <Popover>
+      <PopoverTrigger
+        className={ICON_BUTTON}
+        aria-label={formatMessage(
+          { id: 'tools.dataValidator.aboutRowType', defaultMessage: 'About {rowType}' },
+          { rowType: title }
+        )}
+      >
+        <MdInfoOutline aria-hidden />
+      </PopoverTrigger>
+      <PopoverContent className="g-w-80 g-text-sm">
+        <p className="g-font-semibold g-mb-1" dir="auto">
+          {title}
+        </p>
+        <p className="g-text-slate-600" dir="auto">
+          {description}
+        </p>
+      </PopoverContent>
+    </Popover>
   );
 }
