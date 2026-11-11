@@ -14,6 +14,7 @@ import {
   normalizeReport,
   normalizeSteps,
   sortIssues,
+  NOT_RUN,
 } from './normalizeReport';
 import type { Validation } from './types';
 import { emptyLookups, ValidatorLookups } from './useValidatorLookups';
@@ -320,6 +321,24 @@ describe('normalizeSteps', () => {
       'QUEUED'
     );
     expect(steps.map((step) => step.status)).toEqual(['QUEUED', 'PENDING']);
+  });
+
+  it('marks steps that never started as not run once the job has failed', () => {
+    const steps = normalizeSteps(
+      [
+        { stepType: 'UPLOAD', executionOrder: 1, status: 'FINISHED' },
+        { stepType: 'VALIDATE', executionOrder: 2, status: 'FAILED' },
+        { stepType: 'EXTRACT', executionOrder: 3 },
+        { stepType: 'INTERPRET', executionOrder: 4, status: 'QUEUED' },
+      ],
+      'FAILED'
+    );
+    expect(steps.map((step) => step.status)).toEqual(['FINISHED', 'FAILED', NOT_RUN, NOT_RUN]);
+  });
+
+  it('keeps steps pending while the job is still running', () => {
+    const steps = normalizeSteps([{ stepType: 'A', executionOrder: 1 }], 'RUNNING');
+    expect(steps[0].status).toBe('PENDING');
   });
 
   it('does not change its input', () => {

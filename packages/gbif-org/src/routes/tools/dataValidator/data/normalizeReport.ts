@@ -1,4 +1,5 @@
 import { clbIssueLevels } from './clbIssueLevels';
+import { isInProgress } from './pollingMachine';
 import type {
   FileInfo,
   IssueInfo,
@@ -284,16 +285,25 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
 
 export type DisplayStep = ValidationStep & { stepType: string; status: string };
 
+// a step that will never run because the job ended (failed, aborted) before reaching it
+export const NOT_RUN = 'NOT_RUN';
+const WAITING_STEP = new Set(['PENDING', 'QUEUED', 'WAITING_FOR_CHECKLISTBANK']);
+
 // Steps without a status are pending; while the job is QUEUED the first of them is the queued one.
+// Once the job has ended, steps that never started are NOT_RUN.
 export function normalizeSteps(
   steps: ValidationStep[] | null | undefined,
   jobStatus: string | undefined
 ): DisplayStep[] {
   let queuedFound = false;
+  const ended = !!jobStatus && !isInProgress(jobStatus);
   return [...(steps ?? [])]
     .filter((step) => typeof step?.stepType === 'string')
     .sort((a, b) => (a.executionOrder ?? 0) - (b.executionOrder ?? 0))
     .map((step) => {
+      if (ended && (!step.status || WAITING_STEP.has(step.status))) {
+        return { ...step, status: NOT_RUN } as DisplayStep;
+      }
       if (step.status) return step as DisplayStep;
       if (jobStatus === 'QUEUED' && !queuedFound) {
         queuedFound = true;
