@@ -72,5 +72,47 @@ export function IssueSamples({ issue }: { issue: ReportIssue }) {
     );
   }
 
-  return null;
+  return <IssueFacts issue={issue} />;
+}
+
+// Nothing more is known about the issue, so state what the API reported, as portal16 does.
+function IssueFacts({ issue }: { issue: ReportIssue }) {
+  return (
+    <div className="g-overflow-x-auto">
+      <table className="g-w-full g-text-sm g-border g-border-slate-200">
+        <thead className="g-bg-slate-50">
+          <tr>
+            <th className="g-px-2 g-py-1 g-text-start g-font-medium">
+              <FormattedMessage id="tools.dataValidator.issueFacts.issue" defaultMessage="Issue" />
+            </th>
+            <th className="g-px-2 g-py-1 g-text-start g-font-medium">
+              <FormattedMessage
+                id="tools.dataValidator.issueFacts.category"
+                defaultMessage="Category"
+              />
+            </th>
+            <th className="g-px-2 g-py-1 g-text-start g-font-medium">
+              <FormattedMessage
+                id="tools.dataValidator.issueFacts.severity"
+                defaultMessage="Severity"
+              />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="g-border-t g-border-slate-100">
+            <td className="g-px-2 g-py-1 g-align-top g-break-all g-font-mono g-text-xs" dir="ltr">
+              {issue.issue}
+            </td>
+            <td className="g-px-2 g-py-1 g-align-top g-break-all g-font-mono g-text-xs" dir="ltr">
+              {issue.issueCategory}
+            </td>
+            <td className="g-px-2 g-py-1 g-align-top g-font-mono g-text-xs" dir="ltr">
+              {issue.severity}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 }
