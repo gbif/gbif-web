@@ -36,6 +36,8 @@ export const helmetConfig = {
         `'self'`,
         // Inline scripts must carry the per-request nonce that server.js sets in res.locals.cspNonce.
         (req, res) => `'nonce-${res.locals.cspNonce}'`,
+        // WebAssembly only (the kalign worker behind the sequence phylogeny chart). This does not allow eval().
+        `'wasm-unsafe-eval'`,
         `*.gbif.org`,
         `*.gbif-uat.org`,
         `*.gbif-test.org`,
