@@ -3,8 +3,9 @@ const ALLOWED_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'ftp:']);
 // Only used to resolve relative URLs so we can read their protocol.
 const BASE = 'https://www.gbif.org';
 
-// Keys in CMS content that hold link targets: url, link, href and names ending in them (primaryUrl, ...).
-const URL_KEY = /(url|link|href)$/i;
+// Keys in CMS content that hold link targets: url, link, href, alias and names ending in them
+// (primaryUrl, urlAlias, ...). urlAlias is used as a link target in gbif-org.
+const URL_KEY = /(url|link|href|alias)$/i;
 
 /**
  * Returns the URL if it is safe to use as a link target, otherwise undefined.

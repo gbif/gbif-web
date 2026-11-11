@@ -39,6 +39,8 @@ describe('sanitizeUrlField', () => {
     assert.strictEqual(sanitizeUrlField('url', 'javascript:alert(1)'), '');
     assert.strictEqual(sanitizeUrlField('link', 'javascript:alert(1)'), '');
     assert.strictEqual(sanitizeUrlField('primaryUrl', 'javascript:alert(1)'), '');
+    assert.strictEqual(sanitizeUrlField('urlAlias', 'javascript:alert(1)'), '');
+    assert.strictEqual(sanitizeUrlField('urlAlias', '/awards/ebbe-rules'), '/awards/ebbe-rules');
     assert.strictEqual(sanitizeUrlField('title', 'javascript:alert(1)'), 'javascript:alert(1)');
     assert.strictEqual(sanitizeUrlField('linkType', 'Entry'), 'Entry');
     assert.strictEqual(sanitizeUrlField('externalLink', true), true);
