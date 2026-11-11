@@ -31,7 +31,7 @@ export function ValidationSteps({
             'g-text-red-700': step.status === 'FAILED',
           })}
         >
-          <div className="g-mt-0.5 g-flex-none" aria-hidden>
+          <div className="g-flex g-h-5 g-flex-none g-items-center" aria-hidden>
             {step.status === 'FINISHED' && <MdCheck className="g-text-green-600" />}
             {step.status === 'FAILED' && <MdClose className="g-text-red-600" />}
             {step.status === 'RUNNING' && <Spinner className="g-h-3.5 g-w-3.5" />}
