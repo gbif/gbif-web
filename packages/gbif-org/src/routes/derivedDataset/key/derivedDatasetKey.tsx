@@ -28,6 +28,7 @@ import Properties, { Term as T, Value as V } from '@/components/properties';
 import { DoiTag } from '@/components/identifierTag';
 import { HyperText } from '@/components/hyperText';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { safeHref } from '@/utils/safeHref';
 
 const DERIVED_DATASET_KEY = /* GraphQL */ `
   query DerivedDataset($key: ID!, $limit: Int, $offset: Int) {
@@ -192,10 +193,14 @@ export function DerivedDatasetPage() {
                 </Properties>
               </CardContent>
               <CardContent className="g-border-t g-border-gray-200 !g-py-4 g-flex g-gap-4 g-flex-col md:g-flex-row">
-                {derivedDataset.sourceUrl && (
+                {safeHref(derivedDataset.sourceUrl) && (
                   <div className="g-w-52 g-flex-none">
                     <Button className="g-flex-none" variant="default" asChild>
-                      <a href={derivedDataset.sourceUrl} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={safeHref(derivedDataset.sourceUrl)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <FormattedMessage
                           id="derivedDatasetKey.sourceUrl"
                           defaultMessage="Access derived dataset"

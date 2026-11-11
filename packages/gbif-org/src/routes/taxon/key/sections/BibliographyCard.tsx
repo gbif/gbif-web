@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { Paging } from '@/components/paging';
 import { ColFeedback } from './ColFeedback';
 import { InfoPill } from './Synonyms';
+import { SafeLink } from '@/components/safeLink';
 
 const DEFAULT_LIMIT = 10;
 
@@ -70,14 +71,14 @@ export function BibliographyContent({ taxonInfo }: Props) {
                         </a>
                       )}
                       {!bib.doi && bib.url && (
-                        <a
-                          href={`${bib.url}`}
+                        <SafeLink
+                          href={bib.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="g-text-primary-500 hover:g-underline g-underline-offset-2 g-break-all"
                         >
                           {bib.url}
-                        </a>
+                        </SafeLink>
                       )}
                     </span>
                     {bib.isNamePublishedIn && (

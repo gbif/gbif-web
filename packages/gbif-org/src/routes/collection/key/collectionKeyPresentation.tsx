@@ -36,6 +36,7 @@ import { Outlet } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { AboutContent, ApiContent } from './help';
 import { CollectionKeyLoaderResult } from './collectionKey';
+import { safeHref } from '@/utils/safeHref';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
@@ -200,11 +201,14 @@ export function CollectionKey({
                     {(collection?.catalogUrls?.length ?? 0) > 0 ||
                       (contacts.length > 0 && (
                         <FeatureList>
-                          {collection?.catalogUrls?.length > 0 && (
+                          {safeHref(collection?.catalogUrls?.[0]) && (
                             <GenericFeature>
                               <CatalogIcon />
                               <span>
-                                <a href={collection?.catalogUrls[0]} className="g-text-inherit">
+                                <a
+                                  href={safeHref(collection?.catalogUrls?.[0])}
+                                  className="g-text-inherit"
+                                >
                                   <FormattedMessage
                                     id="grscicoll.dataCatalog"
                                     defaultMessage="Data catalog"

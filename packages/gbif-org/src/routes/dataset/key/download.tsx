@@ -14,6 +14,7 @@ import { MdDownload } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
 import { useDatasetKeyContext } from './datasetKey';
+import { safeHref } from '@/utils/safeHref';
 
 export function DatasetKeyDownload() {
   const { dataset } = useDatasetKeyLoaderData().data;
@@ -112,7 +113,7 @@ export function DatasetKeyDownload() {
                 <CardFooter>
                   <Button variant="default" className="g-text-center g-w-full" asChild>
                     <a
-                      href={`${dataPackageEndpoint.url}`}
+                      href={safeHref(dataPackageEndpoint.url)}
                       rel="noopener noreferrer"
                       className="g-text-white"
                     >
@@ -160,7 +161,7 @@ export function DatasetKeyDownload() {
                 <CardFooter>
                   <Button variant="default" className="g-text-center g-w-full" asChild>
                     <a
-                      href={`${sourceDownloadEndpoint.url}`}
+                      href={safeHref(sourceDownloadEndpoint.url)}
                       rel="noopener noreferrer"
                       className="g-text-white"
                     >

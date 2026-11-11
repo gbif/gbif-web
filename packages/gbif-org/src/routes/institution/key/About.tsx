@@ -34,6 +34,7 @@ import { PredicateType } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
 import { apiConstants } from '@/config/apiConstants';
 import TestSiteAlert from '@/components/TestSiteAlert';
+import { SafeLink } from '@/components/safeLink';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
@@ -104,9 +105,9 @@ export default function About() {
                     <Property
                       value={institution.catalogUrls}
                       formatter={(x) => (
-                        <a href={x} target="_blank" rel="noreferrer" key={x}>
+                        <SafeLink href={x} target="_blank" rel="noreferrer" key={x}>
                           {x}
-                        </a>
+                        </SafeLink>
                       )}
                       labelId="grscicoll.catalogUrl"
                     />
