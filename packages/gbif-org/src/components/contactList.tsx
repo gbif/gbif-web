@@ -7,6 +7,7 @@ import EmptyValue from './emptyValue';
 import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
 import { safeHref } from '@/utils/safeHref';
+import { SafeLink } from '@/components/safeLink';
 
 // Contacts come from several GraphQL types (dataset, publisher, installation, ...) with differing shapes.
 type ContactData = Record<string, any>;
@@ -141,9 +142,9 @@ function Contact({ contact }: { contact: ContactData }) {
                 labelId="contact.homepage"
                 value={contact.homepage}
                 formatter={(item) => (
-                  <a href={`${item}`} target="_blank" rel="noopener noreferrer">
+                  <SafeLink href={item} target="_blank" rel="noopener noreferrer">
                     {item}
-                  </a>
+                  </SafeLink>
                 )}
               />
               <Property
@@ -159,9 +160,9 @@ function Contact({ contact }: { contact: ContactData }) {
                 labelId="contact.userId"
                 value={contact.userId}
                 formatter={(item) => (
-                  <a href={`${item}`} target="_blank" rel="noopener noreferrer">
+                  <SafeLink href={item} target="_blank" rel="noopener noreferrer">
                     {item}
-                  </a>
+                  </SafeLink>
                 )}
               />
             </Properties>

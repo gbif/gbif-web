@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
 import { parseTableStyle, sortRows } from '../tableUtils';
+import { safeHref } from '@/utils/safeHref';
 
 const DIRECTORY_TRANSLATORS_QUERY = /* GraphQL */ `
   query DirectoryTranslators {
@@ -135,7 +136,7 @@ export function TranslatorsList({
                       {/* Winner */}
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         <a
-                          href={translator?.Person?.orcidId ?? undefined}
+                          href={safeHref(translator?.Person?.orcidId)}
                           className="g-text-blue-600 hover:g-text-blue-800"
                         >
                           {translator?.Person?.firstName} {translator?.Person?.surname}

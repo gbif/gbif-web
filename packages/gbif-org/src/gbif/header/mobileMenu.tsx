@@ -94,6 +94,7 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
             <Accordion type="single" collapsible className="w-full">
               {children?.map((parent) => {
                 if (!parent.children || parent.children.length === 0) {
+                  if (!safeHref(parent.link)) return null;
                   return (
                     <DynamicLink
                       onClick={() => setOpen(false)}
@@ -123,7 +124,9 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                     {child.title}
                                   </AccordionTrigger>
                                   <AccordionContent className="g-ms-0">
-                                    {child.children.map((subChild) => (
+                                    {child.children
+                                      .filter((subChild) => safeHref(subChild.link))
+                                      .map((subChild) => (
                                       <DynamicLink
                                         onClick={() => setOpen(false)}
                                         key={subChild.id}
@@ -140,6 +143,7 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                 </AccordionItem>
                               );
                             }
+                            if (!safeHref(child.link)) return null;
                             return (
                               <DynamicLink
                                 onClick={() => setOpen(false)}
