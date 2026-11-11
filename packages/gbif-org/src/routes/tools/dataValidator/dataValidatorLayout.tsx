@@ -17,6 +17,7 @@ function DataValidatorTabs({ validationKey }: { validationKey?: string }) {
   const { pathname } = useLocation();
   const { validation } = useValidation();
   const isAbout = pathname.endsWith('/about');
+  const isMyValidations = pathname.endsWith('/my-validations');
   const isDocument = !!validationKey && pathname.endsWith('/document');
   const isReport = !!validationKey && !isDocument;
   const hasMetadata = validation?.status === 'FINISHED' && validation?.fileFormat === 'DWCA';
@@ -25,7 +26,7 @@ function DataValidatorTabs({ validationKey }: { validationKey?: string }) {
   const tabs = ({ hasCmsResource }: { hasCmsResource: boolean }): ToolLayoutTab[] => [
     {
       to: '.',
-      isActive: !validationKey && !isAbout,
+      isActive: !validationKey && !isAbout && !isMyValidations,
       children: (
         <FormattedMessage
           id="tools.dataValidator.tabs.newValidation"
@@ -45,6 +46,16 @@ function DataValidatorTabs({ validationKey }: { validationKey?: string }) {
       hidden: !validationKey || (!hasMetadata && !isDocument),
       children: (
         <FormattedMessage id="tools.dataValidator.tabs.metadata" defaultMessage="Metadata" />
+      ),
+    },
+    {
+      to: 'my-validations',
+      isActive: isMyValidations,
+      children: (
+        <FormattedMessage
+          id="tools.dataValidator.tabs.myValidations"
+          defaultMessage="My validations"
+        />
       ),
     },
     {

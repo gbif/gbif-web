@@ -1,7 +1,6 @@
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
-import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import React from 'react';
-import { redirect } from 'react-router-dom';
 import { ToolCardSkeleton } from '../_shared/toolCardSkeleton';
 import { createToolLayoutLoader, ToolAboutTab } from '../_shared/toolLayout';
 import { DataValidatorLayout } from './dataValidatorLayout';
@@ -9,6 +8,7 @@ import { DataValidatorLayout } from './dataValidatorLayout';
 const UploadPage = React.lazy(() => import('./upload/UploadPage'));
 const ResultPage = React.lazy(() => import('./report/ResultPage'));
 const MetadataPage = React.lazy(() => import('./document/MetadataPage'));
+const MyValidationsPage = React.lazy(() => import('./myValidations/MyValidationsPage'));
 
 export const dataValidatorRoute: RouteObjectWithPlugins = {
   id: 'dataValidator',
@@ -31,8 +31,11 @@ export const dataValidatorRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'my-validations',
-      loader: ({ locale }: LoaderArgs) =>
-        redirect(`${locale.gbifOrgLocalePrefix}/user/validations`),
+      element: (
+        <StaticRenderSuspence fallback={<ToolCardSkeleton />}>
+          <MyValidationsPage />
+        </StaticRenderSuspence>
+      ),
     },
     {
       path: ':key',

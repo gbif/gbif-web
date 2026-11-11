@@ -13,6 +13,9 @@ fragmentManager.register(/* GraphQL */ `
     file
     fileFormat
     status
+    metrics {
+      indexeable
+    }
   }
 `);
 
@@ -25,35 +28,52 @@ export function ValidationResult({ validation }: ValidationResultProps) {
   return (
     <DynamicLink to={`/tools/data-validator/${encodeURIComponent(validation.key)}`}>
       <Card className="g-mb-4 hover:g-shadow-lg g-transition-shadow g-duration-300 hover:g-border-primary-300">
-        <article className="">
-          <div className="g-p-4 g-flex g-flex-col g-gap-2">
-            <div className="g-flex g-justify-between g-items-start">
-              <div className="g-flex-grow">
-                <div className="g-flex g-items-center g-gap-2">
-                  <h3 className="g-text-base g-font-semibold">{validation.file}</h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="g-flex g-flex-wrap g-gap-4 g-text-sm g-text-slate-600 g-items-center">
-              <div>
+        <article>
+          <div className="g-p-4 g-flex g-items-start g-justify-between g-gap-4">
+            <div className="g-min-w-0">
+              <h3 className="g-text-base g-font-semibold g-break-all" dir="auto">
+                {validation.file}
+              </h3>
+              <p className="g-mt-1 g-text-sm g-text-slate-600">
                 <FormattedMessage id="downloadKey.created" />:{' '}
                 {validation.created ? (
                   <LongDate value={validation?.created} />
                 ) : (
                   <FormattedMessage id="phrases.unknownDate" />
                 )}
-              </div>
-              <span
-                className={cn('g-rounded g-px-2 g-text-sm', {
-                  'g-bg-green-500 g-text-green-100': validation.status === 'FINISHED',
-                  'g-bg-red-300 g-text-red-900': validation.status !== 'FINISHED',
-                })}
-              >
-                {validation.status}
-              </span>
+              </p>
             </div>
+            <span
+              className={cn('g-flex-none g-rounded g-px-2 g-text-sm', {
+                'g-bg-green-500 g-text-green-100': validation.status === 'FINISHED',
+                'g-bg-red-300 g-text-red-900': validation.status !== 'FINISHED',
+              })}
+            >
+              {validation.status}
+            </span>
           </div>
+          {validation.status === 'FINISHED' && (
+            <p className="g-flex g-items-center g-gap-2 g-border-t g-border-slate-100 g-px-4 g-py-2.5 g-text-sm">
+              <span
+                aria-hidden
+                className={cn('g-inline-block g-h-2 g-w-2 g-flex-none g-rounded-full', {
+                  'g-bg-green-500': validation.metrics?.indexeable === true,
+                  'g-bg-red-500': validation.metrics?.indexeable !== true,
+                })}
+              />
+              {validation.metrics?.indexeable === true ? (
+                <FormattedMessage
+                  id="tools.dataValidator.indexeable"
+                  defaultMessage="The file can be indexed by GBIF"
+                />
+              ) : (
+                <FormattedMessage
+                  id="tools.dataValidator.notIndexeable"
+                  defaultMessage="The file cannot be indexed by GBIF"
+                />
+              )}
+            </p>
+          )}
         </article>
       </Card>
     </DynamicLink>
