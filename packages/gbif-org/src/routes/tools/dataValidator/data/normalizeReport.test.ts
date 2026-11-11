@@ -104,14 +104,12 @@ describe('normalizeReport: DWCA with issues', () => {
     ]);
   });
 
-  it('marks non-indexable issues as errors, takes the rest from the remarks, defaults to WARNING', () => {
+  it('takes severities from the remarks and defaults to WARNING', () => {
     const summary = Object.fromEntries(
       report.summary.flatMap((entry) => entry.issues.map((issue) => [issue.id, issue.severity]))
     );
-    // the remark says INFO, but a missing licence stops indexing
-    expect(summary.LICENSE_MISSING_OR_UNKNOWN).toBe('ERROR');
-    expect(summary.RECORD_NOT_UNIQUELY_IDENTIFIED).toBe('ERROR');
-    expect(summary.ZERO_COORDINATE).toBe('WARNING');
+    expect(summary.LICENSE_MISSING_OR_UNKNOWN).toBe('INFO');
+    expect(summary.RECORD_NOT_UNIQUELY_IDENTIFIED).toBe('WARNING');
     expect(summary.EML_GBIF_SCHEMA).toBe('WARNING');
   });
 
@@ -137,11 +135,11 @@ describe('normalizeReport: other results', () => {
     expect(report.files.every((file) => file.issueCount === 0)).toBe(true);
   });
 
-  it('reports a non-indexable file with its blocking issue as an error', () => {
+  it('passes the indexable flag through as the API reports it', () => {
     const report = normalizeReport(notIndexable as Validation, lookups);
     expect(report.indexeable).toBe(false);
     expect(report.summary[0].issues).toEqual([
-      { id: 'OCCURRENCE_NOT_UNIQUELY_IDENTIFIED', severity: 'ERROR' },
+      { id: 'OCCURRENCE_NOT_UNIQUELY_IDENTIFIED', severity: 'WARNING' },
     ]);
   });
 
@@ -246,13 +244,6 @@ describe('normalizeReport: ColDP', () => {
 describe('getIssueSeverity', () => {
   it('uses the ChecklistBank level for ChecklistBank issues, never the occurrence remark', () => {
     expect(getIssueSeverity('UNPARSABLE_NAME', 'CLB_INTERPRETATION_BASED', lookups)).toBe('ERROR');
-  });
-
-  it("marks the validator's non-indexable issues as errors", () => {
-    expect(getIssueSeverity('DWCA_UNREADABLE', 'RESOURCE_STRUCTURE', lookups)).toBe('ERROR');
-    expect(getIssueSeverity('LICENSE_MISSING_OR_UNKNOWN', 'METADATA_CONTENT', lookups)).toBe(
-      'ERROR'
-    );
   });
 
   it('falls back to WARNING for an issue without a remark', () => {

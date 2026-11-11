@@ -1,5 +1,4 @@
 import { clbIssueLevels } from './clbIssueLevels';
-import { NON_INDEXABLE_ISSUES } from './nonIndexableIssues';
 import { isInProgress } from './pollingMachine';
 import type {
   FileInfo,
@@ -130,14 +129,12 @@ export function assignColdpFileTypes(files: FileInfo[]): FileInfo[] {
   );
 }
 
-// An issue that blocks indexing is an error, whatever severity an occurrence remark gives it.
 export function getIssueSeverity(
   issue: string,
   category: string | undefined,
   lookups: Pick<ValidatorLookups, 'remarks'>
 ): Severity {
   if (category === CLB_CATEGORY) return clbIssueLevels[issue] ?? 'WARNING';
-  if (NON_INDEXABLE_ISSUES.has(issue)) return 'ERROR';
   return lookups.remarks[issue]?.severity ?? 'WARNING';
 }
 
