@@ -12,7 +12,7 @@ class OccurrenceSnapshotsAPI extends RESTDataSource {
     const header = createSignedGetHeader(
       path,
       this.config,
-      'download.gbif.org',
+      { userName: 'download.gbif.org' },
     );
     Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
   }

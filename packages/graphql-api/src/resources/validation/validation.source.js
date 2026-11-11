@@ -13,7 +13,7 @@ class ValidationAPI extends RESTDataSource {
       const header = createSignedGetHeader(
         path,
         this.config,
-        this.context.user.userName,
+        { userName: this.context.user.userName },
       );
       Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
     }
