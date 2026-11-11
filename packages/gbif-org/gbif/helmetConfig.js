@@ -31,12 +31,11 @@ export const helmetConfig = {
         'tpr241s1tthg.statuspage.io', // test
         'openmaptiles.github.io',
         'api.maptiler.com',
-        'localhost:*',
       ],
       scriptSrc: [
         `'self'`,
-        `'unsafe-inline'`,
-        `'unsafe-eval'`,
+        // Inline scripts must carry the per-request nonce that server.js sets in res.locals.cspNonce.
+        (req, res) => `'nonce-${res.locals.cspNonce}'`,
         `*.gbif.org`,
         `*.gbif-uat.org`,
         `*.gbif-test.org`,
@@ -72,7 +71,7 @@ export const helmetConfig = {
     },
   },
   hsts: {
-    maxAge: 600,
+    maxAge: 31536000, // one year
     includeSubDomains: true,
   },
 };

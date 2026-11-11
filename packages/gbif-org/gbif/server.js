@@ -2,6 +2,7 @@ import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import helmet from 'helmet';
+import { randomBytes } from 'node:crypto';
 import fsp from 'node:fs/promises';
 import { createServer as createHttpServer } from 'node:http';
 import path from 'node:path';
@@ -76,6 +77,12 @@ async function main() {
       }
       originalSend.call(this, body);
     };
+    next();
+  });
+
+  // A fresh nonce per response, for the Content-Security-Policy and the inline scripts in the page.
+  app.use((req, res, next) => {
+    res.locals.cspNonce = randomBytes(16).toString('base64');
     next();
   });
 
@@ -259,7 +266,7 @@ async function main() {
           rootDir,
           messagesPath,
           messagesClientUrl,
-        } = await render(req);
+        } = await render(req, { nonce: res.locals.cspNonce });
         if (cacheControl) {
           res.set('Cache-Control', cacheControl);
         }
@@ -275,8 +282,9 @@ async function main() {
         // entry.client.tsx reuses this promise; it resolves to null on failure so the client falls
         // back to the path-based load. Escaping `<` keeps the value inside the script element.
         const escapeForScript = (value) => escapeScriptText(JSON.stringify(value));
+        const nonceAttr = `nonce="${res.locals.cspNonce}"`;
         const i18nScript = messagesPath
-          ? `<script>window.__I18N_MESSAGES_PATH__=${escapeForScript(messagesPath)};` +
+          ? `<script ${nonceAttr}>window.__I18N_MESSAGES_PATH__=${escapeForScript(messagesPath)};` +
             (messagesClientUrl
               ? `window.__I18N_MESSAGES_PROMISE__=fetch(${escapeForScript(
                   messagesClientUrl
@@ -288,7 +296,7 @@ async function main() {
         // Predicate posted to */download/request (see the referer-source middleware above),
         // inlined so the client can pick it up once on this response - see consumeInitialPredicate.
         const predicateScript = res.locals.initialPredicate
-          ? `<script>window.__INITIAL_PREDICATE__=${escapeForScript(
+          ? `<script ${nonceAttr}>window.__INITIAL_PREDICATE__=${escapeForScript(
               res.locals.initialPredicate
             )};</script>`
           : '';

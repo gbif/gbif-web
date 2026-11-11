@@ -157,6 +157,8 @@ The server-side entry script, exposing a `render` function for application rende
 
 This function renders the HTML of the app and acquires `headHtml`, `htmlAttributes`, and `bodyAttributes` using `react-helmet-async`. These are then injected into `index.html` by `server.js`, forming the HTML sent to the client.
 
+In production the Content-Security-Policy (`gbif/helmetConfig.js`) allows no inline scripts and no `eval`. `server.js` creates a nonce per response (`res.locals.cspNonce`), and any inline `<script>` it writes, or that `render` writes, must carry `nonce="..."` with that value or the browser won't run it. Static HTML in `public/` can't get the nonce, so keep its scripts in separate `.js` files.
+
 #### `routes.tsx`
 
 Defines routes for gbif.org using a custom type `RouteObjectWithPlugins`, enabling additional properties beyond those supported by `react-router-dom`.
