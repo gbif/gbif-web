@@ -38,7 +38,7 @@ export async function authenticatedRequest(options) {
     if (options.userName !== undefined) {
       throw new Error('Use either userName or asApp, not both');
     }
-  } else if (!isValidUserHeader(options.userName)) {
+  } else if (!isValidUserHeader(options.userName, appKey)) {
     throw new Error('A request needs a valid userName, or asApp: true to run as the app');
   }
 

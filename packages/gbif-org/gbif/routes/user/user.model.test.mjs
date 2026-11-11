@@ -3,7 +3,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('../auth/gbifAuthRequest.mjs', () => ({ authenticatedRequest: vi.fn() }));
 vi.mock('../auth/utils.mjs', () => ({ fetchWithRetry: vi.fn() }));
 vi.mock('../../envConfig.mjs', () => ({
-  secretEnv: { REGISTRY_API_V1: 'https://registry.test/v1', PUBLIC_API_V1: 'https://api.test/v1' },
+  secretEnv: {
+    REGISTRY_API_V1: 'https://registry.test/v1',
+    PUBLIC_API_V1: 'https://api.test/v1',
+    APP_KEY: 'test.app',
+  },
 }));
 
 const { authenticatedRequest } = await import('../auth/gbifAuthRequest.mjs');
@@ -272,7 +276,13 @@ describe('endpoints that need no login', () => {
     { $ne: 1 },
     ['jane'],
     'a\nb',
+    'a\u0085b',
+    'łukasz',
+    ' jane',
+    'jane ',
     'x'.repeat(256),
+    'test.app',
+    'Test.App',
   ];
 
   it.each(badUserNames)('confirm never sends a request for %j', async (userName) => {
@@ -317,5 +327,24 @@ describe('endpoints that need no login', () => {
       password: 'pw',
     });
     expect(authenticatedRequest.mock.calls[0][0].userName).toBe('jane+gbif@example.org');
+  });
+});
+
+describe('missing values on endpoints that need no login', () => {
+  it.each([undefined, '', '  ', 42])('confirm answers 400 for challenge code %j', async (code) => {
+    await expect(confirm(code, 'jane')).rejects.toMatchObject({ statusCode: 400 });
+    expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    [{ challengeCode: undefined, password: 'pw' }],
+    [{ challengeCode: 'code', password: undefined }],
+    [{ challengeCode: '', password: 'pw' }],
+    [{ challengeCode: 'code', password: '  ' }],
+  ])('updateForgottenPassword answers 400 for %j', async (fields) => {
+    await expect(updateForgottenPassword({ userName: 'jane', ...fields })).rejects.toMatchObject({
+      statusCode: 400,
+    });
+    expect(authenticatedRequest).not.toHaveBeenCalled();
   });
 });

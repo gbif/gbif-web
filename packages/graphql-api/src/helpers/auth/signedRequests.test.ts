@@ -1,19 +1,68 @@
 /* eslint-env mocha */
 import assert from 'assert';
-import { createHmac, createHash } from 'node:crypto';
 import config from '@/config';
 import { createSignedGetHeader } from './authenticatedGet';
 import { isValidUserHeader, signingUser } from './userHeader';
 import { authenticatedRequest, createSignedHeaders } from '@/api-utils/forms/helpers/gbifAuthRequest';
 
-// The signature as the registry computes it (GbifAuthService), written out independently so the
-// tests show that requests are signed exactly as before for every caller.
-function expectedAuthorization(stringToSign: string) {
-  const signature = createHmac('sha1', config.appSecret).update(stringToSign).digest('base64');
-  return `GBIF ${config.appKey}:${signature}`;
-}
+// A fixed identity so the expected headers below don't depend on the local .env.
+const testApp = { appKey: 'test.app', appSecret: 'test-secret' };
 
-const badUserNames: unknown[] = [undefined, null, '', '  ', 42, {}, ['jane'], 'a\nb', 'a\u0000b', 'x'.repeat(256)];
+// Headers produced by the code before identity was made explicit (commit 2951017), run with
+// testApp and the same inputs. Every caller that relied on the fallback must still send these,
+// byte for byte.
+const before = {
+  createPublisher: {
+    'x-url': 'organization/',
+    'x-gbif-user': 'test.app',
+    'Content-MD5': 'IFHJqYosdPsc5UO/Weg4lQ==',
+    Authorization: 'GBIF test.app:BCll28p71aIOV3fCF86dd8qjSig=',
+  },
+  getOrganization: {
+    'x-url': 'https://api.test/v1/organization/abc',
+    'x-gbif-user': 'test.app',
+    Authorization: 'GBIF test.app:drvZfjMPCaCk9fUKm7ftdURCgHg=',
+  },
+  confirmEndorsement: {
+    'x-url': 'organization/abc/endorsement',
+    'x-gbif-user': 'test.app',
+    'Content-MD5': '8m07wcgWE0JahkyxoplB7Q==',
+    Authorization: 'GBIF test.app:KYYzJw/4Qqe67hnqkYP+4wXinUE=',
+  },
+  getAsApp: {
+    'x-url': '/directory/participant',
+    'x-gbif-user': 'test.app',
+    Authorization: 'GBIF test.app:I3sgNP3bUDJLSxgd7ldCqjfnnHM=',
+  },
+  getAsUser: {
+    'x-url': '/occurrence/download/user/jane',
+    'x-gbif-user': 'jane',
+    Authorization: 'GBIF test.app:Iiu1vBucDvLqzOulWONnGxPzPnY=',
+  },
+};
+
+const badUserNames: unknown[] = [
+  undefined,
+  null,
+  '',
+  '  ',
+  42,
+  {},
+  ['jane'],
+  'a\nb',
+  'a\u0000b',
+  'a\u007fb',
+  'a\u0085b', // C1 control (NEL)
+  'łukasz', // above U+00FF: fetch can't put it in a header
+  'a\u2028b',
+  ' jane', // fetch trims the header, but the untrimmed value would be signed
+  'jane ',
+  'jane\t',
+  'x'.repeat(256),
+  // the app's own key would make the request run as the app without asApp
+  'test.app',
+  'TEST.APP',
+];
 
 describe('signingUser', () => {
   it('returns the user name when one is given', () => {
@@ -24,14 +73,16 @@ describe('signingUser', () => {
     assert.strictEqual(signingUser({ asApp: true }, 'app'), 'app');
   });
 
-  it('accepts old user names that are email addresses', () => {
-    assert.strictEqual(signingUser({ userName: 'jane+gbif@example.org' }, 'app'), 'jane+gbif@example.org');
+  ['jane+gbif@example.org', 'jørgen', '...abc...', 'Jane Doe', 'x'.repeat(255)].forEach((userName) => {
+    it(`accepts the real-world user name ${JSON.stringify(userName)}`, () => {
+      assert.strictEqual(signingUser({ userName }, 'test.app'), userName);
+    });
   });
 
   badUserNames.forEach((userName) => {
-    it(`never falls back to the app for user ${JSON.stringify(userName)}`, () => {
-      assert.throws(() => signingUser({ userName }, 'app'), /valid userName, or asApp/);
-      assert.strictEqual(isValidUserHeader(userName), false);
+    it(`never signs for user ${JSON.stringify(userName)}`, () => {
+      assert.throws(() => signingUser({ userName }, 'test.app'), /valid userName, or asApp/);
+      assert.strictEqual(isValidUserHeader(userName, 'test.app'), false);
     });
   });
 
@@ -50,57 +101,80 @@ describe('signingUser', () => {
 });
 
 describe('createSignedGetHeader', () => {
-  it('signs as the app, the same as before, when asked to', () => {
-    const headers = createSignedGetHeader('/directory/participant', config, { asApp: true });
-    assert.strictEqual(headers['x-gbif-user'], config.appKey);
-    assert.strictEqual(headers.Authorization, expectedAuthorization(`GET\n/directory/participant\n${config.appKey}`));
+  it('signs as the app exactly as before when asked to', () => {
+    assert.deepStrictEqual(createSignedGetHeader('/directory/participant', testApp, { asApp: true }), before.getAsApp);
   });
 
-  it('signs as the given user, the same as before', () => {
-    const headers = createSignedGetHeader('/occurrence/download/user/jane', config, { userName: 'jane' });
-    assert.strictEqual(headers['x-gbif-user'], 'jane');
-    assert.strictEqual(headers.Authorization, expectedAuthorization('GET\n/occurrence/download/user/jane\njane'));
+  it('signs as the given user exactly as before', () => {
+    assert.deepStrictEqual(
+      createSignedGetHeader('/occurrence/download/user/jane', testApp, { userName: 'jane' }),
+      before.getAsUser,
+    );
   });
 
   it('throws instead of signing as the app when no identity is given', () => {
-    assert.throws(() => (createSignedGetHeader as any)('/x', config), /valid userName, or asApp/);
+    assert.throws(() => (createSignedGetHeader as any)('/x', testApp), /valid userName, or asApp/);
   });
 
   it('throws instead of signing as the app for a logged-in user without a user name', () => {
-    assert.throws(() => createSignedGetHeader('/x', config, { userName: undefined as any }), /valid userName/);
+    assert.throws(() => createSignedGetHeader('/x', testApp, { userName: undefined as any }), /valid userName/);
+  });
+
+  it('throws for a user name that is the app key', () => {
+    assert.throws(() => createSignedGetHeader('/x', testApp, { userName: 'test.app' }), /valid userName/);
   });
 });
 
 describe('authenticatedRequest', () => {
-  it('signs a POST as the app, the same as before, when asked to (create publisher)', () => {
-    const body = { title: 'Example org' };
-    const headers = createSignedHeaders({
-      method: 'POST',
-      body,
-      url: 'https://api.test/v1/organization/',
-      canonicalPath: 'organization/',
-      asApp: true,
-    });
-    const md5 = createHash('md5').update(JSON.stringify(body)).digest('base64');
-    assert.strictEqual(headers['x-gbif-user'], config.appKey);
-    assert.strictEqual(
-      headers.Authorization,
-      expectedAuthorization(`POST\norganization/\napplication/json\n${md5}\n${config.appKey}`),
+  // authenticatedRequest reads the shared config, so swap in the fixed identity for these tests.
+  const saved = { appKey: config.appKey, appSecret: config.appSecret };
+  beforeEach(() => Object.assign(config, testApp));
+  afterEach(() => Object.assign(config, saved));
+
+  it('signs create publisher exactly as before', () => {
+    assert.deepStrictEqual(
+      createSignedHeaders({
+        method: 'POST',
+        body: { title: 'Example org' },
+        url: 'https://api.test/v1/organization/',
+        canonicalPath: 'organization/',
+        asApp: true,
+      }),
+      before.createPublisher,
     );
   });
 
-  it('signs a GET as the app, the same as before, when asked to (confirm endorsement)', () => {
-    const url = 'https://api.test/v1/organization/abc';
-    const headers = createSignedHeaders({ method: 'GET', url, asApp: true });
-    assert.strictEqual(headers['x-gbif-user'], config.appKey);
-    assert.strictEqual(headers.Authorization, expectedAuthorization(`GET\n${url}\n${config.appKey}`));
+  it('signs the organization lookup in confirm endorsement exactly as before', () => {
+    assert.deepStrictEqual(
+      createSignedHeaders({
+        method: 'GET',
+        url: 'https://api.test/v1/organization/abc',
+        asApp: true,
+      }),
+      before.getOrganization,
+    );
+  });
+
+  it('signs the endorsement confirmation exactly as before', () => {
+    assert.deepStrictEqual(
+      createSignedHeaders({
+        method: 'POST',
+        body: { confirmationKey: 'code' },
+        url: 'https://api.test/v1/organization/abc/endorsement',
+        canonicalPath: 'organization/abc/endorsement',
+        asApp: true,
+      }),
+      before.confirmEndorsement,
+    );
   });
 
   it('signs as the given user', () => {
-    const url = 'https://api.test/v1/organization/abc';
-    const headers = createSignedHeaders({ method: 'GET', url, userName: 'jane' });
+    const headers = createSignedHeaders({
+      method: 'GET',
+      url: 'https://api.test/v1/organization/abc',
+      userName: 'jane',
+    });
     assert.strictEqual(headers['x-gbif-user'], 'jane');
-    assert.strictEqual(headers.Authorization, expectedAuthorization(`GET\n${url}\njane`));
   });
 
   // These reject before a request is made: the identity is checked first.
@@ -122,7 +196,12 @@ describe('authenticatedRequest', () => {
 
   it('refuses userName and asApp together', async () => {
     await assert.rejects(
-      authenticatedRequest({ method: 'GET', url: 'https://api.test/v1/x', userName: 'jane', asApp: true }),
+      authenticatedRequest({
+        method: 'GET',
+        url: 'https://api.test/v1/x',
+        userName: 'jane',
+        asApp: true,
+      }),
       /not both/,
     );
   });

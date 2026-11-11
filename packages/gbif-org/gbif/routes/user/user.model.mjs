@@ -95,7 +95,7 @@ export async function create(body) {
 
 export async function confirm(challengeCode, userName) {
   ensureUserHeader(userName, 'user name');
-  ensureString(challengeCode, 'challenge code');
+  ensureInputString(challengeCode, 'challenge code');
   let options = {
     method: 'POST',
     body: {
@@ -181,8 +181,8 @@ export async function updateForgottenPassword(body) {
     password = body.password;
 
   ensureUserHeader(body.userName, 'user name');
-  ensureString(challengeCode, 'challenge code');
-  ensureString(password, 'password');
+  ensureInputString(challengeCode, 'challenge code');
+  ensureInputString(password, 'password');
 
   let options = {
     method: 'POST',
@@ -556,8 +556,18 @@ export function derivedDatasetDoiPath(doi) {
  * need no login, so a value that can't be a user name is answered with a 400 and never sent.
  */
 function ensureUserHeader(value, name) {
-  if (!isValidUserHeader(value)) {
+  if (!isValidUserHeader(value, secretEnv.APP_KEY)) {
     throw new InvalidInputError(`${name} is not valid`);
+  }
+}
+
+/**
+ * Like ensureString, but for values from the request body: a missing value is the client's mistake
+ * and is answered with a 400.
+ */
+function ensureInputString(value, name) {
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new InvalidInputError(`${name} is required`);
   }
 }
 
