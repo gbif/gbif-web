@@ -1,5 +1,9 @@
 {
   "institutionUnknown": "Institution ist unbekannt",
   "contentTypes": "Inhalts-Typen",
+  "preservationTypes": "Aufbewahrungsart",
+  "personalCollection": "Privatsammlung",
+  "accessionStatus": "Zugangsstatus",
+  "numberSpecimens": "Anzahl Belege in der Sammlung",
   "collectionDescriptors": "Sammlungsdeskriptor"
 }
