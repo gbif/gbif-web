@@ -13,6 +13,7 @@ import getLongitudeBounds from './helpers/longitudeBounds';
 import termResolver from './helpers/terms/occurrenceTerms';
 import { getTranslatedVocabConceptValue } from '../vocabulary/vocabulary.resolver';
 import getEnumTranslation from '@/helpers/translations';
+import { GraphQLError } from 'graphql';
 
 const translateConceptLabel = getTranslatedVocabConceptValue('label', {
   useNameAsFallback: true,
@@ -500,8 +501,7 @@ export default {
     },
     // not part of the v1 record, so read it from the verbatim record (the occurrence page fetches
     // that anyway for the terms, and the request is only made once)
-    verbatimScientificName: async ({ key, verbatimScientificName }, _args, { dataSources }) => {
-      if (typeof verbatimScientificName !== 'undefined') return verbatimScientificName;
+    verbatimScientificName: async ({ key }, _args, { dataSources }) => {
       const verbatim = await dataSources.occurrenceAPI.getVerbatim({ key }).catch(ignore404);
       return verbatim?.['http://rs.tdwg.org/dwc/terms/scientificName'] ?? null;
     },
@@ -594,6 +594,18 @@ export default {
     //     return dataSources.personAPI.getPersonByKey({ viaf: key });
     //   }
     // }
+  },
+  OccurrenceDocuments: {
+    // A record es-api couldn't load becomes null in the list, with an error pointing at it, so the
+    // client can show the rest and decide how to flag the missing ones.
+    results: ({ results }) =>
+      (results ?? []).map((record) =>
+        record?._unavailable
+          ? new GraphQLError(`Occurrence ${record.key} could not be loaded`, {
+              extensions: { code: 'OCCURRENCE_UNAVAILABLE', key: record.key },
+            })
+          : record,
+      ),
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,

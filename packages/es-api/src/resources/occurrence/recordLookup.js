@@ -5,31 +5,19 @@
  * returned exactly as v1 serves them, the same format as v1 occurrence search, so callers can later
  * use the public API directly.
  *
- * Lookups share one process-wide limit (occurrence.recordLookupConcurrency in .env) so a burst of
- * searches can't open an unbounded number of requests to the API.
+ * For now the keys are looked up one at a time, in order. The backend is building a batch lookup;
+ * getRecords is the one place to switch over to it.
+ *
+ * A record that can't be loaded (gone from v1, or still failing after one retry) is returned as
+ * just { key }. The caller decides what to do about it.
  */
 const env = require('../../config');
-const { ResponseError } = require('../errorHandler');
+const logger = require('../../logger');
 
-const CONCURRENCY = Number(env.occurrence?.recordLookupConcurrency) || 50;
 const TIMEOUT_MS = Number(env.occurrence?.recordLookupTimeout) || 10000;
+const RETRY_DELAY_MS = 200;
 
-let running = 0;
-const waiting = [];
-
-async function withSlot(fn) {
-  if (running >= CONCURRENCY) {
-    await new Promise((resolve) => waiting.push(resolve));
-  }
-  running += 1;
-  try {
-    return await fn();
-  } finally {
-    running -= 1;
-    const next = waiting.shift();
-    if (next) next();
-  }
-}
+class NotFound extends Error {}
 
 function getHeaders(req) {
   const headers = { Accept: 'application/json', 'User-Agent': 'GBIF-es-api' };
@@ -38,45 +26,67 @@ function getHeaders(req) {
   return headers;
 }
 
-/**
- * Returns the v1 record, or null if v1 doesn't have it (typically deleted since it was indexed).
- */
-async function getRecord(key, req) {
-  return withSlot(async () => {
-    let response;
-    try {
-      response = await fetch(`${env.apiv1}/occurrence/${key}`, {
-        headers: getHeaders(req),
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-      });
-    } catch (err) {
-      throw new ResponseError(
-        504,
-        'recordLookupFailed',
-        `Looking up occurrence ${key} failed: ${err.message}`,
-      );
-    }
-    if (response.status === 404) return null;
-    if (!response.ok) {
-      throw new ResponseError(
-        502,
-        'recordLookupFailed',
-        `Looking up occurrence ${key} failed with ${response.status}`,
-      );
-    }
-    return response.json();
+async function fetchRecord(key, req, signal) {
+  const response = await fetch(`${env.apiv1}/occurrence/${key}`, {
+    headers: getHeaders(req),
+    signal: AbortSignal.any([signal, AbortSignal.timeout(TIMEOUT_MS)]),
+  });
+  if (response.status === 404) throw new NotFound();
+  if (!response.ok) throw new Error(`status ${response.status}`);
+  return response.json();
+}
+
+function wait(ms, signal) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(resolve, ms);
+    signal.addEventListener(
+      'abort',
+      () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      },
+      { once: true },
+    );
   });
 }
 
+async function getRecord(key, req, signal) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await fetchRecord(key, req, signal);
+    } catch (err) {
+      // the caller went away; stop instead of trying again
+      if (signal.aborted) throw signal.reason;
+      if (err instanceof NotFound) return { key };
+      if (attempt >= 2) {
+        logger.warn('occurrence record lookup failed', { key, error: err.message });
+        return { key };
+      }
+      await wait(RETRY_DELAY_MS, signal);
+    }
+  }
+}
+
 /**
- * Look up the records for a list of keys, in the same order. Keys v1 doesn't know are left out.
+ * Look up the records for a list of keys, in the same order. Stops if the client disconnects.
  */
 async function getRecords(keys, req) {
-  const records = await Promise.all(keys.map((key) => getRecord(key, req)));
-  return records.filter((record) => record !== null);
+  const controller = new AbortController();
+  const onClose = () => {
+    if (!req?.res?.writableEnded) controller.abort(new Error('client closed the request'));
+  };
+  req?.res?.once('close', onClose);
+  try {
+    const records = [];
+    for (const key of keys) {
+      records.push(await getRecord(key, req, controller.signal));
+    }
+    return records;
+  } finally {
+    req?.res?.off('close', onClose);
+  }
 }
 
 module.exports = {
-  getRecord,
   getRecords,
 };

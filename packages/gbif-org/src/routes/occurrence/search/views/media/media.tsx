@@ -69,7 +69,6 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
           basisOfRecord
           typeStatus
           eventDate
-          verbatimScientificName
           classification(checklistKey: $checklistKey) {
             usage {
               name

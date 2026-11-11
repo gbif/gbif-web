@@ -3,7 +3,7 @@ import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getOccurrenceAgent } from '@/requestAgents';
 import QueuedRESTDataSource from '@/QueuedRESTDataSource';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
-import v1ToOccurrence from './helpers/v1ToOccurrence';
+import v1ToOccurrence, { isUnavailable } from './helpers/v1ToOccurrence';
 
 const MAX_RESULTS = 6000;
 
@@ -66,7 +66,10 @@ class OccurrenceAPI extends QueuedRESTDataSource {
       ...response,
       documents: response.documents && {
         ...response.documents,
-        results: (response.documents.results ?? []).map(v1ToOccurrence),
+        // records es-api couldn't load come as just { key }; the results resolver reports them
+        results: (response.documents.results ?? []).map((record) =>
+          isUnavailable(record) ? { key: record.key, _unavailable: true } : v1ToOccurrence(record),
+        ),
       },
       _predicate: body.predicate,
       _q: query.q,
@@ -91,7 +94,10 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   }
 
   async getVerbatim({ key }) {
-    return this.get(`${this.config.apiv1}/occurrence/${key}/verbatim`);
+    return this.get(`${this.config.apiv1}/occurrence/${key}/verbatim`, undefined, {
+      signal: this.context.abortController?.signal,
+      enQueue: true,
+    });
   }
 
   async meta({ query }) {

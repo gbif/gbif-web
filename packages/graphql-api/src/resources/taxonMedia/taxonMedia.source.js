@@ -132,6 +132,7 @@ export default class TaxonMediaAPI extends RESTDataSource {
         },
       });
     return occurrenceMedia.results
+      .filter((x) => x?.media?.length > 0)
       .map((x) => ({
         format: x.media[0].format,
         accessURI: x.media[0].identifier,

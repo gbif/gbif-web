@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { deepEqual, equal } from 'assert';
-import v1ToOccurrence, { splitMultiValue, toLicense } from './v1ToOccurrence';
+import v1ToOccurrence, { isUnavailable, splitMultiValue, toLicense } from './v1ToOccurrence';
 
 // trimmed down from https://api.gbif.org/v1/occurrence/1291505203
 const holotype = {
@@ -100,6 +100,21 @@ describe('v1ToOccurrence', () => {
     deepEqual(occurrence.media, []);
     deepEqual(occurrence.classifications, []);
     deepEqual(occurrence.nonTaxonomicIssues, []);
+  });
+
+  it('drops a top-level verbatimScientificName, which is another term with the same name', () => {
+    // e.g. https://api.gbif.org/v1/occurrence/6216428301 carries http://plazi.org/terms/1.0/verbatimScientificName
+    const occurrence = v1ToOccurrence({
+      ...holotype,
+      verbatimScientificName: 'Primula maershanensis J. L. Gu & Z. K. Wu',
+    });
+    equal('verbatimScientificName' in occurrence, false);
+  });
+
+  it('recognises records es-api could not load', () => {
+    equal(isUnavailable({ key: 1 }), true);
+    equal(isUnavailable(holotype), false);
+    equal(isUnavailable(null), false);
   });
 
   it('gives the same result when run twice', () => {

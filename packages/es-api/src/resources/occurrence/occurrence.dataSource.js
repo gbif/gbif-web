@@ -3,6 +3,7 @@ const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
+const logger = require('../../logger');
 const { getRecords } = require('./recordLookup');
 const { queryReducer } = require('../../responseAdapter');
 
@@ -156,8 +157,12 @@ async function query({
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
+  const keys = body.hits.hits.map((n) => n._source?.gbifId);
+  if (keys.some((key) => key === undefined || key === null)) {
+    logger.warn('occurrence search hit without gbifId', { index: searchIndex });
+  }
   body.hits.hits = await getRecords(
-    body.hits.hits.map((n) => n._source.gbifId),
+    keys.filter((key) => key !== undefined && key !== null),
     req,
   );
 

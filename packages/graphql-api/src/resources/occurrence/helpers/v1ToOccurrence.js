@@ -11,8 +11,11 @@
  * - license is a URL in v1; the schema has the License enum
  * - identifier is left out of v1 for some records, but is still in identifiers
  *
- * verbatimScientificName isn't in the v1 record at all. The resolver gets it from the verbatim
- * record when it is asked for.
+ * verbatimScientificName isn't in the v1 record. The resolver gets it from the verbatim record when
+ * it is asked for. A top-level verbatimScientificName in v1 is a different term with the same short
+ * name (e.g. http://plazi.org/terms/1.0/verbatimScientificName), so it is dropped.
+ *
+ * es-api returns a record it couldn't load as just { key }; isUnavailable detects those.
  */
 
 const MULTI_VALUE_FIELDS = [
@@ -90,9 +93,14 @@ function getNonTaxonomicIssues(issues, classifications) {
   return issues.filter((issue) => !taxonomicIssues.has(issue));
 }
 
+export function isUnavailable(record) {
+  return !!record && Object.keys(record).length === 1 && 'key' in record;
+}
+
 export default function v1ToOccurrence(record) {
   if (!record) return record;
   const occurrence = { ...record };
+  delete occurrence.verbatimScientificName;
 
   MULTI_VALUE_FIELDS.forEach((field) => {
     occurrence[field] = splitMultiValue(record[field]);

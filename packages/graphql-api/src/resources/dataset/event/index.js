@@ -67,7 +67,8 @@ export const getDatasetEvents = async (
           },
         })
         .then((res) => {
-          return res.documents.results[0];
+          const occurrence = res.documents.results[0];
+          return occurrence?._unavailable ? null : occurrence;
         }),
     })),
   };
