@@ -138,5 +138,19 @@
   "MISSING_AUTHORSHIP": "Missing authorship",
   "MISSPELLING_CONSOLIDATION": "Misspelling consolidation",
   "BAD_BASIONYM_AUTHORSHIP": "Bad basionym authorship",
-  "DISTRIBUTION_GAZETTEER_CONFLICT": "Distribution gazetteer conflict"
+  "DISTRIBUTION_GAZETTEER_CONFLICT": "Distribution gazetteer conflict",
+  "MATCHING_AMBIGUOUS": "Ambiguous match",
+  "MATCHING_NONE": "No match found",
+  "MATCHING_UNSUPPORTED": "Matching unsupported",
+  "MATCHING_HIGHERRANK": "Matched to higher rank",
+  "DUPLICATE_DISTRIBUTIONS": "Duplicate distributions",
+  "DUPLICATE_MEDIA": "Duplicate media",
+  "DUPLICATE_VERNACULAR_NAMES": "Duplicate vernacular names",
+  "DUPLICATE_ESTIMATES": "Duplicate estimates",
+  "DUPLICATE_TAXON_PROPERTIES": "Duplicate taxon properties",
+  "AUTHORSHIP_UNCERTAIN": "Authorship uncertain",
+  "SUPERFLUOUS_AUTHORSHIP": "Superfluous authorship",
+  "RELATION_SYNONYM": "Relation to synonym",
+  "AUTHORSHIP_INDET_MARKER": "Authorship is an indetermination marker",
+  "DERIVED_NOMENCLATURAL_STATUS": "Derived nomenclatural status"
 }

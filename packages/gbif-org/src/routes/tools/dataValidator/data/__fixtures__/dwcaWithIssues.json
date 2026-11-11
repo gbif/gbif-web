@@ -1,0 +1,112 @@
+{
+  "key": "4f0c7a40-1b2c-4d3e-8f90-0a1b2c3d4e5f",
+  "created": "2026-11-10T09:15:00.000+00:00",
+  "modified": "2026-11-10T09:16:30.000+00:00",
+  "file": "dwca-sample.zip",
+  "fileSize": 2345678,
+  "fileFormat": "DWCA",
+  "status": "FINISHED",
+  "metrics": {
+    "indexeable": true,
+    "stepTypes": [
+      { "stepType": "VALIDATOR_COLLECT_METRICS", "status": "FINISHED", "executionOrder": 5 },
+      { "stepType": "VALIDATOR_UPLOAD_ARCHIVE", "status": "FINISHED", "executionOrder": 1 },
+      { "stepType": "VALIDATOR_VALIDATE_ARCHIVE", "status": "FINISHED", "executionOrder": 2 },
+      { "stepType": "VALIDATOR_DWCA_TO_VERBATIM", "status": "FINISHED", "executionOrder": 3 },
+      { "stepType": "VALIDATOR_VERBATIM_TO_INTERPRETED", "status": "FINISHED", "executionOrder": 4 }
+    ],
+    "files": [
+      {
+        "fileType": "EXTENSION",
+        "fileName": "multimedia.txt",
+        "rowType": "http://rs.gbif.org/terms/1.0/Multimedia",
+        "count": 20,
+        "terms": [
+          { "term": "http://purl.org/dc/terms/identifier", "rawIndexed": 20 },
+          { "term": "http://purl.org/dc/terms/format", "rawIndexed": 5 }
+        ],
+        "issues": [
+          {
+            "issue": "MULTIMEDIA_URI_INVALID",
+            "issueCategory": "OCC_INTERPRETATION_BASED",
+            "count": 2,
+            "samples": [{ "recordId": "occ-7", "relatedData": { "dc:identifier": "not a url" } }]
+          }
+        ]
+      },
+      {
+        "fileType": "CORE",
+        "fileName": "occurrence.txt",
+        "rowType": "http://rs.tdwg.org/dwc/terms/Occurrence",
+        "count": 100,
+        "indexedCount": 98,
+        "idTerm": "http://rs.tdwg.org/dwc/terms/occurrenceID",
+        "terms": [
+          { "term": "http://rs.tdwg.org/dwc/terms/occurrenceID", "rawIndexed": 100, "interpretedIndexed": 100 },
+          { "term": "http://rs.tdwg.org/dwc/terms/eventDate", "rawIndexed": 90, "interpretedIndexed": 87 },
+          { "term": "http://unknown.org/myCustomField", "rawIndexed": 12 }
+        ],
+        "issues": [
+          {
+            "issue": "COUNTRY_COORDINATE_MISMATCH",
+            "issueCategory": "OCC_INTERPRETATION_BASED",
+            "count": 10,
+            "samples": [
+              {
+                "recordId": "occ-1",
+                "relatedData": { "dwc:countryCode": "DK", "dwc:decimalLatitude": "-33.1", "dwc:decimalLongitude": "18.4" }
+              }
+            ]
+          },
+          {
+            "issue": "RECORDED_DATE_INVALID",
+            "issueCategory": "OCC_INTERPRETATION_BASED",
+            "count": 3,
+            "samples": [
+              { "recordId": "occ-2", "relatedData": { "dwc:eventDate": "2020-13-45" } },
+              { "recordId": "occ-3", "relatedData": { "dwc:eventDate": "yesterday" } }
+            ]
+          },
+          {
+            "issue": "ZERO_COORDINATE",
+            "issueCategory": "OCC_INTERPRETATION_BASED",
+            "count": 25,
+            "samples": []
+          },
+          {
+            "issue": "RECORD_NOT_UNIQUELY_IDENTIFIED",
+            "issueCategory": "RESOURCE_INTEGRITY",
+            "count": 2,
+            "samples": [{ "recordId": "occ-4", "relatedData": { "dwc:occurrenceID": "occ-4" } }]
+          }
+        ]
+      },
+      {
+        "fileType": "METADATA",
+        "fileName": "eml.xml",
+        "issues": [
+          {
+            "issue": "EML_GBIF_SCHEMA",
+            "issueCategory": "RESOURCE_STRUCTURE",
+            "samples": [{ "relatedData": { "message": "cvc-complex-type.2.4.a: Invalid content was found starting with element 'foo'." } }]
+          },
+          {
+            "issue": "EML_GBIF_SCHEMA",
+            "issueCategory": "RESOURCE_STRUCTURE",
+            "samples": [{ "relatedData": { "message": "cvc-datatype-valid.1.2.1: 'x' is not a valid value for 'date'." } }]
+          },
+          { "issue": "LICENSE_MISSING_OR_UNKNOWN", "issueCategory": "METADATA_CONTENT" }
+        ]
+      },
+      {
+        "fileType": "META_DESCRIPTOR",
+        "fileName": "meta.xml",
+        "issues": [
+          { "issue": "UNKNOWN_TERM", "issueCategory": "RESOURCE_STRUCTURE", "relatedData": "http://unknown.org/myCustomField" },
+          { "issue": "UNKNOWN_TERM", "issueCategory": "RESOURCE_STRUCTURE", "relatedData": "http://example.org/otherField" },
+          { "issue": "DUPLICATED_TERM", "issueCategory": "RESOURCE_STRUCTURE", "relatedData": "http://rs.tdwg.org/dwc/terms/eventDate" }
+        ]
+      }
+    ]
+  }
+}

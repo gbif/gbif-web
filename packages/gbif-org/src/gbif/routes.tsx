@@ -22,6 +22,7 @@ import { literatureButtonWidgetRoute, literatureSearchWidgetRoute } from '@/rout
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { mdtRoute } from '@/routes/custom/mdt';
+import { dataValidatorRoute } from '@/routes/tools/dataValidator';
 import { derivedDatasetRoute } from '@/routes/tools/derivedDataset';
 import { nameParserRoute } from '@/routes/tools/nameParser';
 import { sequenceIdRoute } from '@/routes/tools/sequenceId';
@@ -70,6 +71,7 @@ export function createGbifRoutes(config: Config) {
               nameParserRoute,
               sequenceIdRoute,
               derivedDatasetRoute,
+              dataValidatorRoute,
               ...notImplementedRoutes,
 
               // collectionSearchRoute,

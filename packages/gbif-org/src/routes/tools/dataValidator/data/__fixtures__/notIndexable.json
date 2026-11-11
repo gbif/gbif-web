@@ -1,0 +1,24 @@
+{
+  "key": "6b2e9c62-3d4e-4f50-8b12-2c3d4e5f6071",
+  "created": "2026-11-10T11:00:00.000+00:00",
+  "file": "broken.zip",
+  "fileSize": 1200,
+  "fileFormat": "TABULAR",
+  "status": "FINISHED",
+  "metrics": {
+    "indexeable": false,
+    "receivedMediaType": "application/zip",
+    "files": [
+      {
+        "fileType": "CORE",
+        "fileName": "broken.zip",
+        "count": 0,
+        "terms": [],
+        "issues": [
+          { "issue": "RECORD_IDENTIFIER_NOT_FOUND", "issueCategory": "RESOURCE_STRUCTURE" },
+          { "issue": "CORE_ROWTYPE_UNDETERMINED", "issueCategory": "RESOURCE_STRUCTURE" }
+        ]
+      }
+    ]
+  }
+}

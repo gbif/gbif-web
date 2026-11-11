@@ -22,6 +22,7 @@ import {
   changeEmail as changeUserEmail,
   createDerivedDataset as createUserDerivedDataset,
   updateDerivedDataset as updateUserDerivedDataset,
+  getUserApiToken,
   userPathSegment,
 } from './user.model.mjs';
 import _ from 'lodash';
@@ -289,6 +290,20 @@ export async function updateDerivedDataset(req, res) {
     const code = error.statusCode || 500;
     const message = error.body || error.message || 'Unknown error';
     res.status(code).json({ message, code });
+  }
+}
+
+export async function getApiToken(req, res) {
+  setNoCache(res);
+  try {
+    const { token, expiresAt } = await getUserApiToken(req.user.userName);
+    res.json({ token, expiresAt });
+  } catch (err) {
+    logger.warn('Could not get an API token for the user', {
+      status: err?.statusCode,
+      error: err?.message,
+    });
+    res.status(502).json({ message: 'Could not get an API token' });
   }
 }
 

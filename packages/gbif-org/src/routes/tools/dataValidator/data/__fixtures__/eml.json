@@ -1,0 +1,46 @@
+{
+  "title": "Sample <b>dataset</b>",
+  "description": "<p>A description with <script>alert(1)</script> markup.</p>",
+  "purpose": "To test the adapter.",
+  "additionalInfo": "Extra notes.",
+  "language": "eng",
+  "temporalCoverages": [
+    { "@type": "range", "start": "2001-01-01T00:00:00.000+0000", "end": "2002-12-31T00:00:00.000+0000" },
+    { "@type": "single", "period": "2005-06-01T00:00:00.000+0000" },
+    { "@type": "verbatim", "period": "Late Cretaceous" },
+    { "start": "2001-01-01" }
+  ],
+  "geographicCoverages": [
+    {
+      "description": "Denmark",
+      "boundingBox": { "minLatitude": 54.5, "maxLatitude": 57.8, "minLongitude": 8, "maxLongitude": 15.2, "globalCoverage": false }
+    },
+    { "description": "Somewhere", "boundingBox": { "minLatitude": "x" } }
+  ],
+  "taxonomicCoverages": [
+    {
+      "description": "Birds",
+      "coverages": [
+        { "scientificName": "Aves", "commonName": "birds", "rank": { "verbatim": "class", "interpreted": "CLASS" } },
+        { "scientificName": "Passer domesticus" }
+      ]
+    }
+  ],
+  "samplingDescription": {
+    "studyExtent": "All of Denmark",
+    "sampling": "Point counts",
+    "qualityControl": "",
+    "methodSteps": ["Walk", "Count", 3]
+  },
+  "bibliographicCitations": [{ "text": "Doe J (2020) Birds." }, { "identifier": "https://doi.org/10.1/x" }, {}],
+  "contacts": [
+    {
+      "type": "ORIGINATOR",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": ["jane@example.org"],
+      "homepage": ["https://example.org", "javascript:alert(1)"],
+      "userId": ["https://orcid.org/0000-0002-1825-0097", "javascript:alert(1)//orcid.org", "0000-1111"]
+    }
+  ]
+}

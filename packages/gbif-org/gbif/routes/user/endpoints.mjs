@@ -22,6 +22,7 @@ import {
   changeEmail,
   createDerivedDataset,
   updateDerivedDataset,
+  getApiToken,
 } from './controllers.mjs';
 import { getChallenge, requireProofOfWork } from './pow.mjs';
 
@@ -44,6 +45,7 @@ export function register(app) {
   app.put('/api/user/challenge', getChallenge);
   app.put('/api/user/create', requireProofOfWork, create);
   app.put('/api/user/change-email', isAuthenticated, changeEmail);
+  app.post('/api/user/token', isAuthenticated, getApiToken);
 
   app.get('/api/feedback/user/mailto/:user', appendUser, mailToUser);
   app.get('/api/feedback/user/:user', appendUser, showUserInRegistry);

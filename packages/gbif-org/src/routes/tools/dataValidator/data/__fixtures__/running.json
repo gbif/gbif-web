@@ -1,0 +1,20 @@
+{
+  "key": "9e51cf95-6071-4283-9e45-5f6071829304",
+  "created": "2026-11-10T14:00:00.000+00:00",
+  "file": "large.zip",
+  "fileSize": 98765432,
+  "fileFormat": "DWCA",
+  "status": "RUNNING",
+  "metrics": {
+    "stepTypes": [
+      { "stepType": "VALIDATOR_VERBATIM_TO_INTERPRETED", "executionOrder": 4 },
+      { "stepType": "VALIDATOR_UPLOAD_ARCHIVE", "status": "FINISHED", "executionOrder": 1 },
+      { "stepType": "VALIDATOR_VALIDATE_ARCHIVE", "status": "FINISHED", "executionOrder": 2 },
+      { "stepType": "VALIDATOR_DWCA_TO_VERBATIM", "status": "RUNNING", "executionOrder": 3 },
+      { "stepType": "VALIDATOR_COLLECT_METRICS", "executionOrder": 5 }
+    ],
+    "files": [
+      { "fileType": "META_DESCRIPTOR", "fileName": "meta.xml", "issues": [] }
+    ]
+  }
+}

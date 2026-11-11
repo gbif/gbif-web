@@ -186,6 +186,177 @@
         "create": "Create",
         "edit": "Edit"
       }
+    },
+    "dataValidator": {
+      "backToValidator": "Start a new validation",
+      "coreRowType": "Core row type",
+      "description": "The GBIF data validator is a service that allows anyone with a GBIF-relevant dataset to receive a report on the syntactical correctness and the validity of the content contained within the dataset.",
+      "dropHere": "Drop a file here",
+      "errors": {
+        "badRequest": "The file could not be processed, or it may be missing if you provided a URL.",
+        "generic": "Something went wrong. Please try again later.",
+        "notFound": "The validation was not found. If you believe this is an error, please report it.",
+        "tooLarge": "The file is too large to be processed by the data validator.",
+        "unauthorized": "You do not have access. Please check that you are signed in with the account that started the validation.",
+        "unsupported": "Unsupported file type. The file could not be processed."
+      },
+      "fetchFileFromLocation": "Fetch file from location",
+      "fileFormat": {
+        "title": "File format",
+        "DWCA": "Darwin Core Archive",
+        "TABULAR": "Tabular File (.csv, .tsv)",
+        "SPREADSHEET": "Spreadsheet (.xlsx)",
+        "COLDP": "Catalogue of Life Data Package (ColDP)",
+        "XML": "XML document"
+      },
+      "fileHasIssues": "Some issues were detected by the validator:",
+      "fileHasNoIssues": "No issues found in the file",
+      "fileSize": "File size",
+      "fileSizeLimit": "File size limit: 100 mb",
+      "fileType": {
+        "EXTENSION": {
+          "title": "Extensions"
+        },
+        "METADATA": {
+          "description": "Metadata describing the data in EML (Ecological Metadata Language)",
+          "title": "Metadata document"
+        },
+        "META_DESCRIPTOR": {
+          "description": "Semantic annotation describing how the data is structured (files, columns, etc)",
+          "title": "Meta descriptor"
+        },
+        "title": "Row type"
+      },
+      "indexeable": "The file can be indexed by GBIF",
+      "interpretedCounts": {
+        "indexed": "Number of records indexed"
+      },
+      "invalidUrl": "Please enter a web address starting with http:// or https://",
+      "issues": "Validation issues",
+      "loginMessage": "You need a GBIF account to use the data validator.",
+      "loginTitle": "Sign in to validate your data",
+      "loginToSeeReport": "Sign in to see this validation report",
+      "loginToSeeReportMessage": "You need a GBIF account to see validation reports.",
+      "metadataUnavailable": "Metadata is shown for finished validations of Darwin Core Archives only.",
+      "noIssuesFound": "No issues found",
+      "noMetadata": "No metadata was found in the archive.",
+      "noResults": "The validator produced no results for this file.",
+      "notIndexeable": "The file cannot be indexed by GBIF",
+      "numberOfLines": "Number of lines",
+      "or": "or",
+      "recordId": "Record ID",
+      "reportProducedBy": "Report produced by the GBIF data validator",
+      "reportRetention": "The report will be deleted after one month. Until then you can revisit it at this address.",
+      "selectFile": "Select file",
+      "started": "Started",
+      "status": {
+        "CONTACTING_SERVER": "Contacting server…",
+        "title": "Status",
+        "SUBMITTED": "Sending file",
+        "ACCEPTED": "Validation started",
+        "RUNNING": "Validation in progress",
+        "FINISHED": "Validation completed",
+        "FAILED": "Validation failed. Please check the file type, or if you submitted a url, please check that the file exists on the location.",
+        "QUEUED": "Waiting in queue",
+        "WAITING_FOR_CHECKLISTBANK": "Waiting for ChecklistBank",
+        "DOWNLOADING": "Downloading file",
+        "ABORTED": "Validation aborted",
+        "NOT_FOUND": "Validation not found"
+      },
+      "submit": "Submit",
+      "summary": "Validation summary",
+      "tabs": {
+        "metadata": "Metadata",
+        "newValidation": "New validation",
+        "report": "Report"
+      },
+      "termsFrequency": {
+        "count": "Count",
+        "interpreted": "Interpreted",
+        "percentage": "Percentage",
+        "term": "Term",
+        "title": "Term frequency"
+      },
+      "uniqueIdentifier": "Unique identifier",
+      "uploading": "Uploading… {percent, number, ::percent}",
+      "urlPlaceholder": "https://example.com/dwca.zip",
+      "zipNotDwca": "The file was a zipped archive, but it was not interpreted as a Darwin Core Archive because its metadata is missing or cannot be parsed.",
+      "category": {
+        "RESOURCE_STRUCTURE": "Resource Structure",
+        "RESOURCE_INTEGRITY": "Resource integrity",
+        "RECORD_STRUCTURE": "Record Structure",
+        "OCC_INTERPRETATION_BASED": "GBIF Occurrence Interpretation",
+        "METADATA_CONTENT": "Metadata Content",
+        "CLB_INTERPRETATION_BASED": "GBIF Taxon Interpretation"
+      },
+      "issueType": {
+        "DWCA_UNREADABLE": "Darwin Core Archive unreadable",
+        "DWCA_META_XML_NOT_FOUND": "Meta.xml file not found",
+        "DWCA_META_XML_SCHEMA": "Meta.xml schema validation failed",
+        "RECORD_IDENTIFIER_NOT_FOUND": "No record identifier was found within the file",
+        "CORE_ROWTYPE_UNDETERMINED": "No rowType could be found or determined",
+        "EML_NOT_FOUND": "No EML document was found",
+        "EML_GBIF_SCHEMA": "The EML document does not validate against the schema",
+        "UNKNOWN_ROWTYPE": "The rowType used for the core/extension is unknown",
+        "REQUIRED_TERM_MISSING": "A required term for the core/extension is missing",
+        "COLUMN_MISMATCH": "Column mismatch",
+        "RECORD_REFERENTIAL_INTEGRITY_VIOLATION": "Record referential integrity violation",
+        "UNKNOWN_TERM": "Unknown term",
+        "DUPLICATED_TERM": "Duplicated term",
+        "TITLE_MISSING_OR_TOO_SHORT": "The title of the dataset is missing or too short",
+        "RESOURCE_CONTACTS_MISSING_OR_INCOMPLETE": "The resource creator is missing or is incomplete",
+        "DESCRIPTION_MISSING_OR_TOO_SHORT": "The description of the dataset is missing or too short",
+        "LICENSE_MISSING_OR_UNKNOWN": "The license can not be parsed, is not supported by GBIF or is simply missing",
+        "RECORD_NOT_UNIQUELY_IDENTIFIED": "Record not uniquely identified",
+        "UNREADABLE_SECTION_ERROR": "Unreadable section error",
+        "UNHANDLED_ERROR": "Unhandled error",
+        "OCCURRENCE_NOT_UNIQUELY_IDENTIFIED": "Occurrence not uniquely identified"
+      },
+      "steps": {
+        "VALIDATOR_UPLOAD_ARCHIVE": {
+          "RUNNING": "Uploading archive",
+          "FINISHED": "Archive uploaded",
+          "PENDING": "Upload archive",
+          "FAILED": "Upload failed",
+          "QUEUED": "Upload queued"
+        },
+        "VALIDATOR_VALIDATE_ARCHIVE": {
+          "RUNNING": "Verifying archive format",
+          "FINISHED": "Archive format verified",
+          "PENDING": "Verify archive format",
+          "FAILED": "Failed to verify archive format",
+          "QUEUED": "Archive verification queued",
+          "WAITING_FOR_CHECKLISTBANK": "Waiting for ChecklistBank"
+        },
+        "VALIDATOR_DWCA_TO_VERBATIM": {
+          "RUNNING": "Extracting data",
+          "FINISHED": "Data extracted",
+          "PENDING": "Extract data",
+          "FAILED": "Extraction failed",
+          "QUEUED": "Extraction queued"
+        },
+        "VALIDATOR_VERBATIM_TO_IDENTIFIER": {
+          "RUNNING": "Checking identifiers",
+          "FINISHED": "Identifiers checked",
+          "PENDING": "Check identifiers",
+          "FAILED": "Identifier check failed",
+          "QUEUED": "Identifier check queued"
+        },
+        "VALIDATOR_VERBATIM_TO_INTERPRETED": {
+          "RUNNING": "Interpreting data",
+          "FINISHED": "Data interpreted",
+          "PENDING": "Interpret data",
+          "FAILED": "Data interpretation failed",
+          "QUEUED": "Data interpretation queued"
+        },
+        "VALIDATOR_COLLECT_METRICS": {
+          "RUNNING": "Generating summary",
+          "FINISHED": "Summaries generated",
+          "PENDING": "Generate summary",
+          "FAILED": "Summary generation failed",
+          "QUEUED": "Summary generation queued"
+        }
+      }
     }
   }
 }

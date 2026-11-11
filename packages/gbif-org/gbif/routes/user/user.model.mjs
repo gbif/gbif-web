@@ -406,6 +406,46 @@ export async function updateDerivedDataset(body, doi, userName) {
   return response.body;
 }
 
+const JWT_SHAPE = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]*$/;
+const DEFAULT_API_TOKEN_LIFETIME_MS = 5 * 60 * 1000;
+
+/**
+ * A JWT that api.gbif.org accepts as this user. It is handed to the browser, so only call this
+ * for the logged-in user and never log the result.
+ */
+export async function getUserApiToken(userName) {
+  const segment = userPathSegment(userName);
+  const response = await authenticatedRequest({
+    method: 'GET',
+    url: `${apiConfig.user.url}/${segment}/token`,
+    canonicalPath: `${apiConfig.user.canonical}/${segment}/token`,
+  });
+  if (response.statusCode !== 200) {
+    throw new Error(`Token request answered ${response.statusCode}`);
+  }
+  const token = response.body;
+  if (typeof token !== 'string' || !JWT_SHAPE.test(token)) {
+    throw new Error('Token response is not a JWT');
+  }
+  const payload = decodeJwtPayload(token);
+  if (typeof payload?.userName === 'string' && payload.userName !== userName) {
+    throw new Error('Token was issued for a different user than the one requested');
+  }
+  const expiresAt =
+    typeof payload?.exp === 'number'
+      ? payload.exp * 1000
+      : Date.now() + DEFAULT_API_TOKEN_LIFETIME_MS;
+  return { token, expiresAt };
+}
+
+function decodeJwtPayload(token) {
+  try {
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString('utf8'));
+  } catch {
+    return undefined;
+  }
+}
+
 export async function changePassword(auth, newPassword) {
   return fetchWithRetry(apiConfig.userChangePassword.url, {
     method: 'PUT',

@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ToolLayoutById($id: String!) {\n    resource(id: $id) {\n      __typename\n      ... on Tool {\n        ...ToolPage\n      }\n    }\n  }\n\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    excerpt\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n\n  fragment ArticleBanner on AssetImage {\n    description\n    title\n    file {\n      url\n      details {\n        image {\n          width\n          height\n        }\n      }\n      normal: thumbor(width: 1200, height: 500)\n      mobile: thumbor(width: 800, height: 400)\n    }\n  }\n",
+      "variables": {
+        "id": "81281"
+      },
+      "operationName": "ToolLayoutById"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "json",
+  "body": {
+    "data": {
+      "resource": {
+        "__typename": "Tool",
+        "id": "81281",
+        "title": "GBIF data validator",
+        "summary": "<p>By using the GBIF data validator, publishers can check their datasets for potential issues and preview the GBIF interpreted version before actually publishing the data</p>",
+        "excerpt": "By using the GBIF data validator, publishers can check their datasets for potential issues and preview the GBIF interpreted version before actually publishing the data... What is the GBIF data…",
+        "body": "<h3 id=\"what-is-the-gbif-data-validator%3F\" tabindex=\"-1\">What is the GBIF data validator?</h3><p>The GBIF data validator is a service that allows anyone with a GBIF-relevant dataset to analyse the syntactical correctness and the validity of the content contained within the dataset. By uploading a dataset to the validator, users can quickly run a dataset through validation and interpretation procedures usually associated with publishing in GBIF and quickly identify any potential issues—without having to publish it.</p><h3 id=\"how-does-it-work%3F\" tabindex=\"-1\">How does it work?</h3><p>Users upload a dataset file to the validator in one of two ways:</p><ul><li>clicking <em>SELECT FILE</em> and selecting it on your local computer</li><li>dragging the file from a local folder and dropping it on the <em>Drop here</em> icon</li></ul><p>Users can also enter the URL of a dataset file accessible from the Internet, which may be particularly useful for larger datasets.</p><p>Once the user hit the <em>Submit</em> button, the validator starts processing your dataset file and then displays a page showing the status of the validation.</p><p>Depending on the size of the dataset, processing might take a while. Each new validation process receives a unique job ID, so users do not need to keep the browser window open to complete the process. If you can't wait for the validator to complete the process, save the ID by bookmarking the URL so you can return later and view the report. We'll keep the report for a month, during which you can come back whenever you like.</p><h3 id=\"which-file-types-are-accepted%3F\" tabindex=\"-1\">Which file types are accepted?</h3><ul><li>ZIP-compressed Darwin Core Archives (DwC-A) (containing cores <em>Occurrence</em>, <em>Taxon</em>, or <em>Event</em>).</li><li>Integrated Publishing Toolkit (IPT) Excel templates containing <a href=\"https://ipt.gbif.org/manual/en/ipt/latest/checklist-data#templates\">Checklist</a>, <a href=\"https://ipt.gbif.org/manual/en/ipt/latest/occurrence-data#templates\">Occurrence</a>, or <a href=\"https://ipt.gbif.org/manual/en/ipt/latest/sampling-event-data#templates\">Sampling-event</a> data</li><li>Simple CSV files containing Darwin Core terms in the first row</li></ul><h3 id=\"what-information-will-i-get-from-the-validation-report%3F\" tabindex=\"-1\">What information will I get from the validation report?</h3><p>Once processing is done, the validation report presents you with the following information:</p><ul><li>a summary of the dataset type and a simple indicator of whether it can be indexed by GBIF or not</li><li>a summary of any issues found during the GBIF interpretation of the dataset</li><li>detailed breakdown of issues found in metadata, dataset core, and extensions (if any), respectively</li><li>number of records successfully interpreted</li><li>frequency of terms used in dataset</li></ul><p>You may also view a draft version of the dataset's metadata page as it would appear on GBIF once it is published and registered.</p><h3 id=\"i've-got-the-validation-report---now-what%3F\" tabindex=\"-1\">I've got the validation report - now what?</h3><p>If the validator finds that your dataset cannot be indexed by GBIF, you must address the issues raised in the report before publishing it to GBIF. But even if the validator finds that your dataset is indexable by GBIF, you should still carefully review any issues raised in the validation report. These often result from data conversion and formatting errors that may still affect the quality of the data.</p><p>Whether errors arise from a misplaced character or large systematic problems, once you make corrections and adjustments, feel free to validate your dataset again as many times is necessary.</p><h3 id=\"technical-details\" tabindex=\"-1\">Technical details</h3><p>The data validator, like all GBIF tools and software, is an open source project. <a href=\"https://github.com/gbif/gbif-data-validator\">View the source code and documentation on its GitHub repository</a>.</p>",
+        "primaryImage": null,
+        "primaryLink": {
+          "label": "Data Validator",
+          "url": "https://tools.gbif.org/tools/data-validator"
+        },
+        "secondaryLinks": null,
+        "citation": null,
+        "createdAt": "2015-02-10T13:58:44.914Z",
+        "author": "<p>GBIF Secretariat</p>",
+        "rights": null,
+        "rightsHolder": "<p>GBIF Secretariat</p>",
+        "publicationDate": "2017-10-19T00:00+02:00"
+      }
+    }
+  }
+}

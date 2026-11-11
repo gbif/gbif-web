@@ -1,0 +1,27 @@
+{
+  "key": "7c3fad73-4e5f-4061-9c23-3d4e5f607182",
+  "created": "2026-11-10T12:00:00.000+00:00",
+  "file": "checklist-coldp.zip",
+  "fileSize": 345678,
+  "fileFormat": "COLDP",
+  "status": "FINISHED",
+  "metrics": {
+    "indexeable": true,
+    "files": [
+      { "fileName": "Reference.tsv", "rowType": "http://catalogueoflife.org/terms/Reference", "count": 4, "terms": [], "issues": [] },
+      {
+        "fileName": "NameUsage.tsv",
+        "rowType": "http://catalogueoflife.org/terms/NameUsage",
+        "count": 50,
+        "terms": [{ "term": "http://catalogueoflife.org/terms/scientificName", "rawIndexed": 50 }],
+        "issues": [
+          { "issue": "accepted name missing", "issueCategory": "CLB_INTERPRETATION_BASED", "count": 4 },
+          { "issue": "unparsable name", "issueCategory": "CLB_INTERPRETATION_BASED", "count": 1 },
+          { "issue": "brand new issue", "issueCategory": "CLB_INTERPRETATION_BASED", "count": 7 },
+          { "issue": "SCIENTIFIC_NAME_ASSEMBLED", "issueCategory": "OCC_INTERPRETATION_BASED", "count": 2 }
+        ]
+      },
+      { "fileName": "Name.tsv", "rowType": "http://catalogueoflife.org/terms/Name", "count": 50, "terms": [], "issues": [] }
+    ]
+  }
+}

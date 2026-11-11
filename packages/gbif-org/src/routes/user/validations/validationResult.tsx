@@ -1,6 +1,7 @@
 import { LongDate } from '@/components/dateFormats';
 import { Card } from '@/components/ui/largeCard';
 import { ValidationResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
@@ -22,7 +23,7 @@ interface ValidationResultProps {
 
 export function ValidationResult({ validation }: ValidationResultProps) {
   return (
-    <a href={`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/tools/data-validator/${validation.key}`}>
+    <DynamicLink to={`/tools/data-validator/${encodeURIComponent(validation.key)}`}>
       <Card className="g-mb-4 hover:g-shadow-lg g-transition-shadow g-duration-300 hover:g-border-primary-300">
         <article className="">
           <div className="g-p-4 g-flex g-flex-col g-gap-2">
@@ -55,6 +56,6 @@ export function ValidationResult({ validation }: ValidationResultProps) {
           </div>
         </article>
       </Card>
-    </a>
+    </DynamicLink>
   );
 }

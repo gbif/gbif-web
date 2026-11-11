@@ -1,7 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
-import { ToolLayoutQuery, ToolPageFragment } from '@/gql/graphql';
+import { ToolLayoutByIdQuery, ToolLayoutQuery, ToolPageFragment } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleAuxiliary } from '@/routes/resource/key/components/articleAuxiliary';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
@@ -12,7 +12,7 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { SecondaryLinks } from '@/routes/resource/key/components/secondaryLinks';
 import { cn } from '@/utils/shadcn';
-import { ReactElement } from 'react';
+import { ComponentProps, ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useLocation, useOutletContext } from 'react-router-dom';
 // Side-effect import: ensures the ToolPage fragment is registered with the fragment manager.
@@ -29,19 +29,40 @@ const TOOL_LAYOUT_QUERY = /* GraphQL */ `
   }
 `;
 
+const TOOL_LAYOUT_BY_ID_QUERY = /* GraphQL */ `
+  query ToolLayoutById($id: String!) {
+    resource(id: $id) {
+      __typename
+      ... on Tool {
+        ...ToolPage
+      }
+    }
+  }
+`;
+
 // The CMS entry is optional: the page falls back to its default title. graphql-api answers a
 // missing entry with HTTP 404, which would otherwise become the page status. Other statuses pass
-// through unchanged.
-export function createToolLayoutLoader(machineIdentifier: string) {
-  return (args: LoaderArgs) =>
-    args.graphql
-      .query<ToolLayoutQuery, { machineIdentifier: string }>(TOOL_LAYOUT_QUERY, {
-        machineIdentifier,
-      })
-      .then((response) => (response.status === 404 ? { data: undefined } : response));
+// through unchanged. `fallbackId` is for entries that have no machine identifier yet.
+export function createToolLayoutLoader(
+  machineIdentifier: string,
+  { fallbackId }: { fallbackId?: string } = {}
+) {
+  return async (args: LoaderArgs) => {
+    const response = await args.graphql.query<ToolLayoutQuery, { machineIdentifier: string }>(
+      TOOL_LAYOUT_QUERY,
+      { machineIdentifier }
+    );
+    if (response.status !== 404) return response;
+    if (!fallbackId) return { data: undefined };
+    const byId = await args.graphql.query<ToolLayoutByIdQuery, { id: string }>(
+      TOOL_LAYOUT_BY_ID_QUERY,
+      { id: fallbackId }
+    );
+    return byId.status === 404 ? { data: undefined } : byId;
+  };
 }
 
-function extractCmsResource(data?: ToolLayoutQuery): ToolPageFragment | null {
+function extractCmsResource(data?: ToolLayoutQuery | ToolLayoutByIdQuery): ToolPageFragment | null {
   const resource = data?.resource;
   if (resource?.__typename === 'Tool') return resource as ToolPageFragment;
   return null;
@@ -53,13 +74,20 @@ export function useToolCmsResource(): ToolPageFragment | null {
   return useOutletContext<ToolOutletContext>().cmsResource;
 }
 
+export type ToolLayoutTab = ComponentProps<typeof Tabs>['links'][number];
+
 type ToolLayoutProps = {
   defaultTitle: string;
   apiContent: ReactElement;
+  /**
+   * Replaces the default "Tool" and "About" tabs. Receives whether a CMS entry exists. These tabs
+   * set `isActive` themselves.
+   */
+  tabs?: (options: { hasCmsResource: boolean }) => ToolLayoutTab[];
 };
 
-export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
-  const { data } = useLoaderData() as { data?: ToolLayoutQuery };
+export function ToolLayout({ defaultTitle, apiContent, tabs }: ToolLayoutProps) {
+  const { data } = useLoaderData() as { data?: ToolLayoutQuery | ToolLayoutByIdQuery };
   const cmsResource = extractCmsResource(data);
   const location = useLocation();
   const cmsTitle = cmsResource?.title;
@@ -92,17 +120,26 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
 
             <Tabs
               className={cn('g-mt-6', !isAboutTab && 'g-border-none')}
-              links={[
-                {
-                  to: '.',
-                  children: <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />,
-                },
-                {
-                  to: 'about',
-                  children: <FormattedMessage id="cms.resource.about" defaultMessage="About" />,
-                  hidden: !cmsResource,
-                },
-              ]}
+              disableAutoDetectActive={!!tabs}
+              links={
+                tabs
+                  ? tabs({ hasCmsResource: !!cmsResource })
+                  : [
+                      {
+                        to: '.',
+                        children: (
+                          <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />
+                        ),
+                      },
+                      {
+                        to: 'about',
+                        children: (
+                          <FormattedMessage id="cms.resource.about" defaultMessage="About" />
+                        ),
+                        hidden: !cmsResource,
+                      },
+                    ]
+              }
             />
           </ArticleTextContainer>
         </PageContainer>
@@ -113,7 +150,7 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
   );
 }
 
-export function ToolAboutTab() {
+export function ToolAboutTab({ hideAttribution = false }: { hideAttribution?: boolean } = {}) {
   const resource = useToolCmsResource();
 
   if (!resource) {
@@ -155,7 +192,7 @@ export function ToolAboutTab() {
             />
           )}
 
-          {resource.author && (
+          {!hideAttribution && resource.author && (
             <ArticleAuxiliary
               label={<FormattedMessage id="cms.resource.author" />}
               dangerouslySetValue={{
@@ -165,7 +202,7 @@ export function ToolAboutTab() {
             />
           )}
 
-          {resource.rights && (
+          {!hideAttribution && resource.rights && (
             <ArticleAuxiliary
               label={<FormattedMessage id="cms.resource.rights" />}
               dangerouslySetValue={{
@@ -175,7 +212,7 @@ export function ToolAboutTab() {
             />
           )}
 
-          {resource.rightsHolder && (
+          {!hideAttribution && resource.rightsHolder && (
             <ArticleAuxiliary
               label={<FormattedMessage id="cms.resource.rightsHolder" />}
               dangerouslySetValue={{

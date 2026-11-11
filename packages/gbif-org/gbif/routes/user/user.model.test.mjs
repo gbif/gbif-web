@@ -18,6 +18,7 @@ const {
   downloadKeySegment,
   downloadType,
   derivedDatasetDoiPath,
+  getUserApiToken,
 } = await import('./user.model.mjs');
 
 const unsafeUserNames = [
@@ -239,5 +240,72 @@ describe('updateDerivedDataset', () => {
     await expect(updateDerivedDataset({}, '10.15468/..', 'jane')).rejects.toThrow(TypeError);
     await expect(updateDerivedDataset({}, '../../x', 'jane')).rejects.toThrow(TypeError);
     expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+});
+
+function fakeJwt(payload) {
+  const part = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
+  return `${part({ alg: 'HS256' })}.${part(payload)}.c2lnbmF0dXJl`;
+}
+
+describe('getUserApiToken', () => {
+  it('signs a GET to the user token endpoint with the app key', async () => {
+    const token = fakeJwt({ userName: 'jane', exp: 2000000000 });
+    authenticatedRequest.mockResolvedValue({ statusCode: 200, body: token });
+    await expect(getUserApiToken('jane')).resolves.toEqual({ token, expiresAt: 2000000000000 });
+    const options = authenticatedRequest.mock.calls[0][0];
+    expect(options).toEqual({
+      method: 'GET',
+      url: 'https://registry.test/v1/user/jane/token',
+      canonicalPath: 'user/jane/token',
+    });
+    expect(options.userName).toBeUndefined();
+  });
+
+  it('encodes the user name in both the URL and the signed path', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 200, body: fakeJwt({}) });
+    await getUserApiToken('jane+x');
+    const options = authenticatedRequest.mock.calls[0][0];
+    expect(options.url).toBe('https://registry.test/v1/user/jane%2Bx/token');
+    expect(options.canonicalPath).toBe('user/jane%2Bx/token');
+  });
+
+  it.each(unsafeUserNames)('never sends a request for %j', async (userName) => {
+    await expect(getUserApiToken(userName)).rejects.toThrow(TypeError);
+    expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ['an object', { token: 'a.b.c' }],
+    ['an empty string', ''],
+    ['a string that is not a JWT', '<html>error</html>'],
+    ['a JWT with extra parts', 'a.b.c.d'],
+  ])('rejects %s as the token', async (_label, body) => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 200, body });
+    await expect(getUserApiToken('jane')).rejects.toThrow('not a JWT');
+  });
+
+  it('rejects a token issued for another user', async () => {
+    authenticatedRequest.mockResolvedValue({
+      statusCode: 200,
+      body: fakeJwt({ userName: 'admin' }),
+    });
+    await expect(getUserApiToken('jane')).rejects.toThrow('different user');
+  });
+
+  it('falls back to a short lifetime when the token has no expiry', async () => {
+    authenticatedRequest.mockResolvedValue({
+      statusCode: 200,
+      body: fakeJwt({ userName: 'jane' }),
+    });
+    const before = Date.now();
+    const { expiresAt } = await getUserApiToken('jane');
+    expect(expiresAt).toBeGreaterThanOrEqual(before + 5 * 60 * 1000);
+    expect(expiresAt).toBeLessThanOrEqual(Date.now() + 5 * 60 * 1000);
+  });
+
+  it('rejects a non-200 answer', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 204, body: '' });
+    await expect(getUserApiToken('jane')).rejects.toThrow();
   });
 });

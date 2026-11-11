@@ -1,4 +1,5 @@
 import { type Row, testRows } from '../../pageRows';
+import { expect, test } from '../../test';
 
 // One row per page type: rendered server-side, hydrated, showing its own content. Keys exist in
 // production so the recordings resolve; expected text comes from the recordings.
@@ -164,6 +165,25 @@ const ROWS: Row[] = [
     title: 'Sequence ID',
     h1: 'Sequence ID',
   },
+  // The CMS entry has no machine identifier yet; the title comes from the fallback by entry id.
+  {
+    id: 'dataValidator',
+    url: '/tools/data-validator',
+    title: 'GBIF data validator',
+    h1: 'GBIF data validator',
+  },
+  {
+    id: 'dataValidatorAbout',
+    url: '/tools/data-validator/about',
+    title: 'GBIF data validator',
+    h1: 'GBIF data validator',
+  },
+  {
+    id: 'dataValidatorReport',
+    url: '/tools/data-validator/4f0c7a40-1b2c-4d3e-8f90-0a1b2c3d4e5f',
+    title: 'GBIF data validator',
+    h1: 'GBIF data validator',
+  },
   {
     id: 'occurrence-snapshots',
     url: '/occurrence-snapshots',
@@ -175,3 +195,14 @@ const ROWS: Row[] = [
 ];
 
 testRows(ROWS);
+
+// Logged out, the validator asks for a login instead of calling the validator API.
+for (const url of [
+  '/tools/data-validator',
+  '/tools/data-validator/4f0c7a40-1b2c-4d3e-8f90-0a1b2c3d4e5f',
+]) {
+  test(`dataValidator asks for a login: ${url}`, async ({ page }) => {
+    await page.goto(url);
+    await expect(page.getByRole('link', { name: 'Sign in', exact: true })).toBeVisible();
+  });
+}

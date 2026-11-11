@@ -1,0 +1,25 @@
+{
+  "key": "5a1d8b51-2c3d-4e4f-9a01-1b2c3d4e5f60",
+  "created": "2026-11-10T10:00:00.000+00:00",
+  "file": "clean.zip",
+  "fileSize": 51234,
+  "fileFormat": "DWCA",
+  "status": "FINISHED",
+  "metrics": {
+    "indexeable": true,
+    "stepTypes": [],
+    "files": [
+      { "fileType": "META_DESCRIPTOR", "fileName": "meta.xml", "issues": [] },
+      { "fileType": "METADATA", "fileName": "eml.xml", "issues": [] },
+      {
+        "fileType": "CORE",
+        "fileName": "occurrence.txt",
+        "rowType": "http://rs.tdwg.org/dwc/terms/Occurrence",
+        "count": 10,
+        "indexedCount": 10,
+        "terms": [{ "term": "http://rs.tdwg.org/dwc/terms/occurrenceID", "rawIndexed": 10, "interpretedIndexed": 10 }],
+        "issues": []
+      }
+    ]
+  }
+}

@@ -1,5 +1,13 @@
 import { Base64 } from 'js-base64';
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { DerivedDatasetPayload, RegistrationResult } from '@/routes/tools/derivedDataset/types';
 
 interface User {
@@ -83,6 +91,8 @@ interface UserContextType {
     doi: string,
     payload: DerivedDatasetPayload
   ) => Promise<RegistrationResult>;
+  /** A token api.gbif.org accepts as the user. Pass `forceRefresh` after the API rejected one. */
+  getApiToken: (options?: { forceRefresh?: boolean }) => Promise<string>;
 }
 
 const notInitialized = () => {
@@ -109,6 +119,7 @@ const UserContext = createContext<UserContextType>({
   changeEmail: notInitialized,
   registerDerivedDataset: notInitialized,
   updateDerivedDataset: notInitialized,
+  getApiToken: notInitialized,
 });
 
 export type UserErrorType =
@@ -154,6 +165,25 @@ function sanitizeUpdatedUser(user: UpdateProfileData): UpdateProfileData {
   };
 }
 
+type ApiToken = { token: string; expiresAt: number };
+
+const API_TOKEN_REFRESH_MARGIN_MS = 60 * 1000;
+
+async function requestApiToken(): Promise<ApiToken> {
+  const response = await fetch('/api/user/token', { method: 'POST' });
+  if (response.status === 401 || response.status === 403) {
+    throw new UserError('UNKNOWN_USER', 'User not authenticated');
+  }
+  if (!response.ok) {
+    throw new UserError('UNKNOWN_ERROR', 'Could not get an API token');
+  }
+  const body = (await response.json()) as Partial<ApiToken>;
+  if (typeof body?.token !== 'string' || typeof body?.expiresAt !== 'number') {
+    throw new UserError('UNKNOWN_ERROR', 'Could not get an API token');
+  }
+  return { token: body.token, expiresAt: body.expiresAt };
+}
+
 async function readDerivedDatasetError(response: Response, fallback: string): Promise<string> {
   try {
     const body = (await response.json()) as { code?: string; message?: string };
@@ -168,6 +198,9 @@ async function readDerivedDatasetError(response: Response, fallback: string): Pr
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  // memory only: never in storage or state, so it does not outlive the page or trigger renders
+  const apiToken = useRef<(ApiToken & { userName: string }) | null>(null);
+  const apiTokenRequest = useRef<Promise<ApiToken> | null>(null);
 
   const whoAmI = useCallback(async () => {
     try {
@@ -195,9 +228,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       if (response.user) {
         setUser({ ...response.user, graphqlToken: response.graphqlToken });
       } else {
+        apiToken.current = null;
         setUser(null);
       }
     } catch (error) {
+      apiToken.current = null;
       setUser(null);
     } finally {
       setIsLoading(false);
@@ -326,6 +361,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   );
 
   const logout = useCallback(async () => {
+    apiToken.current = null;
+    apiTokenRequest.current = null;
     try {
       const response = await fetch('/api/user/logout', {
         method: 'POST',
@@ -665,6 +702,34 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     [user]
   );
 
+  const userName = user?.userName;
+  const getApiToken = useCallback(
+    async ({ forceRefresh = false }: { forceRefresh?: boolean } = {}): Promise<string> => {
+      if (!userName) {
+        throw new UserError('UNKNOWN_USER', 'User not authenticated');
+      }
+      const cached = apiToken.current;
+      if (
+        !forceRefresh &&
+        cached &&
+        cached.userName === userName &&
+        cached.expiresAt - API_TOKEN_REFRESH_MARGIN_MS > Date.now()
+      ) {
+        return cached.token;
+      }
+      if (!apiTokenRequest.current) {
+        const request = requestApiToken().finally(() => {
+          if (apiTokenRequest.current === request) apiTokenRequest.current = null;
+        });
+        apiTokenRequest.current = request;
+      }
+      const fresh = await apiTokenRequest.current;
+      apiToken.current = { ...fresh, userName };
+      return fresh.token;
+    },
+    [userName]
+  );
+
   useEffect(() => {
     refreshUser();
   }, [refreshUser]); // Add refreshUser to the dependency array
@@ -695,6 +760,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       cancelDownload,
       registerDerivedDataset,
       updateDerivedDataset,
+      getApiToken,
     }),
     [
       user,
@@ -715,6 +781,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       cancelDownload,
       registerDerivedDataset,
       updateDerivedDataset,
+      getApiToken,
     ]
   );
 
