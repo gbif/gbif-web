@@ -5,23 +5,31 @@
  * returned exactly as v1 serves them, the same format as v1 occurrence search, so callers can later
  * use the public API directly.
  *
- * For now the keys are looked up one at a time, in order. The backend is building a batch lookup;
- * getRecords is the one place to switch over to it.
+ * With occurrence.recordBatchLookup: true in .env, the keys are fetched with the batch endpoint
+ * (POST {apiv1}/occurrence/batch with a JSON array of keys), occurrence.recordBatchSize keys per call
+ * (default 300). That endpoint only exists in lab so far; elsewhere the keys are looked up one at a
+ * time, in order.
  *
- * A record that can't be loaded (gone from v1, or still failing after one retry) is returned as
- * just { key }. The caller decides what to do about it.
+ * A record that can't be loaded (gone from v1, left out of a batch answer, or still failing after one
+ * retry) is returned as just { key }. The caller decides what to do about it.
  */
 const env = require('../../config');
 const logger = require('../../logger');
 const { clientGone } = require('../../clientGone');
 
 const TIMEOUT_MS = Number(env.occurrence?.recordLookupTimeout) || 10000;
+const BATCH_LOOKUP = env.occurrence?.recordBatchLookup === true;
+const BATCH_SIZE = Number(env.occurrence?.recordBatchSize) || 300;
 const RETRY_DELAY_MS = 200;
 
 class NotFound extends Error {}
 
 function getHeaders(req) {
-  const headers = { Accept: 'application/json', 'User-Agent': 'GBIF-es-api' };
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'User-Agent': 'GBIF-es-api',
+  };
   const requestId = req?.headers?.['x-request-id'];
   if (requestId) headers['x-request-id'] = requestId;
   return headers;
@@ -39,6 +47,21 @@ async function fetchRecord(key, req, signal) {
     throw new Error(`status ${response.status}`);
   }
   return response.json();
+}
+
+async function fetchBatch(keys, req, signal) {
+  const response = await fetch(`${env.apiv1}/occurrence/batch`, {
+    method: 'POST',
+    headers: getHeaders(req),
+    body: JSON.stringify(keys),
+    signal: AbortSignal.any([signal, AbortSignal.timeout(TIMEOUT_MS)]),
+  });
+  if (!response.ok) {
+    await response.body?.cancel().catch(() => {});
+    throw new Error(`status ${response.status}`);
+  }
+  const body = await response.json();
+  return Array.isArray(body) ? body : body?.results ?? [];
 }
 
 function wait(ms, signal) {
@@ -60,6 +83,35 @@ function wait(ms, signal) {
 function unavailable(key, req) {
   if (req?.res && !req.res.headersSent) req.res.set('Cache-Control', 'no-store');
   return { key };
+}
+
+async function withRetry(fn, signal) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await fn();
+    } catch (err) {
+      // the caller went away; stop instead of trying again
+      if (signal.aborted) throw signal.reason;
+      if (err instanceof NotFound || attempt >= 2) throw err;
+      await wait(RETRY_DELAY_MS, signal);
+    }
+  }
+}
+
+/**
+ * One batch call, retried once. Records come back in the order of the keys, matched on key, so a key
+ * the API left out (or a failed call) becomes { key }.
+ */
+async function getBatch(keys, req, signal) {
+  let found = [];
+  try {
+    found = await withRetry(() => fetchBatch(keys, req, signal), signal);
+  } catch (err) {
+    if (signal.aborted) throw err;
+    logger.warn('occurrence batch lookup failed', { keys: keys.length, error: err.message });
+  }
+  const byKey = new Map(found.filter(Boolean).map((record) => [String(record.key), record]));
+  return keys.map((key) => byKey.get(String(key)) ?? unavailable(key, req));
 }
 
 async function getRecord(key, req, signal) {
@@ -92,6 +144,13 @@ async function getRecords(keys, req) {
   if (clientGone(req)) onClose();
   try {
     const records = [];
+    if (BATCH_LOOKUP) {
+      for (let i = 0; i < keys.length; i += BATCH_SIZE) {
+        controller.signal.throwIfAborted();
+        records.push(...(await getBatch(keys.slice(i, i + BATCH_SIZE), req, controller.signal)));
+      }
+      return records;
+    }
     for (const key of keys) {
       controller.signal.throwIfAborted();
       records.push(await getRecord(key, req, controller.signal));
