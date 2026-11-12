@@ -22,7 +22,7 @@
   },
   "placeholders": {
     "default": "Suche",
-    "searchForFilter": "",
+    "searchForFilter": "Nach einem Filter suchen",
     "range": "Bereich oder einzelner Wert",
     "rangeExample": "",
     "wildcard": "",
