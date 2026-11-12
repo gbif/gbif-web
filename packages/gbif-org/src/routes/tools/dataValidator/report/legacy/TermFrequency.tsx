@@ -74,7 +74,13 @@ export function TermFrequency({ file }: { file: ReportFile }) {
             return (
               <tr key={`${name}-${index}`} className="g-border-t g-border-slate-100">
                 <td className="g-py-1.5 g-pe-4 g-break-all" dir="ltr">
-                  <span className={cn({ 'g-text-red-700': isUnknown })}>{name}</span>
+                  <span
+                    className={cn({
+                      'g-border-s-2 g-border-yellow-500 g-ps-1.5': isUnknown,
+                    })}
+                  >
+                    {name}
+                  </span>
                   {/^https?:\/\//.test(name) && !name.startsWith(UNKNOWN_PREFIX) && (
                     <a
                       href={name}
