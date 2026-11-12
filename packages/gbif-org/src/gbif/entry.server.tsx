@@ -19,7 +19,7 @@ const defaultLanguage = gbifConfig.languages.find((l) => l.default) ?? gbifConfi
 const routes = createGbifRoutes(gbifConfig);
 const { query, dataRoutes } = createStaticHandler(routes);
 
-export async function render(req: ExpressRequest) {
+export async function render(req: ExpressRequest, { nonce }: { nonce?: string } = {}) {
   // Convert the Express request to a Fetch request
   // This is necessary because the query function expects a Fetch request
   const fetchRequest = createFetchRequest(req);
@@ -68,7 +68,7 @@ export async function render(req: ExpressRequest) {
   const appHtml = ReactDOMServer.renderToString(
     <Root config={gbifConfig} helmetContext={helmetContext}>
       <MessagesProvider messages={messages}>
-        <StaticRouterProvider router={router} context={context} nonce="the-nonce" />
+        <StaticRouterProvider router={router} context={context} nonce={nonce} />
       </MessagesProvider>
     </Root>
   );
