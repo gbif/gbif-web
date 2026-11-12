@@ -280,6 +280,8 @@
       "uniqueIdentifier": "Unique identifier",
       "uploading": "Uploading… {percent, number, ::percent}",
       "urlPlaceholder": "https://example.com/dwca.zip",
+      "validationFailed": "Validation failed",
+      "validationReport": "Validation report",
       "zipNotDwca": "The file was a zipped archive, but it was not interpreted as a Darwin Core Archive because its metadata is missing or cannot be parsed.",
       "category": {
         "RESOURCE_STRUCTURE": "Resource Structure",

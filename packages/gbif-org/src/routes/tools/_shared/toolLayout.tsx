@@ -62,7 +62,9 @@ export function createToolLayoutLoader(
   };
 }
 
-function extractCmsResource(data?: ToolLayoutQuery | ToolLayoutByIdQuery): ToolPageFragment | null {
+export type ToolLayoutData = ToolLayoutQuery | ToolLayoutByIdQuery;
+
+export function extractCmsResource(data?: ToolLayoutData): ToolPageFragment | null {
   const resource = data?.resource;
   if (resource?.__typename === 'Tool') return resource as ToolPageFragment;
   return null;
@@ -84,11 +86,13 @@ type ToolLayoutProps = {
    * set `isActive` themselves.
    */
   tabs?: (options: { hasCmsResource: boolean }) => ToolLayoutTab[];
+  /** Loader data, when the tool loader sits on an ancestor route instead of the layout's own. */
+  data?: ToolLayoutData;
 };
 
-export function ToolLayout({ defaultTitle, apiContent, tabs }: ToolLayoutProps) {
-  const { data } = useLoaderData() as { data?: ToolLayoutQuery | ToolLayoutByIdQuery };
-  const cmsResource = extractCmsResource(data);
+export function ToolLayout({ defaultTitle, apiContent, tabs, data }: ToolLayoutProps) {
+  const loaderData = useLoaderData() as { data?: ToolLayoutData } | undefined;
+  const cmsResource = extractCmsResource(data ?? loaderData?.data);
   const location = useLocation();
   const cmsTitle = cmsResource?.title;
   const isAboutTab = location.pathname.endsWith('/about');

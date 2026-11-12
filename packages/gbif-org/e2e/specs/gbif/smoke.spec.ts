@@ -182,7 +182,8 @@ const ROWS: Row[] = [
     id: 'dataValidatorReport',
     url: '/tools/data-validator/4f0c7a40-1b2c-4d3e-8f90-0a1b2c3d4e5f',
     title: 'GBIF data validator',
-    h1: 'GBIF data validator',
+    // logged out there is no file name to show
+    h1: 'Validation report',
   },
   {
     id: 'occurrence-snapshots',

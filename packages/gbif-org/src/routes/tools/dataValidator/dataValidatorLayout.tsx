@@ -1,51 +1,24 @@
-import { useLocation, useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { useLocation } from 'react-router-dom';
 import { ToolLayout, ToolLayoutTab } from '../_shared/toolLayout';
-import { ValidationProvider, useValidation } from './data/validationContext';
+import { useDataValidatorCmsData } from './data/useDataValidatorCmsData';
 import { ApiContent } from './help';
 
-export function DataValidatorLayout() {
-  const { key } = useParams<{ key?: string }>();
-  return (
-    <ValidationProvider validationKey={key}>
-      <DataValidatorTabs validationKey={key} />
-    </ValidationProvider>
-  );
-}
-
-function DataValidatorTabs({ validationKey }: { validationKey?: string }) {
+export function DataValidatorRootLayout() {
   const { pathname } = useLocation();
-  const { validation } = useValidation();
+  const data = useDataValidatorCmsData();
   const isAbout = pathname.endsWith('/about');
   const isMyValidations = pathname.endsWith('/my-validations');
-  const isDocument = !!validationKey && pathname.endsWith('/document');
-  const isReport = !!validationKey && !isDocument;
-  const hasMetadata = validation?.status === 'FINISHED' && validation?.fileFormat === 'DWCA';
-  const keySegment = validationKey ? encodeURIComponent(validationKey) : '';
 
   const tabs = ({ hasCmsResource }: { hasCmsResource: boolean }): ToolLayoutTab[] => [
     {
       to: '.',
-      isActive: !validationKey && !isAbout && !isMyValidations,
+      isActive: !isAbout && !isMyValidations,
       children: (
         <FormattedMessage
           id="tools.dataValidator.tabs.newValidation"
           defaultMessage="New validation"
         />
-      ),
-    },
-    {
-      to: keySegment,
-      isActive: isReport,
-      hidden: !validationKey,
-      children: <FormattedMessage id="tools.dataValidator.tabs.report" defaultMessage="Report" />,
-    },
-    {
-      to: `${keySegment}/document`,
-      isActive: isDocument,
-      hidden: !validationKey || (!hasMetadata && !isDocument),
-      children: (
-        <FormattedMessage id="tools.dataValidator.tabs.metadata" defaultMessage="Metadata" />
       ),
     },
     {
@@ -66,5 +39,7 @@ function DataValidatorTabs({ validationKey }: { validationKey?: string }) {
     },
   ];
 
-  return <ToolLayout defaultTitle="Data validator" apiContent={<ApiContent />} tabs={tabs} />;
+  return (
+    <ToolLayout defaultTitle="Data validator" apiContent={<ApiContent />} tabs={tabs} data={data} />
+  );
 }
