@@ -18,7 +18,7 @@
   "yearRange": "Временной диапазон",
   "identifiedToSpecies": "Идентифицировано до вида",
   "withCoordinates": "С координатами",
-  "withYear": "С указанием года",
+  "withEventDate": "",
   "withCollector": "С коллектором",
   "withMedia": "Содержит медиа",
   "withSequence": "Последовательно",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Эти показатели основаны на записях, предоставляемых GBIF.",
   "notVocabularyWarning": "Софинансируется",
   "taxonomicBreakdown": "Софинансируется",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "Просмотры",
     "record": "Запись",
@@ -56,8 +69,7 @@
     "materialCollected": "Собранные материалы",
     "samplingEffort": "Усилия, затраченные на отбор проб"
   },
-  "occurrencesPerField": "Распределение находок по категории: {FIELD}",
-  "kingdom": "Царство",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "Дендрограмма последовательности",
   "sequencePhylogeny.downloadAlignment": "Выравнивание (FASTA)",
   "sequencePhylogeny.downloadNewick": "Ньюик",
