@@ -1,16 +1,16 @@
 {
-  "title": "",
+  "title": "Katalog",
   "group": {
     "executiveCommittee": {
       "title": "Direktionen",
       "description": ""
     },
     "scienceCommittee": {
-      "title": "",
+      "title": "Videnskabelig komité",
       "description": ""
     },
     "budgetCommittee": {
-      "title": "",
+      "title": "Budgetudvalg",
       "description": ""
     },
     "nsg": {
@@ -22,7 +22,7 @@
       "description": ""
     },
     "secretariat": {
-      "title": "",
+      "title": "GBIF sekretariatet",
       "description": ""
     },
     "voting": {
@@ -34,7 +34,7 @@
       "description": ""
     },
     "associateParticipants": {
-      "title": "",
+      "title": "Andre associerede deltagere",
       "description": ""
     }
   },
@@ -49,24 +49,24 @@
   "sinceDate": "Siden {DATE}",
   "showAllContacts": "Alle",
   "person": {
-    "volunteer": "",
+    "volunteer": "Frivillig",
     "name": "Navn",
-    "annualBadges": "",
+    "annualBadges": "Årsmærker",
     "language": "Sprog",
     "country": "Land eller område",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
+    "affiliation": "Tilknytning",
+    "recipient": "Modtager",
+    "areasExpertise": "Ekspertiseområde",
+    "orcId": "ORCID iD",
     "year": "År",
     "email": "E-mail"
   },
   "award": {
     "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "EBBE1ST": "1. præmie",
+    "EBBE2ND": "2. præmie",
+    "EBBE3RD": "3. præmie"
   },
-  "prize": "",
+  "prize": "Præmie",
   "year": "År"
 }

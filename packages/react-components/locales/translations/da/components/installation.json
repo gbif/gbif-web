@@ -1,7 +1,9 @@
 {
   "installation": "Installation",
   "about": "Om",
+  "homepage": "Hjemmeside",
   "installationType": "Installationstype",
+  "hostedBy": "Hostet af",
   "registered": "Registreret",
   "endpoints": "Endpoints"
 }

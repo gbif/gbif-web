@@ -3,6 +3,7 @@ import { DatasetQuery } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { FormattedMessage } from 'react-intl';
+import { safeHref } from '@/utils/safeHref';
 
 type LocalContexts = NonNullable<DatasetQuery['dataset']>['localContexts'];
 
@@ -38,7 +39,7 @@ export function LocalContextCards({ localContexts }: { localContexts?: LocalCont
               </div>
               <div className="g-flex-auto">
                 <a
-                  href={localContext.project_page}
+                  href={safeHref(localContext.project_page)}
                   target="_blank"
                   rel="noreferrer"
                   className="g-flex g-items-center g-underline"

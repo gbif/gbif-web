@@ -1,6 +1,7 @@
 import { EntityLink } from '@/hooks/useTaxonLinks';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
+import { safeHref } from '@/utils/safeHref';
 
 /** Renders whatever useTaxonLinks resolved to, falling back to plain text when there is nowhere to link. */
 export function EntityLinkPresentation({
@@ -15,9 +16,10 @@ export function EntityLinkPresentation({
       </DynamicLink>
     );
   }
-  if (link.kind === 'external') {
+  const externalHref = link.kind === 'external' ? safeHref(link.url) : undefined;
+  if (externalHref) {
     return (
-      <a href={link.url} target="_blank" rel="noopener noreferrer" {...props}>
+      <a href={externalHref} target="_blank" rel="noopener noreferrer" {...props}>
         {children}
       </a>
     );

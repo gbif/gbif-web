@@ -26,6 +26,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { FeedbackPopover } from './feedback/feedback';
 import { LanguageSelector } from './languageSelector';
 import { useConfig } from '@/config/config';
+import { safeHref } from '@/utils/safeHref';
 
 function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
@@ -93,11 +94,12 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
             <Accordion type="single" collapsible className="w-full">
               {children?.map((parent) => {
                 if (!parent.children || parent.children.length === 0) {
+                  if (!safeHref(parent.link)) return null;
                   return (
                     <DynamicLink
                       onClick={() => setOpen(false)}
                       key={parent.id}
-                      to={parent.link}
+                      to={safeHref(parent.link)}
                       className="g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                     >
                       <div>
@@ -122,28 +124,31 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                     {child.title}
                                   </AccordionTrigger>
                                   <AccordionContent className="g-ms-0">
-                                    {child.children.map((subChild) => (
-                                      <DynamicLink
-                                        onClick={() => setOpen(false)}
-                                        key={subChild.id}
-                                        to={subChild.link}
-                                        className="g-text-muted-foreground g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
-                                      >
-                                        <div>
-                                          {subChild.title}{' '}
-                                          {subChild.externalLink && <MdLink aria-hidden="true" />}
-                                        </div>
-                                      </DynamicLink>
-                                    ))}
+                                    {child.children
+                                      .filter((subChild) => safeHref(subChild.link))
+                                      .map((subChild) => (
+                                        <DynamicLink
+                                          onClick={() => setOpen(false)}
+                                          key={subChild.id}
+                                          to={safeHref(subChild.link)}
+                                          className="g-text-muted-foreground g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
+                                        >
+                                          <div>
+                                            {subChild.title}{' '}
+                                            {subChild.externalLink && <MdLink aria-hidden="true" />}
+                                          </div>
+                                        </DynamicLink>
+                                      ))}
                                   </AccordionContent>
                                 </AccordionItem>
                               );
                             }
+                            if (!safeHref(child.link)) return null;
                             return (
                               <DynamicLink
                                 onClick={() => setOpen(false)}
                                 key={child.id}
-                                to={child.link}
+                                to={safeHref(child.link)}
                                 className="g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                               >
                                 <div>

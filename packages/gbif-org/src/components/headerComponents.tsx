@@ -2,6 +2,8 @@ import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { LongDate } from './dateFormats';
 import { ErrorMessage } from './errorMessage';
+import { safeHref } from '@/utils/safeHref';
+import { SafeLink } from '@/components/safeLink';
 
 type DateType = string | number | Date | null | undefined;
 
@@ -35,8 +37,9 @@ export function Hostname({
   href: string;
   className?: string;
 } & React.ComponentProps<'a'>) {
-  const link = href.startsWith('http') ? href : `http://${href}`;
+  const link = safeHref(href.startsWith('http') ? href : `http://${href}`);
   try {
+    if (!link) throw new Error('Unsafe or missing URL');
     const hostname = new URL(link).hostname;
     return (
       <a
@@ -50,9 +53,9 @@ export function Hostname({
     );
   } catch (err) {
     return (
-      <a href={href} className="g-text-red-400" rel="noopener noreferrer" {...props}>
+      <SafeLink href={href} className="g-text-red-400" rel="noopener noreferrer" {...props}>
         {href}
-      </a>
+      </SafeLink>
     );
   }
 }

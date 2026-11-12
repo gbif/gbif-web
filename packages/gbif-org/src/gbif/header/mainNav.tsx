@@ -10,6 +10,7 @@ import {
 import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
+import { safeHref } from '@/utils/safeHref';
 import { memo } from 'react';
 import { MdLink } from 'react-icons/md';
 
@@ -148,10 +149,12 @@ interface ListItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'tit
 }
 
 const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
-  ({ className, title, children, externalLink, ...props }, ref) => {
+  ({ className, title, children, externalLink, href, ...props }, ref) => {
+    const safe = safeHref(href);
+    if (!safe) return null;
     return (
       <li>
-        <DynamicLink to={props.href}>
+        <DynamicLink to={safe}>
           <div
             ref={ref}
             className={cn(

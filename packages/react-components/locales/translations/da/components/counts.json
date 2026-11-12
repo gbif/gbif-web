@@ -1,3 +1,12 @@
 {
+  "nResults": "{total, plural, one {# resultat} other {# resultater}}",
+  "nDocuments": "{total, plural, one {# dokument} other {# dokumenter}}",
+  "nTools": "{total, plural, one {# værktøj} other {# værktøjer}}",
+  "nProgrammes": "{total, plural, one {# program} other {# programmer}}",
+  "nProjects": "{total, plural, one {# projekt} other {# projekter}}",
+  "nEvents": "{total, plural, one {# begivenhed} other {# begivenheder}}",
+  "nNews": "{total, plural, one {# nyhed} other {# nyheder}}",
+  "nDataUse": "{total, plural, one {# oversigt over dataanvendelse} other {# oversigter over dataanvendelse}}",
+  "nOccurrences": "{total, plural, one {# forekomst} other {# forekomster}}",
   "nSelected": "{total, plural, one {}other {# valgt}}"
 }

@@ -1,7 +1,7 @@
 {
   "tabs": {
     "table": "",
-    "tree": "",
+    "tree": "트리",
     "gallery": "",
     "media": "",
     "map": "",
@@ -94,7 +94,7 @@
       "occurrenceSearch": "",
       "resourceSearch": ""
     },
-    "seeAll": "모두 보기",
+    "seeAll": "전체 보기",
     "searchFor": "",
     "noResults": ""
   }

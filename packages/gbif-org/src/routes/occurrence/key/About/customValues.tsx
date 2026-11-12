@@ -17,6 +17,8 @@ import { useConfig } from '@/config/config';
 import { Img } from '@/components/Img';
 import { SiteOccurrenceCount } from '@/components/count';
 import { notNull } from '@/utils/notNull';
+import { safeHref } from '@/utils/safeHref';
+import { SafeLink } from '@/components/safeLink';
 
 export function InstitutionKey({
   occurrence,
@@ -186,7 +188,7 @@ export function LocalContexts({ localContexts }: { localContexts?: LocalContexts
             <div key={project_page ?? undefined}>
               <h5 className="g-flex g-items-center g-gap-1">
                 <a
-                  href={project_page ?? undefined}
+                  href={safeHref(project_page)}
                   target="_blank"
                   rel="noreferrer"
                   className="g-flex g-items-center g-underline"
@@ -303,9 +305,9 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
           </div>
         )}
         {agent.value && (
-          <a className="g-underline" href={agent.value}>
+          <SafeLink className="g-underline" href={agent.value}>
             {agent.value}
-          </a>
+          </SafeLink>
         )}
       </div>
     </div>

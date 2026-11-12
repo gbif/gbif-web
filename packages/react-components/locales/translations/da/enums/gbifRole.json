@@ -54,14 +54,14 @@
     "REVIEWER": "",
     "JURY": "",
     "AWARD_WINNER": "",
-    "HEAD_OF_DELEGATION": "",
+    "HEAD_OF_DELEGATION": "Delegationsleder",
     "TEMPORARY_HEAD_OF_DELEGATION": "Midlertidig formand for delegationen",
     "ADDITIONAL_DELEGATE": "Yderligere delegeret",
     "TEMPORARY_DELEGATE": "Midlertidig delegate",
     "GB_INVITEE": "",
     "ALTERNATE_HEAD_OF_DELEGATION": "",
     "HEAD_OF_DELEGATION_ADMINISTRATIVE_CONTACT": "",
-    "NODE_MANAGER": "",
-    "NODE_STAFF": ""
+    "NODE_MANAGER": "Node-administrator",
+    "NODE_STAFF": "Node-medarbejdere"
   }
 }

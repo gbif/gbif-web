@@ -8,6 +8,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
 import { YearDate } from '@/components/dateFormats';
 import { parseTableStyle, sortRows } from '../tableUtils';
+import { safeHref } from '@/utils/safeHref';
 
 const EBBE_WINNERS_QUERY = /* GraphQL */ `
   query EbbeWinners {
@@ -135,7 +136,7 @@ export function EbbeWinnersTable({
                       {/* Winner */}
                       <td className="g-px-4 g-py-2">
                         <a
-                          href={winner?.orcidId ?? undefined}
+                          href={safeHref(winner?.orcidId)}
                           className="g-text-blue-600 hover:g-text-blue-800"
                         >
                           {winner?.firstName} {winner?.surname}

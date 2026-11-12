@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Accepteret",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "Foreløbigt accepteret",
+    "ambiguous_synonym": "Tvetydigt synonym",
     "synonym": "Synonym",
     "misapplied": "Misanvendt",
-    "bare_name": ""
+    "bare_name": "Kun navn"
   }
 }

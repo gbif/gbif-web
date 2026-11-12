@@ -8,7 +8,7 @@
     "description": ""
   },
   "locationId": {
-    "name": "",
+    "name": "Lokalitets-ID",
     "description": ""
   },
   "hasCoordinate": {
@@ -50,15 +50,15 @@
   "geoDistance": {
     "name": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Breddegrad",
+    "placeholderLon": "Længdegrad",
     "placeholderDist": "Afstand"
   },
   "geometry": {
-    "name": "",
+    "name": "Lokalitet",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Breddegrad",
+    "placeholderLon": "Længdegrad",
     "placeholderDist": "Afstand"
   },
   "relevance": {
@@ -90,7 +90,7 @@
     "description": ""
   },
   "eventDate": {
-    "name": "",
+    "name": "Begivenhedsdato",
     "description": ""
   },
   "gbifId": {
@@ -114,15 +114,15 @@
     "description": ""
   },
   "endDayOfYear": {
-    "name": "",
+    "name": "Slut dag i året",
     "description": ""
   },
   "startDayOfYear": {
-    "name": "",
+    "name": "Start dag i året",
     "description": ""
   },
   "previousIdentifications": {
-    "name": "",
+    "name": "Tidligere identifkationer",
     "description": ""
   },
   "lastInterpreted": {
@@ -138,7 +138,7 @@
     "description": ""
   },
   "institutionType": {
-    "name": "",
+    "name": "Type",
     "description": ""
   },
   "discipline": {
@@ -176,11 +176,11 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "Institutionskode",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "Katalognummer",
     "description": ""
   },
   "mediaType": {
@@ -207,7 +207,7 @@
     "description": ""
   },
   "preparations": {
-    "name": "",
+    "name": "Forberedelser",
     "description": ""
   },
   "repatriated": {
@@ -294,7 +294,7 @@
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Organismemængde",
     "description": ""
   },
   "sampleSizeValue": {
@@ -306,11 +306,11 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Måned",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Kontinent",
     "description": ""
   },
   "protocol": {
@@ -322,11 +322,11 @@
     "description": ""
   },
   "sex": {
-    "name": "",
+    "name": "Køn",
     "description": ""
   },
   "lifeStage": {
-    "name": "",
+    "name": "Livsstadie",
     "description": ""
   },
   "nucleotideSequenceTargetGene": {
@@ -364,11 +364,11 @@
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Optegnet af",
     "description": ""
   },
   "fieldNumber": {
-    "name": "",
+    "name": "Feltnummer",
     "description": ""
   },
   "verbatimTaxonId": {
@@ -376,11 +376,11 @@
     "description": ""
   },
   "islandGroup": {
-    "name": "",
+    "name": "Øgruppe",
     "description": ""
   },
   "island": {
-    "name": "",
+    "name": "Ø",
     "description": ""
   },
   "georeferencedBy": {
@@ -400,7 +400,7 @@
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "Samlingskode",
     "description": ""
   },
   "projectId": {
@@ -424,19 +424,19 @@
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Lokalitet",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Vandmasse",
     "description": ""
   },
   "higherGeography": {
-    "name": "",
+    "name": "Højere geografi",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "Delstats provins",
     "description": ""
   },
   "gbifRegion": {
@@ -448,11 +448,11 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "Begivenheds-ID",
     "description": ""
   },
   "eventID": {
-    "name": "",
+    "name": "Begivenheds-ID",
     "description": ""
   },
   "parentEventId": {
@@ -460,7 +460,7 @@
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "Lokalitets-ID",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -484,7 +484,7 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Prøvetagningsprotokol",
     "description": ""
   },
   "occurrenceStatus": {
@@ -716,7 +716,7 @@
   },
   "identifiedBy": {
     "description": "",
-    "name": ""
+    "name": "Identificeret af"
   },
   "identificationReferences": {
     "description": "",

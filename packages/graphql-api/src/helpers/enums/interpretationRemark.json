@@ -231,6 +231,39 @@
     ]
   },
   {
+    "id": "SUSPECTED_SWAPPED_COORDINATE",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
+      "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
+    ]
+  },
+  {
+    "id": "SUSPECTED_NEGATED_LONGITUDE",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
+      "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
+    ]
+  },
+  {
+    "id": "SUSPECTED_NEGATED_LATITUDE",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
+      "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
+    ]
+  },
+  {
     "id": "RECORDED_DATE_MISMATCH",
     "severity": "WARNING",
     "relatedTerms": [
@@ -270,12 +303,12 @@
     "id": "TAXON_MATCH_FUZZY",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -290,12 +323,12 @@
     "id": "TAXON_MATCH_HIGHERRANK",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -310,12 +343,12 @@
     "id": "TAXON_MATCH_AGGREGATE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -382,12 +415,12 @@
     "id": "TAXON_MATCH_NONE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -402,12 +435,12 @@
     "id": "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -787,8 +820,8 @@
     "id": "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH",
     "severity": "INFO",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
       "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
       "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem",
       "http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem"
     ]
@@ -1103,8 +1136,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsageID",
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsage",
-      "http://rs.tdwg.org/dwc/terms/parentNameUsage",
       "http://rs.tdwg.org/dwc/terms/originalNameUsageID",
+      "http://rs.tdwg.org/dwc/terms/parentNameUsage",
       "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
       "http://rs.tdwg.org/dwc/terms/originalNameUsage"
     ]
@@ -1149,8 +1182,8 @@
       "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/namePublishedInYear",
       "http://rs.tdwg.org/dwc/terms/parentNameUsage",
-      "http://rs.tdwg.org/dwc/terms/scientificName",
-      "http://rs.tdwg.org/dwc/terms/parentNameUsageID"
+      "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
+      "http://rs.tdwg.org/dwc/terms/scientificName"
     ]
   },
   {

@@ -17,6 +17,8 @@ import { MdOutlineRssFeed } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { YearDate } from '@/components/dateFormats';
 import { Link } from 'react-router-dom';
+import { safeHref } from '@/utils/safeHref';
+import { SafeLink } from '@/components/safeLink';
 
 type Props = {
   participant: ParticipantSummaryFragment;
@@ -73,7 +75,7 @@ export function ParticipantSummary({ participant, className, showSocialLinksSect
           value={participant.directoryNodes
             ?.map((directoryNode) => directoryNode?.nodeUrl)
             ?.filter(notNull)}
-          formatter={(v) => <a href={v}>{v}</a>}
+          formatter={(v) => <SafeLink href={v}>{v}</SafeLink>}
         />
         {participantNodeManager && (
           <Property
@@ -148,13 +150,15 @@ type SocialLinkProps = {
 };
 
 function SocialLink({ url, label, Icon }: SocialLinkProps) {
+  const href = safeHref(url);
+  if (!href) return null;
   return (
     <Button
       asChild
       variant="secondary"
       className="g-flex g-items-center g-gap-2 g-whitespace-nowrap"
     >
-      <a href={url}>
+      <a href={href}>
         {Icon && <Icon />}
         {label}
       </a>

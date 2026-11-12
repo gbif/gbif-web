@@ -1,6 +1,7 @@
 import { ProgrammeFundingBannerFragment, ProjectFundingBannerFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { notNull } from '@/utils/notNull';
+import { safeHref } from '@/utils/safeHref';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
@@ -70,7 +71,7 @@ export function FundingBanner({ resource }: Props) {
           .map((fundingOrganisation) => (
             <div key={fundingOrganisation.id}>
               <a
-                href={fundingOrganisation.url!}
+                href={safeHref(fundingOrganisation.url)}
                 className="g-flex g-flex-col g-items-center g-group"
               >
                 <span className="g-text-gray-500 g-text-sm g-pt-2 group-hover:g-underline">
@@ -88,7 +89,7 @@ export function FundingBanner({ resource }: Props) {
           .map((fundingOrganisation) => (
             <div key={fundingOrganisation.id}>
               <a
-                href={fundingOrganisation.url!}
+                href={safeHref(fundingOrganisation.url)}
                 className="g-flex g-flex-col g-items-center g-group hover:g-cursor-pointer"
               >
                 <img className="g-max-w-28" src={fundingOrganisation.logo?.file.url} />

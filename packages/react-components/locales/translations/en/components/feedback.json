@@ -5,6 +5,8 @@
     "contactDataProvider": "Contact data provider",
     "contactUsDescription": "For website issues, data processing problems or questions",
     "contactDataProviderDescription": "For issues relating to the published record on this page",
+    "annotationRule": "Flag suspicious records",
+    "annotationRuleDescription": "Create a rule that would flag suspicious records or areas (experimental)",
     "seeAlsoFaq": "See also the {faqLink}",
     "faq": "FAQ",
     "pleaseLogin": "Please log in to leave feedback.",

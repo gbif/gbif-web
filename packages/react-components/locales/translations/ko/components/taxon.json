@@ -76,7 +76,7 @@
   "errors": {
     "treatments": "",
     "distributions": "",
-    "classification": "",
+    "classification": "분류 트리를 불러올 수 없습니다",
     "verbatim": "",
     "typeMaterial": "",
     "vernacularNames": "",

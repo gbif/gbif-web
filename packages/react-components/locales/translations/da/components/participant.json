@@ -39,17 +39,17 @@
       }
     },
     "participant": "Participant",
-    "node": "",
+    "node": "Node",
     "participantSummary": "Deltagerresumé",
     "memberStatus": "Medlemsstatus",
     "gbifParticipantSince": "GBIF-deltager siden",
-    "headOfDelegation": "",
+    "headOfDelegation": "Delegationsleder",
     "gbifRegion": "GBIF-region",
     "countryOrArea": "Land eller område",
-    "nodeName": "",
-    "nodeEstablished": "",
+    "nodeName": "Node navn",
+    "nodeEstablished": "Node etableret",
     "website": "Webside",
-    "participantNodeManager": "",
+    "participantNodeManager": "Deltager-node-administrator",
     "pending": "Afventende"
   }
 }

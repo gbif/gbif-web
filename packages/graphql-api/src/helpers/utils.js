@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import stringify from 'json-stable-stringify';
 import config from '../config';
 import { getHtml } from './getHtml';
+import { sanitizeUrlField } from './safeUrl';
 
 function formattedCoordinates({ lat, lon }) {
   if (typeof lat !== 'number' || typeof lon !== 'number') return undefined;
@@ -77,9 +78,11 @@ function translateContentfulResponse(source, locale) {
         locale,
       );
 
-    // If the field is not localized, translate its children
+    // If the field is not localized, translate its children.
+    // Editors and translators can enter any text in the CMS, so link fields are
+    // checked here to keep javascript: and similar URLs out of every client.
     return Object.entries(source).reduce((acc, [key, value]) => {
-      acc[key] = translateContentfulResponse(value, locale);
+      acc[key] = sanitizeUrlField(key, translateContentfulResponse(value, locale));
       return acc;
     }, {});
   }

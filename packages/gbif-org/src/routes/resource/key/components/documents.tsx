@@ -2,6 +2,7 @@ import { Separator } from '@/components/ui/separator';
 import { DocumentPreviewFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
+import { safeHref } from '@/utils/safeHref';
 import { BsTable, BsFilePdfFill as PdfIcon } from 'react-icons/bs';
 import { GrTextAlignLeft } from 'react-icons/gr';
 import { LuPresentation as PresentationIcon } from 'react-icons/lu';
@@ -38,7 +39,7 @@ export function Documents({ documents, className }: Props) {
         >
           <a
             className="g-flex g-flex-row g-cursor-pointer"
-            href={document?.file?.url ?? ''}
+            href={safeHref(document?.file?.url)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -51,7 +52,7 @@ export function Documents({ documents, className }: Props) {
 }
 
 function isValid(document: null | DocumentPreviewFragment): document is DocumentPreviewFragment {
-  return !!document && !!document?.file?.url;
+  return !!document && !!safeHref(document?.file?.url);
 }
 
 function DocumentContnet({ document }: { document: DocumentPreviewFragment }) {

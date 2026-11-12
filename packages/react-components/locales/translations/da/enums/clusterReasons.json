@@ -1,1 +1,19 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "Samme accepterede arter",
+  "SAME_DATE": "Samme dato",
+  "NON_CONFLICTING_DATE": "Dato, der ikke er i konflikt",
+  "APPROXIMATE_DATE": "Omtrentlig dato",
+  "DIFFERENT_DATE": "Anden dato",
+  "SAME_COORDINATES": "Samme koordinater",
+  "WITHIN_200m": "Inden for 200 m",
+  "WITHIN_2Km": "Inden for 2 km",
+  "NON_CONFLICTING_COORDINATES": "Koordinater, der ikke er i konflikt",
+  "SAME_COUNTRY": "Samme land",
+  "NON_CONFLICTING_COUNTRY": "Land, der ikke er i konflikt",
+  "DIFFERENT_COUNTRY": "Andet land",
+  "IDENTIFIERS_OVERLAP": "Identifikatorer overlapper",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "Andre katalognumre overlapper",
+  "SAME_RECORDER_NAME": "Samme navn på optager",
+  "SAME_SPECIMEN": "Samme eksemplar",
+  "TYPIFICATION_RELATION": "Typificeringsrelation"
+}
