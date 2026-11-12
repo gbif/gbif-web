@@ -25,6 +25,9 @@ interface ValidationResultProps {
 }
 
 export function ValidationResult({ validation }: ValidationResultProps) {
+  const finished = validation.status === 'FINISHED';
+  const indexable = finished && validation.metrics?.indexeable === true;
+
   return (
     <DynamicLink to={`/tools/data-validator/${encodeURIComponent(validation.key)}`}>
       <Card className="g-mb-4 hover:g-shadow-lg g-transition-shadow g-duration-300 hover:g-border-primary-300">
@@ -52,16 +55,16 @@ export function ValidationResult({ validation }: ValidationResultProps) {
               {validation.status}
             </span>
           </div>
-          {validation.status === 'FINISHED' && (
+          {(finished || validation.status === 'FAILED') && (
             <p className="g-flex g-items-center g-gap-2 g-border-t g-border-slate-100 g-px-4 g-py-2.5 g-text-sm">
               <span
                 aria-hidden
                 className={cn('g-inline-block g-h-2 g-w-2 g-flex-none g-rounded-full', {
-                  'g-bg-green-500': validation.metrics?.indexeable === true,
-                  'g-bg-red-500': validation.metrics?.indexeable !== true,
+                  'g-bg-green-500': indexable,
+                  'g-bg-red-500': !indexable,
                 })}
               />
-              {validation.metrics?.indexeable === true ? (
+              {indexable ? (
                 <FormattedMessage
                   id="tools.dataValidator.indexeable"
                   defaultMessage="The file can be indexed by GBIF"
