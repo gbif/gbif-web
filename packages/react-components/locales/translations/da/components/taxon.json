@@ -58,8 +58,8 @@
     "threatStatus": "",
     "establishmentMeans": "",
     "status": "",
-    "locality": "",
-    "locationId": "",
+    "locality": "Lokalitet",
+    "locationId": "Lokalitets-ID",
     "country": "Land"
   },
   "verbatim": {

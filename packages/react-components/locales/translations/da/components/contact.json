@@ -1,5 +1,10 @@
 {
+  "position": "Stilling",
+  "organization": "Organisation",
   "email": "E-mail",
+  "address": "Adresse",
+  "phone": "Telefon",
   "roles": "Roller",
+  "userId": "Bruger-ID",
   "name": "Navn"
 }

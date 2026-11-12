@@ -15,7 +15,7 @@
       "columns": {
         "date": "Dato",
         "format": "Format",
-        "citation": "",
+        "citation": "Citation",
         "filters": "Filtre"
       },
       "citation": "",

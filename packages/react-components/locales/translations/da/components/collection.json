@@ -1,1 +1,9 @@
-{}
+{
+  "institutionUnknown": "Institutionen er ukendt",
+  "contentTypes": "Indholdstype",
+  "preservationTypes": "Bevaringstyper",
+  "personalCollection": "Personlig samling",
+  "accessionStatus": "Indsamlingsstatus",
+  "numberSpecimens": "Antal eksemplarer i samlingen",
+  "collectionDescriptors": "Samlingsbeskrivelser"
+}

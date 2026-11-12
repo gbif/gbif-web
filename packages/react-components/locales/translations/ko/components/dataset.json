@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "데이터셋 검색",
-  "datasetSearchDescription": "오픈 액세스GBIF 내 데이터셋 검색. 생물다양성 데이터에 대한 무료 및 오픈 액세스.",
+  "datasetSearchDescription": "GBIF 내 데이터셋 검색. 생물다양성 데이터에 대한 무료 오픈 액세스.",
   "longType": {
     "OCCURRENCE": "출현 데이터셋",
     "CHECKLIST": "체크리스트 데이터셋",
@@ -86,7 +86,7 @@
   "title": "제목",
   "projectId": "프로젝트 ID",
   "studyArea": "연구 영역",
-  "publishedBy": "발행자",
+  "publishedBy": "발행기관",
   "mediatedBy": "중개자",
   "extensions": "확장",
   "description": "설명",
@@ -121,7 +121,7 @@
   "publishingCountriesAreas": "발간 국가 및 지역",
   "originalArchive": "출처 아카이브",
   "originalArchiveDescription": "출처 아카이브는 GBIF를 통한 어떠한 정규화나 가공도 거치지 않은 GBIF로 발간된 데이터입니다",
-  "dataPackage": "",
+  "dataPackage": "데이터 패키지",
   "dataPackageDescription": "",
   "checklistBankDownload": "체크리스트은행에서 다운로드하기",
   "checklistBankDownloadDescription": "체크리스트은행을 통해 GBIF로 온 보관 내용입니다. 체크리스트은행은 다운로드하기 전에 체크리스트를 필터링할 수 있는 옵션을 포함한 다양한 다운로드 포멧을 제공합니다.",

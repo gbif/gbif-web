@@ -24,14 +24,14 @@
       "colConfidence": "",
       "colScientificNameEditable": "",
       "colStatus": "",
-      "colRank": "",
+      "colRank": "rang",
       "colKingdom": "",
       "colPhylum": "",
       "colClass": "",
       "colOrder": "",
       "colFamily": "",
       "colGenus": "",
-      "colSpecies": "",
+      "colSpecies": "art",
       "colCanonicalName": "",
       "colAuthorship": "",
       "options": "Valg",
@@ -63,7 +63,7 @@
       "startOver": "",
       "colScientificName": "Videnskabeligt navn",
       "colParsed": "",
-      "colType": "",
+      "colType": "Type",
       "colGenusOrAbove": "",
       "colSpecificEpithet": "",
       "colInfraSpecificEpithet": "",
@@ -184,7 +184,7 @@
       "fileReadFailed": "",
       "tab": {
         "create": "",
-        "edit": ""
+        "edit": "Redigér"
       }
     }
   }

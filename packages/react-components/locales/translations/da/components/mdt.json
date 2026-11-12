@@ -1,6 +1,7 @@
 {
   "description": "Beskriveslse",
   "descriptionLabel": "Beskriveslse",
+  "typeOfApplication": "Type",
   "domain": "Domæne",
   "personName": "Navn",
   "email": "E-mail",

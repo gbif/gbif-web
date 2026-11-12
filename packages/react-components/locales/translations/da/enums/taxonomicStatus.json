@@ -5,5 +5,8 @@
   "HETEROTYPIC_SYNONYM": "Heterotypisk synonym",
   "HOMOTYPIC_SYNONYM": "Homotypisk synonym",
   "PROPARTE_SYNONYM": "Proparte synonym",
-  "MISAPPLIED": "Misanvendt"
+  "AMBIGUOUS_SYNONYM": "Tvetydigt synonym",
+  "PROVISIONALLY_ACCEPTED": "Foreløbigt accepteret",
+  "MISAPPLIED": "Misanvendt",
+  "BARE_NAME": "Kun navn"
 }

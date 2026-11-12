@@ -1,1 +1,11 @@
-{}
+{
+  "ARCHAEOLOGICAL_OTHER": "Arkæologisk anden",
+  "ARCHAEOLOGICAL_HUMAN_REMAINS": "Arkæologiske menneskelige rester",
+  "ARCHAEOLOGICAL_FAUNAL_REMAINS": "Arkæologiske dyre levn",
+  "ARCHAEOLOGICAL_FLORAL_REMAINS": "Arkæologiske planterester",
+  "ARCHAEOLOGICAL_C14": "Arkæologisk kulstof-14",
+  "ARCHAEOLOGICAL_COPROLITES": "Arkæologiske koprolitter",
+  "ARCHAEOLOGICAL_CERAMIC_ARTIFACTS": "Arkæologiske keramiske genstande",
+  "ARCHAEOLOGICAL_FAUNAL_ARTIFACTS": "Arkæologiske dyre levn",
+  "ARCHAEOLOGICAL_FLORAL_ARTIFACTS": "Arkæologiske planterester"
+}

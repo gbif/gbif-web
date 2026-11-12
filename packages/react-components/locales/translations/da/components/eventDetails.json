@@ -1,5 +1,5 @@
 {
-  "occurrence": "",
+  "occurrence": "Forekomst",
   "event": "Arrangement",
   "showAllFields": "",
   "morePhotos": "",
@@ -28,12 +28,12 @@
   "sampledAt": "",
   "methodology": "Metode",
   "media": "",
-  "record": "",
+  "record": "Optegnelse",
   "relations": "",
   "extensionTruncated": "",
   "errors": {
     "taxa": "",
-    "eventList": ""
+    "eventList": "Fejl i indlæsning af liste over begivenheder"
   },
   "info": {
     "original": "Original",
@@ -43,13 +43,13 @@
   },
   "groups": {
     "summary": "Resumé",
-    "record": "",
-    "occurrence": "",
+    "record": "Optegnelse",
+    "occurrence": "Forekomst",
     "event": "Arrangement",
     "dataStructure": "",
     "identification": "Identifikation",
     "taxon": "Takson",
-    "location": "",
+    "location": "Lokalitet",
     "organism": "Organisme",
     "materialSample": "Materialleprøve",
     "geologicalContext": "Geologisk kontekst",
