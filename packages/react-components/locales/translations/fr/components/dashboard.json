@@ -18,7 +18,7 @@
   "yearRange": "Plage temporelle",
   "identifiedToSpecies": "Identifié à l'espèce",
   "withCoordinates": "Avec coordonnées",
-  "withYear": "Avec l’année",
+  "withEventDate": "",
   "withCollector": "Avec récolteur",
   "withMedia": "Avec médias",
   "withSequence": "Séquencé",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Ces mesures sont basées sur les enregistrements partagés via GBIF",
   "notVocabularyWarning": "Co-financé par",
   "taxonomicBreakdown": "Co-financé par",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "Vues",
     "record": "Enregistrement",
@@ -56,8 +69,7 @@
     "materialCollected": "Matériau récolté",
     "samplingEffort": "Effort d'échantillonnage"
   },
-  "occurrencesPerField": "Occurrences par {FIELD}",
-  "kingdom": "Règne",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "Dendrogramme de séquences",
   "sequencePhylogeny.downloadAlignment": "Alignement (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",
