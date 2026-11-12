@@ -1,6 +1,8 @@
 import type {
   DataValidatorEmlQuery,
   DataValidatorEmlQueryVariables,
+  DataValidatorStatusQuery,
+  DataValidatorStatusQueryVariables,
   DataValidatorValidationQuery,
   DataValidatorValidationQueryVariables,
 } from '@/gql/graphql';
@@ -56,6 +58,17 @@ const VALIDATION_QUERY = /* GraphQL */ `
           }
         }
       }
+    }
+  }
+`;
+
+// enough to tell whether the full result changed: the validator sets modified on every update
+const STATUS_QUERY = /* GraphQL */ `
+  query DataValidatorStatus($key: ID!) {
+    validation(key: $key) {
+      key
+      status
+      modified
     }
   }
 `;
@@ -130,6 +143,24 @@ export async function fetchValidation({
     DataValidatorValidationQueryVariables
   >(base, VALIDATION_QUERY, { key });
   return validation;
+}
+
+// Polls cheaply: the full result is only fetched again when the job has changed since `previous`.
+export async function fetchValidationUpdate({
+  previous,
+  ...args
+}: QueryBase & { key: string; previous?: Validation }): Promise<Validation> {
+  if (!previous || !previous.modified) return fetchValidation(args);
+  if (!isValidationKey(args.key)) throw new ValidatorHttpError(404, 'Not a validation key');
+  const { key, ...base } = args;
+  const { validation } = await queryValidation<
+    DataValidatorStatusQuery,
+    DataValidatorStatusQueryVariables
+  >(base, STATUS_QUERY, { key });
+  if (validation.status === previous.status && validation.modified === previous.modified) {
+    return previous;
+  }
+  return fetchValidation(args);
 }
 
 export async function fetchEml({ key, ...base }: QueryBase & { key: string }): Promise<unknown> {

@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useToolUnsavedGuard } from '../../_shared/useToolUnsavedGuard';
 import {
+  MAX_UPLOAD_BYTES,
   submitFile,
   submitUrl,
   ValidatorErrorKind,
@@ -83,6 +84,11 @@ export default function UploadPage() {
 
   const handleFile = useCallback(
     (file: File) => {
+      if (file.size > MAX_UPLOAD_BYTES) {
+        setError('tooLarge');
+        setProgress(undefined);
+        return;
+      }
       setProgress(0);
       run((token, signal) =>
         submitFile({ v1Endpoint, token, file, signal, onProgress: setProgress })

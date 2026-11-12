@@ -83,6 +83,19 @@ describe('pollingMachine', () => {
     expect(giveUp.effect.type).toBe('none');
   });
 
+  it('keeps the last result when it gives up after NOT_FOUND', () => {
+    const notFound = Array.from({ length: MAX_NOT_FOUND_RETRIES + 1 }, () => ({
+      type: 'HTTP_ERROR' as const,
+      status: 404,
+    }));
+    const step = last(run([{ type: 'START', validKey: true }, response('RUNNING'), ...notFound]));
+    expect(step.state).toMatchObject({
+      phase: 'error',
+      kind: 'notFound',
+      validation: { status: 'RUNNING' },
+    });
+  });
+
   it('treats HTTP 404 like a NOT_FOUND status', () => {
     const step = last(
       run([

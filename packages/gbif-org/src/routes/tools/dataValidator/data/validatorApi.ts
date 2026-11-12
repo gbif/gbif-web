@@ -69,6 +69,9 @@ function readKey(body: unknown): { key: string } {
   return { key };
 }
 
+// the limit the upload form states; the validator's own limit is configured per deployment
+export const MAX_UPLOAD_BYTES = 100 * 1024 * 1024;
+
 // XMLHttpRequest because fetch cannot report upload progress.
 export function submitFile({
   v1Endpoint,
@@ -80,6 +83,11 @@ export function submitFile({
   key: string;
 }> {
   return new Promise((resolve, reject) => {
+    // abort() on an XHR that was never sent fires no abort event
+    if (signal?.aborted) {
+      reject(new DOMException('Upload aborted', 'AbortError'));
+      return;
+    }
     const xhr = new XMLHttpRequest();
     xhr.open('POST', validationUrl(v1Endpoint));
     xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -104,13 +112,7 @@ export function submitFile({
     xhr.onerror = () => reject(new Error('Network error while uploading'));
     xhr.onabort = () => reject(new DOMException('Upload aborted', 'AbortError'));
 
-    if (signal) {
-      if (signal.aborted) {
-        xhr.abort();
-        return;
-      }
-      signal.addEventListener('abort', () => xhr.abort(), { once: true });
-    }
+    signal?.addEventListener('abort', () => xhr.abort(), { once: true });
 
     const body = new FormData();
     body.append('file', file);

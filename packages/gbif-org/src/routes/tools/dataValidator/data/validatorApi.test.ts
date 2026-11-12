@@ -189,4 +189,14 @@ describe('submitFile', () => {
     controller.abort();
     await expect(result).rejects.toMatchObject({ name: 'AbortError' });
   });
+
+  it('rejects at once when the signal was already aborted', async () => {
+    const controller = new AbortController();
+    controller.abort();
+    const sent = vi.spyOn(FakeXhr.prototype, 'send');
+    await expect(
+      submitFile({ v1Endpoint, token: 't', file, signal: controller.signal })
+    ).rejects.toMatchObject({ name: 'AbortError' });
+    expect(sent).not.toHaveBeenCalled();
+  });
 });

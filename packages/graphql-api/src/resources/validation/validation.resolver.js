@@ -51,9 +51,10 @@ export default {
       dataSources.dwcExtensionAPI.getExtension(rowType),
   },
   ValidationIssue: {
-    // ChecklistBank issues share names with occurrence remarks, but not their severity
+    // ChecklistBank issues share names with occurrence remarks, but not their severity. As portal16,
+    // ChecklistBank's own levels are shown as warnings: they are not GBIF indexing errors.
     severity: ({ issue, issueCategory }) => {
-      if (issueCategory === 'CLB_INTERPRETATION_BASED') return null;
+      if (issueCategory === 'CLB_INTERPRETATION_BASED') return 'WARNING';
       return severityByRemark[issue] ?? null;
     },
   },

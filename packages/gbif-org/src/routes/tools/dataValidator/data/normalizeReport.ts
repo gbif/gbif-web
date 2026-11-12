@@ -1,3 +1,4 @@
+import { formatBytes } from '@/utils/formatBytes';
 import { isInProgress } from './pollingMachine';
 import type {
   DwcExtension,
@@ -131,22 +132,20 @@ export function assignColdpFileTypes(files: FileInfo[]): FileInfo[] {
 }
 
 export function getIssueSeverity(issue: IssueInfo): Severity {
-  // as portal16: ChecklistBank's own levels are not GBIF indexing errors
-  if (issue.issueCategory === CLB_CATEGORY) return 'WARNING';
   return issue.severity ?? 'WARNING';
 }
 
-// The validator sends one EML_GBIF_SCHEMA issue per schema error. Issues with the same name in a
-// file become one, keeping the first one's position, all samples and the summed count.
+// The validator sends one EML_GBIF_SCHEMA issue per schema error. Issues with the same category and
+// name in a file become one, keeping the first one's position, all samples and the summed count.
 export function mergeSameIssues(issues: IssueInfo[]): IssueInfo[] {
-  const byName = new Map<string, IssueInfo>();
+  const byId = new Map<string, IssueInfo>();
   const merged: IssueInfo[] = [];
   for (const issue of issues) {
-    const name = issue.issue ?? 'UNKNOWN';
-    const first = byName.get(name);
+    const id = `${issue.issueCategory ?? 'UNKNOWN'}/${issue.issue ?? 'UNKNOWN'}`;
+    const first = byId.get(id);
     if (!first) {
       const copy = { ...issue, samples: [...(issue.samples ?? [])] };
-      byName.set(name, copy);
+      byId.set(id, copy);
       merged.push(copy);
       continue;
     }
@@ -259,7 +258,7 @@ export const NOT_RUN = 'NOT_RUN';
 const WAITING_STEP = new Set(['PENDING', 'QUEUED', 'WAITING_FOR_CHECKLISTBANK']);
 
 // Steps without a status are pending; while the job is QUEUED the first of them is the queued one.
-// Once the job has ended, steps that never started are NOT_RUN.
+// Once the job has ended, steps that never started or never finished are NOT_RUN.
 export function normalizeSteps(
   steps: ValidationStep[] | null | undefined,
   jobStatus: string | null | undefined
@@ -270,7 +269,7 @@ export function normalizeSteps(
     .filter((step) => typeof step?.stepType === 'string')
     .sort((a, b) => (a.executionOrder ?? 0) - (b.executionOrder ?? 0))
     .map((step) => {
-      if (ended && (!step.status || WAITING_STEP.has(step.status))) {
+      if (ended && (!step.status || step.status === 'RUNNING' || WAITING_STEP.has(step.status))) {
         return { ...step, status: NOT_RUN } as DisplayStep;
       }
       if (step.status) return step as DisplayStep;
@@ -282,12 +281,23 @@ export function normalizeSteps(
     });
 }
 
-export type FileSize = { value: number; unit: 'kilobyte' | 'megabyte' };
+const INTL_UNITS = {
+  Bytes: 'byte',
+  Byte: 'byte',
+  KB: 'kilobyte',
+  MB: 'megabyte',
+  GB: 'gigabyte',
+  TB: 'terabyte',
+  PB: 'petabyte',
+} as const;
 
-// same thresholds as portal16: kB below 100 000 bytes, MB from there
+export type FileSize = { value: number; unit: (typeof INTL_UNITS)[keyof typeof INTL_UNITS] };
+
 export function fileSize(bytes: unknown): FileSize | undefined {
   const value = toNumber(bytes);
   if (value === undefined || value < 0) return undefined;
-  if (value < 100000) return { value: Math.round(value / 1000), unit: 'kilobyte' };
-  return { value: Math.round(value / 100000) / 10, unit: 'megabyte' };
+  if (value < 1) return { value: 0, unit: 'byte' };
+  const { size, unit } = formatBytes(value, 1);
+  const intlUnit = INTL_UNITS[unit as keyof typeof INTL_UNITS];
+  return intlUnit ? { value: size, unit: intlUnit } : undefined;
 }

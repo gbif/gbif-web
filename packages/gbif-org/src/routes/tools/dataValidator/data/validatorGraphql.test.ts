@@ -1,5 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { fetchEml, fetchValidation, upstreamStatus } from './validatorGraphql';
+import {
+  fetchEml,
+  fetchValidation,
+  fetchValidationUpdate,
+  upstreamStatus,
+} from './validatorGraphql';
 
 const KEY = '4f0c7a40-1b2c-4d3e-8f90-0a1b2c3d4e5f';
 const graphqlEndpoint = 'https://graphql.test/graphql';
@@ -82,6 +87,43 @@ describe('GraphQL calls', () => {
       status: 404,
     });
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  describe('fetchValidationUpdate', () => {
+    const previous = { key: KEY, status: 'RUNNING', modified: '2026-11-12T10:00:00Z', metrics: {} };
+
+    it('fetches the full result when there is no previous one', async () => {
+      fetchMock.mockResolvedValue(json({ data: { validation: previous } }));
+      await expect(
+        fetchValidationUpdate({ graphqlEndpoint, token: 't', key: KEY })
+      ).resolves.toEqual(previous);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('keeps the previous result while the job has not changed', async () => {
+      fetchMock.mockResolvedValue(
+        json({ data: { validation: { key: KEY, status: 'RUNNING', modified: previous.modified } } })
+      );
+      await expect(
+        fetchValidationUpdate({ graphqlEndpoint, token: 't', key: KEY, previous })
+      ).resolves.toBe(previous);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('fetches the full result once the job has changed', async () => {
+      const updated = { ...previous, modified: '2026-11-12T10:00:05Z' };
+      fetchMock
+        .mockResolvedValueOnce(
+          json({
+            data: { validation: { key: KEY, status: 'RUNNING', modified: updated.modified } },
+          })
+        )
+        .mockResolvedValueOnce(json({ data: { validation: updated } }));
+      await expect(
+        fetchValidationUpdate({ graphqlEndpoint, token: 't', key: KEY, previous })
+      ).resolves.toEqual(updated);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
   });
 
   it('returns the EML of a validation', async () => {

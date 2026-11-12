@@ -4,7 +4,7 @@ import { createContext, ReactNode, useContext, useEffect, useMemo, useRef, useSt
 import { initialPollState, PollEvent, PollState, transition } from './pollingMachine';
 import type { Validation } from './types';
 import { isValidationKey, ValidatorHttpError } from './validatorApi';
-import { fetchValidation } from './validatorGraphql';
+import { fetchValidationUpdate } from './validatorGraphql';
 
 type ValidationContextValue = {
   validationKey?: string;
@@ -78,11 +78,12 @@ export function ValidationProvider({
       controller = new AbortController();
       try {
         const token = await getGraphqlTokenRef.current({ forceRefresh: refreshToken });
-        const validation = await fetchValidation({
+        const validation = await fetchValidationUpdate({
           graphqlEndpoint,
           token,
           key: validationKey,
           signal: controller.signal,
+          previous: 'validation' in current ? current.validation : undefined,
         });
         dispatch({ type: 'RESPONSE', validation });
       } catch (error) {

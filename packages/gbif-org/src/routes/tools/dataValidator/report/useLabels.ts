@@ -1,12 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import { prettifyEnum } from '@/utils/prettifyEnum';
 import { CLB_CATEGORY, OCC_CATEGORY } from '../data/normalizeReport';
 import type { DwcExtension } from '../data/types';
-
-export function humanize(id: string) {
-  const text = id.replace(/_/g, ' ').trim().toLowerCase();
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
 
 function issueLabelIds(issue: string, category?: string) {
   if (category === OCC_CATEGORY) return [`enums.occurrenceIssue.${issue}`];
@@ -37,19 +33,19 @@ export function useLabels() {
   return useMemo(
     () => ({
       issue: (issue: string, category?: string) =>
-        translate(issueLabelIds(issue, category), humanize(issue)),
+        translate(issueLabelIds(issue, category), prettifyEnum(issue)),
       issueHelp: (issue: string) => {
         const id = first([`enums.issueHelp.${issue}`]);
         return id ? intl.formatMessage({ id }) : undefined;
       },
       category: (category: string) =>
-        translate([`tools.dataValidator.category.${category}`], humanize(category)),
+        translate([`tools.dataValidator.category.${category}`], prettifyEnum(category)),
       status: (status: string) =>
-        translate([`tools.dataValidator.status.${status}`], humanize(status)),
+        translate([`tools.dataValidator.status.${status}`], prettifyEnum(status)),
       step: (stepType: string, status: string) =>
         translate(
           [`tools.dataValidator.steps.${stepType}.${status}`],
-          `${humanize(stepType.replace(/^VALIDATOR_/, ''))}: ${humanize(status).toLowerCase()}`
+          `${prettifyEnum(stepType.replace(/^VALIDATOR_/, ''))}: ${prettifyEnum(status).toLowerCase()}`
         ),
       fileFormat: (format: string) =>
         translate([`tools.dataValidator.fileFormat.${format}`], format),

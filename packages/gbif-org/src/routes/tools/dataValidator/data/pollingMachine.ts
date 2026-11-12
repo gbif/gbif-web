@@ -114,7 +114,10 @@ function notFound(state: PollState): PollStep {
   const { authRetried } = counters(state);
   const notFoundCount = counters(state).notFoundCount + 1;
   if (notFoundCount > MAX_NOT_FOUND_RETRIES) {
-    return { state: { phase: 'error', kind: 'notFound', status: 404 }, effect: NONE };
+    return {
+      state: { phase: 'error', kind: 'notFound', status: 404, validation: lastValidation(state) },
+      effect: NONE,
+    };
   }
   return {
     state: {

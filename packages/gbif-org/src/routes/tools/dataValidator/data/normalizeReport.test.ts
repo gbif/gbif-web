@@ -224,16 +224,6 @@ describe('normalizeReport: ColDP', () => {
 });
 
 describe('getIssueSeverity', () => {
-  it('shows ChecklistBank issues as warnings, never with the occurrence remark', () => {
-    expect(
-      getIssueSeverity({
-        issue: 'UNPARSABLE_NAME',
-        issueCategory: 'CLB_INTERPRETATION_BASED',
-        severity: 'INFO',
-      })
-    ).toBe('WARNING');
-  });
-
   it('takes the severity the API resolved', () => {
     expect(getIssueSeverity({ issue: 'ZERO_COORDINATE', severity: 'INFO' })).toBe('INFO');
   });
@@ -270,6 +260,17 @@ describe('mergeSameIssues', () => {
     ];
     expect(mergeSameIssues(input)[0].count).toBe(5);
     expect(input[0]).toEqual({ issue: 'X', count: 2, samples: [] });
+  });
+
+  it('keeps issues with the same name in different categories apart', () => {
+    const merged = mergeSameIssues([
+      { issue: 'X', issueCategory: 'CLB_INTERPRETATION_BASED', count: 1 },
+      { issue: 'X', issueCategory: 'OCC_INTERPRETATION_BASED', count: 2 },
+    ]);
+    expect(merged.map((issue) => [issue.issueCategory, issue.count])).toEqual([
+      ['CLB_INTERPRETATION_BASED', 1],
+      ['OCC_INTERPRETATION_BASED', 2],
+    ]);
   });
 });
 
@@ -321,6 +322,17 @@ describe('normalizeSteps', () => {
     expect(steps.map((step) => step.status)).toEqual(['FINISHED', 'FAILED', NOT_RUN, NOT_RUN]);
   });
 
+  it('marks a step that was still running as not run once the job has ended', () => {
+    const steps = normalizeSteps(
+      [
+        { stepType: 'UPLOAD', executionOrder: 1, status: 'FINISHED' },
+        { stepType: 'VALIDATE', executionOrder: 2, status: 'RUNNING' },
+      ],
+      'ABORTED'
+    );
+    expect(steps.map((step) => step.status)).toEqual(['FINISHED', NOT_RUN]);
+  });
+
   it('keeps steps pending while the job is still running', () => {
     const steps = normalizeSteps([{ stepType: 'A', executionOrder: 1 }], 'RUNNING');
     expect(steps[0].status).toBe('PENDING');
@@ -339,11 +351,12 @@ describe('normalizeSteps', () => {
 
 describe('fileSize', () => {
   it.each([
-    [51234, { value: 51, unit: 'kilobyte' }],
-    [99999, { value: 100, unit: 'kilobyte' }],
-    [100000, { value: 0.1, unit: 'megabyte' }],
+    [0, { value: 0, unit: 'byte' }],
+    [320, { value: 320, unit: 'byte' }],
+    [51234, { value: 51.2, unit: 'kilobyte' }],
     [2345678, { value: 2.3, unit: 'megabyte' }],
-    ['400000', { value: 0.4, unit: 'megabyte' }],
+    ['400000', { value: 400, unit: 'kilobyte' }],
+    [3000000000, { value: 3, unit: 'gigabyte' }],
     [undefined, undefined],
     ['n/a', undefined],
   ])('formats %j', (bytes, expected) => {

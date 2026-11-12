@@ -137,11 +137,8 @@ function samplingDescription(raw: unknown): EmlSamplingDescription | undefined {
   return empty ? undefined : sampling;
 }
 
-const HTTP_URL = /^https?:\/\//i;
-
 function dataDescription(raw: Json): EmlDataDescription {
-  const url = text(raw.url)?.trim();
-  return { name: text(raw.name), url: url && HTTP_URL.test(url) ? url : undefined };
+  return { name: text(raw.name), url: safeHref(text(raw.url)) };
 }
 
 function contact(raw: Json): Json {
