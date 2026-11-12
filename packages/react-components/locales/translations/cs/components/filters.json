@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Status výskytu",
-    "description": "Přítomnost nebo nepřítomnost organismů daného taxonu."
+    "description": ""
   },
   "gadmGid": {
     "name": "Správní oblast",
