@@ -60,8 +60,10 @@ async function fetchBatch(keys, req, signal) {
     await response.body?.cancel().catch(() => {});
     throw new Error(`status ${response.status}`);
   }
+  // { "results": [records], "notFound": [keys] }. Keys without a record, in notFound or not, are
+  // treated as not loaded by the caller, so notFound itself isn't needed.
   const body = await response.json();
-  return Array.isArray(body) ? body : body?.results ?? [];
+  return body?.results ?? [];
 }
 
 function wait(ms, signal) {
