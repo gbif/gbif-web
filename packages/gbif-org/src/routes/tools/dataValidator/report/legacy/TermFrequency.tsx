@@ -14,7 +14,8 @@ const ARCHIVE_RECORD_ID = 'http://unknown.org/ARCHIVE_RECORD_ID';
 export function TermFrequency({ file }: { file: ReportFile }) {
   const { locale } = useI18n();
   const intl = useIntl();
-  const total = file.count ?? 0;
+  // single files (CSV, spreadsheet) skip the archive step that sets count; every row becomes a record
+  const total = file.count ?? file.indexedCount ?? 0;
   const [sort, setSort] = useState<TermSort>();
   const terms = useMemo(
     () =>
