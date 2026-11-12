@@ -5,6 +5,8 @@
     "contactDataProvider": "Contactez le fournisseur de données",
     "contactUsDescription": "Pour tout problème concernant le site web, le traitement des données ou toute question",
     "contactDataProviderDescription": "Pour toute problématique relative aux enregistrements publiés sur cette page",
+    "annotationRule": "",
+    "annotationRuleDescription": "",
     "seeAlsoFaq": "Voir aussi la {faqLink}",
     "faq": "FAQ",
     "pleaseLogin": "Veuillez vous connecter pour laisser un commentaire.",
