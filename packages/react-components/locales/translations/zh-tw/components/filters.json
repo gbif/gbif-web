@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "出現紀錄狀態",
-    "description": "給定分類群中的任何生物體的存在或不存在。"
+    "description": ""
   },
   "gadmGid": {
     "name": "行政區域",
