@@ -14,6 +14,7 @@ import { MdDownload } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
 import { useDatasetKeyContext } from './datasetKey';
+import { safeHref } from '@/utils/safeHref';
 
 export function DatasetKeyDownload() {
   const { dataset } = useDatasetKeyLoaderData().data;
@@ -27,10 +28,12 @@ export function DatasetKeyDownload() {
   };
 
   const sourceDownloadEndpoint = dataset?.endpoints?.find(function (e) {
-    return ['DWC_ARCHIVE', 'CAMTRAP_DP'].includes(e.type);
+    return ['DWC_ARCHIVE', 'CAMTRAP_DP'].includes(e.type) && !!safeHref(e.url);
   });
 
-  const dataPackageEndpoint = dataset?.endpoints?.find((e) => e.type === 'DWC_DP');
+  const dataPackageEndpoint = dataset?.endpoints?.find(
+    (e) => e.type === 'DWC_DP' && !!safeHref(e.url)
+  );
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -112,7 +115,7 @@ export function DatasetKeyDownload() {
                 <CardFooter>
                   <Button variant="default" className="g-text-center g-w-full" asChild>
                     <a
-                      href={`${dataPackageEndpoint.url}`}
+                      href={safeHref(dataPackageEndpoint.url)}
                       rel="noopener noreferrer"
                       className="g-text-white"
                     >
@@ -160,7 +163,7 @@ export function DatasetKeyDownload() {
                 <CardFooter>
                   <Button variant="default" className="g-text-center g-w-full" asChild>
                     <a
-                      href={`${sourceDownloadEndpoint.url}`}
+                      href={safeHref(sourceDownloadEndpoint.url)}
                       rel="noopener noreferrer"
                       className="g-text-white"
                     >

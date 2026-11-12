@@ -15,6 +15,7 @@ import { Hostname } from './headerComponents';
 import { IIIFLogoIcon } from './icons/icons';
 import { Skeleton } from './ui/skeleton';
 import { LuClock4 } from 'react-icons/lu';
+import { safeHref } from '@/utils/safeHref';
 export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
 export { PiTreeViewBold as TaxonomyIcon } from 'react-icons/pi';
 export {
@@ -283,9 +284,11 @@ export function TypeStatus({ types, className }: { className?: string; types?: s
 }
 
 export function IIIF({ url }: { url: string }) {
+  const href = safeHref(url);
+  if (!href) return null;
   return (
     <GenericFeature>
-      <a href={url} target="_blank" rel="noopener noreferrer">
+      <a href={href} target="_blank" rel="noopener noreferrer">
         <IIIFLogoIcon />
       </a>
     </GenericFeature>

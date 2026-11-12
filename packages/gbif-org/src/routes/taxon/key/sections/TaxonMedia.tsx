@@ -1,4 +1,5 @@
 import { TaxonKeyQuery } from '@/gql/graphql';
+import { safeHref } from '@/utils/safeHref';
 
 type MediaItem = NonNullable<NonNullable<TaxonKeyQuery['taxonInfo']>['media']>[number];
 
@@ -25,9 +26,10 @@ function MediaThumbnail({ item }: { item: MediaItem }) {
     </div>
   );
 
-  if (item.references) {
+  const referencesHref = safeHref(item.references);
+  if (referencesHref) {
     return (
-      <a href={item.references} target="_blank" rel="noopener noreferrer">
+      <a href={referencesHref} target="_blank" rel="noopener noreferrer">
         {image}
       </a>
     );

@@ -15,6 +15,7 @@ import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { Documents } from '../components/documents';
 import { KeyValuePair } from '../components/keyValuePair';
 import { SecondaryLinks } from '../components/secondaryLinks';
+import { safeHref } from '@/utils/safeHref';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectAboutTab on GbifProject {
@@ -253,8 +254,8 @@ function ParticipantOrFundingOrganisation({
             </DynamicLink>
           );
         }
-        if (f.__typename === 'FundingOrganisation' && f.url)
-          content = <a href={f.url}>{f.title?.trim()}</a>;
+        if (f.__typename === 'FundingOrganisation' && safeHref(f.url))
+          content = <a href={safeHref(f.url)}>{f.title?.trim()}</a>;
 
         return <li key={f.id}>{content}</li>;
       })}

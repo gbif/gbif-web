@@ -9,6 +9,7 @@ import { FormattedNumber } from '@/components/dashboard/shared';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { MdInfo } from 'react-icons/md';
+import { safeHref } from '@/utils/safeHref';
 
 export const MdtInstallations = () => {
   const { data } = useContext(MdtDataContext);
@@ -84,9 +85,9 @@ export const MdtInstallations = () => {
               {summedData.map((inst) => (
                 <tr key={inst.key}>
                   <td className="g-p-4 ">
-                    {inst?.link ? (
+                    {safeHref(inst?.link) ? (
                       <a
-                        href={inst.link}
+                        href={safeHref(inst.link)}
                         target="_blank"
                         rel="noreferrer"
                         className="g-text-blue-500 hover:g-underline"

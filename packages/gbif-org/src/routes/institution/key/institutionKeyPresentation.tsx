@@ -33,6 +33,7 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { InstitutionKeyLoaderResult } from './institutionKey';
+import { safeHref } from '@/utils/safeHref';
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 // create context to pass data to children
@@ -172,14 +173,14 @@ export function InstitutionKey({
                         </GenericFeature>
                       )}
                     </FeatureList>
-                    {institution?.catalogUrls && institution?.catalogUrls?.length > 0 && (
+                    {safeHref(institution?.catalogUrls?.[0]) && (
                       <FeatureList>
                         <GenericFeature>
                           <CatalogIcon />
                           <span>
                             <a
                               className="g-text-inherit hover:g-underline"
-                              href={institution.catalogUrls[0]}
+                              href={safeHref(institution?.catalogUrls?.[0])}
                             >
                               <FormattedMessage
                                 id="grscicoll.dataCatalog"

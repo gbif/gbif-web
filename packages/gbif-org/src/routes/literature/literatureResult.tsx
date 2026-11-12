@@ -5,6 +5,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { FormattedMessage } from 'react-intl';
+import { safeHref } from '@/utils/safeHref';
 
 fragmentManager.register(/* GraphQL */ `
   fragment LiteratureResult on Literature {
@@ -45,8 +46,8 @@ export function LiteratureResult({ literature }: { literature: LiteratureResultF
     if (literature.identifiers?.doi) {
       return `https://doi.org/${literature.identifiers.doi}`;
     }
-    if (literature.websites?.[0]) {
-      return literature.websites[0];
+    if (safeHref(literature.websites?.[0])) {
+      return safeHref(literature.websites?.[0]);
     }
     return null;
   };

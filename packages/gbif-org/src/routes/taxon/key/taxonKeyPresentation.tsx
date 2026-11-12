@@ -36,6 +36,7 @@ import { apiConstants } from '@/config/apiConstants';
 import { isSupportedChecklist } from '@/hooks/useSupportedChecklists';
 import { TocLi as Li } from '@/components/TocHelp';
 import { Card as SmallCard } from '@/components/ui/smallCard';
+import { safeHref } from '@/utils/safeHref';
 
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
@@ -391,7 +392,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                             statusCategory={taxon.relatedInfo?.redlist?.threatStatus}
                             as="a"
                             href={
-                              taxon.relatedInfo?.redlist?.references ??
+                              safeHref(taxon.relatedInfo?.redlist?.references) ??
                               `https://www.iucnredlist.org/search?query=${taxon.scientificName}&searchType=species`
                             }
                             target="_blank"

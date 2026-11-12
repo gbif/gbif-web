@@ -1,18 +1,19 @@
 import { TaxonIdentifier } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
+import { SafeLink } from '@/components/safeLink';
 
 const WikiDataIdentifiers = ({ identifiers }: { identifiers: TaxonIdentifier[] }) => {
   return (
     <div className="g-text-sm g-text-slate-500">
       <div className="g-flex g-flex-wrap g-gap-1">
         {identifiers.map((i: TaxonIdentifier, idx: number) => (
-          <a
+          <SafeLink
             key={idx}
-            href={`${i?.url}`}
+            href={i?.url}
             className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-600 g-text-xs g-py-0.5 g-px-2 g-rounded-full g-no-underline g-border"
           >
             {i?.title}
-          </a>
+          </SafeLink>
         ))}
       </div>
     </div>
@@ -26,9 +27,9 @@ export function WikidataIdentifiersSource({ url, id }: { url: string; id: string
         <FormattedMessage id="taxon.source" />
       </span>
       {': '}
-      <a href={url} className="g-underline g-text-inherit" rel="noopener noreferrer">
+      <SafeLink href={url} className="g-underline g-text-inherit" rel="noopener noreferrer">
         wikidata:{id}
-      </a>
+      </SafeLink>
     </span>
   );
 }

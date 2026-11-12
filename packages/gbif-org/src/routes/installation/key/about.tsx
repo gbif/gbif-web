@@ -21,6 +21,7 @@ import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useInstallationKeyLoaderData } from '.';
+import { SafeLink } from '@/components/safeLink';
 
 export function InstallationKeyAbout() {
   const { installation } = useInstallationKeyLoaderData();
@@ -89,9 +90,14 @@ export function InstallationKeyAbout() {
                 labelId={'installation.endpoints'}
                 value={installation.endpoints?.map((x) => x?.url)}
                 formatter={(value: string) => (
-                  <a href={value} target="_blank" rel="noopener noreferrer" className="g-underline">
+                  <SafeLink
+                    href={value}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="g-underline"
+                  >
                     {value}
-                  </a>
+                  </SafeLink>
                 )}
               />
             </Properties>

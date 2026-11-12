@@ -16,6 +16,7 @@ import { Paging } from '@/components/paging';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ColFeedback } from './ColFeedback';
 import { DatasetLabel } from '@/components/filters/displayNames';
+import { safeHref } from '@/utils/safeHref';
 
 const DEFAULT_LIMIT = 3;
 
@@ -100,9 +101,9 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
                         )}
                       </div>
                       <div className="g-flex g-items-center g-text-sm g-text-slate-500 g-mt-1">
-                        {treatment?.references && (
+                        {safeHref(treatment?.references) && (
                           <a
-                            href={treatment?.references}
+                            href={safeHref(treatment?.references)}
                             target="_blank"
                             rel="noreferrer"
                             className="g-me-2 g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-600 g-text-xs g-py-0.5 g-px-2 g-rounded-full g-no-underline g-border"

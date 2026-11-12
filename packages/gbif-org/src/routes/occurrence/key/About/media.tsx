@@ -12,6 +12,8 @@ import { Img } from '@/components/Img';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { DynamicLink } from '@/reactRouterPlugins';
 import getTitleParts from '../getTitle';
+import { safeHref } from '@/utils/safeHref';
+import { SafeLink } from '@/components/safeLink';
 
 const supportedFormats = [
   'audio/ogg',
@@ -137,11 +139,9 @@ function Sounds({
                         Unable to play
                       </audio>
                     </div>
-                    {(termMap?.references?.value || media.identifier) && (
-                      <TryPublisherSiteLink
-                        href={termMap?.references?.value || media.identifier!}
-                      />
-                    )}
+                    <TryPublisherSiteLink
+                      href={safeHref(termMap?.references?.value) ?? safeHref(media.identifier)}
+                    />
                   </>
                 )}
               </div>
@@ -178,15 +178,13 @@ function MovingImages({
                       <source src={media.identifier} type={format} />
                       Unable to play
                     </video>
-                    {(termMap?.references?.value || media.identifier) && (
-                      <TryPublisherSiteLink
-                        href={termMap?.references?.value || media.identifier!}
-                      />
-                    )}
+                    <TryPublisherSiteLink
+                      href={safeHref(termMap?.references?.value) ?? safeHref(media.identifier)}
+                    />
                   </>
                 )}
-                {!knownFormat && media.identifier && (
-                  <a href={media.identifier}>
+                {!knownFormat && safeHref(media.identifier) && (
+                  <a href={safeHref(media.identifier)}>
                     <div className="gb-download-icon">
                       <MdFileDownload />
                     </div>
@@ -205,7 +203,8 @@ function MovingImages({
   );
 }
 
-function TryPublisherSiteLink({ href }: { href: string }) {
+function TryPublisherSiteLink({ href }: { href?: string }) {
+  if (!href) return null;
   return (
     <div>
       <a href={href} className="g-px-2 g-py-1 g-bg-slate-300 g-text-slate-600 g-text-sm g-block">
@@ -241,16 +240,16 @@ function Caption({
         )}
         {media.identifier && (
           <BasicField label={`occurrenceFieldNames.identifier`}>
-            <a href={media.identifier} className="g-text-inherit">
+            <SafeLink href={media.identifier} className="g-text-inherit">
               {truncateMiddle(media.identifier, 40)}
-            </a>
+            </SafeLink>
           </BasicField>
         )}
         {media.references && (
           <BasicField label={`occurrenceFieldNames.references`}>
-            <a href={media.references} className="g-text-inherit">
+            <SafeLink href={media.references} className="g-text-inherit">
               {truncateMiddle(media.references, 40)}
-            </a>
+            </SafeLink>
           </BasicField>
         )}
         {media.creator && (

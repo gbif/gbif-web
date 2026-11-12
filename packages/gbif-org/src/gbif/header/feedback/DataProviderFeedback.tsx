@@ -1,18 +1,21 @@
 import { FeedbackQuery } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
 import { MdMailOutline, MdOpenInNew } from 'react-icons/md';
+import { safeHref } from '@/utils/safeHref';
 
 interface DataProviderFeedbackProps {
   feedbackOptions: NonNullable<FeedbackQuery['feedbackOptions']>;
 }
 
 export function DataProviderFeedback({ feedbackOptions }: DataProviderFeedbackProps) {
-  if (!feedbackOptions?.externalServiceUrl && !feedbackOptions?.contactEmail) return null;
+  // The external URL can be built from occurrence fields (references, occurrenceID), so check it.
+  const externalServiceUrl = safeHref(feedbackOptions?.externalServiceUrl);
+  if (!externalServiceUrl && !feedbackOptions?.contactEmail) return null;
 
   return (
     <div>
       <a
-        href={feedbackOptions.externalServiceUrl ?? `mailto:${feedbackOptions.contactEmail}`}
+        href={externalServiceUrl ?? `mailto:${feedbackOptions.contactEmail}`}
         target="_blank"
         rel="noopener noreferrer"
         className="g-block g-w-full g-p-4 g-text-start g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
@@ -22,8 +25,8 @@ export function DataProviderFeedback({ feedbackOptions }: DataProviderFeedbackPr
             id="feedback.contactDataProvider"
             defaultMessage="Contact data provider"
           />
-          {feedbackOptions.externalServiceUrl && <MdOpenInNew className="g-ms-2 g-h-4 g-w-4" />}
-          {!feedbackOptions.externalServiceUrl && <MdMailOutline className="g-ms-2 g-h-4 g-w-4" />}
+          {externalServiceUrl && <MdOpenInNew className="g-ms-2 g-h-4 g-w-4" />}
+          {!externalServiceUrl && <MdMailOutline className="g-ms-2 g-h-4 g-w-4" />}
         </h4>
         <p className="g-text-sm g-text-muted-foreground">
           <FormattedMessage
@@ -31,7 +34,7 @@ export function DataProviderFeedback({ feedbackOptions }: DataProviderFeedbackPr
             defaultMessage="For questions about data quality, species information, or dataset-specific issues"
           />
         </p>
-        {!feedbackOptions.externalServiceUrl && (
+        {!externalServiceUrl && (
           <p className="g-text-sm g-text-muted-foreground g-mt-2">
             <FormattedMessage
               id="feedback.sendEmailTo"
@@ -43,7 +46,7 @@ export function DataProviderFeedback({ feedbackOptions }: DataProviderFeedbackPr
           </p>
         )}
       </a>
-      {feedbackOptions.externalServiceUrl && feedbackOptions.contactEmail && (
+      {externalServiceUrl && feedbackOptions.contactEmail && (
         <div className="g-text-xs g-text-muted-foreground g-mt-1">
           <FormattedMessage
             id="feedback.orWriteMailTo"

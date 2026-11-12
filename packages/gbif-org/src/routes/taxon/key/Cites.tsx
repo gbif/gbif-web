@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { safeHref } from '@/utils/safeHref';
 
 type CitesResponse = { cites_listing?: string; _reference?: string; updated_at: string };
 
@@ -23,7 +24,7 @@ const Cites = ({ taxonName, kingdom }: { taxonName: string; kingdom?: string | n
       {updated && (
         <a
           className="g-text-slate-500 g-mx-1"
-          href={data?._reference}
+          href={safeHref(data?._reference)}
           target="_blank"
           rel="noopener noreferrer"
         >

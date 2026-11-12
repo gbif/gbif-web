@@ -4,6 +4,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { Group } from '@/routes/occurrence/key/About/groups';
 import { MdCheck, MdRemove } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { SafeLink } from '@/components/safeLink';
 
 type Humboldt = NonNullable<NonNullable<NonNullable<EventQuery['event']>['humboldt']>[number]>;
 type Scope = NonNullable<NonNullable<Humboldt['targetTaxonomicScope']>[number]>;
@@ -326,26 +327,26 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
           {refs.length > 0 && (
             <Row label={hp('protocolReferences')}>
               {refs.length === 1 ? (
-                <a
+                <SafeLink
                   href={refs[0]}
                   target="_blank"
                   rel="noreferrer"
                   className="g-text-inherit g-underline g-break-all"
                 >
                   {refs[0]}
-                </a>
+                </SafeLink>
               ) : (
                 <ul className="g-list-disc g-ms-5">
                   {refs.map((r, i) => (
                     <li key={i}>
-                      <a
+                      <SafeLink
                         href={r}
                         target="_blank"
                         rel="noreferrer"
                         className="g-text-inherit g-underline g-break-all"
                       >
                         {r}
-                      </a>
+                      </SafeLink>
                     </li>
                   ))}
                 </ul>

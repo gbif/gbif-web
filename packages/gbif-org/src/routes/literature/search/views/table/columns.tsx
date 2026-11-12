@@ -8,12 +8,13 @@ import { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleLiteratureSearchResult } from '.';
+import { safeHref } from '@/utils/safeHref';
 
 function getLink(item: SingleLiteratureSearchResult) {
   if (item.identifiers?.doi) {
     return `https://doi.org/${item.identifiers.doi}`;
   }
-  return item.websites?.[0];
+  return safeHref(item.websites?.[0]) ?? null;
 }
 
 export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [

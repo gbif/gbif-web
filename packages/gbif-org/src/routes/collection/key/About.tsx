@@ -32,6 +32,7 @@ import { CollectionKeyContext, FeaturedImageContent } from './collectionKeyPrese
 import { DescriptorGroups } from './DescriptorGroups';
 import { apiConstants } from '@/config/apiConstants';
 import TestSiteAlert from '@/components/TestSiteAlert';
+import { SafeLink } from '@/components/safeLink';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
@@ -122,9 +123,9 @@ export default function About() {
                     <ul>
                       {collection.catalogUrls.map((url, i) => (
                         <li key={i}>
-                          <a key={url} href={url} target="_blank" rel="noreferrer">
+                          <SafeLink key={url} href={url} target="_blank" rel="noreferrer">
                             {url}
-                          </a>
+                          </SafeLink>
                         </li>
                       ))}
                     </ul>
@@ -133,9 +134,9 @@ export default function About() {
                     <ul>
                       {collection.apiUrls.map((url, i) => (
                         <li key={i}>
-                          <a key={url} href={url} target="_blank" rel="noreferrer">
+                          <SafeLink key={url} href={url} target="_blank" rel="noreferrer">
                             {url}
-                          </a>
+                          </SafeLink>
                         </li>
                       ))}
                     </ul>

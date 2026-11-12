@@ -1,4 +1,5 @@
 import { cn } from '@/utils/shadcn';
+import { safeHref } from '@/utils/safeHref';
 import { MdLink } from 'react-icons/md';
 type NullableLink = null | {
   label?: string | null;
@@ -27,7 +28,7 @@ export function SecondaryLinks({ links, className }: Props) {
             className="g-flex g-flex-row g-items-center g-underline"
             target="_blank"
             rel="noopener noreferrer"
-            href={link.url}
+            href={safeHref(link.url)}
           >
             <MdLink className="g-min-w-4" />
             <div className="g-ms-4 g-font-medium">{link?.label ?? link.url}</div>
@@ -40,5 +41,5 @@ export function SecondaryLinks({ links, className }: Props) {
 
 function isLinkWithUrl(link: NullableLink): link is LinkWithUrl {
   if (link == null) return false;
-  return link.url != null;
+  return safeHref(link.url) != null;
 }
