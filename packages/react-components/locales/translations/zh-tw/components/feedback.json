@@ -5,6 +5,8 @@
     "contactDataProvider": "聯繫資料提供者",
     "contactUsDescription": "關於網頁問題、資料處理問題或提問。",
     "contactDataProviderDescription": "關於網頁內的發佈紀錄相關問題",
+    "annotationRule": "",
+    "annotationRuleDescription": "",
     "seeAlsoFaq": "另可參閱 {faqLink}",
     "faq": "常見問答",
     "pleaseLogin": "請登入來留下意見回饋",
