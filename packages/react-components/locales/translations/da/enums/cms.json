@@ -1,19 +1,19 @@
 {
   "projectGrantType": {
-    "REGIONAL": "Regionale tilskud",
-    "CROSS_REGIONAL": "",
-    "SMALL": "Småt tilskud",
-    "NATIONAL": "Nationalt tilskud",
-    "DATA_USE": "",
-    "MULTI_INSTITUTIONAL": "",
-    "INSTITUTIONAL": "",
+    "REGIONAL": "Regional biodiversitetsdatamobiliseringsbevilling",
+    "CROSS_REGIONAL": "Tværregional biodiversitetsdatamobiliseringsbevilling",
+    "SMALL": "Institutionelt biodiversitetsdatamibiliseringsbevilling",
+    "NATIONAL": "Nationalt biodiversitetsdatamobiliseringsbevilling",
+    "DATA_USE": "Bevilling til dataanvendelse",
+    "MULTI_INSTITUTIONAL": "Multiinstitutionelt biodiversitetsdatamobiliseringsbevilling",
+    "INSTITUTIONAL": "Institutionel biodiversitetsdatamobiliseringsbevilling",
     "undefined": "Ubestemt"
   },
   "projectStatus": {
     "APPROVED": "Godkendt",
     "CLOSED": "Lukket",
     "IN_PROGRESS": "Igangværende",
-    "DISCONTINUED": "",
+    "DISCONTINUED": "Udgået",
     "undefined": "Ubestemt"
   }
 }
