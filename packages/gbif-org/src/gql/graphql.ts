@@ -1999,6 +1999,7 @@ export enum DatasetSearchParameter {
   ModifiedDate = 'MODIFIED_DATE',
   NetworkKey = 'NETWORK_KEY',
   ProjectId = 'PROJECT_ID',
+  PublicationDate = 'PUBLICATION_DATE',
   PublishingCountry = 'PUBLISHING_COUNTRY',
   PublishingOrg = 'PUBLISHING_ORG',
   RecordCount = 'RECORD_COUNT',
