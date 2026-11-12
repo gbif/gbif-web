@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Occurrence-Status",
-    "description": ""
+    "description": "Ob Organismen des angegebenen Taxons nachgewiesen wurden oder nicht."
   },
   "gadmGid": {
     "name": "Verwaltungseinheit",
