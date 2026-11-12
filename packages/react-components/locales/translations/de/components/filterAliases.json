@@ -127,7 +127,7 @@
     "occurrenceCountry": "",
     "occurrenceId": "",
     "occurrenceIssue": "",
-    "occurrenceStatus": "",
+    "occurrenceStatus": "Nachgewiesen, nicht nachgewiesen, anwesend, nicht anwesend, Anwesenheit, Abwesenheit",
     "occurrenceTaxonomicIssue": "",
     "openAccess": "",
     "organismId": "",
