@@ -1,7 +1,7 @@
 import { Progress } from '@/components/ui/progress';
 import { useI18n } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
-import { ReactNode, useMemo, useState } from 'react';
+import { Fragment, ReactNode, useMemo, useState } from 'react';
 import { FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
@@ -34,7 +34,7 @@ export function TermFrequency({ file }: { file: ReportFile }) {
 
   return (
     <div className="g-overflow-x-auto">
-      <table className="g-w-full g-text-sm">
+      <table className="g-w-full g-min-w-[32rem] g-text-sm">
         <thead>
           <tr className="g-text-slate-500 g-text-start">
             <SortableHeader {...header('term')} className="g-pe-4 g-text-start">
@@ -74,13 +74,13 @@ export function TermFrequency({ file }: { file: ReportFile }) {
               total > 0 && term.rawIndexed !== undefined ? term.rawIndexed / total : 0;
             return (
               <tr key={`${name}-${index}`} className="g-border-t g-border-slate-100">
-                <td className="g-py-1.5 g-pe-4 g-break-all" dir="ltr">
+                <td className="g-py-1.5 g-pe-4" dir="ltr">
                   <span
                     className={cn({
                       'g-border-s-2 g-border-yellow-500 g-ps-1.5': isUnknown,
                     })}
                   >
-                    {name}
+                    <BreakAfterSlashes text={name} />
                   </span>
                   {/^https?:\/\//.test(name) && !name.startsWith(UNKNOWN_PREFIX) && (
                     <a
@@ -94,7 +94,7 @@ export function TermFrequency({ file }: { file: ReportFile }) {
                     </a>
                   )}
                 </td>
-                <td className="g-py-1.5 g-pe-4 g-text-end g-tabular-nums">
+                <td className="g-py-1.5 g-pe-4 g-text-end g-tabular-nums g-whitespace-nowrap">
                   {term.rawIndexed !== undefined && <FormattedNumber value={term.rawIndexed} />}
                 </td>
                 <td className="g-py-1.5 g-pe-4">
@@ -104,13 +104,13 @@ export function TermFrequency({ file }: { file: ReportFile }) {
                       dir={locale.textDirection}
                       className="g-w-20 g-flex-none"
                     />
-                    <span className="g-tabular-nums">
+                    <span className="g-tabular-nums g-whitespace-nowrap">
                       <FormattedNumber value={fraction} style="percent" maximumFractionDigits={0} />
                     </span>
                   </div>
                 </td>
                 {file.hasInterpretedCounts && (
-                  <td className="g-py-1.5 g-text-end g-tabular-nums">
+                  <td className="g-py-1.5 g-text-end g-tabular-nums g-whitespace-nowrap">
                     {typeof term.interpretedIndexed === 'number' && (
                       <FormattedNumber value={term.interpretedIndexed} />
                     )}
@@ -122,6 +122,24 @@ export function TermFrequency({ file }: { file: ReportFile }) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function BreakAfterSlashes({ text }: { text: string }) {
+  const parts = text.split('/');
+  return (
+    <>
+      {parts.map((part, i) => (
+        <Fragment key={i}>
+          {part}
+          {i < parts.length - 1 && (
+            <>
+              /<wbr />
+            </>
+          )}
+        </Fragment>
+      ))}
+    </>
   );
 }
 
@@ -144,7 +162,7 @@ function SortableHeader({
     <th
       scope="col"
       aria-sort={active === 'asc' ? 'ascending' : active === 'desc' ? 'descending' : undefined}
-      className={cn('g-py-2 g-font-medium', className)}
+      className={cn('g-py-2 g-font-medium g-whitespace-nowrap', className)}
     >
       <button
         type="button"
