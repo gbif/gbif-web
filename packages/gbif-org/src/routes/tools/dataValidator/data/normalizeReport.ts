@@ -1,4 +1,3 @@
-import { clbIssueLevels } from './clbIssueLevels';
 import { isInProgress } from './pollingMachine';
 import type {
   FileInfo,
@@ -134,7 +133,8 @@ export function getIssueSeverity(
   category: string | undefined,
   lookups: Pick<ValidatorLookups, 'remarks'>
 ): Severity {
-  if (category === CLB_CATEGORY) return clbIssueLevels[issue] ?? 'WARNING';
+  // as portal16: ChecklistBank's own levels are not GBIF indexing errors
+  if (category === CLB_CATEGORY) return 'WARNING';
   return lookups.remarks[issue]?.severity ?? 'WARNING';
 }
 

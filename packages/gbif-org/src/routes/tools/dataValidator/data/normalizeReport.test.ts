@@ -199,12 +199,12 @@ describe('normalizeReport: ColDP', () => {
     expect(report.extensionCount).toBe(2);
   });
 
-  it('normalises ChecklistBank issue names and uses their levels', () => {
+  it('normalises ChecklistBank issue names and shows them as warnings', () => {
     const clb = report.files[0].categories.find((c) => c.category === 'CLB_INTERPRETATION_BASED')!;
     expect(clb.issues.map((issue) => [issue.issue, issue.severity])).toEqual([
-      ['ACCEPTED_NAME_MISSING', 'ERROR'],
-      ['UNPARSABLE_NAME', 'ERROR'],
       ['BRAND_NEW_ISSUE', 'WARNING'],
+      ['ACCEPTED_NAME_MISSING', 'WARNING'],
+      ['UNPARSABLE_NAME', 'WARNING'],
     ]);
   });
 
@@ -242,8 +242,8 @@ describe('normalizeReport: ColDP', () => {
 });
 
 describe('getIssueSeverity', () => {
-  it('uses the ChecklistBank level for ChecklistBank issues, never the occurrence remark', () => {
-    expect(getIssueSeverity('UNPARSABLE_NAME', 'CLB_INTERPRETATION_BASED', lookups)).toBe('ERROR');
+  it('shows ChecklistBank issues as warnings, never with the occurrence remark', () => {
+    expect(getIssueSeverity('UNPARSABLE_NAME', 'CLB_INTERPRETATION_BASED', lookups)).toBe('WARNING');
   });
 
   it('falls back to WARNING for an issue without a remark', () => {
