@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import type { Report } from '../../data/normalizeReport';
-import { CLB_CATEGORY, OCC_CATEGORY } from '../../data/normalizeReport';
-import type { DwcExtension } from '../../data/types';
+import { CLB_CATEGORY, fileSize, OCC_CATEGORY } from '../../data/normalizeReport';
+import type { DwcExtension, Validation } from '../../data/types';
 import { useLabels } from '../useLabels';
 import { SeverityTag, StatusDot } from './SeverityTag';
 
@@ -10,15 +10,18 @@ const OCCURRENCE = 'http://rs.tdwg.org/dwc/terms/Occurrence';
 const TAXON = 'http://rs.tdwg.org/dwc/terms/Taxon';
 
 export function Summary({
+  validation,
   report,
   finished,
   extensions,
 }: {
+  validation: Validation;
   report: Report;
   finished: boolean;
   extensions: Record<string, DwcExtension>;
 }) {
   const labels = useLabels();
+  const size = fileSize(validation.fileSize);
   const found = new Set(report.summary.map((entry) => entry.category));
   // categories without issues that are still worth stating for the core type
   const cleanCategories = [
@@ -115,6 +118,27 @@ export function Summary({
           </div>
 
           <dl className="g-grid g-grid-cols-[auto_1fr] g-gap-x-4 g-gap-y-1 g-text-sm g-content-start">
+            <dt className="g-text-slate-500">
+              <FormattedMessage id="tools.dataValidator.fileName" defaultMessage="File name" />
+            </dt>
+            <dd className="g-break-words" dir="auto">
+              {validation.file ?? '–'}
+            </dd>
+            <dt className="g-text-slate-500">
+              <FormattedMessage
+                id="tools.dataValidator.fileFormat.title"
+                defaultMessage="File format"
+              />
+            </dt>
+            <dd className="g-break-words">
+              {validation.fileFormat ? labels.fileFormat(validation.fileFormat) : '–'}
+            </dd>
+            <dt className="g-text-slate-500">
+              <FormattedMessage id="tools.dataValidator.fileSize" defaultMessage="File size" />
+            </dt>
+            <dd>
+              {size ? <FormattedNumber value={size.value} style="unit" unit={size.unit} /> : '–'}
+            </dd>
             <dt className="g-text-slate-500">
               <FormattedMessage
                 id="tools.dataValidator.coreRowType"

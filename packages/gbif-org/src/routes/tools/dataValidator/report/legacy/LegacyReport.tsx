@@ -31,7 +31,12 @@ export default function LegacyReport({ validation }: ReportRendererProps) {
 
   return (
     <>
-      <Summary report={report} finished={finished} extensions={lookups.extensions} />
+      <Summary
+        validation={validation}
+        report={report}
+        finished={finished}
+        extensions={lookups.extensions}
+      />
       <SidebarLayout
         reverse
         className="g-grid-cols-[1fr_250px] xl:g-grid-cols-[1fr_300px]"

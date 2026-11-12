@@ -209,6 +209,7 @@
         "COLDP": "Catalogue of Life Data Package (ColDP)",
         "XML": "XML document"
       },
+      "fileName": "File name",
       "fileHasIssues": "Some issues were detected by the validator:",
       "fileHasNoIssues": "No issues found in the file",
       "fileSize": "File size",
