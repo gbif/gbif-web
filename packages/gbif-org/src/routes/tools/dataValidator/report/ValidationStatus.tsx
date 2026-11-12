@@ -4,7 +4,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ReactNode } from 'react';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
-import { fileSize } from '../data/normalizeReport';
+import { fileSize, normalizeSteps } from '../data/normalizeReport';
 import { isInProgress, PollState } from '../data/pollingMachine';
 import type { Validation } from '../data/types';
 import { ValidatorErrorMessage } from '../validatorErrorMessage';
@@ -45,6 +45,60 @@ export function ContactingServer() {
           id="tools.dataValidator.status.CONTACTING_SERVER"
           defaultMessage="Contacting server…"
         />
+      </div>
+    </StatusCard>
+  );
+}
+
+export function GeneratingReport({
+  validation,
+  partial,
+}: {
+  validation: Validation;
+  partial: boolean;
+}) {
+  const labels = useLabels();
+  const lastStep = normalizeSteps(validation.metrics?.stepTypes, validation.status).at(-1);
+  const step = lastStep && (
+    <span className="g-font-medium g-text-slate-800">
+      {labels.step(lastStep.stepType, 'PENDING')}
+    </span>
+  );
+
+  return (
+    <StatusCard>
+      <div className="g-flex g-items-start g-gap-2" aria-live="polite">
+        <div className="g-flex g-h-6 g-flex-none g-items-center" aria-hidden>
+          <Spinner className="g-h-3.5 g-w-3.5" />
+        </div>
+        <div>
+          <p className="g-font-medium">
+            <FormattedMessage
+              id="tools.dataValidator.generatingReport"
+              defaultMessage="The report is being generated"
+            />
+          </p>
+          <p className="g-text-sm g-text-slate-600 g-mt-1">
+            {partial && step && (
+              <FormattedMessage
+                id="tools.dataValidator.generatingReportPartial"
+                defaultMessage="The results below are incomplete until the step {step} has finished."
+                values={{ step }}
+              />
+            )}
+            {!partial && step && (
+              <FormattedMessage
+                id="tools.dataValidator.generatingReportEmpty"
+                defaultMessage="The full report is shown when the step {step} has finished."
+                values={{ step }}
+              />
+            )}{' '}
+            <FormattedMessage
+              id="tools.dataValidator.generatingReportRevisit"
+              defaultMessage="You can leave this page and come back later at the same address."
+            />
+          </p>
+        </div>
       </div>
     </StatusCard>
   );

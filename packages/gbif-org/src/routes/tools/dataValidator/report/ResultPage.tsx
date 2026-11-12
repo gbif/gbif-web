@@ -4,9 +4,15 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ToolCardSkeleton } from '../../_shared/toolCardSkeleton';
+import { isInProgress } from '../data/pollingMachine';
 import { useValidation } from '../data/validationContext';
 import { getReportRenderer } from './reportRenderers';
-import { ContactingServer, ValidationFailure, ValidationStatus } from './ValidationStatus';
+import {
+  ContactingServer,
+  GeneratingReport,
+  ValidationFailure,
+  ValidationStatus,
+} from './ValidationStatus';
 
 export default function ResultPage() {
   const { state, validation } = useValidation();
@@ -63,11 +69,13 @@ function ReportBody() {
 
   const Renderer = getReportRenderer(validation.fileFormat);
   const hasFiles = (validation.metrics?.files?.length ?? 0) > 0;
+  const generating = state.phase !== 'error' && isInProgress(validation.status);
 
   return (
     <>
       {state.phase === 'error' && <ValidationFailure state={state} />}
       <ValidationStatus validation={validation} />
+      {generating && <GeneratingReport validation={validation} partial={!!Renderer && hasFiles} />}
       {Renderer && (hasFiles || validation.status === 'FINISHED') && (
         <Suspense fallback={<ToolCardSkeleton />}>
           <Renderer validation={validation} />
