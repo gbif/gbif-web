@@ -18,7 +18,7 @@
   "yearRange": "年份范围",
   "identifiedToSpecies": "鉴定到的物种",
   "withCoordinates": "带坐标",
-  "withYear": "带年份",
+  "withEventDate": "",
   "withCollector": "带收集器",
   "withMedia": "带有介质",
   "withSequence": "序列",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "这些指标基于通过GBIF共享的记录",
   "notVocabularyWarning": "联合资助方：",
   "taxonomicBreakdown": "联合资助方：",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "",
     "record": "记录",
@@ -56,8 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerField": "每 {FIELD} 的物种出现记录",
-  "kingdom": "界",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
