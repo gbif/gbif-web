@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
 import { Spinner } from '@/components/ui/spinner';
 import { DynamicLink } from '@/reactRouterPlugins';
-import { cn } from '@/utils/shadcn';
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { normalizeSteps } from '../data/normalizeReport';
@@ -10,7 +9,7 @@ import type { PollState } from '../data/pollingMachine';
 import type { Validation } from '../data/types';
 import { ValidatorErrorMessage } from '../validatorErrorMessage';
 import { useLabels } from './useLabels';
-import { ValidationSteps } from './ValidationSteps';
+import { RetentionNote, ValidationSteps } from './ValidationSteps';
 
 function StatusCard({ children }: { children: ReactNode }) {
   return <Card className="g-bg-white g-p-6 g-mb-4">{children}</Card>;
@@ -108,35 +107,32 @@ export function ValidationFailure({ state }: { state: Extract<PollState, { phase
   );
 }
 
-export function ValidationStatus({ validation }: { validation: Validation }) {
+// The steps sit above the cards. hasSummary=true when the report summary shows the failure reason
+// and the retention note.
+export function ValidationStatus({
+  validation,
+  hasSummary,
+}: {
+  validation: Validation;
+  hasSummary: boolean;
+}) {
   const labels = useLabels();
   const status = validation.status ?? '';
-  const steps = validation.metrics?.stepTypes;
-  const hasSteps = normalizeSteps(steps, status).length > 0;
   const failed = status === 'FAILED';
-  const finished = status === 'FINISHED';
-
-  // the page header shows the status; this card adds the reason, the steps and the retention note
-  if (!failed && !finished && !hasSteps) return null;
 
   return (
-    <StatusCard>
-      {failed && (
-        <p className={cn('g-font-medium g-text-red-700', hasSteps && 'g-mb-4')}>
-          {labels.status(status)}
-        </p>
+    <>
+      <ValidationSteps
+        steps={validation.metrics?.stepTypes}
+        jobStatus={status}
+        className="g-mb-6 g-mt-2"
+      />
+      {!hasSummary && (failed || status === 'FINISHED') && (
+        <StatusCard>
+          {failed && <p className="g-mb-3 g-font-medium g-text-red-700">{labels.status(status)}</p>}
+          <RetentionNote />
+        </StatusCard>
       )}
-
-      <ValidationSteps steps={steps} jobStatus={status} />
-
-      {finished && (
-        <p className={cn('g-text-xs g-text-slate-500', hasSteps && 'g-mt-5')}>
-          <FormattedMessage
-            id="tools.dataValidator.reportRetention"
-            defaultMessage="The report will be deleted after one month. Until then you can revisit it at this address."
-          />
-        </p>
-      )}
-    </StatusCard>
+    </>
   );
 }

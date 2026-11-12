@@ -60,11 +60,12 @@ function ReportBody() {
   const Renderer = getReportRenderer(validation.fileFormat);
   const hasFiles = (validation.metrics?.files?.length ?? 0) > 0;
   const generating = state.phase !== 'error' && isInProgress(validation.status);
+  const hasSummary = !!Renderer && hasFiles;
 
   return (
     <>
       {state.phase === 'error' && <ValidationFailure state={state} />}
-      <ValidationStatus validation={validation} />
+      <ValidationStatus validation={validation} hasSummary={hasSummary} />
       {generating && <GeneratingReport validation={validation} partial={!!Renderer && hasFiles} />}
       {Renderer && (hasFiles || validation.status === 'FINISHED') && (
         <Suspense fallback={<ReportSkeleton withSteps={false} />}>

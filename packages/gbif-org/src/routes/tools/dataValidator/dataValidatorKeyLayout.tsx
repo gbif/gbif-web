@@ -4,11 +4,12 @@ import { FeatureList, GenericFeature } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Spinner } from '@/components/ui/spinner';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { ArticleTitle, ArticleTitleSkeleton } from '@/routes/resource/key/components/articleTitle';
+import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import {
   MdCheckCircle,
@@ -79,7 +80,9 @@ function DataValidatorKeyPage() {
             </ArticlePreTitle>
 
             {isLoading ? (
-              <ArticleTitleSkeleton className="g-max-w-xl" />
+              <div className="g-flex g-h-8 g-items-center md:g-h-9" aria-hidden>
+                <Skeleton className="g-h-7 g-w-full g-max-w-xl" />
+              </div>
             ) : (
               <ArticleTitle className="lg:g-text-3xl g-break-all" dir="auto">
                 {validation?.file ?? fallbackTitle}
@@ -87,7 +90,10 @@ function DataValidatorKeyPage() {
             )}
 
             <HeaderInfo>
-              <HeaderInfoMain>{validation && <Features validation={validation} />}</HeaderInfoMain>
+              <HeaderInfoMain>
+                {validation && <Features validation={validation} />}
+                {isLoading && <FeaturesSkeleton />}
+              </HeaderInfoMain>
               <HeaderInfoEdit className="g-flex g-mt-4 md:g-mt-0 g-gap-2">
                 <Button asChild variant="outline" className="g-py-1 g-px-2 g-h-[2rem]">
                   <DynamicLink to="/tools/data-validator/my-validations">
@@ -169,6 +175,20 @@ function Features({ validation }: { validation: Validation }) {
           </span>
         </GenericFeature>
       )}
+    </FeatureList>
+  );
+}
+
+const FEATURE_WIDTHS = ['g-w-40', 'g-w-48', 'g-w-16'];
+
+function FeaturesSkeleton() {
+  return (
+    <FeatureList aria-hidden>
+      {FEATURE_WIDTHS.map((width) => (
+        <GenericFeature key={width}>
+          <Skeleton className={width}>Loading</Skeleton>
+        </GenericFeature>
+      ))}
     </FeatureList>
   );
 }

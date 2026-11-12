@@ -4,6 +4,7 @@ import type { Report } from '../../data/normalizeReport';
 import { CLB_CATEGORY, fileSize, OCC_CATEGORY } from '../../data/normalizeReport';
 import type { DwcExtension, Validation } from '../../data/types';
 import { useLabels } from '../useLabels';
+import { RetentionNote } from '../ValidationSteps';
 import { SeverityTag, StatusDot } from './SeverityTag';
 
 const OCCURRENCE = 'http://rs.tdwg.org/dwc/terms/Occurrence';
@@ -55,6 +56,12 @@ export function Summary({
                     defaultMessage="The file cannot be indexed by GBIF"
                   />
                 )}
+              </p>
+            )}
+
+            {failed && (
+              <p className="g-mb-3 g-text-sm g-font-medium g-text-red-700">
+                {labels.status(validation.status ?? '')}
               </p>
             )}
 
@@ -159,6 +166,7 @@ export function Summary({
             <dd>{report.extensionCount}</dd>
           </dl>
         </div>
+        {(finished || failed) && <RetentionNote className="g-mt-6" />}
       </CardContent>
     </Card>
   );
