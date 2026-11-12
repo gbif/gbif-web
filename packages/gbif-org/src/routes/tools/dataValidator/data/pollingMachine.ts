@@ -2,6 +2,7 @@ import type { Validation } from './types';
 
 export const POLL_INTERVAL_MS = 1000;
 export const MAX_NOT_FOUND_RETRIES = 10;
+export const MAX_FAILURE_RETRIES = 5;
 
 const IN_PROGRESS = new Set([
   'DOWNLOADING',
@@ -22,15 +23,23 @@ export type PollErrorKind = 'notFound' | 'unauthorized' | 'generic';
 export type PollState =
   | { phase: 'idle' }
   // waiting for the first answer
-  | { phase: 'loading'; notFoundCount: number; authRetried: boolean }
+  | { phase: 'loading'; notFoundCount: number; authRetried: boolean; failureCount: number }
   // the job is known and in progress; validation holds the latest (partial) result
-  | { phase: 'polling'; validation: Validation; notFoundCount: number; authRetried: boolean }
+  | {
+      phase: 'polling';
+      validation: Validation;
+      notFoundCount: number;
+      authRetried: boolean;
+      failureCount: number;
+      pollCount: number;
+    }
   // the API does not know the key yet; it often answers 404 right after a submit
   | {
       phase: 'contacting';
       validation?: Validation;
       notFoundCount: number;
       authRetried: boolean;
+      failureCount: number;
     }
   // FINISHED or FAILED
   | { phase: 'done'; validation: Validation }
@@ -53,11 +62,48 @@ const NONE: PollEffect = { type: 'none' };
 
 export const initialPollState: PollState = { phase: 'idle' };
 
+export function pollDelay(pollCount: number): number {
+  if (pollCount <= 30) return 1000;
+  if (pollCount <= 120) return 3000;
+  return 10000;
+}
+
 function counters(state: PollState) {
   if (state.phase === 'loading' || state.phase === 'polling' || state.phase === 'contacting') {
-    return { notFoundCount: state.notFoundCount, authRetried: state.authRetried };
+    return {
+      notFoundCount: state.notFoundCount,
+      authRetried: state.authRetried,
+      failureCount: state.failureCount,
+    };
   }
-  return { notFoundCount: 0, authRetried: false };
+  return { notFoundCount: 0, authRetried: false, failureCount: 0 };
+}
+
+function pollCountOf(state: PollState) {
+  return state.phase === 'polling' ? state.pollCount : 0;
+}
+
+function isTransient(event: PollEvent) {
+  if (event.type === 'NETWORK_ERROR') return true;
+  if (event.type !== 'HTTP_ERROR') return false;
+  return event.status >= 500 || event.status === 408 || event.status === 429;
+}
+
+function retryAfterFailure(state: PollState): PollStep | undefined {
+  const { notFoundCount, authRetried, failureCount } = counters(state);
+  if (failureCount >= MAX_FAILURE_RETRIES) return undefined;
+  const validation = lastValidation(state);
+  const next: PollState = validation
+    ? {
+        phase: 'polling',
+        validation,
+        notFoundCount,
+        authRetried,
+        failureCount: failureCount + 1,
+        pollCount: pollCountOf(state),
+      }
+    : { phase: 'loading', notFoundCount, authRetried, failureCount: failureCount + 1 };
+  return { state: next, effect: { type: 'fetch', delayMs: POLL_INTERVAL_MS * 2 ** failureCount } };
 }
 
 function lastValidation(state: PollState): Validation | undefined {
@@ -71,7 +117,13 @@ function notFound(state: PollState): PollStep {
     return { state: { phase: 'error', kind: 'notFound', status: 404 }, effect: NONE };
   }
   return {
-    state: { phase: 'contacting', validation: lastValidation(state), notFoundCount, authRetried },
+    state: {
+      phase: 'contacting',
+      validation: lastValidation(state),
+      notFoundCount,
+      authRetried,
+      failureCount: 0,
+    },
     effect: { type: 'fetch', delayMs: POLL_INTERVAL_MS },
   };
 }
@@ -87,7 +139,7 @@ export function transition(state: PollState, event: PollEvent): PollStep {
         return { state: { phase: 'error', kind: 'notFound', status: 404 }, effect: NONE };
       }
       return {
-        state: { phase: 'loading', notFoundCount: 0, authRetried: false },
+        state: { phase: 'loading', notFoundCount: 0, authRetried: false, failureCount: 0 },
         effect: { type: 'fetch', delayMs: 0 },
       };
 
@@ -96,9 +148,17 @@ export function transition(state: PollState, event: PollEvent): PollStep {
       const status = validation?.status;
       if (status === 'NOT_FOUND') return notFound(state);
       if (isInProgress(status)) {
+        const pollCount = pollCountOf(state) + 1;
         return {
-          state: { phase: 'polling', validation, notFoundCount: 0, authRetried: false },
-          effect: { type: 'fetch', delayMs: POLL_INTERVAL_MS },
+          state: {
+            phase: 'polling',
+            validation,
+            notFoundCount: 0,
+            authRetried: false,
+            failureCount: 0,
+            pollCount,
+          },
+          effect: { type: 'fetch', delayMs: pollDelay(pollCount) },
         };
       }
       if (status && TERMINAL.has(status)) {
@@ -110,12 +170,19 @@ export function transition(state: PollState, event: PollEvent): PollStep {
     case 'HTTP_ERROR': {
       if (event.status === 404) return notFound(state);
       if (event.status === 401 || event.status === 403) {
-        const { notFoundCount, authRetried } = counters(state);
+        const { notFoundCount, authRetried, failureCount } = counters(state);
         if (!authRetried) {
           const validation = lastValidation(state);
           const next: PollState = validation
-            ? { phase: 'polling', validation, notFoundCount, authRetried: true }
-            : { phase: 'loading', notFoundCount, authRetried: true };
+            ? {
+                phase: 'polling',
+                validation,
+                notFoundCount,
+                authRetried: true,
+                failureCount,
+                pollCount: pollCountOf(state),
+              }
+            : { phase: 'loading', notFoundCount, authRetried: true, failureCount };
           return { state: next, effect: { type: 'fetch', delayMs: 0, refreshToken: true } };
         }
         return {
@@ -128,6 +195,8 @@ export function transition(state: PollState, event: PollEvent): PollStep {
           effect: NONE,
         };
       }
+      const retry = isTransient(event) ? retryAfterFailure(state) : undefined;
+      if (retry) return retry;
       return {
         state: {
           phase: 'error',
@@ -139,10 +208,13 @@ export function transition(state: PollState, event: PollEvent): PollStep {
       };
     }
 
-    case 'NETWORK_ERROR':
+    case 'NETWORK_ERROR': {
+      const retry = retryAfterFailure(state);
+      if (retry) return retry;
       return {
         state: { phase: 'error', kind: 'generic', validation: lastValidation(state) },
         effect: NONE,
       };
+    }
   }
 }

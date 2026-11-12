@@ -19,10 +19,20 @@ describe('validatorErrorKind', () => {
     [404, 'notFound'],
     [413, 'tooLarge'],
     [415, 'unsupported'],
+    [420, 'tooManyRunning'],
     [500, 'generic'],
     [502, 'generic'],
   ])('maps %i to %s', (status, kind) => {
     expect(validatorErrorKind(new ValidatorHttpError(status))).toBe(kind);
+  });
+
+  it.each([
+    ['{"message":"File exceeds the maximum size allowed"}', 'tooLarge'],
+    ['Unsupported file type: application/xml', 'unsupported'],
+    ['{"message":"Something else"}', 'badRequest'],
+    [undefined, 'badRequest'],
+  ])('maps 400 with body %j to %s', (body, kind) => {
+    expect(validatorErrorKind(new ValidatorHttpError(400, undefined, body))).toBe(kind);
   });
 
   it('maps anything that is not an HTTP error to generic', () => {
@@ -79,6 +89,15 @@ describe('submitUrl', () => {
     expect(url).toBe(`${v1Endpoint}/validation/url`);
     expect(init.method).toBe('POST');
     expect((init.body as FormData).get('fileUrl')).toBe('https://example.org/a.zip');
+  });
+
+  it('keeps the body of an error answer', async () => {
+    fetchMock.mockResolvedValue(
+      new Response('Unsupported file type: application/xml', { status: 400 })
+    );
+    await expect(
+      submitUrl({ v1Endpoint, token: 't', fileUrl: 'https://a.b' })
+    ).rejects.toMatchObject({ status: 400, body: 'Unsupported file type: application/xml' });
   });
 
   it('rejects a submit answer without a key', async () => {
@@ -157,8 +176,11 @@ describe('submitFile', () => {
 
   it('rejects with the HTTP status', async () => {
     const result = submitFile({ v1Endpoint, token: 't', file });
-    FakeXhr.last.respond(413, {});
-    await expect(result).rejects.toMatchObject({ status: 413 });
+    FakeXhr.last.respond(413, { message: 'too large' });
+    await expect(result).rejects.toMatchObject({
+      status: 413,
+      body: JSON.stringify({ message: 'too large' }),
+    });
   });
 
   it('aborts with the signal', async () => {

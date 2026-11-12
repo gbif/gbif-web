@@ -188,6 +188,7 @@
       }
     },
     "dataValidator": {
+      "aboutRowType": "About {rowType}",
       "backToValidator": "Start a new validation",
       "coreRowType": "Core row type",
       "description": "The GBIF data validator is a service that allows anyone with a GBIF-relevant dataset to receive a report on the syntactical correctness and the validity of the content contained within the dataset.",
@@ -197,7 +198,8 @@
         "generic": "Something went wrong. Please try again later.",
         "notFound": "The validation was not found. If you believe this is an error, please report it.",
         "tooLarge": "The file is too large to be processed by the data validator.",
-        "unauthorized": "You do not have access. Please check that you are signed in with the account that started the validation.",
+        "tooManyRunning": "You already have the maximum number of validations running. Please wait for one to finish, then try again.",
+        "unauthorized": "You do not have access. Please sign in again.",
         "unsupported": "Unsupported file type. The file could not be processed."
       },
       "fetchFileFromLocation": "Fetch file from location",
@@ -228,16 +230,26 @@
         },
         "title": "Row type"
       },
+      "generatingReport": "The report is being generated",
+      "generatingReportEmpty": "The full report is shown when the step {step} has finished.",
+      "generatingReportPartial": "The results below are incomplete until the step {step} has finished.",
+      "generatingReportRevisit": "You can leave this page and come back later at the same address.",
       "indexeable": "The file can be indexed by GBIF",
       "interpretedCounts": {
         "indexed": "Number of records indexed"
       },
       "invalidUrl": "Please enter a web address starting with http:// or https://",
+      "issueFacts": {
+        "category": "Category",
+        "issue": "Issue",
+        "severity": "Severity"
+      },
       "issues": "Validation issues",
       "loginMessage": "You need a GBIF account to use the data validator.",
       "loginTitle": "Sign in to validate your data",
       "loginToSeeReport": "Sign in to see this validation report",
       "loginToSeeReportMessage": "You need a GBIF account to see validation reports.",
+      "loginToSeeValidations": "Sign in to see your validations",
       "metadataUnavailable": "Metadata is shown for finished validations of Darwin Core Archives only.",
       "noIssuesFound": "No issues found",
       "noMetadata": "No metadata was found in the archive.",
@@ -246,10 +258,8 @@
       "numberOfLines": "Number of lines",
       "or": "or",
       "recordId": "Record ID",
-      "reportProducedBy": "Report produced by the GBIF data validator",
       "reportRetention": "The report will be deleted after one month. Until then you can revisit it at this address.",
       "selectFile": "Select file",
-      "started": "Started",
       "status": {
         "CONTACTING_SERVER": "Contacting server…",
         "title": "Status",
@@ -268,6 +278,7 @@
       "summary": "Validation summary",
       "tabs": {
         "metadata": "Metadata",
+        "myValidations": "My validations",
         "newValidation": "New validation",
         "report": "Report"
       },
@@ -278,12 +289,10 @@
         "term": "Term",
         "title": "Term frequency"
       },
-      "uniqueIdentifier": "Unique identifier",
       "uploading": "Uploading… {percent, number, ::percent}",
       "urlPlaceholder": "https://example.com/dwca.zip",
       "validationFailed": "Validation failed",
       "validationReport": "Validation report",
-      "zipNotDwca": "The file was a zipped archive, but it was not interpreted as a Darwin Core Archive because its metadata is missing or cannot be parsed.",
       "category": {
         "RESOURCE_STRUCTURE": "Resource Structure",
         "RESOURCE_INTEGRITY": "Resource integrity",
@@ -316,6 +325,7 @@
         "OCCURRENCE_NOT_UNIQUELY_IDENTIFIED": "Occurrence not uniquely identified"
       },
       "steps": {
+        "notRun": "Not run",
         "VALIDATOR_UPLOAD_ARCHIVE": {
           "RUNNING": "Uploading archive",
           "FINISHED": "Archive uploaded",

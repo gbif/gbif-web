@@ -1,3 +1,5 @@
+import { safeHref } from '@/utils/safeHref';
+
 // The /validation/{key}/eml answer is the registry Dataset model parsed from an uploaded EML file.
 // This turns it into the props of the dataset "about" components. The content is user-supplied:
 // HTML goes through HyperText (sanitised) and URLs that would end up in an href are checked here.
@@ -80,14 +82,6 @@ function finite(value: unknown): number | undefined {
   return typeof number === 'number' && Number.isFinite(number) ? number : undefined;
 }
 
-const SCHEME = /^\s*([a-z][a-z0-9+.-]*):/i;
-
-// plain identifiers and http(s) URLs only: anything else with a scheme (javascript:, data:) goes
-export function safeLinkValue(value: string): boolean {
-  const scheme = SCHEME.exec(value)?.[1]?.toLowerCase();
-  return scheme === undefined || scheme === 'http' || scheme === 'https';
-}
-
 function temporalCoverage(raw: Json): EmlTemporalCoverage | undefined {
   const type = text(raw['@type']);
   if (!type) return undefined;
@@ -153,8 +147,8 @@ function dataDescription(raw: Json): EmlDataDescription {
 function contact(raw: Json): Json {
   return {
     ...raw,
-    homepage: strings(raw.homepage).filter(safeLinkValue),
-    userId: strings(raw.userId).filter(safeLinkValue),
+    homepage: strings(raw.homepage).filter((value) => safeHref(value) !== undefined),
+    userId: strings(raw.userId).filter((value) => safeHref(value) !== undefined),
     email: strings(raw.email),
     phone: strings(raw.phone),
   };

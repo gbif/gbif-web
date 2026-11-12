@@ -3,6 +3,7 @@ import { Html } from '@/components/html';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term, Value } from '@/components/properties';
 import { ProtectedForm } from '@/components/protectedForm';
+import { SafeLink } from '@/components/safeLink';
 import { TableOfContents } from '@/components/tableOfContents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
@@ -368,14 +369,14 @@ function DataDescription({
               {dataDescriptions.map((description, index) => (
                 <li key={index} className="g-break-words" dir="auto">
                   {description.url ? (
-                    <a
+                    <SafeLink
                       href={description.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="g-text-primary-600 hover:g-underline"
                     >
                       {description.name ?? description.url}
-                    </a>
+                    </SafeLink>
                   ) : (
                     description.name
                   )}

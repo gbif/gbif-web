@@ -7898,7 +7898,7 @@ export type Query = {
   userDownloads: DownloadListResults;
   userEventDownloads: DownloadListResults;
   userValidations: ValidationListResults;
-  /** A validation of the signed in user. Only the owner can read it. */
+  /** A validation by key. Needs a signed in user; any signed in user can read any validation. */
   validation?: Maybe<Validation>;
   /** The categories of validator issues, in the order the validator evaluates them. */
   validationEvaluationCategories: Array<Scalars['String']['output']>;

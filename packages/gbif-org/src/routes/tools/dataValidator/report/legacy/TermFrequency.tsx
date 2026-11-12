@@ -70,8 +70,8 @@ export function TermFrequency({ file }: { file: ReportFile }) {
             const name = term.term ?? '';
             // columns the archive reader could not map to a known term get the unknown.org namespace
             const isUnknown = name.startsWith(UNKNOWN_PREFIX) && name !== ARCHIVE_RECORD_ID;
-            const fraction =
-              total > 0 && term.rawIndexed !== undefined ? term.rawIndexed / total : 0;
+            const count = typeof term.rawIndexed === 'number' ? term.rawIndexed : undefined;
+            const fraction = total > 0 && count !== undefined ? count / total : 0;
             return (
               <tr key={`${name}-${index}`} className="g-border-t g-border-slate-100">
                 <td className="g-py-1.5 g-pe-4" dir="ltr">
@@ -95,19 +95,25 @@ export function TermFrequency({ file }: { file: ReportFile }) {
                   )}
                 </td>
                 <td className="g-py-1.5 g-pe-4 g-text-end g-tabular-nums g-whitespace-nowrap">
-                  {term.rawIndexed !== undefined && <FormattedNumber value={term.rawIndexed} />}
+                  {count !== undefined && <FormattedNumber value={count} />}
                 </td>
                 <td className="g-py-1.5 g-pe-4">
-                  <div className="g-flex g-items-center g-gap-2">
-                    <Progress
-                      value={Math.min(100, fraction * 100)}
-                      dir={locale.textDirection}
-                      className="g-w-20 g-flex-none"
-                    />
-                    <span className="g-tabular-nums g-whitespace-nowrap">
-                      <FormattedNumber value={fraction} style="percent" maximumFractionDigits={0} />
-                    </span>
-                  </div>
+                  {count !== undefined && (
+                    <div className="g-flex g-items-center g-gap-2">
+                      <Progress
+                        value={Math.min(100, fraction * 100)}
+                        dir={locale.textDirection}
+                        className="g-w-20 g-flex-none"
+                      />
+                      <span className="g-tabular-nums g-whitespace-nowrap">
+                        <FormattedNumber
+                          value={fraction}
+                          style="percent"
+                          maximumFractionDigits={0}
+                        />
+                      </span>
+                    </div>
+                  )}
                 </td>
                 {file.hasInterpretedCounts && (
                   <td className="g-py-1.5 g-text-end g-tabular-nums g-whitespace-nowrap">

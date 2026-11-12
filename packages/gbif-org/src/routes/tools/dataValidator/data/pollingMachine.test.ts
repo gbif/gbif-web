@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
   initialPollState,
+  MAX_FAILURE_RETRIES,
   MAX_NOT_FOUND_RETRIES,
   POLL_INTERVAL_MS,
+  pollDelay,
   PollEvent,
   PollState,
   PollStep,
@@ -23,6 +25,9 @@ function run(events: PollEvent[], from: PollState = initialPollState): PollStep[
 const last = (steps: PollStep[]) => steps[steps.length - 1];
 const response = (status?: string) =>
   ({ type: 'RESPONSE', validation: { key: 'k', status } }) as const;
+const times = <T>(n: number, item: T): T[] => Array.from({ length: n }, () => item);
+const start = { type: 'START', validKey: true } as const;
+const networkError = { type: 'NETWORK_ERROR' } as const;
 
 describe('pollingMachine', () => {
   it('fetches at once on start', () => {
@@ -125,12 +130,13 @@ describe('pollingMachine', () => {
     });
   });
 
-  it('keeps the last result when a later request fails', () => {
+  it('keeps the last result when later requests keep failing', () => {
     const steps = run([
-      { type: 'START', validKey: true },
+      start,
       response('RUNNING'),
-      { type: 'HTTP_ERROR', status: 500 },
+      ...times(MAX_FAILURE_RETRIES + 1, { type: 'HTTP_ERROR', status: 500 } as const),
     ]);
+    expect(last(steps).effect.type).toBe('none');
     expect(last(steps).state).toMatchObject({
       phase: 'error',
       kind: 'generic',
@@ -139,9 +145,90 @@ describe('pollingMachine', () => {
     });
   });
 
-  it('reports network errors', () => {
-    const step = last(run([{ type: 'START', validKey: true }, { type: 'NETWORK_ERROR' }]));
-    expect(step.state).toMatchObject({ phase: 'error', kind: 'generic' });
+  it('reports network errors after the retries are used up', () => {
+    const steps = run([start, ...times(MAX_FAILURE_RETRIES + 1, networkError)]);
+    expect(steps[steps.length - 2].state.phase).toBe('loading');
+    expect(last(steps).state).toMatchObject({ phase: 'error', kind: 'generic' });
+    expect(last(steps).effect.type).toBe('none');
+  });
+
+  it('retries a network error while polling and keeps the result', () => {
+    const step = last(run([start, response('RUNNING'), networkError]));
+    expect(step.state).toMatchObject({
+      phase: 'polling',
+      validation: { status: 'RUNNING' },
+      failureCount: 1,
+    });
+    expect(step.effect).toEqual({ type: 'fetch', delayMs: POLL_INTERVAL_MS });
+  });
+
+  it('retries an HTTP 503 before the first answer', () => {
+    const step = last(run([start, { type: 'HTTP_ERROR', status: 503 }]));
+    expect(step.state).toMatchObject({ phase: 'loading', failureCount: 1 });
+    expect(step.effect).toEqual({ type: 'fetch', delayMs: POLL_INTERVAL_MS });
+  });
+
+  it.each([408, 429, 502])('treats HTTP %s as transient', (status) => {
+    const step = last(run([start, response('RUNNING'), { type: 'HTTP_ERROR', status }]));
+    expect(step.state.phase).toBe('polling');
+  });
+
+  it('doubles the delay on consecutive failures', () => {
+    const steps = run([start, response('RUNNING'), ...times(MAX_FAILURE_RETRIES, networkError)]);
+    const delays = steps
+      .slice(2)
+      .map((step) => step.effect.type === 'fetch' && step.effect.delayMs);
+    expect(delays).toEqual([1000, 2000, 4000, 8000, 16000]);
+  });
+
+  it('resets the failure count on an answer', () => {
+    const failures = times(MAX_FAILURE_RETRIES, networkError);
+    const steps = run([start, ...failures, response('RUNNING'), ...failures]);
+    expect(last(steps).state).toMatchObject({
+      phase: 'polling',
+      failureCount: MAX_FAILURE_RETRIES,
+    });
+    expect(last(steps).effect.type).toBe('fetch');
+  });
+
+  it('reports HTTP 400 at once', () => {
+    const step = last(run([start, response('RUNNING'), { type: 'HTTP_ERROR', status: 400 }]));
+    expect(step.state).toMatchObject({ phase: 'error', kind: 'generic', status: 400 });
+    expect(step.effect.type).toBe('none');
+  });
+
+  it.each([
+    [1, 1000],
+    [30, 1000],
+    [31, 3000],
+    [120, 3000],
+    [121, 10000],
+  ])('pollDelay(%s) is %s', (count, delay) => {
+    expect(pollDelay(count)).toBe(delay);
+  });
+
+  it('slows down polling for long jobs', () => {
+    const steps = run([start, ...times(121, response('RUNNING'))]);
+    const delayAt = (pollCount: number) => {
+      const { effect, state } = steps[pollCount];
+      expect(state).toMatchObject({ phase: 'polling', pollCount });
+      return effect.type === 'fetch' && effect.delayMs;
+    };
+    expect(delayAt(1)).toBe(1000);
+    expect(delayAt(31)).toBe(3000);
+    expect(delayAt(121)).toBe(10000);
+  });
+
+  it('keeps the poll count through a failure and a token refresh', () => {
+    const steps = run([
+      start,
+      ...times(31, response('RUNNING')),
+      networkError,
+      { type: 'HTTP_ERROR', status: 401 },
+      response('RUNNING'),
+    ]);
+    expect(last(steps).state).toMatchObject({ pollCount: 32 });
+    expect(last(steps).effect).toEqual({ type: 'fetch', delayMs: 3000 });
   });
 
   it('ignores late answers once settled', () => {

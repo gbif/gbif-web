@@ -5,7 +5,7 @@ const typeDef = gql`
     userValidations(limit: Int, offset: Int): ValidationListResults!
       @cacheControl(maxAge: 0, scope: PRIVATE)
     """
-    A validation of the signed in user. Only the owner can read it.
+    A validation by key. Needs a signed in user; any signed in user can read any validation.
     """
     validation(key: ID!): Validation @cacheControl(maxAge: 0, scope: PRIVATE)
     """

@@ -14,7 +14,7 @@ export function ValidatorErrorMessage({ kind }: { kind: ValidatorErrorKind }) {
       return (
         <FormattedMessage
           id="tools.dataValidator.errors.unauthorized"
-          defaultMessage="You do not have access. Please check that you are signed in with the account that started the validation."
+          defaultMessage="You do not have access. Please sign in again."
         />
       );
     case 'notFound':
@@ -36,6 +36,13 @@ export function ValidatorErrorMessage({ kind }: { kind: ValidatorErrorKind }) {
         <FormattedMessage
           id="tools.dataValidator.errors.unsupported"
           defaultMessage="Unsupported file type. The file could not be processed."
+        />
+      );
+    case 'tooManyRunning':
+      return (
+        <FormattedMessage
+          id="tools.dataValidator.errors.tooManyRunning"
+          defaultMessage="You already have the maximum number of validations running. Please wait for one to finish, then try again."
         />
       );
     default:

@@ -218,6 +218,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         throw new Error('UNKNOWN_USER');
       }
 
+      if (response.status === 204) return null;
+
       return await response.json();
     } catch (error) {
       throw new Error('UNKNOWN_ERROR');
@@ -228,7 +230,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     try {
       setIsLoading(true);
       const response = await whoAmI();
-      if (response.user) {
+      if (response?.user) {
         setUser({ ...response.user, graphqlToken: response.graphqlToken });
       } else {
         apiToken.current = null;
@@ -743,6 +745,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       if (!forceRefresh && graphqlToken.current) return graphqlToken.current;
       const response = await whoAmI();
       if (!response?.user || !response.graphqlToken) {
+        apiToken.current = null;
+        setUser(null);
         throw new UserError('UNKNOWN_USER', 'User not authenticated');
       }
       graphqlToken.current = response.graphqlToken;

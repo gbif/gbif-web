@@ -1,19 +1,29 @@
 export class ValidatorHttpError extends Error {
   status: number;
-  constructor(status: number, message?: string) {
+  body?: string;
+  constructor(status: number, message?: string, body?: string) {
     super(message ?? `Validator API answered ${status}`);
     this.name = 'ValidatorHttpError';
     this.status = status;
+    this.body = body;
   }
 }
 
 export type ValidatorErrorKind =
-  'badRequest' | 'unauthorized' | 'notFound' | 'tooLarge' | 'unsupported' | 'generic';
+  | 'badRequest'
+  | 'unauthorized'
+  | 'notFound'
+  | 'tooLarge'
+  | 'unsupported'
+  | 'tooManyRunning'
+  | 'generic';
 
 export function validatorErrorKind(error: unknown): ValidatorErrorKind {
   if (!(error instanceof ValidatorHttpError)) return 'generic';
   switch (error.status) {
     case 400:
+      if (/exceeds the maximum size/i.test(error.body ?? '')) return 'tooLarge';
+      if (/unsupported file type/i.test(error.body ?? '')) return 'unsupported';
       return 'badRequest';
     case 401:
     case 403:
@@ -24,6 +34,8 @@ export function validatorErrorKind(error: unknown): ValidatorErrorKind {
       return 'tooLarge';
     case 415:
       return 'unsupported';
+    case 420:
+      return 'tooManyRunning';
     default:
       return 'generic';
   }
@@ -80,7 +92,7 @@ export function submitFile({
     };
     xhr.onload = () => {
       if (xhr.status < 200 || xhr.status >= 300) {
-        reject(new ValidatorHttpError(xhr.status));
+        reject(new ValidatorHttpError(xhr.status, undefined, xhr.responseText));
         return;
       }
       try {
@@ -120,6 +132,14 @@ export async function submitUrl({
     body,
     signal,
   });
-  if (!response.ok) throw new ValidatorHttpError(response.status);
+  if (!response.ok) {
+    let text: string | undefined;
+    try {
+      text = await response.text();
+    } catch {
+      // the status alone is enough
+    }
+    throw new ValidatorHttpError(response.status, undefined, text);
+  }
   return readKey(await response.json());
 }

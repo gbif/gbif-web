@@ -47,6 +47,7 @@ export function ValidationProvider({
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let controller: AbortController | undefined;
+    let onVisible: (() => void) | undefined;
 
     const dispatch = (event: PollEvent) => {
       if (cancelled) return;
@@ -55,7 +56,21 @@ export function ValidationProvider({
       setState(step.state);
       const { effect } = step;
       if (effect.type === 'fetch') {
-        timer = setTimeout(() => poll(effect.refreshToken), effect.delayMs);
+        timer = setTimeout(() => {
+          if (cancelled) return;
+          if (document.visibilityState !== 'hidden') {
+            poll(effect.refreshToken);
+            return;
+          }
+          const resume = () => {
+            if (document.visibilityState === 'hidden') return;
+            document.removeEventListener('visibilitychange', resume);
+            onVisible = undefined;
+            if (!cancelled) poll(effect.refreshToken);
+          };
+          onVisible = resume;
+          document.addEventListener('visibilitychange', resume);
+        }, effect.delayMs);
       }
     };
 
@@ -92,6 +107,7 @@ export function ValidationProvider({
     return () => {
       cancelled = true;
       clearTimeout(timer);
+      if (onVisible) document.removeEventListener('visibilitychange', onVisible);
       controller?.abort();
     };
   }, [validationKey, isLoggedIn, graphqlEndpoint]);

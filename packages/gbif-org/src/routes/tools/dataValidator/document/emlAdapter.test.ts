@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import eml from '../data/__fixtures__/eml.json';
-import { emlAdapter, hasEmlContent, safeLinkValue } from './emlAdapter';
+import { emlAdapter, hasEmlContent } from './emlAdapter';
 
 describe('emlAdapter', () => {
   const view = emlAdapter(eml);
@@ -78,6 +78,11 @@ describe('emlAdapter', () => {
     expect(view.contacts[0].userId).toEqual(['https://orcid.org/0000-0002-1825-0097', '0000-1111']);
   });
 
+  it('removes a javascript link hidden by a tab', () => {
+    const contacts = emlAdapter({ contacts: [{ homepage: ['java\tscript:alert(1)'] }] }).contacts;
+    expect(contacts[0].homepage).toEqual([]);
+  });
+
   it('maps the metadata and data languages', () => {
     expect(view.metadataLanguage).toBe('eng');
     expect(view.dataLanguage).toBe('dan');
@@ -97,17 +102,4 @@ describe('emlAdapter', () => {
     }
     expect(hasEmlContent(view)).toBe(true);
   });
-});
-
-describe('safeLinkValue', () => {
-  it.each(['https://a.b', 'http://a.b', '0000-1111', 'orcid.org/0000'])('allows %s', (value) => {
-    expect(safeLinkValue(value)).toBe(true);
-  });
-
-  it.each(['javascript:alert(1)', ' JavaScript:x', 'data:text/html,x', 'vbscript:x'])(
-    'rejects %s',
-    (value) => {
-      expect(safeLinkValue(value)).toBe(false);
-    }
-  );
 });
