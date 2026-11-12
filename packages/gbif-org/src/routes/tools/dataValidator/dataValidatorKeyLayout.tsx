@@ -70,7 +70,11 @@ function DataValidatorKeyPage() {
               clickable
               secondary={
                 validation?.created && (
-                  <FormattedDate value={validation.created} {...dateTimeFormat} />
+                  <FormattedDate
+                    value={validation.created}
+                    {...dateTimeFormat}
+                    timeZone={Intl.DateTimeFormat().resolvedOptions().timeZone}
+                  />
                 )
               }
             >
