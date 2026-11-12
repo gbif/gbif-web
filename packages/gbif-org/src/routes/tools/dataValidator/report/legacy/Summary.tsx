@@ -22,6 +22,8 @@ export function Summary({
 }) {
   const labels = useLabels();
   const size = fileSize(validation.fileSize);
+  const failed = validation.status === 'FAILED';
+  const indexable = finished && report.indexeable === true;
   const found = new Set(report.summary.map((entry) => entry.category));
   // categories without issues that are still worth stating for the core type
   const cleanCategories = [
@@ -39,10 +41,10 @@ export function Summary({
       <CardContent>
         <div className="g-grid md:g-grid-cols-[minmax(0,2fr)_minmax(0,1fr)] g-gap-6">
           <div>
-            {finished && (
+            {(finished || failed) && (
               <p className="g-flex g-items-center g-gap-2 g-text-lg g-font-semibold g-mb-3">
-                <StatusDot severity={report.indexeable === true ? 'OK' : 'ERROR'} />
-                {report.indexeable === true ? (
+                <StatusDot severity={indexable ? 'OK' : 'ERROR'} />
+                {indexable ? (
                   <FormattedMessage
                     id="tools.dataValidator.indexeable"
                     defaultMessage="The file can be indexed by GBIF"
