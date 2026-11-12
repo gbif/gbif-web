@@ -18,7 +18,7 @@
   "yearRange": "Jahreszeitraum",
   "identifiedToSpecies": "",
   "withCoordinates": "Mit Koordinaten",
-  "withEventDate": "Mit Beobachtungsdatum",
+  "withEventDate": "Mit Funddatum",
   "withCollector": "",
   "withMedia": "",
   "withSequence": "",
@@ -33,17 +33,17 @@
   "metricsFromGbifData": "",
   "notVocabularyWarning": "Co finanziert von",
   "taxonomicBreakdown": "Co finanziert von",
-  "showMoreInfo": "",
+  "showMoreInfo": "Weitere Informationen anzeigen",
   "help": {
     "dataQuality": {
-      "intro": "",
-      "identifiedToSpecies": "",
-      "withCollector": ""
+      "intro": "Jede Zeile zählt die Vorkommensnachweise mit einer bestimmten Eigenschaft aus allen Einträgen die dem aktuellen Filter entsprechen. Der Balken zeigt denselben Anteil an.",
+      "identifiedToSpecies": "Auf Artebene bestimmt: Einträge die nach der GBIF-Interpretation, durch Zuordnung zu einem Artenschlüssel, auf Artebene bestimmt wurden. Der ursprüngliche Datensatz mag zwar eine Art benennen, doch wenn dieser nicht erkannt wird, wird er nicht berücksichtigt.",
+      "withCollector": "Mit SammlerIn: Einträge bei denen das Feld \"recordedBy\" ausgefüllt ist. Ein Wert wie \"kein Sammler\" wird nicht als fehlend gewertet."
     },
     "occurrenceSummary": {
-      "occurrenceRecords": "",
-      "species": "",
-      "yearRange": ""
+      "occurrenceRecords": "Vorkommensnachweise: Die Anzahl der Vorkommensnachweise die dem aktuellen Filter entsprechen.",
+      "species": "Arten: die Anzahl der eindeutigen Artenschlüssel nach Interpretation. Ein Name der nicht erkannt wird fügt keine Art hinzu.",
+      "yearRange": "Jahresbereich: Der früheste und der späteste Wert im Feld „Jahr“ der übereinstimmenden Datensätze. Es handelt sich um das Feld „Jahr“, nicht um das Feld „eventDate“."
     }
   },
   "group": {
@@ -69,7 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerGroup": "",
+  "occurrencesPerGroup": "Funde pro Gruppe",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
