@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Estado del registro biológico",
-    "description": "La presencia o ausencia de cualquier organismo de un taxón determinado."
+    "description": ""
   },
   "gadmGid": {
     "name": "Área administrativa GADM",
