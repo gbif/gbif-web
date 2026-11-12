@@ -127,7 +127,7 @@
     "occurrenceCountry": "Exactitude des coordonnées non valide",
     "occurrenceId": "Exactitude des coordonnées non valide",
     "occurrenceIssue": "Exactitude des coordonnées non valide",
-    "occurrenceStatus": "",
+    "occurrenceStatus": "détecté, non détecté, présent, absent, présence, absence",
     "occurrenceTaxonomicIssue": "Exactitude des coordonnées non valide",
     "openAccess": "gratuit, public, oa",
     "organismId": "Exactitude des coordonnées non valide",
