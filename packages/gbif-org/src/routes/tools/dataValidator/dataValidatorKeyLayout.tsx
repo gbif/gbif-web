@@ -197,7 +197,7 @@ function FeaturesSkeleton() {
   );
 }
 
-function StatusFeature({ status }: { status?: string }) {
+function StatusFeature({ status }: { status?: string | null }) {
   const labels = useLabels();
 
   if (isInProgress(status)) {

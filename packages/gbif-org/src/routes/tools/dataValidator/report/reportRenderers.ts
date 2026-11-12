@@ -16,7 +16,7 @@ const renderers: Record<string, ComponentType<ReportRendererProps>> = {
 };
 
 export function getReportRenderer(
-  fileFormat: string | undefined
+  fileFormat: string | null | undefined
 ): ComponentType<ReportRendererProps> | undefined {
   return fileFormat ? renderers[fileFormat] : undefined;
 }

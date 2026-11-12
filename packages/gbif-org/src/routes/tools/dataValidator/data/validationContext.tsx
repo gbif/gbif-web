@@ -3,7 +3,8 @@ import { UserError, useUser } from '@/contexts/UserContext';
 import { createContext, ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { initialPollState, PollEvent, PollState, transition } from './pollingMachine';
 import type { Validation } from './types';
-import { fetchValidation, isValidationKey, ValidatorHttpError } from './validatorApi';
+import { isValidationKey, ValidatorHttpError } from './validatorApi';
+import { fetchValidation } from './validatorGraphql';
 
 type ValidationContextValue = {
   validationKey?: string;
@@ -31,11 +32,11 @@ export function ValidationProvider({
   validationKey?: string;
   children: ReactNode;
 }) {
-  const { isLoggedIn, isLoading: isUserLoading, getApiToken } = useUser();
-  const { v1Endpoint } = useConfig();
+  const { isLoggedIn, isLoading: isUserLoading, getGraphqlToken } = useUser();
+  const { graphqlEndpoint } = useConfig();
   const [state, setState] = useState<PollState>(initialPollState);
-  const getApiTokenRef = useRef(getApiToken);
-  getApiTokenRef.current = getApiToken;
+  const getGraphqlTokenRef = useRef(getGraphqlToken);
+  getGraphqlTokenRef.current = getGraphqlToken;
 
   useEffect(() => {
     if (!validationKey) {
@@ -61,9 +62,9 @@ export function ValidationProvider({
     const poll = async (refreshToken?: boolean) => {
       controller = new AbortController();
       try {
-        const token = await getApiTokenRef.current({ forceRefresh: refreshToken });
+        const token = await getGraphqlTokenRef.current({ forceRefresh: refreshToken });
         const validation = await fetchValidation({
-          v1Endpoint,
+          graphqlEndpoint,
           token,
           key: validationKey,
           signal: controller.signal,
@@ -93,7 +94,7 @@ export function ValidationProvider({
       clearTimeout(timer);
       controller?.abort();
     };
-  }, [validationKey, isLoggedIn, v1Endpoint]);
+  }, [validationKey, isLoggedIn, graphqlEndpoint]);
 
   const value = useMemo<ValidationContextValue>(
     () => ({

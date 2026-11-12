@@ -17,12 +17,8 @@ import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagel
 import { ComponentProps, ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useValidation } from '../data/validationContext';
-import {
-  fetchEml,
-  ValidatorErrorKind,
-  validatorErrorKind,
-  ValidatorHttpError,
-} from '../data/validatorApi';
+import { ValidatorErrorKind, validatorErrorKind, ValidatorHttpError } from '../data/validatorApi';
+import { fetchEml } from '../data/validatorGraphql';
 import { ContactingServer, ValidationFailure } from '../report/ValidationStatus';
 import { ValidatorTabContainer } from '../tabLayout';
 import { ValidatorErrorMessage } from '../validatorErrorMessage';
@@ -80,16 +76,21 @@ function MetadataBody() {
 }
 
 function useEml(validationKey: string): EmlState {
-  const { getApiToken } = useUser();
-  const { v1Endpoint } = useConfig();
+  const { getGraphqlToken } = useUser();
+  const { graphqlEndpoint } = useConfig();
   const [state, setState] = useState<EmlState>({ status: 'loading' });
 
   useEffect(() => {
     const controller = new AbortController();
     setState({ status: 'loading' });
     const load = async (forceRefresh: boolean): Promise<unknown> => {
-      const token = await getApiToken({ forceRefresh });
-      return fetchEml({ v1Endpoint, token, key: validationKey, signal: controller.signal });
+      const token = await getGraphqlToken({ forceRefresh });
+      return fetchEml({
+        graphqlEndpoint,
+        token,
+        key: validationKey,
+        signal: controller.signal,
+      });
     };
     load(false)
       .catch((error) => {
@@ -108,8 +109,8 @@ function useEml(validationKey: string): EmlState {
         setState({ status: 'error', kind });
       });
     return () => controller.abort();
-    // getApiToken changes identity with the user only
-  }, [validationKey, v1Endpoint, getApiToken]);
+    // getGraphqlToken changes identity with the user only
+  }, [validationKey, graphqlEndpoint, getGraphqlToken]);
 
   return state;
 }

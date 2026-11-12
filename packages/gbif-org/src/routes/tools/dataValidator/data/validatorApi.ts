@@ -1,5 +1,3 @@
-import type { Validation } from './types';
-
 export class ValidatorHttpError extends Error {
   status: number;
   constructor(status: number, message?: string) {
@@ -46,6 +44,7 @@ export function isHttpUrl(value: string): boolean {
   }
 }
 
+// Submissions post to the REST API; results are read through GraphQL (validatorGraphql.ts).
 type RequestBase = { v1Endpoint: string; token: string; signal?: AbortSignal };
 
 function validationUrl(v1Endpoint: string, ...segments: string[]) {
@@ -123,35 +122,4 @@ export async function submitUrl({
   });
   if (!response.ok) throw new ValidatorHttpError(response.status);
   return readKey(await response.json());
-}
-
-export async function fetchValidation({
-  v1Endpoint,
-  token,
-  key,
-  signal,
-}: RequestBase & { key: string }): Promise<Validation> {
-  if (!isValidationKey(key)) throw new ValidatorHttpError(404, 'Not a validation key');
-  const response = await fetch(validationUrl(v1Endpoint, encodeURIComponent(key)), {
-    headers: { Authorization: `Bearer ${token}` },
-    cache: 'no-store',
-    signal,
-  });
-  if (!response.ok) throw new ValidatorHttpError(response.status);
-  return (await response.json()) as Validation;
-}
-
-export async function fetchEml({
-  v1Endpoint,
-  token,
-  key,
-  signal,
-}: RequestBase & { key: string }): Promise<unknown> {
-  if (!isValidationKey(key)) throw new ValidatorHttpError(404, 'Not a validation key');
-  const response = await fetch(validationUrl(v1Endpoint, encodeURIComponent(key), 'eml'), {
-    headers: { Authorization: `Bearer ${token}` },
-    signal,
-  });
-  if (!response.ok) throw new ValidatorHttpError(response.status);
-  return response.json();
 }

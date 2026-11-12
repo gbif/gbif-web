@@ -5,15 +5,18 @@ import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagel
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { normalizeReport, Report } from '../../data/normalizeReport';
-import { useValidatorLookups } from '../../data/useValidatorLookups';
+import { useEvaluationCategoryOrder } from '../../data/useEvaluationCategoryOrder';
 import type { ReportRendererProps } from '../reportRenderers';
 import { FileSection, hasTermSection } from './FileSection';
 import { StatusDot } from './SeverityTag';
 import { Summary } from './Summary';
 
 export default function LegacyReport({ validation }: ReportRendererProps) {
-  const lookups = useValidatorLookups();
-  const report = useMemo(() => normalizeReport(validation, lookups), [validation, lookups]);
+  const categoryOrder = useEvaluationCategoryOrder();
+  const report = useMemo(
+    () => normalizeReport(validation, categoryOrder),
+    [validation, categoryOrder]
+  );
   const sections = useMemo(() => tocSections(report), [report]);
   const removeSidebar = useBelow(1100);
   const finished = validation.status === 'FINISHED';
@@ -31,12 +34,7 @@ export default function LegacyReport({ validation }: ReportRendererProps) {
 
   return (
     <>
-      <Summary
-        validation={validation}
-        report={report}
-        finished={finished}
-        extensions={lookups.extensions}
-      />
+      <Summary validation={validation} report={report} finished={finished} />
       <SidebarLayout
         reverse
         className="g-grid-cols-[1fr_250px] xl:g-grid-cols-[1fr_300px]"
@@ -44,7 +42,7 @@ export default function LegacyReport({ validation }: ReportRendererProps) {
       >
         <div className="g-min-w-0">
           {report.files.map((file) => (
-            <FileSection key={file.anchor} file={file} extensions={lookups.extensions} />
+            <FileSection key={file.anchor} file={file} />
           ))}
         </div>
         {!removeSidebar && report.files.length > 0 && (

@@ -53,8 +53,8 @@ export function useLabels() {
         ),
       fileFormat: (format: string) =>
         translate([`tools.dataValidator.fileFormat.${format}`], format),
-      rowType: (rowType: string, extensions: Record<string, DwcExtension>) =>
-        extensions[rowType]?.title ?? translate([`enums.dwcaExtension.${rowType}`], rowType),
+      rowType: (rowType: string, extension?: DwcExtension) =>
+        extension?.title ?? translate([`enums.dwcaExtension.${rowType}`], rowType),
     }),
     [translate, first, intl]
   );

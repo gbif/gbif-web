@@ -93,6 +93,8 @@ interface UserContextType {
   ) => Promise<RegistrationResult>;
   /** A token api.gbif.org accepts as the user. Pass `forceRefresh` after the API rejected one. */
   getApiToken: (options?: { forceRefresh?: boolean }) => Promise<string>;
+  /** A token the GraphQL API accepts as the user. Pass `forceRefresh` after it rejected one. */
+  getGraphqlToken: (options?: { forceRefresh?: boolean }) => Promise<string>;
 }
 
 const notInitialized = () => {
@@ -120,6 +122,7 @@ const UserContext = createContext<UserContextType>({
   registerDerivedDataset: notInitialized,
   updateDerivedDataset: notInitialized,
   getApiToken: notInitialized,
+  getGraphqlToken: notInitialized,
 });
 
 export type UserErrorType =
@@ -730,6 +733,25 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     [userName]
   );
 
+  const graphqlToken = useRef<string | undefined>();
+  graphqlToken.current = user?.graphqlToken;
+  const getGraphqlToken = useCallback(
+    async ({ forceRefresh = false }: { forceRefresh?: boolean } = {}): Promise<string> => {
+      if (!userName) {
+        throw new UserError('UNKNOWN_USER', 'User not authenticated');
+      }
+      if (!forceRefresh && graphqlToken.current) return graphqlToken.current;
+      const response = await whoAmI();
+      if (!response?.user || !response.graphqlToken) {
+        throw new UserError('UNKNOWN_USER', 'User not authenticated');
+      }
+      graphqlToken.current = response.graphqlToken;
+      setUser({ ...response.user, graphqlToken: response.graphqlToken });
+      return response.graphqlToken;
+    },
+    [userName, whoAmI]
+  );
+
   useEffect(() => {
     refreshUser();
   }, [refreshUser]); // Add refreshUser to the dependency array
@@ -761,6 +783,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       registerDerivedDataset,
       updateDerivedDataset,
       getApiToken,
+      getGraphqlToken,
     }),
     [
       user,
@@ -782,6 +805,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       registerDerivedDataset,
       updateDerivedDataset,
       getApiToken,
+      getGraphqlToken,
     ]
   );
 

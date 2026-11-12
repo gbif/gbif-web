@@ -29,6 +29,7 @@
           {
             "issue": "MULTIMEDIA_URI_INVALID",
             "issueCategory": "OCC_INTERPRETATION_BASED",
+            "severity": "WARNING",
             "count": 2,
             "samples": [{ "recordId": "occ-7", "relatedData": { "dc:identifier": "not a url" } }]
           }
@@ -49,6 +50,7 @@
           {
             "issue": "COUNTRY_COORDINATE_MISMATCH",
             "issueCategory": "OCC_INTERPRETATION_BASED",
+            "severity": "WARNING",
             "count": 10,
             "samples": [
               {
@@ -60,6 +62,7 @@
           {
             "issue": "RECORDED_DATE_INVALID",
             "issueCategory": "OCC_INTERPRETATION_BASED",
+            "severity": "WARNING",
             "count": 3,
             "samples": [
               { "recordId": "occ-2", "relatedData": { "dwc:eventDate": "2020-13-45" } },
@@ -69,6 +72,7 @@
           {
             "issue": "ZERO_COORDINATE",
             "issueCategory": "OCC_INTERPRETATION_BASED",
+            "severity": "WARNING",
             "count": 25,
             "samples": []
           },
@@ -94,7 +98,11 @@
             "issueCategory": "RESOURCE_STRUCTURE",
             "samples": [{ "relatedData": { "message": "cvc-datatype-valid.1.2.1: 'x' is not a valid value for 'date'." } }]
           },
-          { "issue": "LICENSE_MISSING_OR_UNKNOWN", "issueCategory": "METADATA_CONTENT" }
+          {
+            "issue": "LICENSE_MISSING_OR_UNKNOWN",
+            "issueCategory": "METADATA_CONTENT",
+            "severity": "INFO"
+          }
         ]
       },
       {

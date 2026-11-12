@@ -1,7 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  fetchEml,
-  fetchValidation,
   isHttpUrl,
   isValidationKey,
   submitFile,
@@ -59,7 +57,7 @@ describe('isHttpUrl', () => {
   );
 });
 
-describe('REST calls', () => {
+describe('submitUrl', () => {
   const fetchMock = vi.fn();
   beforeEach(() => {
     fetchMock.mockReset();
@@ -71,41 +69,6 @@ describe('REST calls', () => {
 
   const json = (body: unknown, status = 200) =>
     new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
-
-  it('fetches a validation with the bearer token and no cache', async () => {
-    fetchMock.mockResolvedValue(json({ key: KEY, status: 'RUNNING' }));
-    await expect(fetchValidation({ v1Endpoint, token: 't', key: KEY })).resolves.toEqual({
-      key: KEY,
-      status: 'RUNNING',
-    });
-    const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe(`${v1Endpoint}/validation/${KEY}`);
-    expect(init.headers).toEqual({ Authorization: 'Bearer t' });
-    expect(init.cache).toBe('no-store');
-  });
-
-  it('throws the HTTP status', async () => {
-    fetchMock.mockResolvedValue(json({}, 403));
-    await expect(fetchValidation({ v1Endpoint, token: 't', key: KEY })).rejects.toMatchObject({
-      status: 403,
-    });
-  });
-
-  it('never requests an invalid key', async () => {
-    await expect(fetchValidation({ v1Endpoint, token: 't', key: '../user' })).rejects.toMatchObject(
-      { status: 404 }
-    );
-    await expect(fetchEml({ v1Endpoint, token: 't', key: 'x' })).rejects.toMatchObject({
-      status: 404,
-    });
-    expect(fetchMock).not.toHaveBeenCalled();
-  });
-
-  it('fetches the EML of a validation', async () => {
-    fetchMock.mockResolvedValue(json({ title: 'x' }));
-    await fetchEml({ v1Endpoint: `${v1Endpoint}/`, token: 't', key: KEY });
-    expect(fetchMock.mock.calls[0][0]).toBe(`${v1Endpoint}/validation/${KEY}/eml`);
-  });
 
   it('submits a URL as multipart fileUrl', async () => {
     fetchMock.mockResolvedValue(json({ key: KEY }));

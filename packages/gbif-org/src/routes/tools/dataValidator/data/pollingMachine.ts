@@ -13,7 +13,7 @@ const IN_PROGRESS = new Set([
 ]);
 const TERMINAL = new Set(['FINISHED', 'FAILED']);
 
-export function isInProgress(status?: string) {
+export function isInProgress(status?: string | null) {
   return !!status && IN_PROGRESS.has(status);
 }
 

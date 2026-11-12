@@ -1,5 +1,6 @@
 import { isInProgress } from './pollingMachine';
 import type {
+  DwcExtension,
   FileInfo,
   IssueInfo,
   IssueSample,
@@ -7,7 +8,6 @@ import type {
   Validation,
   ValidationStep,
 } from './types';
-import type { ValidatorLookups } from './useValidatorLookups';
 
 export const CLB_CATEGORY = 'CLB_INTERPRETATION_BASED';
 export const OCC_CATEGORY = 'OCC_INTERPRETATION_BASED';
@@ -46,6 +46,7 @@ export type ReportFile = {
   fileName?: string;
   fileType?: string;
   rowType?: string;
+  extension?: DwcExtension;
   count?: number;
   indexedCount?: number;
   terms: TermInfo[];
@@ -62,6 +63,7 @@ export type Report = {
   hasIssues: boolean;
   summary: Array<{ category: string; issues: SummaryIssue[] }>;
   coreRowType?: string;
+  coreExtension?: DwcExtension;
   extensionCount: number;
   files: ReportFile[];
 };
@@ -128,14 +130,10 @@ export function assignColdpFileTypes(files: FileInfo[]): FileInfo[] {
   );
 }
 
-export function getIssueSeverity(
-  issue: string,
-  category: string | undefined,
-  lookups: Pick<ValidatorLookups, 'remarks'>
-): Severity {
+export function getIssueSeverity(issue: IssueInfo): Severity {
   // as portal16: ChecklistBank's own levels are not GBIF indexing errors
-  if (category === CLB_CATEGORY) return 'WARNING';
-  return lookups.remarks[issue]?.severity ?? 'WARNING';
+  if (issue.issueCategory === CLB_CATEGORY) return 'WARNING';
+  return issue.severity ?? 'WARNING';
 }
 
 // The validator sends one EML_GBIF_SCHEMA issue per schema error. Issues with the same name in a
@@ -164,9 +162,11 @@ function fileAnchor(index: number) {
   return `validator-file-${index}`;
 }
 
-export function normalizeReport(validation: Validation, lookups: ValidatorLookups): Report {
+export function normalizeReport(
+  validation: Validation,
+  categoryOrder: string[] = FALLBACK_CATEGORY_ORDER
+): Report {
   const metrics = validation.metrics ?? {};
-  const categoryOrder = lookups.categoryOrder ?? FALLBACK_CATEGORY_ORDER;
 
   let files: FileInfo[] = (metrics.files ?? []).map((file) => ({
     ...file,
@@ -176,17 +176,21 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
 
   const summaryMap = new Map<string, Map<string, SummaryIssue>>();
   let coreRowType: string | undefined;
+  let coreExtension: DwcExtension | undefined;
   let extensionCount = 0;
 
   const reportFiles = files.map((file): ReportFile => {
-    if (file.fileType === 'CORE') coreRowType = file.rowType;
+    if (file.fileType === 'CORE') {
+      coreRowType = file.rowType ?? undefined;
+      coreExtension = file.extension ?? undefined;
+    }
     if (file.fileType === 'EXTENSION') extensionCount++;
 
     const byCategory = new Map<string, ReportIssue[]>();
     for (const raw of mergeSameIssues(file.issues ?? [])) {
       const issue = raw.issue ?? 'UNKNOWN';
       const category = raw.issueCategory ?? 'UNKNOWN';
-      const severity = getIssueSeverity(issue, category, lookups);
+      const severity = getIssueSeverity(raw);
 
       const reportIssue: ReportIssue = {
         issue,
@@ -208,9 +212,10 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
 
     return {
       anchor: '',
-      fileName: file.fileName,
+      fileName: file.fileName ?? undefined,
       fileType: file.fileType ?? undefined,
-      rowType: file.rowType,
+      rowType: file.rowType ?? undefined,
+      extension: file.extension ?? undefined,
       count: toNumber(file.count),
       indexedCount: toNumber(file.indexedCount),
       terms: file.terms ?? [],
@@ -236,11 +241,12 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
   );
 
   return {
-    fileFormat: validation.fileFormat,
-    indexeable: metrics.indexeable,
+    fileFormat: validation.fileFormat ?? undefined,
+    indexeable: metrics.indexeable ?? undefined,
     hasIssues: summary.length > 0,
     summary,
     coreRowType,
+    coreExtension,
     extensionCount,
     files: orderedFiles,
   };
@@ -256,7 +262,7 @@ const WAITING_STEP = new Set(['PENDING', 'QUEUED', 'WAITING_FOR_CHECKLISTBANK'])
 // Once the job has ended, steps that never started are NOT_RUN.
 export function normalizeSteps(
   steps: ValidationStep[] | null | undefined,
-  jobStatus: string | undefined
+  jobStatus: string | null | undefined
 ): DisplayStep[] {
   let queuedFound = false;
   const ended = !!jobStatus && !isInProgress(jobStatus);

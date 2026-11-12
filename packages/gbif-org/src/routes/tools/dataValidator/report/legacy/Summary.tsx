@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import type { Report } from '../../data/normalizeReport';
 import { CLB_CATEGORY, fileSize, OCC_CATEGORY } from '../../data/normalizeReport';
-import type { DwcExtension, Validation } from '../../data/types';
+import type { Validation } from '../../data/types';
 import { useLabels } from '../useLabels';
 import { RetentionNote } from '../ValidationSteps';
 import { SeverityTag, StatusDot } from './SeverityTag';
@@ -14,12 +14,10 @@ export function Summary({
   validation,
   report,
   finished,
-  extensions,
 }: {
   validation: Validation;
   report: Report;
   finished: boolean;
-  extensions: Record<string, DwcExtension>;
 }) {
   const labels = useLabels();
   const size = fileSize(validation.fileSize);
@@ -155,7 +153,7 @@ export function Summary({
               />
             </dt>
             <dd className="g-break-words">
-              {report.coreRowType ? labels.rowType(report.coreRowType, extensions) : '–'}
+              {report.coreRowType ? labels.rowType(report.coreRowType, report.coreExtension) : '–'}
             </dd>
             <dt className="g-text-slate-500">
               <FormattedMessage

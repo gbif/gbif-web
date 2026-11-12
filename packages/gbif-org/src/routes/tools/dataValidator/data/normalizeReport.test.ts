@@ -17,34 +17,21 @@ import {
   NOT_RUN,
 } from './normalizeReport';
 import type { Validation } from './types';
-import { emptyLookups, ValidatorLookups } from './useValidatorLookups';
 
-const lookups: ValidatorLookups = {
-  ...emptyLookups,
-  remarks: {
-    COUNTRY_COORDINATE_MISMATCH: { id: 'COUNTRY_COORDINATE_MISMATCH', severity: 'WARNING' },
-    RECORDED_DATE_INVALID: { id: 'RECORDED_DATE_INVALID', severity: 'WARNING' },
-    ZERO_COORDINATE: { id: 'ZERO_COORDINATE', severity: 'WARNING' },
-    MULTIMEDIA_URI_INVALID: { id: 'MULTIMEDIA_URI_INVALID', severity: 'WARNING' },
-    // the occurrence remarks share names with ChecklistBank issues; they must not apply to those
-    UNPARSABLE_NAME: { id: 'UNPARSABLE_NAME', severity: 'INFO' },
-    LICENSE_MISSING_OR_UNKNOWN: { id: 'LICENSE_MISSING_OR_UNKNOWN', severity: 'INFO' },
-  },
-  categoryOrder: [
-    'RESOURCE_INTEGRITY',
-    'RESOURCE_STRUCTURE',
-    'METADATA_CONTENT',
-    'RECORD_STRUCTURE',
-    'OCC_INTERPRETATION_BASED',
-    'CLB_INTERPRETATION_BASED',
-  ],
-};
+const categoryOrder = [
+  'RESOURCE_INTEGRITY',
+  'RESOURCE_STRUCTURE',
+  'METADATA_CONTENT',
+  'RECORD_STRUCTURE',
+  'OCC_INTERPRETATION_BASED',
+  'CLB_INTERPRETATION_BASED',
+];
 
 const fileNames = (validation: Validation) =>
-  normalizeReport(validation, lookups).files.map((file) => file.fileName);
+  normalizeReport(validation, categoryOrder).files.map((file) => file.fileName);
 
 describe('normalizeReport: DWCA with issues', () => {
-  const report = normalizeReport(dwcaWithIssues as Validation, lookups);
+  const report = normalizeReport(dwcaWithIssues as Validation, categoryOrder);
 
   it('orders files meta descriptor, metadata, core, extension', () => {
     expect(report.files.map((file) => file.fileType)).toEqual([
@@ -104,7 +91,7 @@ describe('normalizeReport: DWCA with issues', () => {
     ]);
   });
 
-  it('takes severities from the remarks and defaults to WARNING', () => {
+  it('takes severities from the API and defaults to WARNING', () => {
     const summary = Object.fromEntries(
       report.summary.flatMap((entry) => entry.issues.map((issue) => [issue.id, issue.severity]))
     );
@@ -129,14 +116,14 @@ describe('normalizeReport: DWCA with issues', () => {
 
 describe('normalizeReport: other results', () => {
   it('reports a clean DWCA as having no issues', () => {
-    const report = normalizeReport(dwcaClean as Validation, lookups);
+    const report = normalizeReport(dwcaClean as Validation, categoryOrder);
     expect(report.hasIssues).toBe(false);
     expect(report.summary).toEqual([]);
     expect(report.files.every((file) => file.issueCount === 0)).toBe(true);
   });
 
   it('passes the indexable flag through as the API reports it', () => {
-    const report = normalizeReport(notIndexable as Validation, lookups);
+    const report = normalizeReport(notIndexable as Validation, categoryOrder);
     expect(report.indexeable).toBe(false);
     expect(report.summary[0].issues).toEqual([
       { id: 'OCCURRENCE_NOT_UNIQUELY_IDENTIFIED', severity: 'WARNING' },
@@ -144,7 +131,7 @@ describe('normalizeReport: other results', () => {
   });
 
   it('does not crash on a FAILED job without metrics', () => {
-    const report = normalizeReport(failed as Validation, lookups);
+    const report = normalizeReport(failed as Validation, categoryOrder);
     expect(report.files).toEqual([]);
     expect(report.hasIssues).toBe(false);
   });
@@ -154,19 +141,17 @@ describe('normalizeReport: other results', () => {
   });
 
   it('tolerates missing and unknown values', () => {
-    const report = normalizeReport(
-      {
-        status: 'FINISHED',
-        fileFormat: 'DWC_DP',
-        metrics: {
-          files: [
-            { fileName: 'a', fileType: null, issues: [{ issueCategory: 'NEW_CATEGORY' }] },
-            { fileName: 'b', fileType: 'NEW_TYPE', terms: null, issues: null },
-          ],
-        },
+    const report = normalizeReport({
+      key: 'k',
+      status: 'FINISHED',
+      fileFormat: 'DWC_DP',
+      metrics: {
+        files: [
+          { fileName: 'a', fileType: null, issues: [{ issueCategory: 'NEW_CATEGORY' }] },
+          { fileName: 'b', fileType: 'NEW_TYPE', terms: null, issues: null },
+        ],
       },
-      emptyLookups
-    );
+    });
     expect(report.files.map((file) => file.fileName)).toEqual(['a', 'b']);
     expect(report.summary).toEqual([
       { category: 'NEW_CATEGORY', issues: [{ id: 'UNKNOWN', severity: 'WARNING' }] },
@@ -174,10 +159,7 @@ describe('normalizeReport: other results', () => {
   });
 
   it('falls back to a fixed category order without the enumeration', () => {
-    const report = normalizeReport(dwcaWithIssues as Validation, {
-      ...lookups,
-      categoryOrder: undefined,
-    });
+    const report = normalizeReport(dwcaWithIssues as Validation);
     const order = report.summary.map((entry) => entry.category);
     expect(order).toEqual(
       [...order].sort(
@@ -188,7 +170,7 @@ describe('normalizeReport: other results', () => {
 });
 
 describe('normalizeReport: ColDP', () => {
-  const report = normalizeReport(coldp as Validation, lookups);
+  const report = normalizeReport(coldp as Validation, categoryOrder);
 
   it('makes the file with issues the core and the others extensions', () => {
     expect(report.files.map((file) => [file.fileName, file.fileType])).toEqual([
@@ -236,18 +218,34 @@ describe('normalizeReport: ColDP', () => {
   });
 
   it('only assigns types for ColDP', () => {
-    const report = normalizeReport({ ...(coldp as Validation), fileFormat: 'DWCA' }, lookups);
+    const report = normalizeReport({ ...(coldp as Validation), fileFormat: 'DWCA' }, categoryOrder);
     expect(report.files.every((file) => file.fileType === undefined)).toBe(true);
   });
 });
 
 describe('getIssueSeverity', () => {
   it('shows ChecklistBank issues as warnings, never with the occurrence remark', () => {
-    expect(getIssueSeverity('UNPARSABLE_NAME', 'CLB_INTERPRETATION_BASED', lookups)).toBe('WARNING');
+    expect(
+      getIssueSeverity({
+        issue: 'UNPARSABLE_NAME',
+        issueCategory: 'CLB_INTERPRETATION_BASED',
+        severity: 'INFO',
+      })
+    ).toBe('WARNING');
+  });
+
+  it('takes the severity the API resolved', () => {
+    expect(getIssueSeverity({ issue: 'ZERO_COORDINATE', severity: 'INFO' })).toBe('INFO');
   });
 
   it('falls back to WARNING for an issue without a remark', () => {
-    expect(getIssueSeverity('EML_NOT_FOUND', 'RESOURCE_STRUCTURE', lookups)).toBe('WARNING');
+    expect(
+      getIssueSeverity({
+        issue: 'EML_NOT_FOUND',
+        issueCategory: 'RESOURCE_STRUCTURE',
+        severity: null,
+      })
+    ).toBe('WARNING');
   });
 });
 
@@ -350,5 +348,27 @@ describe('fileSize', () => {
     ['n/a', undefined],
   ])('formats %j', (bytes, expected) => {
     expect(fileSize(bytes)).toEqual(expected);
+  });
+});
+
+describe('normalizeReport: extensions', () => {
+  it('keeps the registered extension of each file and of the core', () => {
+    const occurrence = { identifier: 'dwc:Occurrence', title: 'Occurrence' };
+    const report = normalizeReport({
+      key: 'k',
+      metrics: {
+        files: [
+          {
+            fileName: 'occurrence.txt',
+            fileType: 'CORE',
+            rowType: 'dwc:Occurrence',
+            extension: occurrence,
+          },
+          { fileName: 'other.txt', fileType: 'EXTENSION', rowType: 'x', extension: null },
+        ],
+      },
+    });
+    expect(report.coreExtension).toEqual(occurrence);
+    expect(report.files.map((file) => file.extension)).toEqual([occurrence, undefined]);
   });
 });

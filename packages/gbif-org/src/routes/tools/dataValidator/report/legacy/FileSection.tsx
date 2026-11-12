@@ -3,7 +3,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { MdInfoOutline, MdLink } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { ReportFile } from '../../data/normalizeReport';
-import type { DwcExtension } from '../../data/types';
 import { useLabels } from '../useLabels';
 import { IssueList } from './IssueList';
 import { TermFrequency } from './TermFrequency';
@@ -14,20 +13,14 @@ export function hasTermSection(file: ReportFile) {
   return !DESCRIPTOR_TYPES.has(file.fileType ?? '') && file.terms.length > 0 && file.count !== 0;
 }
 
-export function FileSection({
-  file,
-  extensions,
-}: {
-  file: ReportFile;
-  extensions: Record<string, DwcExtension>;
-}) {
+export function FileSection({ file }: { file: ReportFile }) {
   return (
     <Card className="g-mb-4 gbif-word-break" id={file.anchor}>
       <CardHeader>
         <CardTitle dir="auto">{file.fileName}</CardTitle>
       </CardHeader>
       <CardContent className="g-space-y-6">
-        <FileFacts file={file} extensions={extensions} />
+        <FileFacts file={file} />
 
         {hasTermSection(file) && (
           <section id={`${file.anchor}-terms`}>
@@ -52,13 +45,7 @@ export function FileSection({
   );
 }
 
-function FileFacts({
-  file,
-  extensions,
-}: {
-  file: ReportFile;
-  extensions: Record<string, DwcExtension>;
-}) {
+function FileFacts({ file }: { file: ReportFile }) {
   const labels = useLabels();
 
   if (file.fileType === 'METADATA') {
@@ -94,7 +81,7 @@ function FileFacts({
     );
   }
 
-  const extension = file.rowType ? extensions[file.rowType] : undefined;
+  const { extension } = file;
   return (
     <dl className="g-grid g-grid-cols-[auto_1fr] g-gap-x-4 g-gap-y-1 g-text-sm">
       {file.rowType && (
@@ -103,12 +90,12 @@ function FileFacts({
             <FormattedMessage id="tools.dataValidator.fileType.title" defaultMessage="Row type" />
           </dt>
           <dd>
-            <span className="g-break-all">{labels.rowType(file.rowType, extensions)}</span>
+            <span className="g-break-all">{labels.rowType(file.rowType, extension)}</span>
             {(extension?.description || extension?.url) && (
               <span className="g-ms-1.5 g-inline-flex g-items-center g-gap-1 g-align-middle">
                 {extension.description && (
                   <RowTypeHelp
-                    title={labels.rowType(file.rowType, extensions)}
+                    title={labels.rowType(file.rowType, extension)}
                     description={extension.description}
                   />
                 )}
