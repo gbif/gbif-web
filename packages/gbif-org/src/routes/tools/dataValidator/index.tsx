@@ -6,6 +6,8 @@ import { createToolLayoutLoader, ToolAboutTab } from '../_shared/toolLayout';
 import { DATA_VALIDATOR_ROUTE_ID } from './data/useDataValidatorCmsData';
 import { DataValidatorKeyLayout } from './dataValidatorKeyLayout';
 import { DataValidatorRootLayout } from './dataValidatorLayout';
+import { MetadataPageSkeleton } from './document/MetadataSkeleton';
+import { ReportPageSkeleton } from './report/ReportSkeleton';
 
 const UploadPage = React.lazy(() => import('./upload/UploadPage'));
 const ResultPage = React.lazy(() => import('./report/ResultPage'));
@@ -50,7 +52,7 @@ export const dataValidatorRoute: RouteObjectWithPlugins = {
         {
           index: true,
           element: (
-            <StaticRenderSuspence fallback={<ToolCardSkeleton />}>
+            <StaticRenderSuspence fallback={<ReportPageSkeleton />}>
               <ResultPage />
             </StaticRenderSuspence>
           ),
@@ -58,7 +60,7 @@ export const dataValidatorRoute: RouteObjectWithPlugins = {
         {
           path: 'document',
           element: (
-            <StaticRenderSuspence fallback={<ToolCardSkeleton />}>
+            <StaticRenderSuspence fallback={<MetadataPageSkeleton />}>
               <MetadataPage />
             </StaticRenderSuspence>
           ),

@@ -14,11 +14,8 @@ import { SamplingDescription } from '@/routes/dataset/key/about/SamplingDescript
 import { TaxonomicCoverages } from '@/routes/dataset/key/about/TaxonomicCoverages';
 import { TemporalCoverages } from '@/routes/dataset/key/about/TemporalCoverages';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { ComponentProps, ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ToolCardSkeleton } from '../../_shared/toolCardSkeleton';
 import { useValidation } from '../data/validationContext';
 import {
   fetchEml,
@@ -27,9 +24,11 @@ import {
   ValidatorHttpError,
 } from '../data/validatorApi';
 import { ContactingServer, ValidationFailure } from '../report/ValidationStatus';
+import { ValidatorTabContainer } from '../tabLayout';
 import { ValidatorErrorMessage } from '../validatorErrorMessage';
 import { emlAdapter, EmlDataDescription, EmlView, hasEmlContent } from './emlAdapter';
 import { emlTextToHtml } from './emlText';
+import { MetadataPageSkeleton, MetadataSkeleton } from './MetadataSkeleton';
 
 type EmlState =
   | { status: 'loading' }
@@ -40,6 +39,7 @@ export default function MetadataPage() {
   return (
     <ProtectedForm
       className="g-bg-white g-flex-1"
+      loading={<MetadataPageSkeleton />}
       title={
         <FormattedMessage
           id="tools.dataValidator.loginToSeeReport"
@@ -53,20 +53,10 @@ export default function MetadataPage() {
         />
       }
     >
-      <Container>
+      <ValidatorTabContainer>
         <MetadataBody />
-      </Container>
+      </ValidatorTabContainer>
     </ProtectedForm>
-  );
-}
-
-function Container({ children }: { children: ReactNode }) {
-  return (
-    <PageContainer className="g-bg-slate-100 g-flex-1">
-      <ArticleTextContainer className="g-max-w-screen-xl g-pt-6 g-pb-12">
-        {children}
-      </ArticleTextContainer>
-    </PageContainer>
   );
 }
 
@@ -74,9 +64,8 @@ function MetadataBody() {
   const { state, validation, validationKey } = useValidation();
 
   if (state.phase === 'error' && !validation) return <ValidationFailure state={state} />;
-  if (!validation || state.phase === 'loading' || state.phase === 'contacting') {
-    return <ContactingServer />;
-  }
+  if (state.phase === 'contacting') return <ContactingServer />;
+  if (!validation || state.phase === 'loading') return <MetadataSkeleton />;
   if (validation.status !== 'FINISHED' || validation.fileFormat !== 'DWCA' || !validationKey) {
     return (
       <Card className="g-p-6 g-text-slate-600">
@@ -129,7 +118,7 @@ function EmlDocument({ validationKey }: { validationKey: string }) {
   const eml = useEml(validationKey);
   const removeSidebar = useBelow(1100);
 
-  if (eml.status === 'loading') return <ToolCardSkeleton />;
+  if (eml.status === 'loading') return <MetadataSkeleton />;
   if (eml.status === 'error') {
     return (
       <Card className="g-p-6">

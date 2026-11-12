@@ -1,12 +1,11 @@
 import { ProtectedForm } from '@/components/protectedForm';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ToolCardSkeleton } from '../../_shared/toolCardSkeleton';
 import { isInProgress } from '../data/pollingMachine';
 import { useValidation } from '../data/validationContext';
+import { ValidatorTabContainer } from '../tabLayout';
 import { getReportRenderer } from './reportRenderers';
+import { ReportPageSkeleton, ReportSkeleton } from './ReportSkeleton';
 import {
   ContactingServer,
   GeneratingReport,
@@ -20,15 +19,16 @@ export default function ResultPage() {
   // an invalid key is not found whether or not the user is logged in
   if (state.phase === 'error' && !validation) {
     return (
-      <ReportContainer>
+      <ValidatorTabContainer>
         <ValidationFailure state={state} />
-      </ReportContainer>
+      </ValidatorTabContainer>
     );
   }
 
   return (
     <ProtectedForm
       className="g-bg-white g-flex-1"
+      loading={<ReportPageSkeleton />}
       title={
         <FormattedMessage
           id="tools.dataValidator.loginToSeeReport"
@@ -42,20 +42,10 @@ export default function ResultPage() {
         />
       }
     >
-      <ReportContainer>
+      <ValidatorTabContainer>
         <ReportBody />
-      </ReportContainer>
+      </ValidatorTabContainer>
     </ProtectedForm>
-  );
-}
-
-function ReportContainer({ children }: { children: React.ReactNode }) {
-  return (
-    <PageContainer className="g-bg-slate-100 g-flex-1">
-      <ArticleTextContainer className="g-max-w-screen-xl g-pt-6 g-pb-12">
-        {children}
-      </ArticleTextContainer>
-    </PageContainer>
   );
 }
 
@@ -64,7 +54,7 @@ function ReportBody() {
 
   if (!validation) {
     if (state.phase === 'error') return <ValidationFailure state={state} />;
-    return <ContactingServer />;
+    return state.phase === 'contacting' ? <ContactingServer /> : <ReportSkeleton />;
   }
 
   const Renderer = getReportRenderer(validation.fileFormat);
@@ -77,7 +67,7 @@ function ReportBody() {
       <ValidationStatus validation={validation} />
       {generating && <GeneratingReport validation={validation} partial={!!Renderer && hasFiles} />}
       {Renderer && (hasFiles || validation.status === 'FINISHED') && (
-        <Suspense fallback={<ToolCardSkeleton />}>
+        <Suspense fallback={<ReportSkeleton withSteps={false} />}>
           <Renderer validation={validation} />
         </Suspense>
       )}

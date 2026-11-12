@@ -11,14 +11,16 @@ type Props = {
   className?: string;
   title: React.ReactNode;
   message: React.ReactNode;
+  loading?: React.ReactNode;
 };
 
-export function ProtectedForm({ children, className, title, message }: Props) {
+export function ProtectedForm({ children, className, title, message, loading }: Props) {
   const { isLoggedIn, isLoading } = useUser();
   const { pathname, search } = useLocation();
   if (isLoggedIn) return children;
 
   if (isLoading) {
+    if (loading) return loading;
     return (
       <>
         <Skeleton className="g-h-36 g-mb-4" />
