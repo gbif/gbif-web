@@ -4,6 +4,7 @@ import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { cn } from '@/utils/shadcn';
+import { toSafeReturnPath } from '@/utils/localPath';
 import { useEffect, useMemo, useState } from 'react';
 import {
   FaGithub as SocialIconGithub,
@@ -57,8 +58,8 @@ export function LoginPage() {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
       // user is already logged in. redirect to search param or profile page
-      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
+      const returnUrl = toSafeReturnPath(new URLSearchParams(location.search).get('returnUrl'));
+      navigate(localizeLink(returnUrl ?? '/user/profile', locale));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
@@ -80,8 +81,8 @@ export function RegistrationPage() {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
       // get returnUrl search param if any
-      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
+      const returnUrl = toSafeReturnPath(new URLSearchParams(location.search).get('returnUrl'));
+      navigate(localizeLink(returnUrl ?? '/user/profile', locale));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
@@ -157,8 +158,8 @@ export function LoginForm() {
     try {
       const { settings } = await login(values);
       const locale = settings?.locale;
-      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
+      const returnUrl = toSafeReturnPath(new URLSearchParams(location.search).get('returnUrl'));
+      navigate(localizeLink(returnUrl ?? '/user/profile', locale));
     } catch (err) {
       if (err instanceof UserError && err.type === 'INVALID_REQUEST') {
         setError('INVALID_LOGIN');

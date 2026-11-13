@@ -187,3 +187,44 @@ describe('createRenamedSearchParamRedirect — generic renames', () => {
     expect(run('/occurrence/search?datasetKey=abc&basisOfRecord=OTHER')).toBeUndefined();
   });
 });
+
+// A path like //evil.com or /\evil.com is a valid request target, but sent back in a Location
+// header the browser reads it as another site.
+describe('redirects never leave the site', () => {
+  const offSite = ['//evil.com/x', '///evil.com/x', '/\\evil.com/x', 'http://evil.com/x'];
+  const isLocal = (location) =>
+    new URL(location, 'https://www.gbif.org').origin === 'https://www.gbif.org';
+
+  it('keeps the legacy query casing redirect on the site', () => {
+    for (const path of offSite) {
+      const originalUrl = `${path}?Foo_bar=1`;
+      const { redirectTo } = run(originalUrl);
+      expect(redirectTo).toBe(`/${path.replace(/^[/\\]+/, '')}?fooBar=1`);
+      expect(isLocal(redirectTo)).toBe(true);
+    }
+  });
+
+  it('keeps the renamed search parameter redirect on the site', () => {
+    for (const path of offSite) {
+      const redirectTo = getRenamedSearchParamRedirect({
+        originalUrl: `${path}/occurrence/search?occurrence_status=present`,
+      });
+      expect(redirectTo).toMatch(/^\/[^/\\]/);
+      expect(isLocal(redirectTo)).toBe(true);
+    }
+  });
+
+  it('still applies path redirects after collapsing the slashes', () => {
+    expect(run('//occurrence/gallery').redirectTo).toBe('/occurrence/search?view=gallery');
+  });
+
+  it('keeps GRSciColl redirects on the GRSciColl site', () => {
+    const getPreRenderRedirect = createGetPreRenderRedirect({
+      PUBLIC_GRSCICOLL: 'https://scientific-collections.gbif.org',
+    });
+    expect(getPreRenderRedirect({ originalUrl: '//grscicoll//evil.com' })).toBe(
+      'https://scientific-collections.gbif.org//evil.com'
+    );
+    expect(getPreRenderRedirect({ originalUrl: '//evil.com/grscicoll/x' })).toBeUndefined();
+  });
+});
