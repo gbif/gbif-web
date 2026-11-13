@@ -5,6 +5,8 @@
     "contactDataProvider": "Proveedor de datos de contacto",
     "contactUsDescription": "Para problemas con el sitio web, problemas con el procesamiento de datos o preguntas",
     "contactDataProviderDescription": "Para problemas relacionados con el registro publicado en esta página",
+    "annotationRule": "Marcar registros sospechosos",
+    "annotationRuleDescription": "Crear una regla que señale los registros o áreas sospechosas (experimental)",
     "seeAlsoFaq": "Vea también {faqLink}.",
     "faq": "Preguntas frecuentes",
     "pleaseLogin": "Inicie sesión para dejar sus comentarios.",

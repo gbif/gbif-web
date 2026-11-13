@@ -18,7 +18,7 @@
   "yearRange": "記録年のレンジ",
   "identifiedToSpecies": "",
   "withCoordinates": "経緯度",
-  "withYear": "年",
+  "withEventDate": "",
   "withCollector": "収集者あり",
   "withMedia": "",
   "withSequence": "シーケンスされました",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "これらの指標は、GBIFを通じて共有された記録に基づいています",
   "notVocabularyWarning": "共同出資",
   "taxonomicBreakdown": "共同出資",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "Views",
     "record": "記録",
@@ -56,8 +69,7 @@
     "materialCollected": "採取された材料",
     "samplingEffort": "サンプリングの努力量"
   },
-  "occurrencesPerField": "{FIELD} ごとのオカレンス",
-  "kingdom": "界",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

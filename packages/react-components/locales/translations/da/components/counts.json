@@ -8,5 +8,11 @@
   "nNews": "{total, plural, one {# nyhed} other {# nyheder}}",
   "nDataUse": "{total, plural, one {# oversigt over dataanvendelse} other {# oversigter over dataanvendelse}}",
   "nOccurrences": "{total, plural, one {# forekomst} other {# forekomster}}",
-  "nSelected": "{total, plural, one {}other {# valgt}}"
+  "nTaxa": "{total, plural, one {# taxon} other {# taxa}}",
+  "nSpecies": "{total, plural, one {# arter} other {# arter}}",
+  "nNames": "{total, plural, one {# navn} other {# navne}}",
+  "nAcceptedNames": "{total, plural, one {# accepteret navn} other {# accepterede navne}}",
+  "nSynonyms": "{total, plural, one {# synonym} other {# synonymer}}",
+  "nSelected": "{total, plural, one {}other {# valgt}}",
+  "nInstallations": "{total, plural, one {# Installation} other {# installationer}}"
 }

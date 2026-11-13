@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Status stwierdzenia",
-    "description": "Obecność lub nieobecność jakichkolwiek organizmów z danego taksonu."
+    "description": ""
   },
   "gadmGid": {
     "name": "Obszar administracyjny",

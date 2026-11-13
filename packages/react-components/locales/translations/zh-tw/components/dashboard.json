@@ -18,7 +18,7 @@
   "yearRange": "年份範圍",
   "identifiedToSpecies": "鑑定至物種",
   "withCoordinates": "含座標",
-  "withYear": "含年份",
+  "withEventDate": "",
   "withCollector": "含收集者",
   "withMedia": "含介質",
   "withSequence": "已序列化",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "這些指標是來自GBIF所共享的紀錄",
   "notVocabularyWarning": "共同資助單位",
   "taxonomicBreakdown": "共同資助單位",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "檢視",
     "record": "紀錄",
@@ -56,8 +69,7 @@
     "materialCollected": "材料蒐集",
     "samplingEffort": "取樣努力量"
   },
-  "occurrencesPerField": "每 {FIELD} 的出現紀錄",
-  "kingdom": "界",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

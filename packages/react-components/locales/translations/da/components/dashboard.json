@@ -18,7 +18,7 @@
   "yearRange": "Årsinterval",
   "identifiedToSpecies": "Bestemt til artsniveau",
   "withCoordinates": "Med koordinater",
-  "withYear": "Med år",
+  "withEventDate": "",
   "withCollector": "Med indsamler",
   "withMedia": "Med medie",
   "withSequence": "Sekventeret",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Disse nøgletal er baseret på data, der er delt via GBIF",
   "notVocabularyWarning": "Ikke-fortolket felt. Det samme koncept kan forekomme med flere stavemåder.",
   "taxonomicBreakdown": "Taksonomisk opdeling",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "Visninger",
     "record": "Optegnelse",
@@ -56,8 +69,7 @@
     "materialCollected": "Indsamlet materiale",
     "samplingEffort": "Prøvetagningsindsats"
   },
-  "occurrencesPerField": "Observationer per {FIELD}",
-  "kingdom": "Rige",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "Sekvensdendrogram",
   "sequencePhylogeny.downloadAlignment": "Overensstemmelse (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",

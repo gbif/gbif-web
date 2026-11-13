@@ -18,7 +18,7 @@
   "yearRange": "연 범위",
   "identifiedToSpecies": "종으로 동정됨",
   "withCoordinates": "좌표가 있음",
-  "withYear": "연도가 있음",
+  "withEventDate": "",
   "withCollector": "수집자가 있음",
   "withMedia": "미디어가 있음",
   "withSequence": "시퀀싱됨",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "이 수치는 GBIF를 통해 공유된 기록에 기반합니다.",
   "notVocabularyWarning": "해석이 없는 항목. 동일한 개념이 여러 가지 표기로 나타날 수 있습니다.",
   "taxonomicBreakdown": "분류학적 내역",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "보기",
     "record": "기록",
@@ -56,8 +69,7 @@
     "materialCollected": "수집된 재료",
     "samplingEffort": "샘플링 노력"
   },
-  "occurrencesPerField": "{FIELD} 당 출현",
-  "kingdom": "계",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "서열 계통도",
   "sequencePhylogeny.downloadAlignment": "정렬 (FASTA)",
   "sequencePhylogeny.downloadNewick": "뉴윅",

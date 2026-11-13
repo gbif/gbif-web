@@ -5,6 +5,8 @@
     "contactDataProvider": "",
     "contactUsDescription": "",
     "contactDataProviderDescription": "",
+    "annotationRule": "Verdächtige Datensätze markieren",
+    "annotationRuleDescription": "Erstellen Sie eine Regel, die verdächtige Datensätze oder Bereiche markiert (experimentell)",
     "seeAlsoFaq": "",
     "faq": "",
     "pleaseLogin": "",

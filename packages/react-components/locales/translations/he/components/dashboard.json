@@ -18,7 +18,7 @@
   "yearRange": "טווח שנים",
   "identifiedToSpecies": "זוהה עד רמת מין",
   "withCoordinates": "עם קואורדינטות",
-  "withYear": "עם שנה",
+  "withEventDate": "",
   "withCollector": "עם אוסף",
   "withMedia": "עם מדיה",
   "withSequence": "רצף גנטי",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "מדדים אלה מבוססים על רשומות ששותפו דרך GBIF",
   "notVocabularyWarning": "מומן במשותף על ידי",
   "taxonomicBreakdown": "מומן במשותף על ידי",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "תצוגות",
     "record": "רשומה",
@@ -56,8 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerField": "תצפיות לפי {FIELD}",
-  "kingdom": "ממלכה",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

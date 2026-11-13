@@ -1,4 +1,4 @@
 {
-    "PRESENT": "Vorhanden",
-    "ABSENT": "Nicht vorhanden"
+    "DETECTED": "Nachgewiesen",
+    "NOT_DETECTED": "Nicht nachgewiesen"
 }
