@@ -359,7 +359,12 @@ const Profile: React.FC = () => {
             </Button>
           ) : (
             <div className="g-flex g-gap-3">
-              <Button variant="outline" onClick={handleCancel} disabled={isProfileLoading}>
+              <Button
+                variant="outline"
+                data-testid="profile-cancel"
+                onClick={handleCancel}
+                disabled={isProfileLoading}
+              >
                 {formatMessage({ id: 'profile.cancel' })}
               </Button>
               <FormButton
@@ -628,6 +633,7 @@ const Profile: React.FC = () => {
           <div className="g-flex g-justify-end g-pt-4">
             <FormButton
               type="submit"
+              testId="password-update"
               className="g-flex g-items-center g-gap-2"
               isLoading={isPasswordLoading}
               disabled={isPasswordLoading || hasFormErrors(passwordErrors)}

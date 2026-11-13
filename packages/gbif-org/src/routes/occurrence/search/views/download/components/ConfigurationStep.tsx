@@ -271,6 +271,7 @@ export default function ConfigurationStep({
               )}
 
               <Button
+                data-testid="download-continue-to-terms"
                 onClick={handleContinue}
                 disabled={!canContinue}
                 className="g-w-full g-flex g-items-center g-justify-center g-gap-2 disabled:g-opacity-50 disabled:g-cursor-not-allowed"

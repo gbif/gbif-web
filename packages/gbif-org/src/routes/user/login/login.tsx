@@ -319,7 +319,13 @@ export function LoginForm() {
           </button>
         </div>
 
-        <FormButton type="submit" isLoading={isLoading} disabled={isLoading} className="g-w-full">
+        <FormButton
+          type="submit"
+          testId="login-submit"
+          isLoading={isLoading}
+          disabled={isLoading}
+          className="g-w-full"
+        >
           {isLoading
             ? formatMessage({ id: 'profile.signingIn' })
             : formatMessage({ id: 'profile.signIn' })}
