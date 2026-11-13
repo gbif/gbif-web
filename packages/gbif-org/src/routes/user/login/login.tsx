@@ -303,6 +303,7 @@ export function LoginForm() {
         <div className="g-flex g-items-center g-justify-between">
           <button
             type="button"
+            data-testid="forgot-password"
             onClick={handleForgotPassword}
             disabled={isResettingPassword || !values.email}
             className="g-text-sm g-font-medium g-text-primary-700 hover:g-text-primary-600 disabled:g-text-gray-400 disabled:g-cursor-not-allowed g-transition-colors g-duration-200"
@@ -318,7 +319,13 @@ export function LoginForm() {
           </button>
         </div>
 
-        <FormButton type="submit" isLoading={isLoading} disabled={isLoading} className="g-w-full">
+        <FormButton
+          type="submit"
+          testId="login-submit"
+          isLoading={isLoading}
+          disabled={isLoading}
+          className="g-w-full"
+        >
           {isLoading
             ? formatMessage({ id: 'profile.signingIn' })
             : formatMessage({ id: 'profile.signIn' })}

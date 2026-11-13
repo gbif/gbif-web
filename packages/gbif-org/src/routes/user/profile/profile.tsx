@@ -350,6 +350,7 @@ const Profile: React.FC = () => {
           {!isEditing ? (
             <Button
               variant="outline"
+              data-testid="profile-edit"
               onClick={() => setIsEditing(true)}
               className="g-flex g-items-center g-gap-2"
             >
@@ -358,10 +359,16 @@ const Profile: React.FC = () => {
             </Button>
           ) : (
             <div className="g-flex g-gap-3">
-              <Button variant="outline" onClick={handleCancel} disabled={isProfileLoading}>
+              <Button
+                variant="outline"
+                data-testid="profile-cancel"
+                onClick={handleCancel}
+                disabled={isProfileLoading}
+              >
                 {formatMessage({ id: 'profile.cancel' })}
               </Button>
               <FormButton
+                testId="profile-save"
                 onClick={handleSave}
                 className="g-flex g-items-center g-gap-2"
                 isLoading={isProfileLoading}
@@ -565,7 +572,10 @@ const Profile: React.FC = () => {
         <ErrorMessage errorMessageId={getErrorMessage(passwordError)} className="g-mb-4" />
 
         {passwordUpdateSuccess && (
-          <div className="g-flex g-items-center g-p-4 g-mb-4 g-text-green-800 g-border g-border-green-300 g-rounded-lg g-bg-green-50">
+          <div
+            data-testid="password-updated"
+            className="g-flex g-items-center g-p-4 g-mb-4 g-text-green-800 g-border g-border-green-300 g-rounded-lg g-bg-green-50"
+          >
             <CheckCircle className="g-w-5 g-h-5 g-me-3 g-flex-shrink-0" />
             <span className="g-text-sm g-font-medium">
               {formatMessage({ id: 'profile.passwordUpdated' })}
@@ -623,6 +633,7 @@ const Profile: React.FC = () => {
           <div className="g-flex g-justify-end g-pt-4">
             <FormButton
               type="submit"
+              testId="password-update"
               className="g-flex g-items-center g-gap-2"
               isLoading={isPasswordLoading}
               disabled={isPasswordLoading || hasFormErrors(passwordErrors)}
