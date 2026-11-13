@@ -18,6 +18,7 @@ import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
 import { escapeForScript as escapeScriptText } from '../src/utils/escapeForScript.js';
+import { toSafeLocation } from '../src/utils/localPath.js';
 import {
   createGetPostRenderRedirect,
   createGetPreRenderRedirect,
@@ -252,7 +253,7 @@ async function main() {
   app.use((req, res, next) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
     const redirectTo = getRenamedSearchParamRedirect(req) ?? getPreRenderRedirect(req);
-    if (redirectTo) return res.redirect(302, redirectTo);
+    if (redirectTo) return res.redirect(302, toSafeLocation(redirectTo));
     next();
   });
 
@@ -350,15 +351,16 @@ async function main() {
         // (e.g. query-param redirects like /resource/search?contentType=literature) target a path
         // that may be a valid route on its own, so they must fire even on a 200 response.
         if (redirectTo && (force || statusCode === 404)) {
-          res.redirect(302, redirectTo);
+          res.redirect(302, toSafeLocation(redirectTo));
         } else {
           res.status(statusCode).end(html);
         }
         // return statusCode === 404 ? res.status(statusCode).end(html);
       } catch (e) {
-        // Handle possible redirections thrown by the render function.
+        // Handle possible redirections thrown by the render function. Loaders can build the
+        // Location from URL params, so it is checked before it is sent.
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {
-          return res.redirect(e.status, e.headers.get('Location'));
+          return res.redirect(e.status, toSafeLocation(e.headers.get('Location')));
         }
 
         // Try to extract a status property from the error. If no status is provided just fall back to status 500.

@@ -3,6 +3,7 @@ import { UserError, UserErrorType, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
+import { toSafeReturnPath } from '@/utils/localPath';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
 import {
@@ -46,6 +47,20 @@ type ErrorType =
   | 'PROOF_OF_WORK_NOT_READY'
   | undefined;
 
+/**
+ * Where to go after logging in: the returnUrl if it is a path on this site, otherwise the profile.
+ * Checked again after localising, as removing a locale prefix can turn /fr//x into //x.
+ */
+function getReturnPath(
+  search: string,
+  localizeLink: (link: string, targetLocale?: string) => string,
+  locale?: string
+) {
+  const returnUrl = toSafeReturnPath(new URLSearchParams(search).get('returnUrl'));
+  const localized = toSafeReturnPath(localizeLink(returnUrl ?? '/user/profile', locale));
+  return localized ?? localizeLink('/user/profile', locale);
+}
+
 export function LoginPage() {
   const { user } = useUser();
   const navigate = useNavigate();
@@ -57,8 +72,7 @@ export function LoginPage() {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
       // user is already logged in. redirect to search param or profile page
-      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
+      navigate(getReturnPath(location.search, localizeLink, locale));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
@@ -80,8 +94,7 @@ export function RegistrationPage() {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
       // get returnUrl search param if any
-      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
+      navigate(getReturnPath(location.search, localizeLink, locale));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
@@ -157,8 +170,7 @@ export function LoginForm() {
     try {
       const { settings } = await login(values);
       const locale = settings?.locale;
-      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
+      navigate(getReturnPath(location.search, localizeLink, locale));
     } catch (err) {
       if (err instanceof UserError && err.type === 'INVALID_REQUEST') {
         setError('INVALID_LOGIN');

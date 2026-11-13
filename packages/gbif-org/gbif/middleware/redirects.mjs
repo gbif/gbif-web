@@ -5,6 +5,7 @@ import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: 'json' };
 import toolsRedirects from '../../src/gbif/toolsRedirects.js';
+import { toLocalPath } from '../../src/utils/localPath.js';
 
 // Locale prefixes that have URL prefixes
 const localePrefixes = [
@@ -72,7 +73,8 @@ export function createRenamedSearchParamRedirect(rules) {
   );
 
   return function getRenamedSearchParamRedirect(req) {
-    const url = req.originalUrl;
+    // The path is sent back in the Location header, so //evil.com must not survive as is
+    const url = toLocalPath(req.originalUrl);
     const queryStart = url.indexOf('?');
     if (queryStart === -1) return undefined;
     const pathOnly = url.slice(0, queryStart);
@@ -110,7 +112,7 @@ export function createGetPreRenderRedirect(env) {
   return function getPreRenderRedirect(req) {
     if (!env.PUBLIC_GRSCICOLL) return undefined;
 
-    const [pathOnly, queryString] = req.originalUrl.split('?');
+    const [pathOnly, queryString] = toLocalPath(req.originalUrl).split('?');
     const { prefix: localePrefix, pathWithoutPrefix } = extractLocalePrefix(pathOnly);
 
     if (pathWithoutPrefix !== '/grscicoll' && !pathWithoutPrefix.startsWith('/grscicoll/')) {
@@ -217,8 +219,9 @@ export function createGetPostRenderRedirect(env) {
   }
 
   function getPostRenderRedirect(req, res, next) {
-    // remove query params from url first
-    const splitted = req.originalUrl.split('?');
+    // remove query params from url first. The path can end up in the Location header, so leading
+    // slashes are collapsed to keep //evil.com from becoming a redirect to another site.
+    const splitted = toLocalPath(req.originalUrl).split('?');
     const pathOnly = splitted[0];
     const queryString = splitted[1];
     const queryParams = queryString ? querystring.parse(queryString) : {};
