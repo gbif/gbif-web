@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { toLocalPath, toSafeReturnPath } from './localPath';
+import { toLocalPath, toSafeLocation, toSafeReturnPath } from './localPath';
 
 describe('toLocalPath', () => {
   test('keeps normal paths as they are', () => {
@@ -78,5 +78,30 @@ describe('toSafeReturnPath', () => {
     expect(toSafeReturnPath('javascript:alert(1)')).toBeUndefined();
     expect(toSafeReturnPath('user/profile')).toBeUndefined();
     expect(toSafeReturnPath('')).toBeUndefined();
+  });
+});
+
+describe('toSafeLocation', () => {
+  test('keeps absolute http(s) URLs built by our own code', () => {
+    expect(toSafeLocation('https://scientific-collections.gbif.org/about')).toBe(
+      'https://scientific-collections.gbif.org/about'
+    );
+    expect(toSafeLocation('http://localhost:3000/country/DK')).toBe(
+      'http://localhost:3000/country/DK'
+    );
+  });
+
+  test('keeps paths on this site', () => {
+    expect(toSafeLocation('/country/DK/summary?a=1')).toBe('/country/DK/summary?a=1');
+  });
+
+  test('falls back for anything that leaves the site', () => {
+    expect(toSafeLocation('//evil.com')).toBe('/');
+    expect(toSafeLocation('/\\evil.com')).toBe('/');
+    expect(toSafeLocation('/dataset/abc/../../..//evil.com')).toBe('/');
+    expect(toSafeLocation('https:/\\evil.com')).toBe('/');
+    expect(toSafeLocation('javascript:alert(1)')).toBe('/');
+    expect(toSafeLocation(null)).toBe('/');
+    expect(toSafeLocation('//evil.com', '/user/login')).toBe('/user/login');
   });
 });

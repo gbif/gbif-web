@@ -37,3 +37,19 @@ export function toSafeReturnPath(value) {
     return undefined;
   }
 }
+
+/**
+ * Check a Location the server is about to send. Absolute http(s) URLs are kept, as those are
+ * built by our own code (GRSciColl, the status page, gbif.org for disabled pages). Anything else
+ * must be a path on this site, otherwise the fallback is used. This catches paths that only become
+ * //evil.com once the browser resolves dot segments, like /a/..//evil.com.
+ *
+ * @param {unknown} location
+ * @param {string} [fallback]
+ * @returns {string}
+ */
+export function toSafeLocation(location, fallback = '/') {
+  if (typeof location !== 'string') return fallback;
+  if (/^https?:\/\//i.test(location)) return location;
+  return toSafeReturnPath(location) ?? fallback;
+}
