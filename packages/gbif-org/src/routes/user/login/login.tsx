@@ -303,6 +303,7 @@ export function LoginForm() {
         <div className="g-flex g-items-center g-justify-between">
           <button
             type="button"
+            data-testid="forgot-password"
             onClick={handleForgotPassword}
             disabled={isResettingPassword || !values.email}
             className="g-text-sm g-font-medium g-text-primary-700 hover:g-text-primary-600 disabled:g-text-gray-400 disabled:g-cursor-not-allowed g-transition-colors g-duration-200"
