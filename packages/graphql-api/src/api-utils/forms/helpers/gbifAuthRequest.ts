@@ -3,6 +3,7 @@ import logger from '@/logger';
 import request from './request';
 import { z } from 'zod';
 import config from '@/config';
+import { signingUser } from '@/helpers/auth/userHeader';
 
 const NEWLINE = '\n';
 
@@ -24,6 +25,7 @@ export class UnexpectedResponseError extends Error {
 export async function authenticatedRequest(options: any) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
   validateOptions(options);
+  const headers = createSignedHeaders(options);
 
   const requestOptions: any = {
     maxAttempts: 5, // (default) try 5 times
@@ -37,23 +39,34 @@ export async function authenticatedRequest(options: any) {
     requestOptions.json = options.body;
   }
 
-  const expectJSON = typeof options.json === 'undefined' || options.json;
-  if (requestOptions.method == 'GET' && expectJSON) {
+  if (requestOptions.method == 'GET' && expectJson(options)) {
     requestOptions.json = true;
   }
 
-  const headers = createHeader(options);
-  signHeader(requestOptions.method, headers, expectJSON);
   requestOptions.headers = headers;
 
   const response = await request(requestOptions);
   return response;
 }
 
-function createHeader(options: any) {
+function expectJson(options: any) {
+  return typeof options.json === 'undefined' || options.json;
+}
+
+/**
+ * The signed headers for a request. Exported for tests. Throws, before anything is sent, unless the
+ * options name a valid userName or ask for asApp: true.
+ */
+export function createSignedHeaders(options: any) {
+  const headers = createHeader(options, signingUser(options, config.appKey));
+  signHeader(options.method, headers, expectJson(options));
+  return headers;
+}
+
+function createHeader(options: any, gbifUser: string) {
   const headers: Record<string, string> = {};
   headers['x-url'] = options.canonicalPath || options.url;
-  headers['x-gbif-user'] = options.userName || config.appKey;
+  headers['x-gbif-user'] = gbifUser;
   if (options.method == 'POST' || options.method == 'PUT') {
     headers['Content-MD5'] = crypto
       .createHash('md5')
