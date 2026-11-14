@@ -1,10 +1,10 @@
 {
   "definitions": {
     "extension": {
-      "http://rs.tdwg.org/ac/terms/Multimedia": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "",
-      "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "",
-      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "",
+      "http://rs.tdwg.org/ac/terms/Multimedia": "Billeder, lydoptagelser eller videoer, herunder mediemetadata og licensoplysninger – http://rs.tdwg.org/ac/terms/Multimedia",
+      "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "Information om DNA-amplifikation af et materiale - http://data.ggbn.org/schemas/ggbn/terms/Amplification",
+      "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "Beskriver genbank-accessioner for plantegenetiske ressourcer - http://purl.org/germplasm/germplasmTerm#GermplasmAccession",
+      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "Måling af egenskaber hos plantegenetiske ressourcer – http://purl.org/germplasm/germplasmTerm#MeasurementScore",
       "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "",
       "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "",
       "http://rs.tdwg.org/dwc/terms/Identification": "",
