@@ -18,7 +18,7 @@
   "yearRange": "Intervalo de ano",
   "identifiedToSpecies": "Identificada até a espécie",
   "withCoordinates": "Com coordenadas",
-  "withYear": "Com ano",
+  "withEventDate": "",
   "withCollector": "Com coletor",
   "withMedia": "Com mídia",
   "withSequence": "Sequenciado",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Essas métricas são baseadas em registros compartilhados via GBIF.",
   "notVocabularyWarning": "Co-financiado por",
   "taxonomicBreakdown": "Co-financiado por",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "Visualizações",
     "record": "Registo",
@@ -56,8 +69,7 @@
     "materialCollected": "Material Coletado",
     "samplingEffort": "Esforço Amostral"
   },
-  "occurrencesPerField": "Ocorrências por {FIELD}",
-  "kingdom": "Reino",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

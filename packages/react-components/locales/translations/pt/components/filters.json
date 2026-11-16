@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Estado da ocorrência (presença/ausência)",
-    "description": "A presença ou ausência de qualquer organismo do taxon fornecido."
+    "description": ""
   },
   "gadmGid": {
     "name": "Área administrativa",

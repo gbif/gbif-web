@@ -194,7 +194,7 @@
   },
   "errors": {
     "evenList": "Fejl i indlæsning af liste over begivenheder",
-    "occurrenceInfo": ""
+    "occurrenceInfo": "Fejl ved hentningen af forekomstinformation"
   },
   "eventTaxonomy": "Taksonomisk distribution af observationer",
   "noCitations": "Endnu ingen citationer",

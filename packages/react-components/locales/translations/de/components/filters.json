@@ -335,7 +335,7 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "",
-    "description": ""
+    "description": "Die Länge einer Nukleotidsequenz in Basenpaaren, die dem Vorkommen zugeordnet ist"
   },
   "nucleotideSequenceId": {
     "name": "",
@@ -360,7 +360,7 @@
     }
   },
   "nucleotideSequenceNucleotideSequenceID": {
-    "name": "",
+    "name": "Nukleotidsequenz-ID",
     "description": ""
   },
   "recordedBy": {
@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Occurrence-Status",
-    "description": "Vorhanden- oder Nichtvorhandensein von Organismen des angegebenen Taxons."
+    "description": "Ob Organismen des angegebenen Taxons nachgewiesen wurden oder nicht."
   },
   "gadmGid": {
     "name": "Verwaltungseinheit",

@@ -26,5 +26,11 @@
   "searchDatasets": "Alle Datensätze abrufen.",
   "singleNode": "Einzelnen Knoten abrufen.",
   "searchNodes": "Knoten suchen.",
-  "parseName": ""
+  "singleTaxon": "Einzelnes Taxon abrufen.",
+  "singleTaxonDetails": "Details zu einem Taxon abrufen.",
+  "searchTaxa": "Suche nach Taxa.",
+  "matchSpecies": "Einen Namen mit der GBIF Backbone Taxonomie abgleichen",
+  "singleDerivedDataset": "Einen einzelnen abgeleiteten Datensatz abrufen",
+  "parseName": "",
+  "derivedDatasetContributingDatasets": "Datensätze abrufen, die Einträge zu einem abgeleiteten Datensatz beitragen"
 }

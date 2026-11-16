@@ -18,7 +18,7 @@
   "yearRange": "Rango anual",
   "identifiedToSpecies": "Identificado hasta especie",
   "withCoordinates": "Con coordenadas",
-  "withYear": "Con año",
+  "withEventDate": "Con fecha del evento",
   "withCollector": "Con colector",
   "withMedia": "Con archivos multimedia",
   "withSequence": "Secuenciado",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Estas métricas se basan en los registros compartidos a través de GBIF",
   "notVocabularyWarning": "Campo sin interpretar. El mismo concepto puede aparecer con diferentes ortografías.",
   "taxonomicBreakdown": "Desglose taxonómico",
+  "showMoreInfo": "Mostrar más información",
+  "help": {
+    "dataQuality": {
+      "intro": "Cada fila cuenta los registros que presentan una propiedad determinada, de entre todos los registros que cumplen con el filtro actual. La barra muestra la misma proporción.",
+      "identifiedToSpecies": "Identificados a nivel de especie: Registros identificados a nivel de especie tras la interpretación de GBIF, lo que significa que se han emparejado con una clave de identificación de especies. Es posible que el registro original mencione una especie, pero si el nombre no se reconoce, no se toma en cuenta.",
+      "withCollector": "Con colector: Registros en los que se ha completado el campo recordedBy. Un valor como «sin colector» no se considera un dato faltante."
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "Registros de observaciones: El número de registros de ocurrencias que coinciden con el filtro actual.",
+      "species": "Especies: El número de especies distintas identificadas tras la interpretación. Un nombre que no se reconozca no se cuenta como una especie.",
+      "yearRange": "Rango de años: El valor más antiguo y el más reciente en el campo «año» de los registros coincidentes. Se trata del campo «año», no del campo eventDate."
+    }
+  },
   "group": {
     "views": "Vistas",
     "record": "Registro",
@@ -56,8 +69,7 @@
     "materialCollected": "Material colectado",
     "samplingEffort": "Esfuerzo de muestreo"
   },
-  "occurrencesPerField": "Registros de presencia por",
-  "kingdom": "Reino",
+  "occurrencesPerGroup": "Observaciones por grupo",
   "sequenceDendrogram": "Dendrograma de secuencias",
   "sequencePhylogeny.downloadAlignment": "Alineación (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",

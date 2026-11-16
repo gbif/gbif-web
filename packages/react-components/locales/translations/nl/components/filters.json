@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Aanwezigheid",
-    "description": "De aanwezigheid of afwezigheid van het object."
+    "description": ""
   },
   "gadmGid": {
     "name": "",

@@ -127,7 +127,7 @@
     "occurrenceCountry": "undefined",
     "occurrenceId": "undefined",
     "occurrenceIssue": "undefined",
-    "occurrenceStatus": "Присутствующий, отсутствующий, присутствие, отсутствие",
+    "occurrenceStatus": "",
     "occurrenceTaxonomicIssue": "undefined",
     "openAccess": "Свободный, публичный, находящийся в открытом доступе",
     "organismId": "undefined",
