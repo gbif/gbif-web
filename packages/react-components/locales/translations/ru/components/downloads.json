@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "Третий уровень административного деления внутри страны в системе Global Administrative Areas (GADM). На уровне 3 обычно выделяются коммуны, муниципалитеты и приравненные к ним территории.",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Наиболее ранняя эпоха или самая нижняя стадия",
         "DEGREE_OF_ESTABLISHMENT": "Степень укоренения интродуцированных видов",
+        "DATASET_CATEGORY": "",
         "DEPTH": "Глубина",
         "RELATIVE_ORGANISM_QUANTITY": "Относительное обилие вида",
         "ORGANISM_ID": "ID организма",
