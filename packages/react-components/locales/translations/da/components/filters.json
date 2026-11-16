@@ -32,7 +32,7 @@
     "description": ""
   },
   "taxonRank": {
-    "name": "",
+    "name": "Rang",
     "description": ""
   },
   "numberSpecimens": {
@@ -130,7 +130,7 @@
     "description": ""
   },
   "lastInterpreted": {
-    "name": "",
+    "name": "Sidst fortolket",
     "description": ""
   },
   "alternativeCode": {
@@ -219,7 +219,7 @@
     "description": ""
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Udgivende land eller område",
     "description": ""
   },
   "q": {
@@ -230,7 +230,7 @@
     "name": "Koordinater"
   },
   "elevation": {
-    "name": "",
+    "name": "Højde",
     "description": ""
   },
   "license": {
@@ -272,7 +272,7 @@
     "name": "Forskers land eller område"
   },
   "typeStatus": {
-    "name": "",
+    "name": "Typestatus",
     "isNotNull": "",
     "isNull": "",
     "description": ""
@@ -282,7 +282,7 @@
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Enhed for prøvestørrelse",
     "description": ""
   },
   "coordinateUncertainty": {
@@ -294,7 +294,7 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Dybde",
     "description": ""
   },
   "organismQuantity": {
@@ -302,7 +302,7 @@
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Værdi for prøvestørrelse",
     "description": ""
   },
   "relativeOrganismQuantity": {
@@ -388,7 +388,7 @@
     "description": ""
   },
   "georeferencedBy": {
-    "name": "",
+    "name": "Georefereret af",
     "description": ""
   },
   "datasetName": {
