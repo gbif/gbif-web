@@ -101,6 +101,10 @@
     "name": "نمط كمية المتعضي",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "",
     "description": ""
