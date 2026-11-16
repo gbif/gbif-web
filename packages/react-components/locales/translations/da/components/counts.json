@@ -42,12 +42,18 @@
   "nPublishedDatasets": "{total, plural, one {# publiseret datasæt} other {# publiserede datasæt}}",
   "nDatasets": "{total, plural, one {# datasæt} other {# datasæt}}",
   "nPublishers": "{total, plural, one {# udgiver} other {# udgivere}}",
+  "nEndorsedPublishers": "{total, plural, one {# anbefalet udgiver} other {# anbefalede udgivere}}",
   "nCountries": "{total, plural, one {# land} other {# lande}}",
   "nParticipants": "{total, plural, one {# deltager} other {# deltagere}}",
   "nVotingParticipants": "{total, plural, one {# stemmeberettiget deltager} other {# stemmeberettigede deltagere}}",
   "nAssociateParticipants": "{total, plural, one {# associeret land} other {# associerede lande}}",
   "nAffiliateParticipants": "{total, plural, one {# affilieret} other {# affilierede}}",
   "nOtherAssociateParticipants": "{total, plural, one {# anden tilknyttet deltager} other {# andre tilknyttede deltagere}}",
+  "nHostedDatasets": "{total, plural, one {# hostet datasæt} other {# hostede datasæt}}",
+  "nParticipatingDatasets": "{total, plural, one {# deltagende datasæt} other {# deltagende datasæt}}",
+  "nParticipatingPublishers": "{total, plural, one {# deltagende udgiver} other {# deltagende udgiver}}",
+  "nPublishersInCountry": "{total, plural, one {Der er # udgiver} other {Der er # udgiver}} i {country}",
   "nPercentOfTotal": "{percentage, plural, other {#% af total}}",
+  "nMoreDatasets": "{total, plural, one {+ # flere datasæt} other {+ # flere datasæt}}",
   "nInstallations": "{total, plural, one {# Installation} other {# installationer}}"
 }
