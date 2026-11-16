@@ -136,6 +136,7 @@
     "paperDoi": "doi, identifiant",
     "parentEventId": "Exactitude des coordonnées non valide",
     "pathway": "Exactitude des coordonnées non valide",
+    "datasetCategory": "",
     "peerReview": "soumis à un comité de lecture, évalué par des pairs",
     "personalCollection": "Exactitude des coordonnées non valide",
     "predicate": "Exactitude des coordonnées non valide",
