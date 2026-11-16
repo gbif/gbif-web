@@ -1,15 +1,15 @@
 {
   "download": {
-    "unsupported.title": "",
+    "unsupported.title": "Ikke understøttet forespørgsel",
     "unsupported.description": "",
-    "unsupported.remove": "",
+    "unsupported.remove": "Fjern filter",
     "unsupported.error": "",
     "download": "Download",
     "redirectNotice": "",
     "continueToGBIF": "Fortsæt",
     "continue": "Fortsæt",
     "invalid": "Ugyldig",
-    "validate": "",
+    "validate": "Validér",
     "sqlEditor": "",
     "predicateEditor": "",
     "sql": {
@@ -17,7 +17,7 @@
       "placeholder": "",
       "noSql": "",
       "note": {
-        "title": "",
+        "title": "Note",
         "description": "",
         "occurrence_search": ""
       },
@@ -28,13 +28,13 @@
         "networkErrorDescription": ""
       }
     },
-    "create": "",
+    "create": "Opret",
     "about": "Om",
     "stopEditing": "Stop redigering",
     "startEditing": "Begynd at redigere",
-    "reformat": "",
-    "discard": "",
-    "keep": "",
+    "reformat": "Omformater",
+    "discard": "Kassér",
+    "keep": "Behold",
     "readTheDocumentation": "",
     "request": {
       "placeholder": "",
@@ -43,16 +43,16 @@
       "noPredicate": "",
       "currentFilter": "Nuværende filter",
       "errors": {
-        "invalid-json": "",
+        "invalid-json": "Ugyldig JSON",
         "invalid-predicate": "",
         "faild-to-load-predicate": "",
-        "unexpectedError": "",
+        "unexpectedError": "En uventet fejl opstod",
         "failedToParseJSON": "",
         "failedToVisualizePredicate": ""
       }
     },
     "downloadOptions": {
-      "title": "",
+      "title": "Valgmuligheder for download",
       "chooseChecklist": "",
       "chooseChecklistDescription": "",
       "content": {
@@ -67,9 +67,9 @@
         "tabCsv": "Tab-separeret CSV"
       },
       "tableValues": {
-        "ifAvailable": "",
+        "ifAvailable": "hvis tilgængelige",
         "ifSelected": "hvis valgt",
-        "links": ""
+        "links": "links"
       }
     },
     "failedToRefreshDownloadStatus": "",
