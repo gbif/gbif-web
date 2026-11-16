@@ -56,7 +56,7 @@
   "distributions": "Udbredelse",
   "distribution": {
     "threatStatus": "",
-    "establishmentMeans": "",
+    "establishmentMeans": "Etableringsmåde",
     "status": "",
     "locality": "Lokalitet",
     "locationId": "Lokalitets-ID",
