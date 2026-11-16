@@ -101,6 +101,10 @@
     "name": "Tipo de cantidad del organismo",
     "description": "El tipo de medida de la «cantidad de organismos»."
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Ruta",
     "description": "La vía por la que se introdujo el organismo."
