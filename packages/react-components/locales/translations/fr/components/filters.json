@@ -101,6 +101,10 @@
     "name": "Type de quantité d’organisme",
     "description": "Le type de mesure pour la \"quantité d'organismes\"."
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Chemin",
     "description": "La voie par laquelle l'organisme a été introduit."
