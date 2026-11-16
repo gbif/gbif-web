@@ -136,6 +136,7 @@
     "paperDoi": "doi, identifier",
     "parentEventId": "Coordinate accuracy invalid",
     "pathway": "Coordinate accuracy invalid",
+    "datasetCategory": "dataset type, dataset category, citizen science, edna, dna reference library",
     "peerReview": "peer reviewed, refereed",
     "personalCollection": "Coordinate accuracy invalid",
     "predicate": "Coordinate accuracy invalid",
