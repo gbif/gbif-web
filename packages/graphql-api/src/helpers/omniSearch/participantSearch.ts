@@ -30,8 +30,9 @@ function reduceResults(results: Participant[]) {
 export async function getParticipants() {
   if (participants) return participants;
 
-  const header = createSignedGetHeader('/directory/participant', config, { asApp: true });
-  const data = await fetch(`${config.apiv1}/directory/participant?limit=1000`, {
+  const url = `${config.apiv1}/directory/participant?limit=1000`;
+  const header = createSignedGetHeader(url, config, { asApp: true });
+  const data = await fetch(url, {
     headers: header,
   }).then((res) => res.json());
 
@@ -41,9 +42,7 @@ export async function getParticipants() {
 
 export async function getParticipantByIso(iso: string) {
   const participantResults = await getParticipants();
-  const participant = participantResults.find(
-    (p) => p.countryCode === iso && p.type === 'COUNTRY',
-  );
+  const participant = participantResults.find((p) => p.countryCode === iso && p.type === 'COUNTRY');
   if (participant) {
     return participant;
   }
@@ -56,18 +55,16 @@ type ResponseType = {
 };
 
 export async function searchParticipants(str: string): Promise<ResponseType> {
-  const header = createSignedGetHeader('/directory/participant', config, { asApp: true });
+  const url = `${config.apiv1}/directory/participant?limit=3&q=${encodeURIComponent(str)}`;
+  const header = createSignedGetHeader(url, config, { asApp: true });
   const controller = new AbortController();
   const { signal } = controller;
   setTimeout(() => controller.abort(), OMNI_SEARCH_TIMEOUT);
 
-  const participantResults: Participant[] = await fetch(
-    `${config.apiv1}/directory/participant?limit=3&q=${encodeURIComponent(str)}`,
-    {
-      headers: header,
-      signal,
-    },
-  )
+  const participantResults: Participant[] = await fetch(url, {
+    headers: header,
+    signal,
+  })
     .then((res) => res.json())
     .then((data) => {
       return reduceResults(data.results);

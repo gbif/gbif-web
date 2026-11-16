@@ -55,7 +55,6 @@ export async function createPublisher(dto: CreatePublisherDTO) {
     method: 'POST',
     body: org,
     url: `${config.apiv1}/organization/`,
-    canonicalPath: 'organization/',
     // The person applying has no GBIF account, so the organization is created by the app.
     asApp: true,
   };

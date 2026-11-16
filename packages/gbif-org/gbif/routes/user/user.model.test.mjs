@@ -107,25 +107,23 @@ describe('getByUserName', () => {
 });
 
 describe('update', () => {
-  it('signs and sends the same encoded path', async () => {
+  it('sends the encoded path', async () => {
     authenticatedRequest.mockResolvedValue({ statusCode: 204 });
     await update('jane+x', { userName: 'jane+x' });
     expect(authenticatedRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         method: 'PUT',
         url: 'https://registry.test/v1/admin/user/jane%2Bx',
-        canonicalPath: 'admin/user/jane%2Bx',
       })
     );
   });
 
-  it('encodes a non-ASCII user name in both the URL and the signed path', async () => {
+  it('encodes a non-ASCII user name in the URL', async () => {
     authenticatedRequest.mockResolvedValue({ statusCode: 204 });
     await update('jørgen', { userName: 'jørgen' });
     expect(authenticatedRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         url: 'https://registry.test/v1/admin/user/j%C3%B8rgen',
-        canonicalPath: 'admin/user/j%C3%B8rgen',
       })
     );
   });

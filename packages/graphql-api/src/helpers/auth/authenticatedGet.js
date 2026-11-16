@@ -1,47 +1,31 @@
-import { createHmac } from 'crypto';
 import axios from 'axios';
 import { signingUser } from './userHeader';
-
-const NEWLINE = '\n';
-
-const createHeader = ({ canonicalPath, appKey, identity }) => ({
-  'x-url': canonicalPath,
-  'x-gbif-user': signingUser(identity, appKey),
-});
-
-function signHeader(method, headers, appKey, appSecret) {
-  let stringToSign = method + NEWLINE + headers['x-url'];
-  stringToSign += NEWLINE + headers['x-gbif-user'];
-  const signature = createHmac('sha1', appSecret)
-    .update(stringToSign)
-    .digest('base64');
-  // eslint-disable-next-line no-param-reassign
-  headers.Authorization = `GBIF ${appKey}:${signature}`;
-  return headers;
-}
+import { gbifAuthHeaders } from './gbifSignature';
 
 /**
- * @param {string} canonicalPath
+ * @param {string | URL} url the absolute URL the request is sent to, with its query string. The
+ *   signature covers the query string, so the request must be sent to exactly this URL.
  * @param {{ appKey: string, appSecret: string }} config
  * @param {{ userName: string } | { asApp: true }} identity who the request acts as. Signing as the
  *   app has to be asked for explicitly.
  */
-function createSignedGetHeader(canonicalPath, config, identity) {
-  return signHeader(
-    'GET',
-    createHeader({ canonicalPath, appKey: config.appKey, identity }),
-    config.appKey,
-    config.appSecret,
-  );
+function createSignedGetHeader(url, config, identity) {
+  return gbifAuthHeaders({
+    method: 'GET',
+    url: String(url),
+    user: signingUser(identity, config.appKey),
+    appKey: config.appKey,
+    appSecret: config.appSecret,
+  });
 }
 
 async function authenticatedGet({ canonicalPath, query = {}, config }) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
-  const headers = createSignedGetHeader(canonicalPath, config, { asApp: true });
+  const url = new URL(`${config.apiv1.replace(/\/+$/, '')}/${canonicalPath.replace(/^\/+/, '')}`);
+  Object.entries(query).forEach(([name, value]) => url.searchParams.append(name, value));
+  const headers = createSignedGetHeader(url, config, { asApp: true });
 
-  const response = await axios.get(canonicalPath, {
-    baseURL: config.apiv1,
-    params: query,
+  const response = await axios.get(url.href, {
     headers,
     responseType: 'json',
   });
