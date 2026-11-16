@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "Identificación de nivel 3 de GADM",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Edad Temprana o Estadío Inferior",
         "DEGREE_OF_ESTABLISHMENT": "Grado de establecimiento",
+        "DATASET_CATEGORY": "",
         "DEPTH": "Profundidad",
         "RELATIVE_ORGANISM_QUANTITY": "Cantidad relativa del organismo",
         "ORGANISM_ID": "ID del organismo",
