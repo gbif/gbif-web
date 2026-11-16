@@ -101,6 +101,10 @@
     "name": "生物个体数量类型",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "路径",
     "description": ""
