@@ -115,6 +115,7 @@ function DnaReferenceLibraryResults({
       <div className="g-flex g-flex-col g-gap-4 g-mb-6">
         <Input
           type="search"
+          className="g-bg-white"
           value={q ?? ''}
           onChange={(event) => setQ(event.target.value || undefined)}
           placeholder="Search by title, description or publisher"

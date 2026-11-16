@@ -41,6 +41,8 @@ export const dnaSearchConfig: FilterConfigType = {
 // context, so it is part of every query but never in the filter or the url.
 export const dnaSearchContext: SearchMetadata = {
   queryType: 'PREDICATE',
+  // Shown as buttons in the filter bar. Without this they all go into "More".
+  highlightedFilters: ['taxonKey', 'nucleotideSequenceTargetGene'],
   scope: {
     type: 'equals',
     key: 'datasetCategory',
