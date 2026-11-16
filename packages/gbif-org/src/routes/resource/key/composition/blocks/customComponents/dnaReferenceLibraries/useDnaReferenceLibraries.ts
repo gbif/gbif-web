@@ -1,8 +1,6 @@
-import { useConfig } from '@/config/config';
 import type { DatasetType } from '@/gql/graphql';
-import { useI18n } from '@/reactRouterPlugins';
-import { GraphQLService } from '@/services/graphQLService';
-import { useEffect, useMemo, useState } from 'react';
+import useQuery from '@/hooks/useQuery';
+import { useMemo } from 'react';
 
 export const DNA_REFERENCE_LIBRARY_CATEGORY = 'DNAReferenceLibrary';
 const TARGET_GENE_KEY = 'nucleotideSequence.targetGene';
@@ -29,6 +27,11 @@ type DatasetBucket = FacetBucket & { dataset?: DnaReferenceLibraryDataset | null
 type QueryResult = {
   genes: { facet: { targetGene: FacetBucket[] } };
   search: { facet: { datasetKey: DatasetBucket[] } };
+};
+
+type QueryVariables = {
+  taxonPredicate: Predicate;
+  predicate: Predicate;
 };
 
 // Two aliased searches in one request:
@@ -100,69 +103,33 @@ export function useDnaReferenceLibraries({
   taxonKeys: string[];
   targetGenes: string[];
 }) {
-  const config = useConfig();
-  const { locale } = useI18n();
-  const localeCode = locale.cmsLocale || locale.code;
-  const endpoint = config.graphqlEndpoint;
-
-  // Stable arrays derived from the strings, so they can be used in effect dependencies
-  const taxonKeysId = taxonKeys.join(',');
-  const taxonKeysList = useMemo(() => (taxonKeysId ? taxonKeysId.split(',') : []), [taxonKeysId]);
-  const targetGenesId = targetGenes.join(',');
-  const targetGenesList = useMemo(
-    () => (targetGenesId ? targetGenesId.split(',') : []),
-    [targetGenesId]
-  );
-
-  const [result, setResult] = useState<QueryResult | undefined>();
-  const [error, setError] = useState<Error | undefined>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    setError(undefined);
-    const service = new GraphQLService({
-      endpoint,
-      locale: localeCode,
-      abortSignal: controller.signal,
-    });
-    service
-      .query<QueryResult, Record<string, unknown>>(QUERY, {
-        taxonPredicate: getBasePredicate(taxonKeysList),
-        predicate: getDatasetPredicate(taxonKeysList, targetGenesList),
-      })
-      .then((response) => response.json())
-      .then((json) => {
-        // Partial data (e.g. one dataset not found) is still useful, so only fail when there is no data
-        if (json.errors?.length && !json.data) throw new Error(json.errors[0].message);
-        if (!controller.signal.aborted) setResult(json.data);
-      })
-      .catch((err) => {
-        if (!controller.signal.aborted) setError(err);
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setLoading(false);
-      });
-    return () => controller.abort();
-  }, [endpoint, localeCode, taxonKeysList, targetGenesList]);
+  // useQuery reloads when the variables change, so pass the predicates as plain values
+  const { data, loading, error } = useQuery<QueryResult, QueryVariables>(QUERY, {
+    variables: {
+      taxonPredicate: getBasePredicate(taxonKeys),
+      predicate: getDatasetPredicate(taxonKeys, targetGenes),
+    },
+    forceLoadingTrueOnMount: true,
+  });
 
   const datasets = useMemo(
     () =>
-      (result?.search.facet.datasetKey ?? [])
+      (data?.search.facet.datasetKey ?? [])
         .map((bucket) => bucket.dataset)
         .filter((dataset): dataset is DnaReferenceLibraryDataset => Boolean(dataset)),
-    [result]
+    [data]
   );
 
   return {
     loading,
-    error,
+    // A partial response (some data and some errors) still shows the list, so the error is only
+    // reported when there is no data
+    error: data ? undefined : error,
     // true when a facet hit its size cap, so the list may be incomplete
     truncated:
-      (result?.search.facet.datasetKey?.length ?? 0) >= MAX_DATASETS ||
-      (result?.genes.facet.targetGene?.length ?? 0) >= MAX_TARGET_GENES,
-    targetGenes: result?.genes.facet.targetGene ?? [],
+      (data?.search.facet.datasetKey?.length ?? 0) >= MAX_DATASETS ||
+      (data?.genes.facet.targetGene?.length ?? 0) >= MAX_TARGET_GENES,
+    targetGenes: data?.genes.facet.targetGene ?? [],
     datasets,
   };
 }
