@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "最早地质年代或最低年代地层",
         "DEGREE_OF_ESTABLISHMENT": "设置级别",
+        "DATASET_CATEGORY": "",
         "DEPTH": "深度",
         "RELATIVE_ORGANISM_QUANTITY": "相对生物数量",
         "ORGANISM_ID": "生物个体ID",
