@@ -1,16 +1,16 @@
 {
   "footer": {
     "whatIsGbif": "Hvad er GBIF?",
-    "api": "",
+    "api": "API",
     "faq": "FAQ",
     "newsletter": "Nyhedsbrev",
     "privacy": "Privatliv",
     "terms": "Betingelser for brug",
     "citation": "Citation",
-    "codeOfConduct": "",
+    "codeOfConduct": "Adfærdskodeks",
     "acknowledgements": "Tak til",
-    "socialNavAriaLabel": "",
-    "navAriaLabel": "",
+    "socialNavAriaLabel": "GBIF på sociale medier",
+    "navAriaLabel": "Sidefod",
     "contact": "Kontakt"
   }
 }
