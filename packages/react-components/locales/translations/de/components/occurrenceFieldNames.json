@@ -258,5 +258,6 @@
   "coordinatesMissing": "Koordinaten fehlen",
   "taxonomicClassification": "Klassifikation",
   "gadmClassification": "Standort lt. GADM",
-  "images": "Multimedia"
+  "images": "Multimedia",
+  "iucnRedListCategory": "IUCN Rote Liste Kategorie"
 }
