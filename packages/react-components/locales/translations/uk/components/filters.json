@@ -101,6 +101,10 @@
     "name": "Одиниці розмірності кількості організмів (наприклад, особини, проективне покриття, маса тощо)",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "",
     "description": ""
