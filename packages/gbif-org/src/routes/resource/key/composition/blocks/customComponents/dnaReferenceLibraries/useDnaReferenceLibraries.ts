@@ -14,16 +14,17 @@ export type DnaReferenceLibraryDataset = {
   publishingOrganizationTitle?: string | null;
 };
 
+// search and facet are nullable in the schema, e.g. when the search fails in a partial response
 type QueryResult = {
-  search: {
-    facet: {
-      datasetKey: Array<{
+  search?: {
+    facet?: {
+      datasetKey?: Array<{
         key: string;
         count: number;
         dataset?: DnaReferenceLibraryDataset | null;
-      }>;
-    };
-  };
+      }> | null;
+    } | null;
+  } | null;
 };
 
 // One occurrence search. The datasetKey facet resolves each dataset (title, description, publisher),
@@ -62,7 +63,7 @@ export function useDnaReferenceLibraries({ predicate }: { predicate?: Record<str
     }
   );
 
-  const datasetBuckets = data?.search.facet.datasetKey;
+  const datasetBuckets = data?.search?.facet?.datasetKey ?? undefined;
   const datasets = useMemo(
     () =>
       (datasetBuckets ?? [])
@@ -72,10 +73,12 @@ export function useDnaReferenceLibraries({ predicate }: { predicate?: Record<str
   );
 
   return {
-    loading,
-    // A partial response (some data and some errors) still shows the list, so the error is only
-    // reported when there is no data
-    error: data ? undefined : error,
+    // No data and no error means a request is still due or in flight. This covers the gap after an
+    // earlier request is aborted for a newer one, where useQuery briefly reports not loading.
+    loading: loading || (!data && !error),
+    // A partial response that still has the list shows it, so the error is only reported when the
+    // list is missing
+    error: datasetBuckets ? undefined : error,
     // true when the facet hit its size cap, so the list may be incomplete
     truncated: (datasetBuckets?.length ?? 0) >= MAX_DATASETS,
     datasets,

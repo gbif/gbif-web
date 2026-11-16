@@ -28,9 +28,14 @@ const targetGeneConfig: filterEnumConfig = {
 };
 
 // URL params match the occurrence search (taxonKey and nucleotideSequence.targetGene).
+// The free text is not a filter here: the filter popovers pass a q on to their occurrence facet
+// queries, which would narrow the counts by occurrence text.
 export const dnaSearchConfig: FilterConfigType = {
   fields: {
-    taxonKey: {},
+    // The taxon is resolved in the site's checklist, as on the occurrence search
+    taxonKey: {
+      takesChecklistKey: true,
+    },
     nucleotideSequenceTargetGene: {
       defaultKey: 'nucleotideSequence.targetGene',
     },
