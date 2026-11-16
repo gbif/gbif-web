@@ -101,6 +101,10 @@
     "name": "生物の数の種類",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "",
     "description": ""
