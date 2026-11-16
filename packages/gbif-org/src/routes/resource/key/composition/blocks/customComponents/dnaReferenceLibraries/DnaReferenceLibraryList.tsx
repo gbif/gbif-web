@@ -1,22 +1,21 @@
-import { getAsQuery } from '@/components/filters/filterTools';
+import { ErrorMessage } from '@/components/errorMessage';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { getAsQuery } from '@/components/filters/filterTools';
+import { NoRecords } from '@/components/noDataMessages';
 import { Paging } from '@/components/paging';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Input } from '@/components/ui/input';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { useIntParam, useStringParam } from '@/hooks/useParam';
+import { useIntParam } from '@/hooks/useParam';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { cn } from '@/utils/shadcn';
-import { useContext, useEffect, useMemo, useRef } from 'react';
-import { FormattedNumber } from 'react-intl';
-import {
-  dnaSearchConfig,
-  dnaSearchContext,
-  useDnaFilters,
-} from './dnaSearch';
-import { useDnaReferenceLibraries } from './useDnaReferenceLibraries';
+import { useCallback, useContext, useMemo } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useSearchParams } from 'react-router-dom';
+import { dnaSearchConfig, dnaSearchContext, useDnaFilters } from './dnaSearch';
+import { MAX_DATASETS, useDnaReferenceLibraries } from './useDnaReferenceLibraries';
 
 const PAGE_SIZE = 20;
 
@@ -27,10 +26,11 @@ export function DnaReferenceLibraryList({
   title?: string;
   className?: string;
 }) {
-  // The taxon and target gene filters go to the url, as on the occurrence search
+  // The taxon and target gene filters go to the url, as on the occurrence search.
+  // A filter change removes the page param in the same url update, so it starts on the first page.
   const [filter, setFilter] = useFilterParams({
     filterConfig: dnaSearchConfig,
-    paramsToRemove: [],
+    paramsToRemove: ['page'],
   });
 
   return (
@@ -42,20 +42,31 @@ export function DnaReferenceLibraryList({
   );
 }
 
-function DnaReferenceLibraryResults({
-  title,
-  className,
-}: {
-  title?: string;
-  className?: string;
-}) {
+function DnaReferenceLibraryResults({ title, className }: { title?: string; className?: string }) {
+  const { formatMessage } = useIntl();
   const { filter, filterHash } = useContext(FilterContext);
   const filters = useDnaFilters();
 
   // Free text is not a server filter. It is kept in the url and filtered in the browser.
+  // Changing it also removes the page param, in the same url update, so it starts on the first page.
   // replace: typing in the search box should not add a history entry per keystroke
-  const [q, setQ] = useStringParam({ key: 'q', replace: true });
-  const [pageParam, setPage] = useIntParam({ key: 'page', defaultValue: 1 });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get('q') ?? undefined;
+  const setQ = useCallback(
+    (value?: string) =>
+      setSearchParams(
+        (params) => {
+          const next = new URLSearchParams(params);
+          if (value) next.set('q', value);
+          else next.delete('q');
+          next.delete('page');
+          return next;
+        },
+        { replace: true, preventScrollReset: true }
+      ),
+    [setSearchParams]
+  );
+  const [pageParam, setPage] = useIntParam({ key: 'page', defaultValue: 1, hideDefault: true });
   // A non-numeric page in the url (e.g. page=abc) would be NaN, so fall back to the first page
   const page = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
 
@@ -72,18 +83,12 @@ function DnaReferenceLibraryResults({
     [filterHash]
   );
 
-  // Changing a filter or the search text starts again from the first page. This runs in an effect,
-  // after the filter is in the url, so the two url updates do not overwrite each other. The first
-  // render is skipped, so a shared link with page=3 keeps its page.
-  const filterKey = `${filterHash}|${q ?? ''}`;
-  const lastFilterKey = useRef(filterKey);
-  useEffect(() => {
-    if (lastFilterKey.current === filterKey) return;
-    lastFilterKey.current = filterKey;
-    if (pageParam !== 1) setPage(1);
-  }, [filterKey, pageParam, setPage]);
-
-  const { loading, error, truncated, datasets: loadedDatasets } = useDnaReferenceLibraries({
+  const {
+    loading,
+    error,
+    truncated,
+    datasets: loadedDatasets,
+  } = useDnaReferenceLibraries({
     predicate,
   });
 
@@ -118,16 +123,16 @@ function DnaReferenceLibraryResults({
           className="g-bg-white"
           value={q ?? ''}
           onChange={(event) => setQ(event.target.value || undefined)}
-          placeholder="Search by title, description or publisher"
-          aria-label="Search by title, description or publisher"
+          placeholder={formatMessage({ id: 'dnaReferenceLibrary.searchPlaceholder' })}
+          aria-label={formatMessage({ id: 'dnaReferenceLibrary.searchPlaceholder' })}
         />
         <FilterBarWithActions filters={filters} />
       </div>
 
       {error && (
-        <div className="g-prose">
-          <p>Error loading data: {error.message}</p>
-        </div>
+        <ErrorMessage className="g-mb-4">
+          <FormattedMessage id="phrases.failedToLoadData" />
+        </ErrorMessage>
       )}
 
       {loading && <CardListSkeleton />}
@@ -135,22 +140,25 @@ function DnaReferenceLibraryResults({
       {!loading && (
         <>
           {truncated && (
-            <div className="g-prose">
-              <p>Only the first results are shown, the list may be incomplete.</p>
-            </div>
+            <p className="g-text-sm g-text-slate-500 g-mb-2">
+              <FormattedMessage
+                id="dnaReferenceLibrary.truncated"
+                values={{ total: MAX_DATASETS }}
+              />
+            </p>
           )}
-          <p className="g-text-sm g-text-slate-500 g-mb-4">
-            <FormattedNumber value={datasets.length} /> datasets
-          </p>
+          {!error && (
+            <p className="g-text-sm g-text-slate-500 g-mb-4">
+              <FormattedMessage id="counts.nDatasets" values={{ total: datasets.length }} />
+            </p>
+          )}
 
           {pageItems.map((dataset) => (
             <DatasetResult key={dataset.key} dataset={dataset} />
           ))}
 
           {datasets.length === 0 && !error && (
-            <div className="g-prose">
-              <p>No DNA reference libraries match these filters.</p>
-            </div>
+            <NoRecords messageId="dnaReferenceLibrary.noResults" />
           )}
 
           {datasets.length > PAGE_SIZE && (

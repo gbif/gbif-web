@@ -3,7 +3,7 @@ import useQuery from '@/hooks/useQuery';
 import { useMemo } from 'react';
 
 // Max number of datasets we list. Matches the facet size used for the dataset list.
-const MAX_DATASETS = 500;
+export const MAX_DATASETS = 500;
 
 export type DnaReferenceLibraryDataset = {
   key: string;
@@ -17,7 +17,11 @@ export type DnaReferenceLibraryDataset = {
 type QueryResult = {
   search: {
     facet: {
-      datasetKey: Array<{ key: string; count: number; dataset?: DnaReferenceLibraryDataset | null }>;
+      datasetKey: Array<{
+        key: string;
+        count: number;
+        dataset?: DnaReferenceLibraryDataset | null;
+      }>;
     };
   };
 };
