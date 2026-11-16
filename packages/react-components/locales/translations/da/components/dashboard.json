@@ -33,7 +33,7 @@
   "metricsFromGbifData": "Disse nøgletal er baseret på data, der er delt via GBIF",
   "notVocabularyWarning": "Ikke-fortolket felt. Det samme koncept kan forekomme med flere stavemåder.",
   "taxonomicBreakdown": "Taksonomisk opdeling",
-  "showMoreInfo": "",
+  "showMoreInfo": "Vis mere information",
   "help": {
     "dataQuality": {
       "intro": "",
@@ -69,7 +69,7 @@
     "materialCollected": "Indsamlet materiale",
     "samplingEffort": "Prøvetagningsindsats"
   },
-  "occurrencesPerGroup": "",
+  "occurrencesPerGroup": "Forekomster pr. gruppe",
   "sequenceDendrogram": "Sekvensdendrogram",
   "sequencePhylogeny.downloadAlignment": "Overensstemmelse (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",
