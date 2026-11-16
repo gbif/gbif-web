@@ -101,6 +101,10 @@
     "name": "",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "",
     "description": ""
@@ -318,7 +322,7 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Etableringsmåde",
     "description": ""
   },
   "sex": {
@@ -396,7 +400,7 @@
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Optegnelsesnummer",
     "description": ""
   },
   "collectionCode": {
@@ -488,7 +492,7 @@
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Forekomststatus",
     "description": ""
   },
   "gadmGid": {
