@@ -136,6 +136,7 @@
     "paperDoi": "doi, identifier",
     "parentEventId": "",
     "pathway": "",
+    "datasetCategory": "dataset type, dataset category, citizen science, edna, dna reference library",
     "peerReview": "peer reviewed, refereed",
     "personalCollection": "",
     "predicate": "",

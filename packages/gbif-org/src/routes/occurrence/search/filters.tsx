@@ -79,6 +79,7 @@ import {
   taxonIdConfig,
 } from './filters/textOnly';
 import {
+  datasetCategoryConfig,
   degreeOfEstablishmentConfig,
   establishmentMeansConfig,
   lifeStageConfig,
@@ -346,6 +347,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       pathway: generateFilters({ config: pathwayConfig, searchConfig, formatMessage }),
+      datasetCategory: generateFilters({
+        config: datasetCategoryConfig,
+        searchConfig,
+        formatMessage,
+      }),
       previousIdentifications: generateFilters({
         config: previousIdentificationsConfig,
         searchConfig,

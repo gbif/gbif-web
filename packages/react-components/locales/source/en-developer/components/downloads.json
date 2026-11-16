@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "GADM Level 3 ID",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Earliest Age or Lowest Stage",
         "DEGREE_OF_ESTABLISHMENT": "Degree of Establishment",
+        "DATASET_CATEGORY": "Dataset Category",
         "DEPTH": "Depth",
         "RELATIVE_ORGANISM_QUANTITY": "Relative Organism Quantity",
         "ORGANISM_ID": "Organism ID",
