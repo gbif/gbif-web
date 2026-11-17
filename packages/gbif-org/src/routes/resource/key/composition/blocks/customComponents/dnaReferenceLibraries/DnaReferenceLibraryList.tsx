@@ -111,7 +111,7 @@ function DnaReferenceLibraryResults({ title, className }: { title?: string; clas
   const pageItems = datasets.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   return (
-    <div ref={topRef} className={cn('g-max-w-full g-m-auto g-scroll-mt-24', className)}>
+    <div ref={topRef} className={cn('g-max-w-full g-m-auto g-px-4 g-scroll-mt-24', className)}>
       {title && <h4 className="g-text-lg g-font-semibold g-mb-4">{title}</h4>}
 
       <FilterBarWithActions filters={filters} className="g-mb-6" />
