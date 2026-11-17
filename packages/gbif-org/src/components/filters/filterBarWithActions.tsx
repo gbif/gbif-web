@@ -16,8 +16,6 @@ interface FilterBarWithActionsProps {
   additionalActions?: React.ReactNode;
   className?: string;
   hideMobileFilters?: boolean;
-  // Replaces the default clear action, for searches with state outside the filter
-  onClear?: () => void;
 }
 
 export function FilterBarWithActions({
@@ -26,7 +24,6 @@ export function FilterBarWithActions({
   additionalActions,
   className,
   hideMobileFilters = false,
-  onClear,
 }: FilterBarWithActionsProps) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -65,7 +62,7 @@ export function FilterBarWithActions({
               // so we hide the destructive icon on mobile to avoid a tap-target hazard.
               shouldShowMobileFilters && 'g-hidden sm:g-inline-flex'
             )}
-            onClick={() => (onClear ? onClear() : filterContext?.setFilter({}))}
+            onClick={() => filterContext?.setFilter({})}
           >
             <MdDeleteOutline className="g-text-base" />
           </Button>

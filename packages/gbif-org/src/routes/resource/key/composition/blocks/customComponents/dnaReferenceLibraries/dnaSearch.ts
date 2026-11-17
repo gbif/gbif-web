@@ -1,5 +1,8 @@
+import { IdentityLabel } from '@/components/filters/displayNames';
 import {
+  filterConfigTypes,
   filterEnumConfig,
+  filterFreeTextConfig,
   filterTaxonConfig,
   Filters,
   generateFilters,
@@ -27,11 +30,25 @@ const targetGeneConfig: filterEnumConfig = {
   allowNegations: false,
 };
 
-// URL params match the occurrence search (taxonKey and nucleotideSequence.targetGene).
-// The free text is not a filter here: the filter popovers pass a q on to their occurrence facet
-// queries, which would narrow the counts by occurrence text.
+// The free text search, shown like the text search on the other search pages
+const freeTextConfig: filterFreeTextConfig = {
+  filterType: filterConfigTypes.FREE_TEXT,
+  filterHandle: 'q',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.q.name',
+};
+
+// URL params match the occurrence search (q, taxonKey and nucleotideSequence.targetGene).
 export const dnaSearchConfig: FilterConfigType = {
   fields: {
+    // The free text matches dataset title, description and publisher, and is filtered in the browser.
+    // It is part of the filter (url, filter bar, clear all), but never part of a query: no predicate,
+    // and it is not hoisted either, as the filter popovers would then pass it on as an occurrence q
+    // to their facet queries.
+    q: {
+      singleValue: true,
+      serializer: () => null,
+    },
     // The taxon is resolved in the site's checklist, as on the occurrence search
     taxonKey: {
       takesChecklistKey: true,
@@ -47,7 +64,7 @@ export const dnaSearchConfig: FilterConfigType = {
 export const dnaSearchContext: SearchMetadata = {
   queryType: 'PREDICATE',
   // Shown as buttons in the filter bar. Without this they all go into "More".
-  highlightedFilters: ['taxonKey', 'nucleotideSequenceTargetGene'],
+  highlightedFilters: ['q', 'taxonKey', 'nucleotideSequenceTargetGene'],
   scope: {
     type: 'equals',
     key: 'datasetCategory',
@@ -59,6 +76,11 @@ export function useDnaFilters(): Filters {
   const { formatMessage } = useIntl();
   return useMemo(
     () => ({
+      q: generateFilters({
+        config: freeTextConfig,
+        searchConfig: dnaSearchConfig,
+        formatMessage,
+      }),
       taxonKey: generateFilters({
         config: taxonConfig,
         searchConfig: dnaSearchConfig,

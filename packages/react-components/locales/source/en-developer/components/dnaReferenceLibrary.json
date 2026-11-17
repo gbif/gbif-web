@@ -1,5 +1,4 @@
 {
-  "searchPlaceholder": "Search by title, description or publisher",
   "noResults": "No DNA reference libraries found",
   "truncated": "Only the first {total} libraries are shown, so the list may be incomplete."
 }
