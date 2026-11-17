@@ -21,11 +21,13 @@ function createSignedGetHeader(url, config, identity) {
 
 async function authenticatedGet({ canonicalPath, query = {}, config }) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
-  const url = new URL(`${config.apiv1.replace(/\/+$/, '')}/${canonicalPath.replace(/^\/+/, '')}`);
-  Object.entries(query).forEach(([name, value]) => url.searchParams.append(name, value));
+  // kept as a string, so the signer sees the path as it is written here and can refuse one that
+  // the URL parser would rewrite
+  const params = new URLSearchParams(query).toString();
+  const url = `${config.apiv1.replace(/\/+$/, '')}/${canonicalPath.replace(/^\/+/, '')}${params ? `?${params}` : ''}`;
   const headers = createSignedGetHeader(url, config, { asApp: true });
 
-  const response = await axios.get(url.href, {
+  const response = await axios.get(url, {
     headers,
     responseType: 'json',
   });

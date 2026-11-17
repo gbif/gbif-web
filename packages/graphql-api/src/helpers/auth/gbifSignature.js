@@ -57,13 +57,43 @@ export function canonicalUrl(url) {
 }
 
 /**
+ * Throws unless the path of the URL, as it is written, is the path that will be requested. The URL
+ * parser resolves "." and ".." segments (percent encoded or not), treats "\" as "/" and drops tabs
+ * and line breaks, so a value interpolated into the path could otherwise move a signed request to
+ * another endpoint, such as /admin/user. Callers validate what they put in a path; this is the
+ * check that holds if one of them doesn't.
+ *
+ * @param {string} url the URL as the caller wrote it, before it is parsed
+ */
+export function assertPathIsNotRewritten(url) {
+  // eslint-disable-next-line no-control-regex
+  const path = url.replace(/^[\u0000- ]+|[\u0000- ]+$/g, '').split(/[?#]/, 1)[0];
+  // eslint-disable-next-line no-control-regex
+  if (/[\\\u0000-\u001f\u007f]/.test(path)) {
+    throw new Error('Refusing to sign a URL with a backslash or control character in its path');
+  }
+  path.split('/').forEach((segment) => {
+    let decoded = segment;
+    try {
+      decoded = decodeURIComponent(segment);
+    } catch (err) {
+      // malformed encoding: the raw segment is checked
+    }
+    if (decoded === '.' || decoded === '..') {
+      throw new Error('Refusing to sign a URL with a "." or ".." segment in its path');
+    }
+  });
+}
+
+/**
  * The headers that sign a request: x-url, x-gbif-user, x-gbif-date, Content-MD5 when there is a
  * body, and Authorization. The signature covers the method, the URL with its query string, the
  * content type, the body, the user and the date, so every value must be exactly the one sent.
  *
  * @param {object} request
  * @param {string} request.method
- * @param {string} request.url the absolute URL the request is sent to, with its query string
+ * @param {string} request.url the absolute URL the request is sent to, with its query string,
+ *   exactly as it is given to the HTTP client
  * @param {string} request.user the user the request acts as
  * @param {string} [request.body] the body exactly as sent
  * @param {string} [request.contentType] the Content-Type header, when one is sent
@@ -72,6 +102,7 @@ export function canonicalUrl(url) {
  * @param {Date} [request.date] when the request is signed, now by default
  */
 export function gbifAuthHeaders({ method, url, user, body, contentType, appKey, appSecret, date = new Date() }) {
+  assertPathIsNotRewritten(url);
   const parsed = new URL(url);
   const headers = {
     'x-url': parsed.origin + parsed.pathname,
