@@ -17,17 +17,20 @@ import { useIntl } from 'react-intl';
 export const DNA_REFERENCE_LIBRARY_CATEGORY = 'DNAReferenceLibrary';
 
 // Only the taxon and target gene filters are offered. Negations and existence checks are off,
-// as they make no sense for a list of reference libraries.
+// as they make no sense for a list of reference libraries. The counts are hidden, as they are
+// occurrence counts, which look odd next to a list of datasets.
 const taxonConfig: filterTaxonConfig = {
   ...taxonKeyConfig,
   allowExistence: false,
   allowNegations: false,
+  hideCounts: true,
 };
 
 const targetGeneConfig: filterEnumConfig = {
   ...nucleotideSequenceTargetGeneConfig,
   allowExistence: false,
   allowNegations: false,
+  hideCounts: true,
 };
 
 // The free text search, shown like the text search on the other search pages

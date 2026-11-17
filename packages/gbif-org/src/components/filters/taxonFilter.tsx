@@ -60,6 +60,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       allowExistence,
       allowNegations,
       suggestionTitlePath,
+      hideCounts,
     }: TaxonSuggestProps,
     ref
   ) => {
@@ -363,7 +364,8 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                         <span className="g-flex-auto">
                           <DisplayName id={x} checklistKey={currentChecklistKey} />
                         </span>
-                        {!useNegations &&
+                        {!hideCounts &&
+                          !useNegations &&
                           !selectedFacetLoading &&
                           !selectedFacetError &&
                           !disableFacetsForSelected && (
@@ -416,9 +418,11 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                                 <DisplayName id={x?.name} />
                               )}
                             </span>
-                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              <FormattedNumber value={x.count} />
-                            </span>
+                            {!hideCounts && (
+                              <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                                <FormattedNumber value={x.count} />
+                              </span>
+                            )}
                           </div>
                         </Option>
                       );
