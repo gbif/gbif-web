@@ -68,6 +68,14 @@ export function canonicalUrl(url) {
  * another endpoint, such as /admin/user. Callers validate what they put in a path; this is the
  * check that holds if one of them doesn't.
  *
+ * A segment is also refused when a server or proxy could read it differently than we do: an
+ * encoded "/" or "\" (some decode it into a separator), an encoded "%" (decoded twice it can be
+ * any of these), a ";" (Tomcat drops the path parameter after it, so "..;x" is "..") or an
+ * encoding that can't be decoded. No signed request needs any of them.
+ *
+ * It can only judge the URL it is given: a URL object has already been through the parser, so
+ * whoever builds one has to check the path before that (RESTDataSource.resolveURL does).
+ *
  * @param {string} url the URL as the caller wrote it, before it is parsed
  */
 export function assertPathIsNotRewritten(url) {
@@ -78,14 +86,17 @@ export function assertPathIsNotRewritten(url) {
     throw new Error('Refusing to sign a URL with a backslash or control character in its path');
   }
   path.split('/').forEach((segment) => {
-    let decoded = segment;
+    let decoded;
     try {
       decoded = decodeURIComponent(segment);
     } catch (err) {
-      // malformed encoding: the raw segment is checked
+      throw new Error('Refusing to sign a URL with a malformed percent encoding in its path');
     }
     if (decoded === '.' || decoded === '..') {
       throw new Error('Refusing to sign a URL with a "." or ".." segment in its path');
+    }
+    if (segment.includes(';') || /[/\\%]/.test(decoded)) {
+      throw new Error('Refusing to sign a URL with an ambiguous segment in its path');
     }
   });
 }

@@ -48,6 +48,8 @@ describe('assertPathIsNotRewritten', () => {
     'https://api.gbif.org/v1/derivedDataset/10.15468/dd.abc',
     'https://api.gbif.org/v1/admin/user/find?q=../x&r=a\\b',
     'http://localhost:8080/user/j%C3%B8rgen',
+    'https://api.gbif.org/v1/admin/user/a%3Bb%20c%40d',
+    'https://api.gbif.org/v1/admin/user/',
   ].forEach((url) => {
     it(`allows ${JSON.stringify(url)}`, () => {
       assert.doesNotThrow(() => assertPathIsNotRewritten(url));
@@ -63,6 +65,14 @@ describe('assertPathIsNotRewritten', () => {
     'https://api.gbif.org/v1/directory/person/.\t./.\n./admin',
     'https://api.gbif.org/v1/directory/person/.. ',
     'https://api.gbif.org/v1/directory/person/..',
+    'https://api.gbif.org/v1/directory/person/..%2F..%2Fadmin/user/jane',
+    'https://api.gbif.org/v1/directory/person/%2e%2e%2f%2e%2e%2fadmin',
+    'https://api.gbif.org/v1/directory/person/..%5C..%5Cadmin',
+    'https://api.gbif.org/v1/directory/person/%252e%252e/admin',
+    'https://api.gbif.org/v1/directory/person/..;x/..;x/admin/user/jane',
+    'https://api.gbif.org/v1/directory/person/1;x',
+    'https://api.gbif.org/v1/admin/user/%FF',
+    'https://api.gbif.org/v1/admin/user/100%',
   ].forEach((url) => {
     it(`rejects ${JSON.stringify(url)}`, () => {
       assert.throws(() => assertPathIsNotRewritten(url), /Refusing to sign/);
