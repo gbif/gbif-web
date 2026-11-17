@@ -136,7 +136,7 @@
     "paperDoi": "doi, identifiant",
     "parentEventId": "Exactitude des coordonnées non valide",
     "pathway": "Exactitude des coordonnées non valide",
-    "datasetCategory": "",
+    "datasetCategory": "type de jeu de données, catégorie de jeu de données, science citoyenne, eDNA, bibliothèque de référence d'ADN",
     "peerReview": "soumis à un comité de lecture, évalué par des pairs",
     "personalCollection": "Exactitude des coordonnées non valide",
     "predicate": "Exactitude des coordonnées non valide",
