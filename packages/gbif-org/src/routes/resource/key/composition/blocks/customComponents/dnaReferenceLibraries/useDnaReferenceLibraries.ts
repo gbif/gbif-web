@@ -28,12 +28,13 @@ type QueryResult = {
 };
 
 // One occurrence search. The datasetKey facet resolves each dataset (title, description, publisher),
-// so no separate dataset lookups are needed.
+// so no separate dataset lookups are needed. The facet size is a variable rather than interpolated,
+// so codegen can parse and check the query.
 const QUERY = /* GraphQL */ `
-  query DnaReferenceLibraries($predicate: Predicate) {
+  query DnaReferenceLibraries($predicate: Predicate, $size: Int) {
     search: occurrenceSearch(predicate: $predicate, size: 0) {
       facet {
-        datasetKey(size: ${MAX_DATASETS}) {
+        datasetKey(size: $size) {
           key
           count
           dataset {
@@ -55,13 +56,13 @@ const QUERY = /* GraphQL */ `
  * The predicate already includes the DNA reference library scope.
  */
 export function useDnaReferenceLibraries({ predicate }: { predicate?: Record<string, unknown> }) {
-  const { data, loading, error } = useQuery<QueryResult, { predicate?: Record<string, unknown> }>(
-    QUERY,
-    {
-      variables: { predicate },
-      forceLoadingTrueOnMount: true,
-    }
-  );
+  const { data, loading, error } = useQuery<
+    QueryResult,
+    { predicate?: Record<string, unknown>; size: number }
+  >(QUERY, {
+    variables: { predicate, size: MAX_DATASETS },
+    forceLoadingTrueOnMount: true,
+  });
 
   const datasetBuckets = data?.search?.facet?.datasetKey ?? undefined;
   const datasets = useMemo(
