@@ -103,7 +103,7 @@
   },
   "datasetCategory": {
     "name": "Dataset category",
-    "description": "The category of the dataset the occurrence belongs to, based on the DatasetCategory vocabulary. Examples are citizen science, eDNA and DNA reference library."
+    "description": "The category of the dataset to which the occurrence record belongs, based on the DatasetCategory vocabulary. Examples are citizen science, eDNA and DNA reference library."
   },
   "pathway": {
     "name": "Pathway",
