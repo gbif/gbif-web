@@ -68,6 +68,11 @@ export function Footer() {
                 <FormattedMessage id="footer.codeOfConduct" defaultMessage="Code of Conduct" />
               </DynamicLink>
             </li>
+            <li className={cssSeparator}>
+              <DynamicLink to="/gep" className={footerLink}>
+                <FormattedMessage id="footer.genderEquality" defaultMessage="Gender equality" />
+              </DynamicLink>
+            </li>
             <li>
               <DynamicLink to="/acknowledgements" className={footerLink}>
                 <FormattedMessage id="footer.acknowledgements" defaultMessage="Acknowledgements" />
