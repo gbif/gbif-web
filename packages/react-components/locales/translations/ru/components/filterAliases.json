@@ -136,6 +136,7 @@
     "paperDoi": "Дом, идентификатор",
     "parentEventId": "undefined",
     "pathway": "undefined",
+    "datasetCategory": "",
     "peerReview": "Рецензировано, проверено экспертами",
     "personalCollection": "undefined",
     "predicate": "undefined",

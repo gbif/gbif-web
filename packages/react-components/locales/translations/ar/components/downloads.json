@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "العمر الجيولوجي المبكر أو المرحلة الأدنى",
         "DEGREE_OF_ESTABLISHMENT": "",
+        "DATASET_CATEGORY": "",
         "DEPTH": "العمق",
         "RELATIVE_ORGANISM_QUANTITY": "كمية الكائن النسبية",
         "ORGANISM_ID": "معرف المتعضي",

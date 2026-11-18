@@ -101,6 +101,10 @@
     "name": "Type de quantité d’organisme",
     "description": "Le type de mesure pour la \"quantité d'organismes\"."
   },
+  "datasetCategory": {
+    "name": "Catégorie de jeu de données",
+    "description": "Catégorie du jeu de données à laquelle appartient l’occurrence, basée sur le vocabulaire DatasetCategory. Des exemples sont : science citoyenne, eDNA et bibliothèque de référence ADN."
+  },
   "pathway": {
     "name": "Chemin",
     "description": "La voie par laquelle l'organisme a été introduit."

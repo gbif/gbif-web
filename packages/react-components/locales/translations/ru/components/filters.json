@@ -101,6 +101,10 @@
     "name": "Единица измерения обилия вида",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Фильтрация путей",
     "description": ""

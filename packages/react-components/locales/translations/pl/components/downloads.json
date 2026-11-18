@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "Identyfikator poziomu GADM 3",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Najwcześniejszy wiek lub najniższy etap",
         "DEGREE_OF_ESTABLISHMENT": "Stopień wprowadzenia",
+        "DATASET_CATEGORY": "",
         "DEPTH": "Głębokość",
         "RELATIVE_ORGANISM_QUANTITY": "Względna liczebność organizmów",
         "ORGANISM_ID": "ID organizmu",

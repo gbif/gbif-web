@@ -101,6 +101,10 @@
     "name": "Rodzaj liczebności organizmów",
     "description": "Sposób pomiaru liczebności organizmów"
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Ścieżka",
     "description": "Droga którą organizm został wprowadzony"
