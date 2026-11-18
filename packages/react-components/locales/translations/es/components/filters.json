@@ -103,7 +103,7 @@
   },
   "datasetCategory": {
     "name": "",
-    "description": "La categoría del conjunto de datos a la que pertenece el registro, según el vocabulario DatasetCategory. Algunos ejemplos son: ciencia ciudadana, eDNA y biblioteca de referencia de ADN."
+    "description": ""
   },
   "pathway": {
     "name": "Ruta",
