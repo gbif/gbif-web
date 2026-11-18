@@ -13,8 +13,23 @@ import { NewsPage, newsPageLoader, NewsPageSkeleton } from './news/news';
 import { ProgrammePage, programmePageLoader, ProgrammePageSkeleton } from './programme/programme';
 import { projectKeyRoute } from './project';
 import { resourceRedirectLoader } from './resourceRedirect';
-import { redirect } from 'react-router-dom';
+import { redirect, ShouldRevalidateFunction } from 'react-router-dom';
 import { ToolPage, toolPageLoader, ToolPageSkeleton } from './tool/tool';
+
+// Search params on CMS pages belong to interactive blocks on the page, such as a filtered list.
+// Changing them should only update that block, not reload the page from the CMS. The page is
+// reloaded when the path changes, or when preview mode is switched, as the loaders depend on that.
+const revalidateOnPathOrPreviewChange: ShouldRevalidateFunction = ({
+  currentUrl,
+  nextUrl,
+  defaultShouldRevalidate,
+}) => {
+  if (currentUrl.pathname !== nextUrl.pathname) return defaultShouldRevalidate;
+  if (currentUrl.searchParams.get('preview') !== nextUrl.searchParams.get('preview')) {
+    return defaultShouldRevalidate;
+  }
+  return false;
+};
 
 // These routes are all connected by the fact that
 // 1. resource/:key will redirect to the appropriate resource page
@@ -88,6 +103,7 @@ export const resourceKeyRoutes: RouteObjectWithPlugins[] = [
     id: 'composition-key',
     path: 'composition/:key',
     loader: compositionPageLoader,
+    shouldRevalidate: revalidateOnPathOrPreviewChange,
     loadingElement: <CompositionPageSkeleton />,
     element: <CompositionPage />,
     isSlugified: true,
@@ -102,6 +118,7 @@ export const resourceKeyRoutes: RouteObjectWithPlugins[] = [
     id: 'alias-handling',
     path: '*',
     loader: aliasHandlingLoader,
+    shouldRevalidate: revalidateOnPathOrPreviewChange,
     loadingElement: <AliasHandlingSkeleton />,
     element: <AliasHandling />,
   },

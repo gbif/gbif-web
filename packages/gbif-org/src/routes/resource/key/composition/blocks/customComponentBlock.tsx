@@ -3,6 +3,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { backgroundColorMap, BlockContainer, getAnchorId } from './_shared';
 import { AmbassadorsList } from './customComponents/ambassadorsList';
 import { EbbeWinnersTable } from './customComponents/ebbeWinnersList';
+import { DnaReferenceLibraryList } from './customComponents/dnaReferenceLibraries';
 import { GraList } from './customComponents/graList';
 import { HostedPortalForm } from './customComponents/hostedPortalForm';
 import { MdtForm } from './customComponents/mdtForm';
@@ -116,6 +117,8 @@ function CustomComponent({
           title={resource?.title ?? undefined}
         />
       );
+    case 'dnaReferenceLibraryList':
+      return <DnaReferenceLibraryList className="g-py-8" title={resource?.title ?? undefined} />;
     default:
       return <pre>Unknown block: {JSON.stringify(resource, null, 2)}</pre>;
   }
