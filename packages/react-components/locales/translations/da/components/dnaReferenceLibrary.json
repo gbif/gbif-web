@@ -1,3 +1,4 @@
 {
+  "noResults": "Ingen DNA-referencebiblioteker fundet",
   "truncated": "Kun {total, plural, one {det første bibliotek vises} other {de første # biblioteker vises}}, så listen kan være ufuldstændig."
 }
