@@ -1,0 +1,31 @@
+{
+  "name": "gbif-mcp",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Remote MCP server and canvas page for asking GBIF questions from any chat client.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs view && tsx src/dev-server.ts",
+    "test": "node scripts/build.mjs view && node --import tsx --test \"test/*.test.ts\"",
+    "typecheck": "node scripts/build.mjs view && tsc --noEmit",
+    "smoke": "tsx scripts/smoke.ts",
+    "inspect": "npx @modelcontextprotocol/inspector",
+    "e2e": "node scripts/build.mjs view && node test/e2e/widget.e2e.cjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.7.5",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@vercel/node": "^31.0.2",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

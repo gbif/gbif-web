@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GBIF live canvas</title>
+<style>
+/*CSS*/
+  body { padding: 0 16px 48px; }
+  main { max-width: 760px; margin: 0 auto; }
+  header { padding: 24px 0 8px; } h1 { font-size:20px; margin:0 0 4px; } h2 { font-size:15px; margin:0 0 6px; }
+  .sub { color:var(--muted); font-size:12px; margin:2px 0 8px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin:14px 0; }
+  .links { font-size:12px; margin:10px 0 0; } details { margin-top:8px; font-size:12px; }
+  pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:10px; font-size:12px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>GBIF live canvas</h1>
+    <p class="sub" id="status">Loading…</p>
+  </header>
+  <div id="items"></div>
+</main>
+<script src="/canvas.js" defer></script>
+</body>
+</html>

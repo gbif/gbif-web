@@ -1,0 +1,11 @@
+node_modules
+.env
+.env.local
+.vercel
+# built from src/view by scripts/build-view.mjs
+src/generated/
+# built from src/view
+public/canvas.html
+public/canvas.js
+# bundled serverless entries, built from src/entries
+api/
