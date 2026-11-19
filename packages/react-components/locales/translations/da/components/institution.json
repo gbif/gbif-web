@@ -1,1 +1,8 @@
-{}
+{
+  "institutionalGovernance": "Institutionel styring",
+  "type": "Installationstype",
+  "addCollection": "Tilføj samling",
+  "disciplines": "Institutionelle discipliner",
+  "numberSpecimens": "Antal eksemplarer i institutionen",
+  "unknownCollectionCodesForInstitution": "Disse ukendte indsamlingskoder er knyttet til denne institution"
+}
