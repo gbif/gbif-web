@@ -1,16 +1,16 @@
 {
   "downloadFormat": {
-    "SIMPLE_AVRO": "",
-    "SIMPLE_CSV": "",
-    "DWCA": "",
+    "SIMPLE_AVRO": "Apache Avro",
+    "SIMPLE_CSV": "Simpel",
+    "DWCA": "Darwin Core Arkiv",
     "FASTA_ARCHIVE": "FASTA-arkiv",
-    "SPECIES_LIST": "",
-    "SIMPLE_WITH_VERBATIM_AVRO": "",
-    "MAP_OF_LIFE": "",
-    "IUCN": "",
-    "BIONOMIA": "",
-    "SIMPLE_PARQUET": "",
-    "SQL_TSV_ZIP": "",
-    "CUBE": ""
+    "SPECIES_LIST": "Artsliste",
+    "SIMPLE_WITH_VERBATIM_AVRO": "Apache Avro med almindelige fortolkede felter og alle ordrette felter",
+    "MAP_OF_LIFE": "Eksport af Map of Life",
+    "IUCN": "IUCN-eksport",
+    "BIONOMIA": "Bionomia-eksport",
+    "SIMPLE_PARQUET": "Simpelt parquet",
+    "SQL_TSV_ZIP": "SQL TSV zip",
+    "CUBE": "Cube"
   }
 }
