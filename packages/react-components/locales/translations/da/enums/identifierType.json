@@ -1,3 +1,21 @@
 {
-  "UNKNOWN": "Ukendt"
+  "URL": "URL",
+  "LSID": "LSID",
+  "HANDLER": "HANDLER",
+  "DOI": "DOI",
+  "UUID": "UUID",
+  "FTP": "FTP",
+  "URI": "URI",
+  "UNKNOWN": "Ukendt",
+  "GBIF_PORTAL": "GBIF-portal",
+  "GBIF_NODE": "GBIF-node",
+  "GBIF_PARTICIPANT": "GBIF-deltager",
+  "GRBIO_ID": "GRBIO ID",
+  "GRBIO_URI": "GRBIO URI",
+  "GRSCICOLL_URI": "GRSCICOLL URI",
+  "IH_IRN": "Herbariumsindex",
+  "ROR": "ROR",
+  "GRID": "GRID",
+  "CITES": "CITES",
+  "GRSCICOLL_ID": "GRSCICOLL ID"
 }
