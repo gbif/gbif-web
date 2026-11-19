@@ -103,7 +103,7 @@
   },
   "datasetCategory": {
     "name": "Catégorie de jeu de données",
-    "description": ""
+    "description": "Catégorie du jeu de données à laquelle appartient l’enregistrement d'occurrence, basée sur le vocabulaire DatasetCategory. Des exemples incluent : science citoyenne, eDNA et bibliothèque de référence ADN."
   },
   "pathway": {
     "name": "Chemin",
