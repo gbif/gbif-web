@@ -1,0 +1,4 @@
+{
+  "noResults": "No DNA reference libraries found",
+  "truncated": "Only the first {total, plural, one {library is shown} other {# libraries are shown}}, so the list may be incomplete."
+}

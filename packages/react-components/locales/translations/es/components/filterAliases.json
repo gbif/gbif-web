@@ -136,6 +136,7 @@
     "paperDoi": "doi, identificador",
     "parentEventId": "Exactitud de las coordenadas inválida",
     "pathway": "Exactitud de las coordenadas inválida",
+    "datasetCategory": "",
     "peerReview": "revisado por pares, arbitrado",
     "personalCollection": "Exactitud de las coordenadas inválida",
     "predicate": "Exactitud de las coordenadas inválida",

@@ -17,6 +17,7 @@ import {
   parseCSV,
   processInBatches,
   toCandidate,
+  withPreferredKingdom,
 } from './utils';
 import { apiConstants } from '@/config/apiConstants';
 
@@ -173,7 +174,7 @@ export function useSpeciesLookupState(): SpeciesLookupState {
   const matchNames = useCallback(async () => {
     setIsMatching(true);
     setMatchedCount(0);
-    const rows = species.map((s) => ({ ...s }));
+    const rows = withPreferredKingdom(species, defaultKingdom);
 
     await processInBatches(
       rows,
@@ -185,8 +186,7 @@ export function useSpeciesLookupState(): SpeciesLookupState {
             scientificName: item.verbatimScientificName,
           });
           if (defaultChecklistKey) params.set('checklistKey', defaultChecklistKey);
-          const kingdom = item.preferedKingdom || defaultKingdom;
-          if (kingdom) params.set('kingdom', kingdom);
+          if (item.preferedKingdom) params.set('kingdom', item.preferedKingdom);
 
           const matchRes = await fetch(`${v2Endpoint}/species/match?${params}`);
           if (!matchRes.ok) return;

@@ -101,6 +101,10 @@
     "name": "生物數量類型",
     "description": "“生物體數量”的測量形式。"
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "路徑",
     "description": "該生物體被引入的路徑。"

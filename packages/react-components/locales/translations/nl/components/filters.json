@@ -101,6 +101,10 @@
     "name": "Aantal organismen type",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Pad",
     "description": ""

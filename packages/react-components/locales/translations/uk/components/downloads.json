@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Найраніший вік або найнижча стадія",
         "DEGREE_OF_ESTABLISHMENT": "",
+        "DATASET_CATEGORY": "",
         "DEPTH": "Глибина",
         "RELATIVE_ORGANISM_QUANTITY": "Відносна кількість організмів",
         "ORGANISM_ID": "ID організму",

@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "GADM 레벨 3 ID",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "최고 절 혹은 최하부 계",
         "DEGREE_OF_ESTABLISHMENT": "정착 정도",
+        "DATASET_CATEGORY": "",
         "DEPTH": "깊이",
         "RELATIVE_ORGANISM_QUANTITY": "상대적 유기체 양",
         "ORGANISM_ID": "유기체 ID",

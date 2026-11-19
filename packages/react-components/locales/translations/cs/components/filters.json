@@ -101,6 +101,10 @@
     "name": "Typ množství organismu",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Cesta",
     "description": ""

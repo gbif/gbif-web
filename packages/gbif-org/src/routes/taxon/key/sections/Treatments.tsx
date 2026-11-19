@@ -40,11 +40,7 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
           <FormattedMessage id="taxon.treatments" />
         </CardTitle>
         <CardDescription>
-          <ColFeedback
-            taxonId={taxonInfo?.taxonID}
-            datasetKey={taxonInfo?.datasetKey}
-            checklistbankURL={taxonInfo.checklistbankURL}
-          />
+          <ColFeedback checklistbankURL={taxonInfo.checklistbankURL} />
         </CardDescription>
       </CardHeader>
       <CardContent className="g-overflow-x-auto">

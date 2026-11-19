@@ -101,6 +101,10 @@
     "name": "Organism quantity type",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "ניתוב",
     "description": ""
