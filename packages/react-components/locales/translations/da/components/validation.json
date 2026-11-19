@@ -1,1 +1,8 @@
-{}
+{
+  "checkboxRequired": "Sæt venligst kryds i dette felt",
+  "required": "Udfyld venligst dette felt",
+  "invalidEmail": "Venligst angiv en gyldig e-mail",
+  "invalidURL": "Angiv venligst en gyldig URL",
+  "invalidWebsiteAddress": "Angiv venligst en gyldig webadresse",
+  "pleaseSelectAValue": "Vælg venligst en værdi"
+}

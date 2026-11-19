@@ -1,7 +1,7 @@
 {
   "languageSelector": {
     "title": "Skift sprog",
-    "description": "",
-    "translatorsLink": ""
+    "description": "Oversættelser er et fælles projekt. Læs mere om vores netværk på {translatorsLink}.",
+    "translatorsLink": "frivillige oversættere"
   }
 }

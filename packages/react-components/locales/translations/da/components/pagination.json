@@ -3,5 +3,6 @@
   "previous": "Forrige",
   "next": "Næste",
   "options": "Valg",
-  "pageXofY": "Side {current} af {total}"
+  "pageXofY": "Side {current} af {total}",
+  "moreFilters": "Flere filtre"
 }

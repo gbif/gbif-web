@@ -2,7 +2,12 @@
   "BIOMEDICAL_RESEARCH_INSTITUTE": "Biomedicinsk forskningsinstitut",
   "BOTANICAL_GARDEN": "Botanisk have",
   "HERBARIUM": "Herbarium",
+  "LIVING_ORGANISM_COLLECTION": "Samling af levende organismer",
   "MEDICAL_RESEARCH_INSTITUTE": "Medicinsk forskningsinstitut",
   "MUSEUM": "Museum",
-  "UNIVERSITY_COLLEGE": "Universitetsinstitut"
+  "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "Museumsherbarium privat non-profit",
+  "OTHER_INSTITUTIONAL_TYPE": "Anden institutionstype",
+  "OTHER_TYPE_RESEARCH_INSTITUTION_BIOREPOSITORY": "Biodepot af andre typer forskningsinstitution",
+  "UNIVERSITY_COLLEGE": "Universitetsinstitut",
+  "ZOO_AQUARIUM": "Zoologisk akvarium"
 }

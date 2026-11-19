@@ -1,4 +1,13 @@
 {
+  "ACADEMIC_FEDERAL": "Akademisk føderal",
+  "ACADEMIC_FOR_PROFIT": "Akademisk for profit",
+  "ACADEMIC_LOCAL": "Akademisk lokal",
+  "ACADEMIC_NON_PROFIT": "Akademisk non-profit",
+  "ACADEMIC_STATE": "Akademisk tilstand",
   "FEDERAL": "Føderal",
+  "FOR_PROFIT": "For profit",
+  "LOCAL": "Lokal",
+  "NON_PROFIT": "Non-profit",
+  "OTHER": "Andet",
   "STATE": "Stat"
 }
