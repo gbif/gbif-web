@@ -30,6 +30,14 @@ export function resolveCommit(env = process.env, git = readGitHead) {
   return asCommit(env.PUBLIC_GIT_COMMIT) ?? asCommit(env.GIT_COMMIT) ?? asCommit(git());
 }
 
+// The commit the running server reports, in logs and to the browser. In production that is the
+// build being served, never the checkout it happens to sit in. In development it is the checkout,
+// even if an older build is lying around in dist.
+export function getServerCommit({ isProduction, distDir, env = process.env, git = readGitHead }) {
+  if (!isProduction) return resolveCommit(env, git);
+  return readBuiltCommit(distDir) ?? resolveCommit(env, () => undefined);
+}
+
 // The commit a build in distDir was made from, or undefined if there is no build info.
 export function readBuiltCommit(distDir) {
   try {

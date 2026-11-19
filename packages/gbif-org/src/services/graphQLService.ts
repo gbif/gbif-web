@@ -1,4 +1,5 @@
 import hash from 'object-hash';
+import { getBuildCommit } from '@/utils/buildCommit';
 import { fragmentManager } from './fragmentManager';
 
 const MAX_GET_LENGTH = 1000;
@@ -47,6 +48,8 @@ export class GraphQLService {
     query: string,
     variables: TVariabels
   ): QueryResult<TResult> {
+    const buildCommit = getBuildCommit();
+
     // Add fragments to the query
     const queryWithFragments = fragmentManager.addFragmentsToQuery(query);
 
@@ -61,9 +64,7 @@ export class GraphQLService {
         preview: this.preview.toString(),
         ...(this.authorization ? { authorization: this.authorization } : {}),
         ...(this.siteUrl ? { 'x-gbif-site-url': this.siteUrl } : {}),
-        ...(import.meta.env.PUBLIC_GIT_COMMIT
-          ? { 'x-gbif-client-commit': import.meta.env.PUBLIC_GIT_COMMIT }
-          : {}),
+        ...(buildCommit ? { 'x-gbif-client-commit': buildCommit } : {}),
       },
       signal: this.abortSignal,
       cache: this.preview || this.authorization ? 'no-cache' : 'default',
@@ -98,9 +99,7 @@ export class GraphQLService {
           preview: this.preview.toString(),
           ...(this.authorization ? { authorization: this.authorization } : {}),
           ...(this.siteUrl ? { 'x-gbif-site-url': this.siteUrl } : {}),
-          ...(import.meta.env.PUBLIC_GIT_COMMIT
-            ? { 'x-gbif-client-commit': import.meta.env.PUBLIC_GIT_COMMIT }
-            : {}),
+          ...(buildCommit ? { 'x-gbif-client-commit': buildCommit } : {}),
         },
         signal: this.abortSignal,
         body: JSON.stringify(postBody),

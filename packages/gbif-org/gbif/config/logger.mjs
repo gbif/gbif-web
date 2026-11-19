@@ -3,15 +3,19 @@ import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { secretEnv } from '../envConfig.mjs';
-import { readBuiltCommit, resolveCommit } from './buildInfo.mjs';
+import { getServerCommit } from './buildInfo.mjs';
 
 // Get environment and service information
 const env = secretEnv.NODE_ENV || 'local';
 const serviceName = 'gbif-web';
 const serviceClass = 'web';
-// The commit of the build being served, or of the checkout when running in development.
-const commit =
-  readBuiltCommit(path.resolve(secretEnv.GBIF_DIST_DIR || 'dist/gbif')) ?? resolveCommit(secretEnv);
+// The commit of the build being served, or of the checkout when running in development. Also
+// handed to the browser by server.js, so client and server always report the same commit.
+export const commit = getServerCommit({
+  isProduction: env === 'production',
+  distDir: path.resolve(secretEnv.GBIF_DIST_DIR || 'dist/gbif'),
+  env: secretEnv,
+});
 const levels = {
   DEBUG: 'debug',
   INFO: 'info',

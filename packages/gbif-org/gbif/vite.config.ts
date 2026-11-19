@@ -39,15 +39,14 @@ export default defineConfig(({ command, isSsrBuild }) => {
     return eager;
   }
 
-  // Baked into the client so requests and error reports can say which build they came from.
-  // Also written to build-info.json, which the server logs and anyone can check at /build-info.json.
+  // Written to build-info.json next to the client build. The server reads it to know which commit
+  // it is serving (for logs, and to pass on to the browser), and anyone can check it at
+  // /build-info.json. It is deliberately not baked into the JS: that would give every chunk a new
+  // hash on every commit, and users would download the whole site again after each deploy.
   const commit = resolveCommit();
 
   const config: UserConfig = {
     envPrefix: 'PUBLIC_',
-    define: {
-      'import.meta.env.PUBLIC_GIT_COMMIT': JSON.stringify(commit ?? ''),
-    },
     plugins: [
       react(),
       {

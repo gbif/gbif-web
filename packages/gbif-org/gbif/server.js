@@ -9,7 +9,8 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
-import logger from './config/logger.mjs';
+import { BUILD_INFO_FILE } from './config/buildInfo.mjs';
+import logger, { commit } from './config/logger.mjs';
 import { helmetConfig } from './helmetConfig.js';
 import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
@@ -31,9 +32,13 @@ const env = merge(envFile, process.env);
 
 const IS_PRODUCTION = env.NODE_ENV === 'production';
 // The server bundle is built with source maps. Use them so logged stack traces from server-side
-// rendering point at src/ files rather than the bundled entry.server.js. Only costs anything
-// when a stack trace is actually read.
+// rendering point at src/ files rather than the bundled entry.server.js. Not free: Node parses the
+// ~7 MB map when the bundle loads, and the first stack trace read takes some tens of ms. Measured
+// at roughly 50 MB extra heap per process.
 if (IS_PRODUCTION) process.setSourceMapsEnabled(true);
+// Read by the server render (graphQLService sends it to graphql-api) and inlined into each page
+// for the browser. See getBuildCommit.
+globalThis.__GBIF_COMMIT__ = commit;
 const PORT = parseInt(env.PORT || 3000);
 // Overridden by e2e tests so their mock-endpoint build does not replace the regular one.
 const DIST_DIR = path.resolve(env.GBIF_DIST_DIR || 'dist/gbif');
@@ -185,6 +190,7 @@ async function main() {
     // header, and send() only applies its own maxAge/immutable options when none is present.
     const clientDir = path.join(DIST_DIR, 'client');
     const assetsDir = path.join(clientDir, 'assets') + path.sep;
+    const buildInfoFile = path.join(clientDir, BUILD_INFO_FILE);
 
     app.use(
       express.static(clientDir, {
@@ -193,6 +199,8 @@ async function main() {
           if (filePath.startsWith(assetsDir)) {
             res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
           }
+          // Changes with every deploy and is used to check what is deployed.
+          if (filePath === buildInfoFile) res.setHeader('Cache-Control', 'no-cache');
         },
       })
     );
@@ -323,6 +331,10 @@ async function main() {
 
         // Predicate posted to */download/request (see the referer-source middleware above),
         // inlined so the client can pick it up once on this response - see consumeInitialPredicate.
+        const commitScript = commit
+          ? `<script ${nonceAttr}>window.__GBIF_COMMIT__=${escapeForScript(commit)};</script>`
+          : '';
+
         const predicateScript = res.locals.initialPredicate
           ? `<script ${nonceAttr}>window.__INITIAL_PREDICATE__=${escapeForScript(
               res.locals.initialPredicate
@@ -342,7 +354,7 @@ async function main() {
             '<div id="app" class="gbif">',
             `<div id="app" class="gbif" dir="${rootDir ?? 'ltr'}">`
           )
-          .replace('<!--head-html-->', headHtml + i18nScript + predicateScript)
+          .replace('<!--head-html-->', headHtml + commitScript + i18nScript + predicateScript)
           .replace('<!--app-html-->', appHtml);
 
         res.setHeader('Content-Type', 'text/html');
