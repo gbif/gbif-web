@@ -1,1 +1,11 @@
-{}
+{
+  "STORAGE_OUTDOORS": "Opbevaring udendørs",
+  "STORAGE_INDOORS": "Opbevaring indendørs",
+  "STORAGE_CONTROLLED_ATMOSPHERE": "Opbevaring under kontrollerede atmosfære",
+  "STORAGE_FROZEN_MINUS_20": "Opbevaring frosset minus 20",
+  "STORAGE_FROZEN_MINUS_80": "Opbevaring frosset minus 80",
+  "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Opbevaring frosset mellem minus 132 og minus 196",
+  "STORAGE_OTHER": "Opbevaring andet",
+  "STORAGE_REFRIGERATED": "Opbevaring kølerum",
+  "STORAGE_RECORDED": "Opbevaring registreret"
+}
