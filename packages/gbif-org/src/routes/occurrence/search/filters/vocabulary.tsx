@@ -164,7 +164,7 @@ export const datasetCategoryConfig: filterSuggestConfig = {
   about: () => <Message id="filters.datasetCategory.description" />,
   group: 'provenance',
   allowExistence: false,
-  allowNegations: false,
+  allowNegations: true,
 };
 
 export const degreeOfEstablishmentConfig: filterEnumConfig = {
