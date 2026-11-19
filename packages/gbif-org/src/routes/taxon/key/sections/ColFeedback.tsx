@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 export function ColFeedback({
   taxonId,
-  datasetKey,
   checklistbankURL,
 }: {
   taxonId?: string;
@@ -10,13 +9,14 @@ export function ColFeedback({
   checklistbankURL: string;
 }) {
   // disable all links to CoL . https://github.com/gbif/gbif-web/issues/2110
+  // datasetKey is still passed by callers so the link can be turned back on.
   const linkToCoL = false; // datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY && taxonId;
   return (
     <>
       <FormattedMessage id="taxon.source" defaultMessage="Source" />:{' '}
       <a
         href={
-          linkToCoL
+          linkToCoL && taxonId
             ? `https://www.catalogueoflife.org/data/taxon/${encodeURIComponent(taxonId)}`
             : checklistbankURL
         }
