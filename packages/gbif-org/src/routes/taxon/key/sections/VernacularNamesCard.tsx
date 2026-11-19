@@ -25,11 +25,7 @@ export default function VernacularNamesCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.vernacularNames" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback
-              taxonId={taxonInfo?.taxonID}
-              datasetKey={taxonInfo?.datasetKey}
-              checklistbankURL={taxonInfo.checklistbankURL}
-            />
+            <ColFeedback checklistbankURL={taxonInfo.checklistbankURL} />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-overflow-x-auto">
