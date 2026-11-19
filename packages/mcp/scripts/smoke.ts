@@ -32,6 +32,10 @@ const search: any = await client.callTool({ name: 'search_occurrences', argument
 console.log(`\n--- search_occurrences\n${text(search)}`);
 check(/[\d,]+ records/.test(text(search)), 'search returned a count');
 
+// The plainest call, with no breakdown and no sample, builds a different GraphQL query than the one above.
+const countOnly: any = await client.callTool({ name: 'search_occurrences', arguments: { filter: 'country=DK' } });
+check(!countOnly.isError && /[\d,]+ records/.test(text(countOnly)), `count-only search: ${text(countOnly).split('\n')[0]}`);
+
 const chart: any = await client.callTool({ name: 'chart', arguments: { filter: `taxonKey=${key}`, x: 'year', canvas: 'new' } });
 console.log(`\n--- chart\n${text(chart)}`);
 check(chart.structuredContent?.chart?.rows?.length > 0, 'chart has rows for the widget');

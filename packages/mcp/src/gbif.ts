@@ -9,9 +9,13 @@ export class GbifError extends Error {}
 async function fetchJson(url: string, init?: RequestInit): Promise<any> {
   const res = await fetch(url, {
     ...init,
-    headers: { accept: 'application/json', 'user-agent': 'gbif-mcp', ...init?.headers },
+    headers: { accept: 'application/json', 'user-agent': config.userAgent, ...init?.headers },
     signal: AbortSignal.timeout(config.timeoutMs),
   });
+  if (res.status === 429 || res.status === 403) {
+    // We talk to the production endpoints. If they start refusing a deployed server's traffic, say so plainly.
+    throw new GbifError(`GBIF answered ${res.status} for ${new URL(url).pathname}: the request was rate limited or blocked`);
+  }
   if (!res.ok) throw new GbifError(`GBIF answered ${res.status} for ${new URL(url).pathname}`);
   return res.json();
 }
@@ -131,15 +135,16 @@ export async function searchOccurrences(opts: {
 }): Promise<OccurrenceSummary> {
   const { predicate, facetField, facetSize = 20, sampleSize = 0 } = opts;
   if (facetField && !/^[A-Za-z]+$/.test(facetField)) throw new GbifError('Invalid facet field');
+  // GraphQL rejects variables that are declared and not used, so declare only what this query needs.
   const query = `
-    query Summary($predicate: Predicate, $facetSize: Int, $size: Int) {
+    query Summary($predicate: Predicate, $size: Int${facetField ? ', $facetSize: Int' : ''}) {
       occurrenceSearch(predicate: $predicate) {
         documents(size: $size) { total ${sampleSize > 0 ? `results { ${SAMPLE_FIELDS} }` : ''} }
         ${facetField ? `facet { ${facetField}(size: $facetSize) { key count label } }` : ''}
         ${facetField ? `cardinality { ${facetField} }` : ''}
       }
     }`;
-  const data = await graphql<any>(query, { predicate, facetSize, size: sampleSize });
+  const data = await graphql<any>(query, { predicate, size: sampleSize, ...(facetField ? { facetSize } : {}) });
   const s = data.occurrenceSearch;
   return {
     total: Number(s.documents.total),

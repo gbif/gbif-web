@@ -5,16 +5,17 @@
   "description": "Remote MCP server and canvas page for asking GBIF questions from any chat client.",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "dev": "node scripts/build.mjs view && tsx src/dev-server.ts",
-    "test": "node scripts/build.mjs view && node --import tsx --test \"test/*.test.ts\"",
-    "typecheck": "node scripts/build.mjs view && tsc --noEmit",
+    "dev": "node scripts/build.mjs && tsx src/dev-server.ts",
+    "test": "node scripts/build.mjs && node --import tsx --test \"test/*.test.ts\"",
+    "typecheck": "node scripts/build.mjs && tsc --noEmit",
     "smoke": "tsx scripts/smoke.ts",
     "inspect": "npx @modelcontextprotocol/inspector",
-    "e2e": "node scripts/build.mjs view && node test/e2e/widget.e2e.cjs"
+    "e2e": "node scripts/build.mjs && node test/e2e/widget.e2e.cjs",
+    "postinstall": "node scripts/build.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.7.5",

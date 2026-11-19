@@ -25,7 +25,12 @@ function mockGbif() {
     if (url.includes('/v1/species/')) return json({ key: 2435099, scientificName: 'Puma concolor (Linnaeus, 1771)', canonicalName: 'Puma concolor', rank: 'SPECIES', taxonomicStatus: 'ACCEPTED' });
     if (url.includes('/graphql')) {
       const q: string = body.query;
-      const field = /facet \{ (\w+)\(/.exec(q)?.[1];
+      // GraphQL rejects a variable that is declared and never used; the real API answers 400. Mirror that.
+      const declared = [...q.matchAll(/[$](\w+)\s*:/g)].map((m) => m[1]);
+      for (const name of declared) {
+        if (q.split('$' + name).length < 3) return json({ errors: [{ message: `Variable "$${name}" is never used` }] }, 400);
+      }
+      const field =/facet \{ (\w+)\(/.exec(q)?.[1];
       const data: any = { occurrenceSearch: { documents: { total: 1234, results: q.includes('results') ? [{ key: 1, verbatimScientificName: 'puma', classification: { usage: { name: 'Puma concolor (Linnaeus, 1771)' } }, countryCode: 'DK', year: 2020, basisOfRecord: 'HUMAN_OBSERVATION', datasetTitle: 'iNat', publisherTitle: 'iNaturalist', license: 'CC0_1_0' }] : undefined } } };
       if (field === 'year') data.occurrenceSearch.facet = { year: [{ key: 2021, count: 30, label: '2021' }, { key: 2019, count: 10, label: '2019' }, { key: 2020, count: 20, label: '2020' }] };
       if (field === 'countryCode') data.occurrenceSearch.facet = { countryCode: [{ key: 'DK', count: 900, label: 'Denmark' }, { key: 'SE', count: 300, label: 'Sweden' }] };
@@ -140,4 +145,17 @@ test('a long series is described by its peaks and its latest values, not its old
   assert.match(t, /1987\t5,100/);
   assert.match(t, /Most recent 10:\n2010\t/);
   assert.doesNotMatch(t, /\n1981\t/);
+});
+
+test('a blocked or rate limited request is reported as such', async () => {
+  globalThis.fetch = (async () => new Response('slow down', { status: 429 })) as typeof fetch;
+  const r: any = await client.callTool({ name: 'search_occurrences', arguments: { filter: 'country=DK' } });
+  assert.equal(r.isError, true);
+  assert.match(text(r), /429.*rate limited or blocked/);
+});
+
+test("a count-only search declares only the variables it uses", async () => {
+  const r: any = await client.callTool({ name: "search_occurrences", arguments: { filter: "country=DK" } });
+  assert.match(text(r), /1,234 records/);
+  assert.equal(r.isError, undefined);
 });

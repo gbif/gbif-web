@@ -1,4 +1,6 @@
+// Defaults are GBIF's production endpoints, the same ones gbif.org uses.
 export const config = {
+  userAgent: 'gbif-mcp (+https://github.com/gbif/gbif-web)',
   graphqlUrl: process.env.GBIF_GRAPHQL_URL ?? 'https://graphql.gbif.org/graphql',
   apiUrl: process.env.GBIF_API_URL ?? 'https://api.gbif.org',
   siteUrl: 'https://www.gbif.org',
