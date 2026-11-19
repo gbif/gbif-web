@@ -3,11 +3,15 @@ import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { secretEnv } from '../envConfig.mjs';
+import { readBuiltCommit, resolveCommit } from './buildInfo.mjs';
 
 // Get environment and service information
 const env = secretEnv.NODE_ENV || 'local';
 const serviceName = 'gbif-web';
 const serviceClass = 'web';
+// The commit of the build being served, or of the checkout when running in development.
+const commit =
+  readBuiltCommit(path.resolve(secretEnv.GBIF_DIST_DIR || 'dist/gbif')) ?? resolveCommit(secretEnv);
 const levels = {
   DEBUG: 'debug',
   INFO: 'info',
@@ -58,6 +62,7 @@ const addFixedFields = winston.format((info) => {
     environment: env,
     service: serviceName,
     class: serviceClass,
+    ...(commit ? { commit } : {}),
   };
 });
 

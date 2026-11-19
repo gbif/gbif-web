@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react-swc';
 import { createRequire } from 'module';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig, UserConfig } from 'vite';
+import { BUILD_INFO_FILE, resolveCommit } from './config/buildInfo.mjs';
 
 // `queue-promise` does `require('events')`, which the browser doesn't have. We resolve `events`
 // to the npm `events` polyfill (a transitive dep, API-compatible with Node's built-in) via a
@@ -38,11 +39,34 @@ export default defineConfig(({ command, isSsrBuild }) => {
     return eager;
   }
 
+  // Baked into the client so requests and error reports can say which build they came from.
+  // Also written to build-info.json, which the server logs and anyone can check at /build-info.json.
+  const commit = resolveCommit();
+
   const config: UserConfig = {
     envPrefix: 'PUBLIC_',
-    plugins: [react()],
+    define: {
+      'import.meta.env.PUBLIC_GIT_COMMIT': JSON.stringify(commit ?? ''),
+    },
+    plugins: [
+      react(),
+      {
+        name: 'gbif-build-info',
+        apply: 'build',
+        generateBundle() {
+          if (isSsrBuild) return;
+          this.emitFile({
+            type: 'asset',
+            fileName: BUILD_INFO_FILE,
+            source: JSON.stringify({ commit: commit ?? null }),
+          });
+        },
+      },
+    ],
     build: {
       emptyOutDir: true,
+      // Public source maps (with sourceMappingURL), so minified stack traces from production can
+      // be mapped back to the source, in the browser's dev tools and from logs.
       sourcemap: true,
       outDir: './dist/gbif/client',
       rollupOptions: {

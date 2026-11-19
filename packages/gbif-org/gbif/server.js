@@ -30,6 +30,10 @@ const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
 
 const IS_PRODUCTION = env.NODE_ENV === 'production';
+// The server bundle is built with source maps. Use them so logged stack traces from server-side
+// rendering point at src/ files rather than the bundled entry.server.js. Only costs anything
+// when a stack trace is actually read.
+if (IS_PRODUCTION) process.setSourceMapsEnabled(true);
 const PORT = parseInt(env.PORT || 3000);
 // Overridden by e2e tests so their mock-endpoint build does not replace the regular one.
 const DIST_DIR = path.resolve(env.GBIF_DIST_DIR || 'dist/gbif');

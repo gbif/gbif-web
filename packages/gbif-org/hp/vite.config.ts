@@ -2,11 +2,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { resolveCommit } from '../gbif/config/buildInfo.mjs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
     'process.env.NODE_ENV': JSON.stringify('production'),
+    // Sent to graphql-api as x-gbif-client-commit, as on gbif.org.
+    'import.meta.env.PUBLIC_GIT_COMMIT': JSON.stringify(resolveCommit() ?? ''),
   },
   envPrefix: 'PUBLIC_',
   envDir: '../',
