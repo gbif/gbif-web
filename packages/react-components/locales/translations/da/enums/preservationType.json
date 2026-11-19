@@ -7,5 +7,11 @@
   "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Opbevaring frosset mellem minus 132 og minus 196",
   "STORAGE_OTHER": "Opbevaring andet",
   "STORAGE_REFRIGERATED": "Opbevaring kølerum",
-  "STORAGE_RECORDED": "Opbevaring registreret"
+  "STORAGE_RECORDED": "Opbevaring registreret",
+  "SAMPLE_PINNED": "Prøve nålet",
+  "SAMPLE_PRESSED": "Prøve presset",
+  "SAMPLE_SKELETONIZED": "Prøven skeletiseret",
+  "SAMPLE_SLIDE_MOUNT": "Prøve objektglasmonteret",
+  "SAMPLE_SURFACE_COATING": "Prøve overfladebehandlet",
+  "SAMPLE_TANNED": "Prøve garvet"
 }
