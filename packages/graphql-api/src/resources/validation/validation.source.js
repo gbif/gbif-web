@@ -11,7 +11,7 @@ class ValidationAPI extends RESTDataSource {
   willSendRequest(path, request) {
     if (this.context.user) {
       const header = createSignedGetHeader(
-        path,
+        this.requestURL(path, request),
         this.config,
         { userName: this.context.user.userName },
       );

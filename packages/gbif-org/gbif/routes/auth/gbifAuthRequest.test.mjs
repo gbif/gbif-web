@@ -1,3 +1,4 @@
+import { createHash, createHmac } from 'crypto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('./utils.mjs', () => ({ fetchWithRetry: vi.fn() }));
@@ -10,61 +11,6 @@ const { authenticatedRequest } = await import('./gbifAuthRequest.mjs');
 
 const get = { method: 'GET', url: 'https://registry.test/v1/admin/user/jane' };
 
-// Headers sent by the code before identity was made explicit (commit 2951017), run with the same
-// key, secret and inputs. Callers that relied on the fallback must still send these, byte for byte.
-const before = {
-  createUserAsApp: {
-    'x-url': 'admin/user/',
-    'x-gbif-user': 'test.app',
-    'User-Agent': 'GBIF-portal',
-    'Content-MD5': '08E7KICxVDZ14ya92zeWyQ==',
-    'Content-Type': 'application/json',
-    Authorization: 'GBIF test.app:Ab/XeZmcj5Cmk0uWkSr3bGOYy1w=',
-  },
-  getUserAsApp: {
-    'x-url': 'https://registry.test/v1/admin/user/jane',
-    'x-gbif-user': 'test.app',
-    'User-Agent': 'GBIF-portal',
-    Authorization: 'GBIF test.app:iON5sB0YyKMDIQdOuBdeXCuALOw=',
-  },
-  confirmAsUser: {
-    'x-url': 'admin/user/confirm',
-    'x-gbif-user': 'jane',
-    'User-Agent': 'GBIF-portal',
-    'Content-MD5': 'SWdWk3aEEeROZw2tejMxjw==',
-    'Content-Type': 'application/json',
-    Authorization: 'GBIF test.app:r7xKYw1YVIYqTIl/k+VXqPQVzN8=',
-  },
-  getDownloadAsUser: {
-    'x-url': 'https://api.test/v1/occurrence/download/0012345-240626123714530',
-    'x-gbif-user': 'jane',
-    'User-Agent': 'GBIF-portal',
-    Authorization: 'GBIF test.app:xquefssw9SBQsPm5rOW7kVAlKPc=',
-  },
-  putDownloadAsUser: {
-    'x-url': 'occurrence/download/0012345-240626123714530',
-    'x-gbif-user': 'jane',
-    'User-Agent': 'GBIF-portal',
-    'Content-MD5': 'lMt4B8jsB534PL9tKLIxMQ==',
-    'Content-Type': 'application/json',
-    Authorization: 'GBIF test.app:SVYoCRF/KGocL5wTDxVyue4W1HQ=',
-  },
-  cancelDownloadAsUser: {
-    'x-url': 'https://api.test/v1/occurrence/download/request/0012345-240626123714530',
-    'x-gbif-user': 'jane',
-    'User-Agent': 'GBIF-portal',
-    Authorization: 'GBIF test.app:NfPZ/Lcy4eNlgXMwc5PZj2+t7yU=',
-  },
-  updateUserAsApp: {
-    'x-url': 'admin/user/jane',
-    'x-gbif-user': 'test.app',
-    'User-Agent': 'GBIF-portal',
-    'Content-MD5': '08E7KICxVDZ14ya92zeWyQ==',
-    'Content-Type': 'application/json',
-    Authorization: 'GBIF test.app:eryMtgMOAd9ljNwhT+9KITaFf78=',
-  },
-};
-
 const downloadKey = '0012345-240626123714530';
 
 beforeEach(() => {
@@ -72,25 +18,82 @@ beforeEach(() => {
   fetchWithRetry.mockResolvedValue({ ok: true, status: 200, text: async () => '{}' });
 });
 
-function sentHeaders() {
-  return fetchWithRetry.mock.calls[0][1].headers;
+function sent() {
+  return fetchWithRetry.mock.calls[0];
 }
 
-describe('authenticatedRequest signs exactly as before', () => {
+function sentHeaders() {
+  return sent()[1].headers;
+}
+
+/**
+ * Checks the headers sign exactly the given lines, followed by the x-gbif-date they carry, with the
+ * test app's secret. The lines are written out by hand, so this is an independent check of what the
+ * server (gbif-common-ws GbifAuthServiceImpl) will verify.
+ */
+function expectSigned(headers, lines) {
+  expect(Number.isNaN(Date.parse(headers['x-gbif-date']))).toBe(false);
+  const stringToSign = [...lines, headers['x-gbif-date']].join('\n');
+  const signature = createHmac('sha256', 'test-secret').update(stringToSign).digest('base64');
+  expect(headers.Authorization).toBe(`GBIF test.app:${signature}`);
+}
+
+function md5(body) {
+  return createHash('md5').update(body).digest('base64');
+}
+
+describe('authenticatedRequest signs', () => {
   it('a POST as the app (create user)', async () => {
     await authenticatedRequest({
       method: 'POST',
       body: { userName: 'jane' },
       url: 'https://registry.test/v1/admin/user/',
-      canonicalPath: 'admin/user/',
       asApp: true,
     });
-    expect(sentHeaders()).toStrictEqual(before.createUserAsApp);
+    const body = '{"userName":"jane"}';
+    expect(sent()[1].body).toBe(body);
+    expect(sentHeaders()).toStrictEqual({
+      'x-url': 'https://registry.test/v1/admin/user/',
+      'x-gbif-user': 'test.app',
+      'x-gbif-date': expect.any(String),
+      'User-Agent': 'GBIF-portal',
+      'Content-MD5': md5(body),
+      'Content-Type': 'application/json',
+      Authorization: expect.any(String),
+    });
+    expectSigned(sentHeaders(), [
+      'POST',
+      '/v1/admin/user/',
+      'application/json',
+      md5(body),
+      'test.app',
+    ]);
   });
 
   it('a GET as the app (get user by name)', async () => {
     await authenticatedRequest({ ...get, asApp: true });
-    expect(sentHeaders()).toStrictEqual(before.getUserAsApp);
+    expect(sentHeaders()).toStrictEqual({
+      'x-url': 'https://registry.test/v1/admin/user/jane',
+      'x-gbif-user': 'test.app',
+      'x-gbif-date': expect.any(String),
+      'User-Agent': 'GBIF-portal',
+      Authorization: expect.any(String),
+    });
+    expectSigned(sentHeaders(), ['GET', '/v1/admin/user/jane', 'test.app']);
+  });
+
+  it('a GET with a query string (find user)', async () => {
+    await authenticatedRequest({
+      method: 'GET',
+      url: 'https://registry.test/v1/admin/user/find?systemSettings=x&q=a+b',
+      asApp: true,
+    });
+    expect(sentHeaders()['x-url']).toBe('https://registry.test/v1/admin/user/find');
+    expectSigned(sentHeaders(), [
+      'GET',
+      '/v1/admin/user/find?q=a%20b&systemSettings=x',
+      'test.app',
+    ]);
   });
 
   it('a POST as a user (confirm account)', async () => {
@@ -98,10 +101,32 @@ describe('authenticatedRequest signs exactly as before', () => {
       method: 'POST',
       body: { confirmationKey: 'abc' },
       url: 'https://registry.test/v1/admin/user/confirm',
-      canonicalPath: 'admin/user/confirm',
       userName: 'jane',
     });
-    expect(sentHeaders()).toStrictEqual(before.confirmAsUser);
+    const body = '{"confirmationKey":"abc"}';
+    expectSigned(sentHeaders(), [
+      'POST',
+      '/v1/admin/user/confirm',
+      'application/json',
+      md5(body),
+      'jane',
+    ]);
+  });
+
+  it('a POST with a query string as a user (request download)', async () => {
+    await authenticatedRequest({
+      method: 'POST',
+      body: { creator: 'jane' },
+      url: 'https://api.test/v1/occurrence/download/request/?source=gbif.org',
+      userName: 'jane',
+    });
+    expectSigned(sentHeaders(), [
+      'POST',
+      '/v1/occurrence/download/request/?source=gbif.org',
+      'application/json',
+      md5('{"creator":"jane"}'),
+      'jane',
+    ]);
   });
 
   it('a GET as a user (get download)', async () => {
@@ -110,18 +135,7 @@ describe('authenticatedRequest signs exactly as before', () => {
       url: `https://api.test/v1/occurrence/download/${downloadKey}`,
       userName: 'jane',
     });
-    expect(sentHeaders()).toStrictEqual(before.getDownloadAsUser);
-  });
-
-  it('a PUT as a user (set download erasure date)', async () => {
-    await authenticatedRequest({
-      method: 'PUT',
-      body: { key: downloadKey, eraseAfter: '2026-01-01T00:00:00.000Z' },
-      url: `https://api.test/v1/occurrence/download/${downloadKey}`,
-      canonicalPath: `occurrence/download/${downloadKey}`,
-      userName: 'jane',
-    });
-    expect(sentHeaders()).toStrictEqual(before.putDownloadAsUser);
+    expectSigned(sentHeaders(), ['GET', `/v1/occurrence/download/${downloadKey}`, 'jane']);
   });
 
   it('a DELETE as a user (cancel download)', async () => {
@@ -130,18 +144,37 @@ describe('authenticatedRequest signs exactly as before', () => {
       url: `https://api.test/v1/occurrence/download/request/${downloadKey}`,
       userName: 'jane',
     });
-    expect(sentHeaders()).toStrictEqual(before.cancelDownloadAsUser);
+    expect(sentHeaders()['Content-MD5']).toBeUndefined();
+    expect(sentHeaders()['Content-Type']).toBeUndefined();
+    expectSigned(sentHeaders(), [
+      'DELETE',
+      `/v1/occurrence/download/request/${downloadKey}`,
+      'jane',
+    ]);
   });
 
-  it('a PUT as the app (update user)', async () => {
+  it('a PUT as the app with an encoded path (update user)', async () => {
     await authenticatedRequest({
       method: 'PUT',
-      body: { userName: 'jane' },
-      url: 'https://registry.test/v1/admin/user/jane',
-      canonicalPath: 'admin/user/jane',
+      body: { userName: 'jane+x' },
+      url: 'https://registry.test/v1/admin/user/jane%2Bx',
       asApp: true,
     });
-    expect(sentHeaders()).toStrictEqual(before.updateUserAsApp);
+    // the server signs the decoded path
+    expectSigned(sentHeaders(), [
+      'PUT',
+      '/v1/admin/user/jane+x',
+      'application/json',
+      md5('{"userName":"jane+x"}'),
+      'test.app',
+    ]);
+  });
+
+  it('refuses a POST without a body', async () => {
+    await expect(
+      authenticatedRequest({ method: 'POST', url: 'https://registry.test/v1/x', asApp: true })
+    ).rejects.toThrow('require a body');
+    expect(fetchWithRetry).not.toHaveBeenCalled();
   });
 });
 

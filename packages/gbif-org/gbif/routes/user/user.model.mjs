@@ -12,68 +12,54 @@ const apiV1 = secretEnv.PUBLIC_API_V1;
 const apiConfig = {
   user: {
     url: identityBaseUrl + '/user',
-    canonical: 'user',
   },
   userCreate: {
     url: identityBaseUrl + '/admin/user/',
-    canonical: 'admin/user/',
   },
   userAdmin: {
     url: identityBaseUrl + '/admin/user/',
-    canonical: 'admin/user/',
   },
   userConfirm: {
     url: identityBaseUrl + '/admin/user/confirm',
-    canonical: 'admin/user/confirm',
   },
   userLogin: {
     url: identityBaseUrl + '/user/login',
   },
   userResetPassword: {
     url: identityBaseUrl + '/admin/user/resetPassword',
-    canonical: 'admin/user/resetPassword',
   },
   userUpdateForgottenPassword: {
     url: identityBaseUrl + '/admin/user/updatePassword',
-    canonical: 'admin/user/updatePassword',
   },
   userChangePassword: {
     url: identityBaseUrl + '/user/changePassword',
-    canonical: 'user/changePassword',
   },
   userChangeEmail: {
     url: identityBaseUrl + '/admin/user/changeEmail',
-    canonical: 'admin/user/changeEmail',
   },
   userFind: {
     url: identityBaseUrl + '/admin/user/find',
-    canonical: 'admin/user/find',
   },
   occurrenceSearchDownload: {
     url: apiV1 + '/occurrence/download/request/',
-    canonical: 'occurrence/download/request/',
   },
   occurrenceCancelDownload: {
     url: apiV1 + '/occurrence/download/request/',
   },
   occurrenceSearchDownload: {
     url: apiV1 + '/occurrence/download/request/',
-    canonical: 'occurrence/download/request/',
   },
   occurrenceDownload: {
     url: apiV1 + '/occurrence/download/',
-    canonical: 'occurrence/download/',
   },
   eventCancelDownload: {
     url: apiV1 + '/experimental/event/download/request/',
   },
   eventDownload: {
     url: apiV1 + '/experimental/event/download/',
-    canonical: 'experimental/event/download/',
   },
   derivedDataset: {
     url: apiV1 + '/derivedDataset',
-    canonical: 'derivedDataset',
   },
 };
 
@@ -82,7 +68,6 @@ export async function create(body) {
     method: 'POST',
     body: body,
     url: apiConfig.userCreate.url,
-    canonicalPath: apiConfig.userCreate.canonical,
     asApp: true,
   };
   let response = await authenticatedRequest(options);
@@ -102,7 +87,6 @@ export async function confirm(challengeCode, userName) {
       confirmationKey: challengeCode,
     },
     url: apiConfig.userConfirm.url,
-    canonicalPath: apiConfig.userConfirm.canonical,
     userName: userName,
   };
   let response = await authenticatedRequest(options);
@@ -124,7 +108,6 @@ export async function changeEmail(body, userName) {
         email: body.email,
       },
       url: apiConfig.userChangeEmail.url,
-      canonicalPath: apiConfig.userChangeEmail.canonical,
       userName: userName,
     };
     let response = await authenticatedRequest(options);
@@ -149,7 +132,6 @@ export async function update(userName, body) {
     method: 'PUT',
     body: body,
     url: apiConfig.userAdmin.url + userSegment,
-    canonicalPath: apiConfig.userAdmin.canonical + userSegment,
     asApp: true,
   };
   let response = await authenticatedRequest(options);
@@ -165,7 +147,6 @@ export async function resetPassword(userNameOrEmail) {
     method: 'POST',
     body: {},
     url: apiConfig.userResetPassword.url,
-    canonicalPath: apiConfig.userResetPassword.canonical,
     userName: userNameOrEmail,
   };
   logger.debug('Reset password request initiated', { userNameOrEmail, url: options.url });
@@ -191,7 +172,6 @@ export async function updateForgottenPassword(body) {
       password: password,
     },
     url: apiConfig.userUpdateForgottenPassword.url,
-    canonicalPath: apiConfig.userUpdateForgottenPassword.canonical,
     userName: body.userName,
   };
   let response = await authenticatedRequest(options);
@@ -259,7 +239,6 @@ export async function createDownload(user, query, source) {
   }
   let options = {
     url: url,
-    canonicalPath: apiConfig.occurrenceSearchDownload.canonical,
     body: {
       creator: user.userName,
       notificationAddresses: email ? [email] : undefined,
@@ -343,17 +322,12 @@ async function setDownloadErasureDate({ key, erasureDate, type, username }) {
   if (type === 'EVENT') {
     url = apiConfig.eventDownload.url + key;
   }
-  let canonicalPath = apiConfig.occurrenceDownload.canonical + key;
-  if (type === 'EVENT') {
-    canonicalPath = apiConfig.eventDownload.canonical + key;
-  }
 
   download.eraseAfter = erasureDate;
   let options = {
     method: 'PUT',
     body: download,
     url: url,
-    canonicalPath: canonicalPath,
     userName: username,
     json: true,
   };
@@ -390,7 +364,6 @@ export async function createDerivedDataset(body, userName) {
     method: 'POST',
     body,
     url: apiConfig.derivedDataset.url,
-    canonicalPath: apiConfig.derivedDataset.canonical,
     userName,
   };
   const response = await authenticatedRequest(options);
@@ -405,7 +378,6 @@ export async function updateDerivedDataset(body, doi, userName) {
     method: 'PUT',
     body,
     url: `${apiConfig.derivedDataset.url}/${derivedDatasetDoiPath(doi)}`,
-    canonicalPath: apiConfig.derivedDataset.canonical,
     userName,
   };
   const response = await authenticatedRequest(options);

@@ -59,3 +59,15 @@ describe('RESTDataSource.resolveURL', () => {
     );
   });
 });
+
+describe('RESTDataSource.requestURL', () => {
+  it('is the URL that is fetched, with the params added', () => {
+    const source = new RESTDataSource();
+    source.baseURL = BASE;
+    const params = new URLSearchParams('limit=10&q=a b');
+    assert.strictEqual(
+      source.requestURL('/validation?offset=20', { params }).href,
+      'https://api.gbif.org/v1/validation?offset=20&limit=10&q=a+b',
+    );
+  });
+});
