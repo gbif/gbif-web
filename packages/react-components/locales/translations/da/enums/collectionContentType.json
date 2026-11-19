@@ -35,5 +35,15 @@
   "HUMAN_DERIVED_TISSUE_HUMAN": "Væv af menneskelig oprindelse, menneske",
   "EARTH_PLANETARY_OTHER": "Jorden planetarisk anden",
   "EARTH_PLANETARY_ASTEROIDS": "Jorden planetarisk asteroider",
-  "EARTH_PLANETARY_COMETS": "Jordens planetariske kometer"
+  "EARTH_PLANETARY_COMETS": "Jordens planetariske kometer",
+  "RECORDS_OTHER": "Andre optegnelser",
+  "RECORDS_SEISMOGRAMS": "Optegnelser seismogrammer",
+  "RECORDS_RADIOGRAPH": "Optegnelser røntgenoptagelser",
+  "RECORDS_IMAGES": "Optegnelser billeder",
+  "RECORDS_DOCUMENTS": "Dokumenter til optegnelser",
+  "RECORDS_DOCUMENTATION": "Dokumentation for optegnelser",
+  "RECORDS_DERIVED_DATA": "Data udledt af optegnelser",
+  "RECORDS_ASSOCIATED_DATA": "Tilknyttet data til optegnelser",
+  "RECORDS_MAPS": "Kort over optegnelser",
+  "RECORDS_RECORDINGS": "Optegnelser optagelser"
 }
