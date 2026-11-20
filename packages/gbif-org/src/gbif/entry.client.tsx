@@ -44,7 +44,7 @@ async function hydrate() {
   const [, messages] = await Promise.all([loadLazyRoutes(routes), loadInitialMessages()]);
 
   const router = createBrowserRouter(routes);
-  // Errors from the server render, passed along so the same error page shows. Already logged there.
+  // Errors from the server render, passed along so the same error page shows. Not the browser's.
   ignoreClientErrors(Object.values(router.state.errors ?? {}));
 
   const root = document.getElementById('app');

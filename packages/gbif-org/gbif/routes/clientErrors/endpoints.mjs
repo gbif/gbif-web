@@ -2,11 +2,13 @@ import express from 'express';
 import {
   CLIENT_ERROR_PATH,
   MAX_BODY_SIZE,
+  clientAddress,
   createLimiter,
   fingerprint,
   isBot,
   isNoise,
   parseReport,
+  shortUserAgent,
 } from './clientErrors.mjs';
 
 // Must be registered before the app's general body parsers: they would otherwise parse the body
@@ -26,7 +28,7 @@ export function register(app, { logger, limiter = createLimiter() }) {
       if (isBot(userAgent) || isNoise(report)) return res.status(204).end();
 
       const id = fingerprint(report);
-      const { allowed, droppedInLastWindow } = limiter.take(id);
+      const { allowed, droppedInLastWindow } = limiter.take(id, clientAddress(req));
       if (droppedInLastWindow) {
         logger.warn(`Dropped ${droppedInLastWindow} client error reports over the limit`, {
           clientErrorsDropped: droppedInLastWindow,
@@ -36,7 +38,7 @@ export function register(app, { logger, limiter = createLimiter() }) {
 
       const { commit, ...details } = report;
       logger.warn(`Client error: ${report.name}: ${report.message}`.slice(0, 300), {
-        clientError: { ...details, fingerprint: id, userAgent },
+        clientError: { ...details, fingerprint: id, userAgent: shortUserAgent(userAgent) },
         // Same name as graphql-api uses for the commit of the browser's build. The logger adds the
         // server's own as `commit`; they differ when a tab has been open across a deploy.
         clientCommit: commit,

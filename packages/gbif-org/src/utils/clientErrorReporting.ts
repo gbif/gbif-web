@@ -22,9 +22,13 @@ export type ClientErrorReport = {
   commit?: string;
 };
 
+// Same values as gbif/routes/clientErrors/clientErrors.mjs, which also uses them in the early error
+// script, so that and this count together.
 const ENDPOINT = '/api/client-error';
-// A page that keeps throwing should send a handful of reports, not thousands.
-const MAX_REPORTS_PER_PAGE = 10;
+const SESSION_COUNT_KEY = 'gbif-client-errors-sent';
+// A visitor whose pages keep throwing should send a handful of reports, not thousands. Counted per
+// browser session (tab), so reloading doesn't start over.
+const MAX_REPORTS_PER_SESSION = 5;
 // The server truncates too; this just keeps requests small.
 const MAX_LENGTH = { message: 1000, stack: 4000, componentStack: 2000 };
 
@@ -38,6 +42,9 @@ type ErrorLike = {
   message?: unknown;
   stack?: unknown;
   isCanceled?: unknown;
+  status?: unknown;
+  // QueryError (hooks/useQuery): no message of its own, the cause is in error or graphQLErrors.
+  error?: { message?: unknown };
   graphQLErrors?: Array<{ message?: unknown }>;
 };
 
@@ -61,6 +68,8 @@ export function buildReport(
     const e = error as ErrorLike;
     // A request we aborted ourselves, e.g. because the user navigated away.
     if (e.isCanceled === true || e.name === 'AbortError') return null;
+    // Not found (NotFoundError, a 404 response) is a page, not an error.
+    if (e.status === 404 || e.message === '404') return null;
     if (typeof e.name === 'string' && e.name) name = e.name;
     if (typeof e.message === 'string') message = e.message;
     if (typeof e.stack === 'string') stack = e.stack;
@@ -69,14 +78,16 @@ export function buildReport(
         .map((graphQLError) => graphQLError?.message)
         .filter((m): m is string => typeof m === 'string')
         .slice(0, 5);
+      // QueryError doesn't set its name.
+      if (name === 'Error') name = 'QueryError';
     }
-    // Rejections with plain objects ({ status: 500 } and the like).
+    if (!message && typeof e.error?.message === 'string') message = e.error.message;
+    if (!message && graphQLErrors?.length) message = graphQLErrors[0];
+    // Rejections with plain objects ({ status: 500 } and the like). Only the field names: the
+    // values could be anything, tokens included.
     if (!message && !stack) {
-      try {
-        message = JSON.stringify(error).slice(0, 200);
-      } catch {
-        message = undefined;
-      }
+      name = 'NonErrorRejection';
+      message = `Rejected with an object with fields: ${Object.keys(error).slice(0, 10).join(', ')}`;
     }
   } else if (error != null) {
     message = String(error);
@@ -116,17 +127,42 @@ type Reporter = {
   ): void;
 };
 
+type Counter = { get(): number; set(value: number): void };
+
+// Counts in sessionStorage, or in memory where that isn't available (some private modes).
+function sessionCounter(): Counter {
+  let inMemory = 0;
+  return {
+    get() {
+      try {
+        return Number(window.sessionStorage.getItem(SESSION_COUNT_KEY)) || 0;
+      } catch {
+        return inMemory;
+      }
+    },
+    set(value) {
+      inMemory = value;
+      try {
+        window.sessionStorage.setItem(SESSION_COUNT_KEY, String(value));
+      } catch {
+        // Counted in memory instead.
+      }
+    },
+  };
+}
+
 export function createReporter({
   send,
   getPath,
   getCommit,
+  counter,
 }: {
   send: (report: ClientErrorReport) => void;
   getPath: () => string | undefined;
   getCommit: () => string | undefined;
+  counter: Counter;
 }): Reporter {
   let enabled = false;
-  let sent = 0;
   const seen = new Set<string>();
   const ignored = new WeakSet<object>();
 
@@ -140,7 +176,7 @@ export function createReporter({
       });
     },
     report(error, source, { componentStack } = {}) {
-      if (!enabled || sent >= MAX_REPORTS_PER_PAGE) return;
+      if (!enabled) return;
       if (error && typeof error === 'object' && ignored.has(error)) return;
       try {
         const report = buildReport(error, source, {
@@ -153,7 +189,9 @@ export function createReporter({
         const key = `${report.name}: ${report.message}`;
         if (seen.has(key)) return;
         seen.add(key);
-        sent += 1;
+        const sent = counter.get();
+        if (sent >= MAX_REPORTS_PER_SESSION) return;
+        counter.set(sent + 1);
         send(report);
       } catch {
         // Reporting an error must never cause one.
@@ -179,6 +217,7 @@ const reporter = createReporter({
   send: sendToServer,
   getPath: () => (typeof window === 'undefined' ? undefined : window.location.pathname),
   getCommit: getBuildCommit,
+  counter: sessionCounter(),
 });
 
 // Errors caught by error boundaries, the router, or React. Does nothing unless enabled, which only
@@ -200,7 +239,8 @@ declare global {
 }
 
 // Errors that are not the browser's to report. The router starts with the errors the server hit
-// while rendering the page (so it can show the same error page); the server has logged those.
+// while rendering the page (so it can show the same error page). Those are the server's errors:
+// reporting them from every browser that gets the page would only duplicate them.
 export function ignoreClientErrors(errors: unknown[]) {
   reporter.ignore(errors);
 }
