@@ -630,7 +630,6 @@ const chartGroups = {
       'collectionCode',
       'collectionKey',
       'basisOfRecord',
-      'isInCluster',
     ],
   },
   occurrence: {
@@ -664,7 +663,7 @@ const chartGroups = {
     values: ['organismId', 'previousIdentifications'],
   },
   materialEntity: {
-    values: ['preparations', 'associatedSequences', 'isSequenced'],
+    values: ['preparations', 'associatedSequences'],
   },
   event: {
     values: [
@@ -734,7 +733,6 @@ const chartGroups = {
       'verbatimScientificName',
       'synonyms',
       'occurrenceTaxonomySunburst',
-      'taxonomicIssue',
     ],
   },
   provenance: {
@@ -753,7 +751,15 @@ const chartGroups = {
     ],
   },
   other: {
-    values: ['dataQuality', 'occurrenceSummary', 'datasetId', 'datasetName'],
+    values: [
+      'dataQuality',
+      'occurrenceSummary',
+      'datasetId',
+      'datasetName',
+      'isInCluster',
+      'isSequenced',
+      'taxonomicIssue',
+    ],
   },
 };
 
