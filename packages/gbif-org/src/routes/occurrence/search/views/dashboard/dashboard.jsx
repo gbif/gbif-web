@@ -274,9 +274,8 @@ const preconfiguredCharts = {
     },
   },
   sex: {
-    component: ({ predicate, ...props }) => {
-      return <charts.Sex predicate={predicate} {...props} />;
-    },
+    // offered whether or not the site has a sex filter
+    component: (props) => <FilterAwareChart chart={charts.Sex} filter="sex" {...props} />,
   },
   waterBody: {
     component: ({ predicate, ...props }) => {

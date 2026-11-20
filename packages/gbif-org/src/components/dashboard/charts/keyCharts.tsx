@@ -729,8 +729,9 @@ export function TypeStatus({
         detailsRoute,
         currentFilter,
         fieldName: 'typeStatus',
-        disableUnknown: true,
-        disableOther: false,
+        // a record can have several type statuses, so the counts can add up to more than the
+        // records with a value, and an Other slice would be wrong
+        disableOther: true,
         facetSize: 10,
         options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
         includeMapPredicate: true,
@@ -773,8 +774,6 @@ export function Sex({
         detailsRoute,
         currentFilter,
         fieldName: 'sex',
-        disableUnknown: true,
-        disableOther: false,
         facetSize: 10,
         options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
         includeMapPredicate: true,
@@ -795,7 +794,7 @@ export function Sex({
             count: x.count,
             occurrences: x.occurrences,
             description: x.entity?.description,
-            filter: { datasetKey: [x.key] },
+            filter: { sex: [x.key] },
           }));
         },
       }}
