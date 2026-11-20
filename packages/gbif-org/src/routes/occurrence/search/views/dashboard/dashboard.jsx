@@ -4,7 +4,7 @@ import { MapChartsEnabledContext } from '@/components/dashboard/charts/OneDimens
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
 import { useParam } from '@/hooks/useParam';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { parseLayout, serializeLayout } from './layoutSerialization';
@@ -19,13 +19,33 @@ const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
  */
 
 /**
+ * The search filters available on this site. Charts for fields that might not have a filter only
+ * set a filter on click when it exists.
+ * @type {React.Context<string[]>}
+ */
+const AvailableFiltersContext = React.createContext(/** @type {string[]} */ ([]));
+
+/**
+ * @param {{
+ *   chart: React.ComponentType<any>,
+ *   filter: string,
+ *   [key: string]: unknown,
+ * }} props
+ */
+function FilterAwareChart({ chart: Chart, filter, ...props }) {
+  const availableFilters = useContext(AvailableFiltersContext);
+  return <Chart {...props} interactive={availableFilters.includes(filter)} />;
+}
+
+/**
  * @param {{
  *   predicate?: import('@/gql/graphql').Predicate,
  *   q?: string,
  *   chartsTypes: string[],
+ *   availableFilters?: string[],
  * }} props
  */
-export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp }) {
+export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, availableFilters = [] }) {
   const [urlLayout, setUrlLayout] = /** @type {typeof useParam<Layout | undefined>} */ (useParam)({
     key: 'layout',
     parse: parseLayout,
@@ -68,34 +88,36 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp }) {
   const isUrlLayoutDifferent = urlLayout && serializeLayout(urlLayout) !== serializeLayout(layout);
   return (
     <MapChartsEnabledContext.Provider value={true}>
-      <div>
-        {isUrlLayoutDifferent && (
-          <div className="g-mb-4">
-            <FormattedMessage id="dashboard.sharedLayout" />{' '}
-            <Button className="g-ms-4" onClick={() => setUrlLayout(undefined)}>
-              <FormattedMessage id="phrases.discard" />
-            </Button>{' '}
-            <Button
-              variant="primaryOutline"
-              className="g-ms-4"
-              onClick={() => {
-                setLayoutState(urlLayout);
-                setUrlLayout(undefined);
-              }}
-            >
-              <FormattedMessage id="phrases.keep" />
-            </Button>
-          </div>
-        )}
-        <DashboardBuilder
-          chartsTypes={chartsTypes}
-          predicate={predicate}
-          q={q}
-          setState={updateState}
-          state={urlLayout ?? layout}
-          lockedLayout={!!isUrlLayoutDifferent}
-        />
-      </div>
+      <AvailableFiltersContext.Provider value={availableFilters}>
+        <div>
+          {isUrlLayoutDifferent && (
+            <div className="g-mb-4">
+              <FormattedMessage id="dashboard.sharedLayout" />{' '}
+              <Button className="g-ms-4" onClick={() => setUrlLayout(undefined)}>
+                <FormattedMessage id="phrases.discard" />
+              </Button>{' '}
+              <Button
+                variant="primaryOutline"
+                className="g-ms-4"
+                onClick={() => {
+                  setLayoutState(urlLayout);
+                  setUrlLayout(undefined);
+                }}
+              >
+                <FormattedMessage id="phrases.keep" />
+              </Button>
+            </div>
+          )}
+          <DashboardBuilder
+            chartsTypes={chartsTypes}
+            predicate={predicate}
+            q={q}
+            setState={updateState}
+            state={urlLayout ?? layout}
+            lockedLayout={!!isUrlLayoutDifferent}
+          />
+        </div>
+      </AvailableFiltersContext.Provider>
     </MapChartsEnabledContext.Provider>
   );
 }
@@ -377,6 +399,114 @@ const preconfiguredCharts = {
       return <charts.DatasetId predicate={predicate} interactive {...props} />;
     },
   },
+  // Charts below are offered whether or not the site has a filter for the field.
+  occurrenceStatus: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.OccurrenceStatus} filter="occurrenceStatus" {...props} />
+    ),
+  },
+  gbifRegion: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.GbifRegion} filter="gbifRegion" {...props} />
+    ),
+  },
+  taxonomicIssue: {
+    translation: 'filters.occurrenceTaxonomicIssue.name',
+    component: (props) => (
+      <FilterAwareChart chart={charts.TaxonomicIssue} filter="taxonomicIssue" {...props} />
+    ),
+  },
+  lifeStage: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.LifeStage} filter="lifeStage" {...props} />
+    ),
+  },
+  degreeOfEstablishment: {
+    component: (props) => (
+      <FilterAwareChart
+        chart={charts.DegreeOfEstablishment}
+        filter="degreeOfEstablishment"
+        {...props}
+      />
+    ),
+  },
+  pathway: {
+    component: (props) => <FilterAwareChart chart={charts.Pathway} filter="pathway" {...props} />,
+  },
+  recordNumber: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.RecordNumber} filter="recordNumber" {...props} />
+    ),
+  },
+  fieldNumber: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.FieldNumber} filter="fieldNumber" {...props} />
+    ),
+  },
+  parentEventId: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.ParentEventId} filter="parentEventId" {...props} />
+    ),
+  },
+  programme: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.Programme} filter="programme" {...props} />
+    ),
+  },
+  locality: {
+    component: (props) => <FilterAwareChart chart={charts.Locality} filter="locality" {...props} />,
+  },
+  island: {
+    component: (props) => <FilterAwareChart chart={charts.Island} filter="island" {...props} />,
+  },
+  islandGroup: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.IslandGroup} filter="islandGroup" {...props} />
+    ),
+  },
+  georeferencedBy: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.GeoreferencedBy} filter="georeferencedBy" {...props} />
+    ),
+  },
+  verbatimScientificName: {
+    component: (props) => (
+      <FilterAwareChart
+        chart={charts.VerbatimScientificName}
+        filter="verbatimScientificName"
+        {...props}
+      />
+    ),
+  },
+  organismQuantityType: {
+    component: (props) => (
+      <FilterAwareChart
+        chart={charts.OrganismQuantityType}
+        filter="organismQuantityType"
+        {...props}
+      />
+    ),
+  },
+  isInCluster: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.IsInCluster} filter="isInCluster" {...props} />
+    ),
+  },
+  isSequenced: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.IsSequenced} filter="isSequenced" {...props} />
+    ),
+  },
+  repatriated: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.IsRepatriated} filter="repatriated" {...props} />
+    ),
+  },
+  installationKey: {
+    translation: 'installation.installation',
+    // there is no installation filter, so this chart is never interactive
+    component: (props) => <charts.Installations {...props} />,
+  },
   map: {
     translation: 'search.tabs.map',
     r: true, // resizable
@@ -420,3 +550,27 @@ const preconfiguredCharts = {
     },
   },
 };
+
+/** Chart types that are offered even when the site has no search filter for the field. */
+export const filterIndependentCharts = [
+  'occurrenceStatus',
+  'gbifRegion',
+  'taxonomicIssue',
+  'lifeStage',
+  'degreeOfEstablishment',
+  'pathway',
+  'recordNumber',
+  'fieldNumber',
+  'parentEventId',
+  'programme',
+  'locality',
+  'island',
+  'islandGroup',
+  'georeferencedBy',
+  'verbatimScientificName',
+  'organismQuantityType',
+  'isInCluster',
+  'isSequenced',
+  'repatriated',
+  'installationKey',
+];

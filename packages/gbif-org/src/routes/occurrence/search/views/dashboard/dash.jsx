@@ -5,7 +5,7 @@ import { useSearchContext } from '@/contexts/search';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
-import { Dashboard as DashboardPresentation } from './dashboard';
+import { Dashboard as DashboardPresentation, filterIndependentCharts } from './dashboard';
 
 export function Dashboard() {
   const currentFilterContext = useContext(FilterContext);
@@ -45,6 +45,7 @@ export function Dashboard() {
       <DashboardPresentation
         predicate={query?.predicate}
         q={query?.q}
+        availableFilters={Object.keys(filters)}
         chartsTypes={[
           'map',
           'table',
@@ -57,6 +58,7 @@ export function Dashboard() {
           'sex',
           'occurrenceIssue',
           'sequencePhylogeny',
+          ...filterIndependentCharts,
           ...chartsTypes,
         ]}
       />

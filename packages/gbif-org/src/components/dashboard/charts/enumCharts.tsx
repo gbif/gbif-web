@@ -1,6 +1,7 @@
 import { useConfig } from '@/config/config';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ChartWrapper, EnumChartGenerator } from './EnumChartGenerator';
+import { FacetResultRow } from './GroupByTable';
 
 type StandardEnumChartProps = {
   predicate?: unknown;
@@ -285,6 +286,145 @@ export function IucnCounts(props: ChartProps) {
       }}
     />
   );
+}
+
+export function OccurrenceStatus(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        disablePaging: true,
+        ...props,
+        fieldName: 'occurrenceStatus',
+      }}
+    />
+  );
+}
+
+export function GbifRegion(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        enableOther: true,
+        enableUnknown: true,
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+        fieldName: 'gbifRegion',
+      }}
+    />
+  );
+}
+
+export function TaxonomicIssue(props: ChartProps) {
+  // taxonomic issues depend on the checklist, so the facet takes a checklistKey like the IUCN chart
+  const GQL_QUERY = `
+    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        documents(size: 0) {
+          total
+        }
+        cardinality {
+          total: taxonomicIssue
+        }
+        facet {
+          results: taxonomicIssue(size: $size, from: $from, checklistKey: $checklistKey) {
+            key
+            count
+            occurrences {
+              metaPredicate
+              _meta
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  return (
+    <ChartWrapper
+      {...{
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        facetSize: 10,
+        disableUnknown: true,
+        disableOther: true,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        gqlQuery: GQL_QUERY,
+        predicateKey: 'taxonomicIssue',
+        applyChecklistKey: true,
+        translationTemplate: 'enums.occurrenceIssue.{key}',
+        title: (
+          <FormattedMessage
+            id="filters.occurrenceTaxonomicIssue.name"
+            defaultMessage="Taxonomic issues"
+          />
+        ),
+        ...props,
+      }}
+    />
+  );
+}
+
+type BooleanFacetData = {
+  search?: {
+    facet?: {
+      results?: Array<{
+        key: boolean | string;
+        count: number;
+        occurrences?: FacetResultRow['occurrences'];
+      }>;
+    };
+  };
+};
+
+// Boolean facets return true/false keys, while the boolean filters store the strings 'true' and
+// 'false'. Use string keys so that clicking a value sets the same filter as the filter UI does.
+function BooleanChart({ fieldName, ...props }: ChartProps & { fieldName: string }) {
+  const intl = useIntl();
+  return (
+    <EnumChartGenerator
+      {...{
+        fieldName,
+        translationTemplate: 'enums.yesNo.{key}',
+        disableUnknown: true,
+        disableOther: true,
+        disablePaging: true,
+        facetSize: 2,
+        // no map view: the map predicate for boolean facets is rejected by the API
+        options: ['PIE', 'TABLE', 'COLUMN'],
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        title: <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />,
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          return (data as BooleanFacetData)?.search?.facet?.results?.map((x) => {
+            const key = String(x.key);
+            const title = intl.formatMessage({ id: `enums.yesNo.${key}`, defaultMessage: key });
+            return {
+              key,
+              title,
+              plainTextTitle: title,
+              count: x.count,
+              occurrences: x.occurrences,
+              filter: { [fieldName]: [key] },
+            };
+          });
+        },
+        ...props,
+      }}
+    />
+  );
+}
+
+export function IsInCluster(props: ChartProps) {
+  return <BooleanChart {...props} fieldName="isInCluster" />;
+}
+
+export function IsSequenced(props: ChartProps) {
+  return <BooleanChart {...props} fieldName="isSequenced" />;
+}
+
+export function IsRepatriated(props: ChartProps) {
+  return <BooleanChart {...props} fieldName="repatriated" />;
 }
 
 type LiteratureChartProps = {

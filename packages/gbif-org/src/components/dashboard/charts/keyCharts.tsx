@@ -393,6 +393,135 @@ export function EstablishmentMeans({
   );
 }
 
+export function Pathway({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: KeyChartProps) {
+  return (
+    <VocabularyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'pathway',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        gqlEntity: `concept {title: uiLabel(language: $vocabularyLocale)}`,
+        title: <FormattedMessage id="filters.pathway.name" defaultMessage="Pathway" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          return (data as FacetQueryData)?.search?.facet?.results?.map((x) => ({
+            key: x.key,
+            title: x?.entity?.title ?? x.key,
+            plainTextTitle: x?.entity?.title ?? x.key,
+            count: x.count,
+            occurrences: x.occurrences,
+            filter: { pathway: [x.key] },
+          }));
+        },
+      }}
+      {...props}
+    />
+  );
+}
+
+export function DegreeOfEstablishment({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: KeyChartProps) {
+  return (
+    <VocabularyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'degreeOfEstablishment',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        gqlEntity: `concept {title: uiLabel(language: $vocabularyLocale)}`,
+        title: (
+          <FormattedMessage
+            id="filters.degreeOfEstablishment.name"
+            defaultMessage="Degree of establishment"
+          />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          return (data as FacetQueryData)?.search?.facet?.results?.map((x) => ({
+            key: x.key,
+            title: x?.entity?.title ?? x.key,
+            plainTextTitle: x?.entity?.title ?? x.key,
+            count: x.count,
+            occurrences: x.occurrences,
+            filter: { degreeOfEstablishment: [x.key] },
+          }));
+        },
+      }}
+      {...props}
+    />
+  );
+}
+
+// There is no installation filter in occurrence search, so rows only link to the installation page.
+export function Installations({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: KeyChartProps) {
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'installationKey',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        gqlEntity: `installation {title}`,
+        title: <FormattedMessage id="installation.installation" defaultMessage="Installation" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          return (data as FacetQueryData)?.search?.facet?.results?.map((x) => ({
+            key: x.key,
+            title: (
+              <span>
+                {x?.entity?.title ?? x.key}{' '}
+                <DynamicLink
+                  onClick={(e: React.MouseEvent) => {
+                    e.stopPropagation();
+                  }}
+                  pageId="installationKey"
+                  variables={{ key: x.key }}
+                >
+                  <MdLink />
+                </DynamicLink>
+              </span>
+            ),
+            plainTextTitle: x?.entity?.title ?? x.key,
+            count: x.count,
+            occurrences: x.occurrences,
+          }));
+        },
+      }}
+      {...props}
+    />
+  );
+}
+
 type SynonymsProps = KeyChartProps & {
   checklistKey?: string;
 };

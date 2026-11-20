@@ -668,6 +668,7 @@ const chartGroups = {
   event: {
     values: [
       'eventId',
+      'parentEventId',
       'fieldNumber',
       'eventDate',
       'startDayOfYear',
@@ -732,6 +733,7 @@ const chartGroups = {
       'verbatimScientificName',
       'synonyms',
       'occurrenceTaxonomySunburst',
+      'taxonomicIssue',
     ],
   },
   provenance: {
@@ -742,9 +744,11 @@ const chartGroups = {
       'publishedByGbifRegion',
       'hostingOrganization',
       'networkKey',
+      'installationKey',
       'protocol',
       'projectId',
       'programme',
+      'repatriated',
     ],
   },
   other: {

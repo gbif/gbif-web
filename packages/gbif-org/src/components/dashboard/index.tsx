@@ -42,6 +42,12 @@ export const Continent = lazyChart('Continent');
 export const DwcaExtension = lazyChart('DwcaExtension');
 export const Protocol = lazyChart('Protocol');
 export const IucnCounts = lazyChart('IucnCounts');
+export const OccurrenceStatus = lazyChart('OccurrenceStatus');
+export const GbifRegion = lazyChart('GbifRegion');
+export const TaxonomicIssue = lazyChart('TaxonomicIssue');
+export const IsInCluster = lazyChart('IsInCluster');
+export const IsSequenced = lazyChart('IsSequenced');
+export const IsRepatriated = lazyChart('IsRepatriated');
 export const LiteratureTopics = lazyChart('LiteratureTopics');
 export const LiteratureType = lazyChart('LiteratureType');
 export const LiteratureRelevance = lazyChart('LiteratureRelevance');
@@ -60,6 +66,9 @@ export const Synonyms = lazyChart('Synonyms');
 export const TypeStatus = lazyChart('TypeStatus');
 export const Sex = lazyChart('Sex');
 export const NucleotideSequenceLength = lazyChart('NucleotideSequenceLength');
+export const Pathway = lazyChart('Pathway');
+export const DegreeOfEstablishment = lazyChart('DegreeOfEstablishment');
+export const Installations = lazyChart('Installations');
 
 // stringCharts
 export const InstitutionCodes = lazyChart('InstitutionCodes');
@@ -81,6 +90,17 @@ export const SampleSizeUnit = lazyChart('SampleSizeUnit');
 export const SamplingProtocol = lazyChart('SamplingProtocol');
 export const Lithostratigraphy = lazyChart('Lithostratigraphy');
 export const Biostratigraphy = lazyChart('Biostratigraphy');
+export const RecordNumber = lazyChart('RecordNumber');
+export const FieldNumber = lazyChart('FieldNumber');
+export const ParentEventId = lazyChart('ParentEventId');
+export const Programme = lazyChart('Programme');
+export const Locality = lazyChart('Locality');
+export const Island = lazyChart('Island');
+export const IslandGroup = lazyChart('IslandGroup');
+export const GeoreferencedBy = lazyChart('GeoreferencedBy');
+export const LifeStage = lazyChart('LifeStage');
+export const VerbatimScientificName = lazyChart('VerbatimScientificName');
+export const OrganismQuantityType = lazyChart('OrganismQuantityType');
 
 // timeCharts
 export const EventDate = lazyChart('EventDate');
