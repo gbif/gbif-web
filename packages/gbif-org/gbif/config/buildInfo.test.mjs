@@ -2,28 +2,31 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { BUILD_INFO_FILE, getServerCommit, readBuiltCommit, resolveCommit } from './buildInfo.mjs';
+import {
+  BUILD_INFO_FILE,
+  createStaticHeaders,
+  getServerCommit,
+  readBuiltCommit,
+  renderCommitScript,
+  resolveCommit,
+} from './buildInfo.mjs';
 
 const SHA = '6d946415e08d0ca967184e257e003da15adeaa05';
 const OTHER_SHA = '8c91ce5c3b1a2b3c4d5e6f708192a3b4c5d6e7f8';
 const noGit = () => undefined;
 
 describe('resolveCommit', () => {
-  it('prefers PUBLIC_GIT_COMMIT over GIT_COMMIT and git', () => {
-    expect(resolveCommit({ PUBLIC_GIT_COMMIT: SHA, GIT_COMMIT: OTHER_SHA }, () => OTHER_SHA)).toBe(
-      SHA
-    );
-  });
-
-  it('falls back to GIT_COMMIT, then git', () => {
+  it('prefers GIT_COMMIT over git', () => {
     expect(resolveCommit({ GIT_COMMIT: SHA }, () => OTHER_SHA)).toBe(SHA);
     expect(resolveCommit({}, () => `${SHA}\n`)).toBe(SHA);
   });
 
+  it('ignores PUBLIC_GIT_COMMIT, which Vite would bake into the bundle', () => {
+    expect(resolveCommit({ PUBLIC_GIT_COMMIT: SHA }, noGit)).toBe(undefined);
+  });
+
   it('ignores values that are not commit hashes', () => {
-    expect(resolveCommit({ PUBLIC_GIT_COMMIT: 'unknown', GIT_COMMIT: 'x\r\ny: z' }, noGit)).toBe(
-      undefined
-    );
+    expect(resolveCommit({ GIT_COMMIT: 'x\r\ny: z' }, noGit)).toBe(undefined);
     expect(resolveCommit({ GIT_COMMIT: 'unknown' }, () => SHA)).toBe(SHA);
   });
 });
@@ -80,5 +83,43 @@ describe('getServerCommit', () => {
   it('uses the checkout in development, even with an old build in dist', () => {
     const distDir = distWithCommit(OTHER_SHA);
     expect(getServerCommit({ isProduction: false, distDir, env: {}, git: () => SHA })).toBe(SHA);
+  });
+});
+
+describe('renderCommitScript', () => {
+  it('renders a nonced script that sets the commit', () => {
+    expect(renderCommitScript(SHA, 'abc123')).toBe(
+      `<script nonce="abc123">window.__GBIF_COMMIT__="${SHA}";</script>`
+    );
+  });
+
+  it('renders nothing without a valid commit', () => {
+    expect(renderCommitScript(undefined, 'abc123')).toBe('');
+    expect(renderCommitScript('</script><script>alert(1)', 'abc123')).toBe('');
+  });
+});
+
+describe('createStaticHeaders', () => {
+  const clientDir = path.join(os.tmpdir(), 'client');
+  const setHeaders = createStaticHeaders(clientDir);
+  function cacheControlFor(file) {
+    const headers = {};
+    setHeaders({ setHeader: (name, value) => (headers[name] = value) }, path.join(clientDir, file));
+    return headers['Cache-Control'];
+  }
+
+  it('caches hashed assets forever', () => {
+    expect(cacheControlFor('assets/app-shared-CNktY3zd.js')).toBe(
+      'public, max-age=31536000, immutable'
+    );
+  });
+
+  it('never serves a cached build-info.json without checking', () => {
+    expect(cacheControlFor(BUILD_INFO_FILE)).toBe('no-cache');
+  });
+
+  it('leaves other files on the default', () => {
+    expect(cacheControlFor('gbif/index.html')).toBe(undefined);
+    expect(cacheControlFor(`${BUILD_INFO_FILE}.br`)).toBe(undefined);
   });
 });

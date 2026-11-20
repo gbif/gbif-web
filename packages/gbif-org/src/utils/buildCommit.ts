@@ -5,9 +5,14 @@ declare global {
   var __GBIF_COMMIT__: string | undefined;
 }
 
+// Baked in by hp/vite.config.ts for hosted portals only. Not defined in the gbif.org builds, so the
+// commit never ends up in their bundles (that would re-hash every chunk on every commit).
+declare const __HP_BUILD_COMMIT__: string | undefined;
+
 // The commit this code was built from, sent with requests (and later error reports) so they can be
-// tied to a build. On gbif.org it comes from the server, so it is never baked into the JS bundles.
-// Hosted portals have no gbif.org server and bake it in at build time (hp/vite.config.ts).
+// tied to a build.
 export function getBuildCommit(): string | undefined {
-  return globalThis.__GBIF_COMMIT__ || import.meta.env.PUBLIC_GIT_COMMIT || undefined;
+  if (globalThis.__GBIF_COMMIT__) return globalThis.__GBIF_COMMIT__;
+  if (typeof __HP_BUILD_COMMIT__ !== 'undefined' && __HP_BUILD_COMMIT__) return __HP_BUILD_COMMIT__;
+  return undefined;
 }

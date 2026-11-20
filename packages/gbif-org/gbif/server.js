@@ -9,7 +9,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
-import { BUILD_INFO_FILE } from './config/buildInfo.mjs';
+import { createStaticHeaders, renderCommitScript } from './config/buildInfo.mjs';
 import logger, { commit } from './config/logger.mjs';
 import { helmetConfig } from './helmetConfig.js';
 import { register as registerRobots } from './routes/robots/index.mjs';
@@ -184,25 +184,11 @@ async function main() {
 
     app.use(viteDevServer.middlewares);
   } else {
-    // Content-hashed and retained across releases on the host, so they can be cached forever.
-    // Stable names (index.html, public/ copies) keep the default 10 minute cache.
     // Must be set via setHeaders: the default Cache-Control middleware above already set the
     // header, and send() only applies its own maxAge/immutable options when none is present.
     const clientDir = path.join(DIST_DIR, 'client');
-    const assetsDir = path.join(clientDir, 'assets') + path.sep;
-    const buildInfoFile = path.join(clientDir, BUILD_INFO_FILE);
-
     app.use(
-      express.static(clientDir, {
-        index: false,
-        setHeaders: (res, filePath) => {
-          if (filePath.startsWith(assetsDir)) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-          }
-          // Changes with every deploy and is used to check what is deployed.
-          if (filePath === buildInfoFile) res.setHeader('Cache-Control', 'no-cache');
-        },
-      })
+      express.static(clientDir, { index: false, setHeaders: createStaticHeaders(clientDir) })
     );
     app.use(express.static('public', { index: false }));
   }
@@ -329,12 +315,10 @@ async function main() {
             `</script>`
           : '';
 
+        const commitScript = renderCommitScript(commit, res.locals.cspNonce);
+
         // Predicate posted to */download/request (see the referer-source middleware above),
         // inlined so the client can pick it up once on this response - see consumeInitialPredicate.
-        const commitScript = commit
-          ? `<script ${nonceAttr}>window.__GBIF_COMMIT__=${escapeForScript(commit)};</script>`
-          : '';
-
         const predicateScript = res.locals.initialPredicate
           ? `<script ${nonceAttr}>window.__INITIAL_PREDICATE__=${escapeForScript(
               res.locals.initialPredicate
@@ -424,6 +408,11 @@ async function main() {
         if (!IS_PRODUCTION) {
           fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
         }
+        // The fallback renders the whole app in the browser, so it needs the commit too.
+        fallbackHtmlFile = fallbackHtmlFile.replace(
+          '<!--head-html-->',
+          renderCommitScript(commit, res.locals.cspNonce)
+        );
 
         res
           .setHeader('Content-Type', 'text/html')

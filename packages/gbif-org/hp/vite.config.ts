@@ -8,8 +8,9 @@ import { resolveCommit } from '../gbif/config/buildInfo.mjs';
 export default defineConfig({
   define: {
     'process.env.NODE_ENV': JSON.stringify('production'),
-    // Sent to graphql-api as x-gbif-client-commit, as on gbif.org.
-    'import.meta.env.PUBLIC_GIT_COMMIT': JSON.stringify(resolveCommit() ?? ''),
+    // Hosted portals have no gbif.org server to hand them the commit, so it is baked in. Read by
+    // src/utils/buildCommit.ts and sent to graphql-api as x-gbif-client-commit.
+    __HP_BUILD_COMMIT__: JSON.stringify(resolveCommit() ?? ''),
   },
   envPrefix: 'PUBLIC_',
   envDir: '../',
