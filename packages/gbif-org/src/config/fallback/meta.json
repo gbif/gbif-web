@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-06-08T14:35:24.629Z",
-  "translationsEndpoint": "http://localhost:5002",
-  "graphqlEndpoint": "http://localhost:4002/graphql",
+  "updatedAt": "2026-11-20T13:00:01.960Z",
+  "translationsEndpoint": "https://react-components.gbif.org/lib/translations",
+  "graphqlEndpoint": "https://graphql.gbif.org/graphql",
   "headerLocale": "en",
   "locales": 20,
   "failedLocales": []

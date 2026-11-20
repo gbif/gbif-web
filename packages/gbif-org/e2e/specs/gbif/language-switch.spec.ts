@@ -7,16 +7,18 @@ import { expect, test } from '../../test';
 const DATASET = '/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7';
 const LABELS = { en: 'English', es: 'Español', fr: 'Français', ar: 'العربية' } as const;
 type Code = keyof typeof LABELS;
+// The language button is labelled in the current language.
+const CHANGE_LANGUAGE = /^(Change language|Cambiar idioma|Changer de langue|تغيير اللغة)$/;
 
 // Desktop opens a dropdown of menu items; below 640px the same selector is a sheet of buttons.
 async function switchTo(page: Page, code: Code, waitForIdle: () => Promise<void>) {
   const mobile = (page.viewportSize()?.width ?? 1280) < 640;
   if (mobile) {
     await page.getByRole('button', { name: 'Open navigation menu' }).click();
-    await page.getByRole('button', { name: /Change language|Cambiar idioma/ }).click();
+    await page.getByRole('button', { name: CHANGE_LANGUAGE }).click();
     await page.getByRole('button', { name: LABELS[code], exact: true }).click();
   } else {
-    await page.getByRole('button', { name: 'Change language' }).click();
+    await page.getByRole('button', { name: CHANGE_LANGUAGE }).click();
     await page.getByRole('menuitem', { name: LABELS[code], exact: true }).click();
   }
   await waitForIdle();
