@@ -21,6 +21,8 @@ export function register(app, { logger, limiter = createLimiter() }) {
     express.json({ limit: MAX_BODY_SIZE, type: ['application/json', 'text/plain'] }),
     (req, res) => {
       res.set('Cache-Control', 'no-store');
+      // This route runs before the app's other middleware; don't advertise the framework.
+      res.removeHeader('X-Powered-By');
       if (isCrossSite(req)) return res.status(403).end();
       const report = parseReport(req.body);
       if (!report) return res.status(400).end();

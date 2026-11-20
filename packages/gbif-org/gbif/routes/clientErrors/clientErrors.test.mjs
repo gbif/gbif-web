@@ -81,6 +81,53 @@ describe('parseReport', () => {
     expect(message('<a href=?token=x>')).toBe('<a href=?token=…>');
   });
 
+  it('blanks parameter names that contain a secret word, but keeps GBIF filters', () => {
+    expect(
+      parseReport({
+        ...valid,
+        message:
+          '?emailAddress=a&password_confirmation=b&x-api-key=c&accessKey=d&otp=1&ticket=2&pass=3' +
+          '&taxonKey=6&institutionCode=7&stateProvince=8&datasetKey=9',
+      }).message
+    ).toBe(
+      '?emailAddress=…&password_confirmation=…&x-api-key=…&accessKey=…&otp=…&ticket=…&pass=…' +
+        '&taxonKey=6&institutionCode=7&stateProvince=8&datasetKey=9'
+    );
+  });
+
+  it('blanks whole values: indexed, encoded, double-encoded, with apostrophes', () => {
+    const message = (text) => parseReport({ ...valid, message: text }).message;
+    expect(message('?token[0]=a&token%5B%5D=b&q=1')).toBe('?token[0]=…&token%5B%5D=…&q=1');
+    expect(message('?next=%2Fx%3Ftoken%3Dab%2Bcd%2Fef%3D%3D%26q%3Dpuma')).toBe(
+      '?next=%2Fx%3Ftoken%3D…%26q%3Dpuma'
+    );
+    expect(message('?next=%252Fx%253Ftoken%253DSECRET%2526q%253Dpuma')).toBe(
+      '?next=%252Fx%253Ftoken%253D…%2526q%253Dpuma'
+    );
+    expect(message("?email=o'brien@x.com&q=puma")).toBe('?email=…&q=puma');
+    expect(message('?token=abc:1234&q=1')).toBe('?token=…&q=1');
+  });
+
+  it('blanks bearer tokens, JWTs and email addresses anywhere', () => {
+    expect(
+      parseReport({
+        ...valid,
+        message: 'Authorization: Bearer abc.def-ghi, eyJhbGciOi.eyJzdWIi.c2ln, from me@example.org',
+      }).message
+    ).toBe('Authorization: Bearer …, …, from …@…');
+  });
+
+  it('keeps Firefox and Safari stack frames, which contain an @', () => {
+    const stack =
+      'f@https://www.gbif.org/assets/a.js:1:2\nglobal code@https://www.gbif.org/x.js:3:4';
+    expect(parseReport({ ...valid, stack }).stack).toBe(stack);
+  });
+
+  it('only accepts paths on this site', () => {
+    expect(parseReport({ ...valid, path: '//evil.example/a' }).path).toBe(undefined);
+    expect(parseReport({ ...valid, path: 'https://evil.example/a' }).path).toBe(undefined);
+  });
+
   it('leaves other text alone', () => {
     const message = (text) => parseReport({ ...valid, message: text }).message;
     expect(message("Unexpected token '#'")).toBe("Unexpected token '#'");
@@ -195,6 +242,53 @@ describe('fingerprint', () => {
       stack: '',
     });
     expect(fingerprint(reading('id'))).not.toBe(fingerprint(reading('map')));
+  });
+
+  it('groups messages that name a minified variable, in every browser', () => {
+    const same = (a, b) =>
+      fingerprint({ ...valid, message: a, stack: '' }) ===
+      fingerprint({ ...valid, message: b, stack: '' });
+    expect(
+      same(
+        "can't access lexical declaration 'Ab' before initialization",
+        "can't access lexical declaration 'Xk' before initialization"
+      )
+    ).toBe(true);
+    expect(same("Can't find variable: Ab", "Can't find variable: Xk")).toBe(true);
+    expect(same('(0 , Ab.default) is not a function', '(0 , Xk.default) is not a function')).toBe(
+      true
+    );
+    expect(
+      same(
+        'can\'t access property "map", e is undefined',
+        'can\'t access property "map", t.d is undefined'
+      )
+    ).toBe(true);
+    expect(
+      same(
+        "undefined is not an object (evaluating 'e.data.map')",
+        "undefined is not an object (evaluating 't.x.map')"
+      )
+    ).toBe(true);
+  });
+
+  it('keeps the property or real name that says which error it is', () => {
+    const differ = (a, b) =>
+      fingerprint({ ...valid, message: a, stack: '' }) !==
+      fingerprint({ ...valid, message: b, stack: '' });
+    expect(
+      differ(
+        'can\'t access property "map", e is undefined',
+        'can\'t access property "id", e is undefined'
+      )
+    ).toBe(true);
+    expect(
+      differ(
+        "undefined is not an object (evaluating 'e.map')",
+        "undefined is not an object (evaluating 'e.id')"
+      )
+    ).toBe(true);
+    expect(differ("Can't find variable: Ab", "Can't find variable: fetchData")).toBe(true);
   });
 
   it("groups Safari's message for a minified function across builds", () => {
@@ -351,6 +445,7 @@ describe('POST /api/client-error', () => {
       userAgent: CHROME,
     });
     expect(logged[0].meta.clientError.fingerprint).toMatch(/^[0-9a-f]{16}$/);
+    expect(response.headers.get('X-Powered-By')).toBe(null);
   });
 
   it('accepts application/json, and limits repeats of the same error', async () => {

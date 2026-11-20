@@ -15,8 +15,9 @@ const SOURCES = new Set(['window', 'unhandledrejection', 'recoverable', 'boundar
 const LIMITS = {
   name: 100,
   message: 1000,
-  stack: 4000,
-  componentStack: 2000,
+  // Together with the rest, this keeps a logged report under about 8 KB.
+  stack: 3000,
+  componentStack: 1500,
   path: 500,
   graphQLError: 200,
   userAgent: 300,
@@ -25,23 +26,33 @@ const MAX_GRAPHQL_ERRORS = 5;
 const COMMIT_PATTERN = /^[0-9a-f]{7,40}$/i;
 // Crawlers and headless browsers (including our own e2e tests) are not users.
 const BOT_PATTERN = /bot|crawl|spider|slurp|headless|lighthouse|pingdom|uptime/i;
-// Parameter names whose values are secrets or identify someone: names ending in token, secret,
-// password, signature, apikey, email and the like (accessToken, userEmail, id_token), and a few
-// exact names. Everything else (filters, the search text) is kept: it is what the visitor was
-// looking at when the error happened.
+// Parameter names whose values are secrets or identify someone: names containing token, secret,
+// password, signature, apikey, email, session and the like (accessToken, userEmail,
+// password_confirmation, x-api-key), and a few exact names. Exact only for code, state and key, as
+// names that merely contain them are GBIF filters (institutionCode, stateProvince, datasetKey).
+// Everything else (filters, the search text) is kept: it is what the visitor was looking at when
+// the error happened.
 const SECRET_NAME =
-  '[\\w.-]*?(?:token|secret|passw(?:or)?d|pwd|signature|api_?key|e?mail|session|jwt)|code|state|key|auth|authorization|sid|sig|username';
+  '[\\w.-]*?(?:token|secret|passw(?:or)?d|pwd|signature|api[_-]?key|access[_-]?key|private[_-]?key|e?mail|session|jwt|otp|credential|ticket|nonce)[\\w.-]*|code|state|key|auth|authorization|sid|sig|pass|username|user_name';
 // A secret name=value pair in a query string or fragment, wherever it is: in the page URL, in a URL
-// in a message or stack (nested in another URL's parameter too), or URL-encoded. The value ends
-// where the parameter or the URL does; a stack frame's line and column after it are kept.
+// in a message or stack (nested in another URL's parameter too). The value ends where the parameter
+// or the URL does; a stack frame's line and column right before ")" or the end of a line are kept.
 const SECRET_PARAM = new RegExp(
-  `(?<=[?&;#])(${SECRET_NAME})(\\[\\])?=[^&;#\\s'"()<>\\[\\]]*?((?::\\d+){1,2})?(?=[&;#\\s'"()<>\\[\\]]|$)`,
+  `(?<=[?&;#])(${SECRET_NAME})(\\[[^\\]=&]*\\]|%5B[^=&]*?%5D)?=[^&;#\\s"<>()\\[\\]]*?((?::\\d+){1,2}(?=[)\\n]|$))?(?=[&;#\\s"<>()\\[\\]]|$)`,
   'gi'
 );
+// The same, URL-encoded once or twice (a URL inside another URL's parameter): "%3Ftoken%3Dabc",
+// "%253Ftoken%253Dabc". The value runs to the next encoded separator.
 const SECRET_PARAM_ENCODED = new RegExp(
-  `(?<=%3F|%26|%23)(${SECRET_NAME})%3D[^%&;#\\s'"()<>]*`,
+  `(?<=%(?:25)?(?:3F|26|23|3B))(${SECRET_NAME})((?:%(?:25)?5B.*?%(?:25)?5D)?)(%(?:25)?3D)(?:(?!%(?:25)?(?:26|23|3B))[^&;#\\s"<>])*`,
   'gi'
 );
+// Secrets and personal data outside URLs.
+const BEARER_TOKEN = /\b(Bearer|Basic)\s+[\w~+/.=-]+/gi;
+const JWT = /\beyJ[\w-]+\.[\w-]+\.[\w-]*/g;
+// An email address. Not a Firefox or Safari stack frame ("fn@https://..."): the domain needs a dot
+// before any colon.
+const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
 
 export function shortString(value, max) {
   if (typeof value !== 'string') return undefined;
@@ -50,14 +61,21 @@ export function shortString(value, max) {
   return trimmed.length > max ? `${trimmed.slice(0, max)}…` : trimmed;
 }
 
-// "?taxonKey=1&token=abc" -> "?taxonKey=1&token=…"
+// "?taxonKey=1&token=abc" -> "?taxonKey=1&token=…", and the same for tokens and email addresses
+// elsewhere in the text.
 function redactSecrets(text) {
   return text
     ?.replace(
       SECRET_PARAM,
       (match, name, brackets, position) => `${name}${brackets ?? ''}=…${position ?? ''}`
     )
-    .replace(SECRET_PARAM_ENCODED, (match, name) => `${name}%3D…`);
+    .replace(
+      SECRET_PARAM_ENCODED,
+      (match, name, brackets, equals) => `${name}${brackets}${equals}…`
+    )
+    .replace(BEARER_TOKEN, '$1 …')
+    .replace(JWT, '…')
+    .replace(EMAIL, '…@…');
 }
 
 // The report as logged, or null if it isn't one. Unknown fields are dropped.
@@ -82,7 +100,8 @@ export function parseReport(body) {
     stack: redactSecrets(shortString(body.stack, LIMITS.stack)),
     componentStack: shortString(body.componentStack, LIMITS.componentStack),
     graphQLErrors: graphQLErrors.length ? graphQLErrors : undefined,
-    path: path?.startsWith('/') ? path : undefined,
+    // A path on this site: "/x", not "//other.site/x".
+    path: path?.startsWith('/') && !path.startsWith('//') ? path : undefined,
     commit: commit ? body.commit : undefined,
   };
 }
@@ -95,17 +114,42 @@ function normalise(text) {
 }
 
 // Minified identifiers (one to three characters) change between builds. Replace them where common
-// messages name one: "Ab is not a function" (Chrome, Firefox), Safari's "Ab is not a function.
-// (In 'Ab(t)', 'Ab' is undefined)", and "Cannot access 'Xk' before initialization". Other quoted
-// names, such as the property in "reading 'map'", are real names and stay.
+// messages name one, so the same error groups across deploys. Names that are not minified, such as
+// the property in "reading 'map'", stay: they say which error it is.
+const MINIFIED = '[\\w$]{1,3}';
+const MINIFIED_NAME_PATTERNS = [
+  // "Ab is not a function", "Ab.default is not a function" (Chrome, Firefox, Safari).
+  [
+    new RegExp(
+      `^${MINIFIED}(?=(\\.[\\w$]+)* is not (a function|a constructor|defined|iterable)\\b)`
+    ),
+    '…',
+  ],
+  // "(0 , Ab.default) is not a function" (Chrome, for an imported function).
+  [new RegExp(`^\\(0\\s*,\\s*${MINIFIED}\\.`), '(0 , ….'],
+  // Safari's addition: "(In 'Ab(t)', 'Ab' is undefined)".
+  [/\(In '[^']*', '[^']*' is (undefined|null)\)/, '(In …)'],
+  // "Cannot access 'Xk' before initialization" (Chrome), "can't access lexical declaration 'Xk'
+  // before initialization" (Firefox).
+  [new RegExp(`'${MINIFIED}' before initialization`), "'…' before initialization"],
+  // "Can't find variable: Ab" (Safari).
+  [new RegExp(`^Can't find variable: ${MINIFIED}$`), "Can't find variable: …"],
+  // "can't access property "map", e is undefined" (Firefox): the object is a minified expression.
+  [/(can't access property "[^"]*"), [\w$.]+ is (undefined|null)/, '$1, … is $2'],
+  // "undefined is not an object (evaluating 'e.data.map')" (Safari): keep the property, not the
+  // minified object.
+  [
+    /\(evaluating '([^']*)'\)/,
+    (match, expression) =>
+      `(evaluating '…${expression.includes('.') ? expression.slice(expression.lastIndexOf('.')) : ''}')`,
+  ],
+];
+
 function withoutMinifiedNames(message) {
-  return message
-    .replace(/^[\w$]{1,3}(?=(\.[\w$]+)* is not (a function|a constructor|defined|iterable)\b)/, '…')
-    .replace(/\(In '[^']*', '[^']*' is (undefined|null)\)/, '(In …)')
-    .replace(
-      /^Cannot access '[\w$]{1,3}' before initialization/,
-      "Cannot access '…' before initialization"
-    );
+  return MINIFIED_NAME_PATTERNS.reduce(
+    (text, [pattern, replacement]) => text.replace(pattern, replacement),
+    message
+  );
 }
 
 // The file the error was thrown in, from the first stack frame that has one. Only the file:
@@ -206,7 +250,8 @@ export function isCrossSite(req) {
 // entries. Without a client key (see clientAddress) only the other limits apply.
 export function createLimiter({
   perMinute = 100,
-  perClientPerMinute = 10,
+  // Browsers send at most MAX_REPORTS_PER_SESSION per session; more than this is not a visitor.
+  perClientPerMinute = 3,
   perFingerprintPerMinute = 5,
   now = Date.now,
 } = {}) {
@@ -252,9 +297,12 @@ export function createLimiter({
 // app's own scripts failing to load (those fire on the script element, not on window, hence the
 // capturing listener). Only the app's own chunks count (other sites' scripts, such as the status
 // page widget, are blocked by many ad blockers), and only the first, as one failed chunk makes the
-// scripts that import it fail too. They are queued for the app's reporter, which takes them over when it starts. If the
-// app never starts, this sends them itself after 10 seconds, within the same per-session limit.
-// Kept small and in old-style JS: it runs on every page.
+// scripts that import it fail too.
+// The errors are queued for the app's reporter, which takes them over when it starts. Until then
+// this sends them itself, within the same per-session limit: after 10 seconds, or when the visitor
+// leaves the page, which is what someone on a page whose app never started does. It keeps
+// listening after sending, until the app takes over. Kept small and in old-style JS: it runs on
+// every page.
 export function renderEarlyErrorScript(nonce) {
   const script = `(function () {
   var q = (window.__GBIF_EARLY_ERRORS__ = []);
@@ -272,10 +320,9 @@ export function renderEarlyErrorScript(nonce) {
       add('window', { name: 'ChunkLoadError', message: 'Failed to load ' + url.split('?')[0] });
     }
   }, true);
-  setTimeout(function () {
+  function flush() {
     if (window.__GBIF_EARLY_ERRORS__ !== q) return;
-    window.__GBIF_EARLY_ERRORS__ = null;
-    q.forEach(function (item) {
+    q.splice(0).forEach(function (item) {
       var e = item.error || {};
       try {
         var sent = Number(sessionStorage.getItem('${SESSION_COUNT_KEY}')) || 0;
@@ -293,7 +340,9 @@ export function renderEarlyErrorScript(nonce) {
         }));
       } catch (_) {}
     });
-  }, 10000);
+  }
+  setTimeout(flush, 10000);
+  addEventListener('pagehide', flush);
 })();`;
   return `<script nonce="${nonce}">${script.replace(/\n\s*/g, ' ')}</script>`;
 }

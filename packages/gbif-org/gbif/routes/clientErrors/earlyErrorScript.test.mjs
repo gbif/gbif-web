@@ -72,6 +72,20 @@ describe('early error script', () => {
     expect(sessionStorage.getItem(SESSION_COUNT_KEY)).toBe('1');
   });
 
+  it('sends them when the visitor leaves before 10 seconds, and keeps listening', () => {
+    runEarlyErrorScript();
+    throwOnWindow('Thrown while loading');
+    window.dispatchEvent(new Event('pagehide'));
+    expect(sentReports().map((report) => report.message)).toEqual(['Thrown while loading']);
+
+    throwOnWindow('Thrown after');
+    vi.advanceTimersByTime(10_000);
+    expect(sentReports().map((report) => report.message)).toEqual([
+      'Thrown while loading',
+      'Thrown after',
+    ]);
+  });
+
   it('counts against the same session limit as the app', () => {
     sessionStorage.setItem(SESSION_COUNT_KEY, String(MAX_REPORTS_PER_SESSION));
     runEarlyErrorScript();
