@@ -35,26 +35,40 @@ describe('parseReport', () => {
     });
   });
 
-  it('drops unknown fields, query strings and invalid commits', () => {
+  it('drops unknown fields and invalid commits', () => {
     const report = parseReport({
       ...valid,
-      path: '/occurrence/search?q=secret#x',
       commit: 'not-a-commit',
       email: 'someone@example.org',
     });
-    expect(report.path).toBe('/occurrence/search');
     expect(report.commit).toBe(undefined);
     expect(report).not.toHaveProperty('email');
   });
 
-  it('removes query strings from URLs in messages and stacks', () => {
+  it('keeps filters and searches in the page URL, but not secrets or the fragment', () => {
     const report = parseReport({
       ...valid,
-      message: 'Failed to load https://www.gbif.org/api/x?token=abc&q=name',
-      stack: 'Error\n    at f (https://www.gbif.org/en/user?code=xyz#frag:1:2)',
+      path: '/occurrence/search?q=puma&taxonKey=2435099&token=abc&accessToken=x#access_token=y',
     });
-    expect(report.message).toBe('Failed to load https://www.gbif.org/api/x');
-    expect(report.stack).not.toContain('code=xyz');
+    expect(report.path).toBe('/occurrence/search?q=puma&taxonKey=2435099&token=…&accessToken=…');
+  });
+
+  it('blanks secrets in URLs in messages and stacks, absolute or relative', () => {
+    const report = parseReport({
+      ...valid,
+      message: 'Failed https://www.gbif.org/api/x?q=name&apikey=abc and /en/login?code=1&state=2',
+      stack: 'Error\n    at f (https://www.gbif.org/en/user?code=xyz:1:2)',
+    });
+    expect(report.message).toBe(
+      'Failed https://www.gbif.org/api/x?q=name&apikey=… and /en/login?code=…&state=…'
+    );
+    expect(report.stack).toBe('Error\n    at f (https://www.gbif.org/en/user?code=…:1:2)');
+  });
+
+  it('leaves a question mark in ordinary text alone', () => {
+    expect(parseReport({ ...valid, message: 'Why did this fail? No idea' }).message).toBe(
+      'Why did this fail? No idea'
+    );
   });
 
   it('truncates long values', () => {
@@ -124,6 +138,35 @@ describe('fingerprint', () => {
     expect(fingerprint({ ...valid, message: 'Something else' })).not.toBe(fingerprint(valid));
   });
 
+  it('uses the first frame with a file, skipping built-in functions', () => {
+    const thrownIn = (file) => ({
+      ...valid,
+      stack: `TypeError: x\n    at JSON.parse (<anonymous>)\n    at Ab (https://www.gbif.org/assets/${file}-CNktY3zd.js:1:2)`,
+    });
+    expect(fingerprint(thrownIn('a'))).not.toBe(fingerprint(thrownIn('b')));
+  });
+
+  it("reads Safari's global code frames", () => {
+    const safari = (file) => ({
+      ...valid,
+      stack: `global code@https://www.gbif.org/${file}.js:1:2`,
+    });
+    expect(fingerprint(safari('a'))).not.toBe(fingerprint(safari('b')));
+  });
+
+  it('ignores minified names in messages', () => {
+    const message = (text) => ({ ...valid, message: text, stack: '' });
+    expect(fingerprint(message('Ab is not a function'))).toBe(
+      fingerprint(message('Xk is not a function'))
+    );
+    expect(fingerprint(message("Cannot access 'Ab' before initialization"))).toBe(
+      fingerprint(message("Cannot access 'zQ' before initialization"))
+    );
+    expect(fingerprint(message('fetchData is not a function'))).not.toBe(
+      fingerprint(message('Ab is not a function'))
+    );
+  });
+
   it('ignores an @ in the message line of a V8 stack', () => {
     const withAt = { ...valid, stack: `Error: user@example\n    at Ab (https://x/a.js:1:2)` };
     const without = { ...valid, stack: `Error: other\n    at Ab (https://x/a.js:1:2)` };
@@ -174,6 +217,12 @@ describe('createLimiter', () => {
     expect(limiter.take('a', 'x')).toEqual({ allowed: true, droppedInLastWindow: 0 });
   });
 
+  it('applies only the overall limits without a visitor', () => {
+    const limiter = createLimiter({ perMinute: 100, perClientPerMinute: 1 });
+    expect(limiter.take('a', undefined).allowed).toBe(true);
+    expect(limiter.take('b', undefined).allowed).toBe(true);
+  });
+
   it('stops one visitor from using up the budget', () => {
     const limiter = createLimiter({ perMinute: 100, perClientPerMinute: 3 });
     for (let i = 0; i < 3; i++) expect(limiter.take(`junk ${i}`, 'attacker').allowed).toBe(true);
@@ -191,10 +240,18 @@ describe('clientAddress', () => {
   it('uses the address Varnish added last, not ones the visitor sent', () => {
     expect(clientAddress(request('6.6.6.6, 203.0.113.7'))).toBe('203.0.113.7');
     expect(clientAddress(request('203.0.113.7'))).toBe('203.0.113.7');
+    expect(clientAddress(request('::ffff:203.0.113.7:51234'))).toBe('203.0.113.7');
+  });
+
+  it('gives no visitor when the last entry is a private address, e.g. a proxy in front', () => {
+    expect(clientAddress(request('203.0.113.7, 10.1.2.3'))).toBe(undefined);
+    expect(clientAddress(request('172.20.0.5'))).toBe(undefined);
+    expect(clientAddress(request('fd12:3456::1'))).toBe(undefined);
   });
 
   it('falls back to the connection without the header', () => {
-    expect(clientAddress(request(undefined))).toBe('10.0.0.2');
+    expect(clientAddress(request(undefined, '198.51.100.4'))).toBe('198.51.100.4');
+    expect(clientAddress(request(undefined, '127.0.0.1'))).toBe(undefined);
   });
 });
 
@@ -217,10 +274,10 @@ describe('POST /api/client-error', () => {
     logged.length = 0;
   });
 
-  const post = (body, { type = 'text/plain', userAgent = CHROME } = {}) =>
+  const post = (body, { type = 'text/plain', userAgent = CHROME, headers = {} } = {}) =>
     fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': type, 'User-Agent': userAgent },
+      headers: { 'Content-Type': type, 'User-Agent': userAgent, ...headers },
       body: typeof body === 'string' ? body : JSON.stringify(body),
     });
 
@@ -264,6 +321,20 @@ describe('POST /api/client-error', () => {
     const response = await post({ ...valid, message: 'ResizeObserver loop limit exceeded' });
     expect(response.status).toBe(204);
     expect(logged).toHaveLength(0);
+  });
+
+  it('refuses reports another site posts', async () => {
+    const response = await post(
+      { ...valid, message: 'Made up elsewhere' },
+      { headers: { 'Sec-Fetch-Site': 'cross-site' } }
+    );
+    expect(response.status).toBe(403);
+    expect(logged).toHaveLength(0);
+    const sameOrigin = await post(
+      { ...valid, message: 'From our page' },
+      { headers: { 'Sec-Fetch-Site': 'same-origin' } }
+    );
+    expect(sameOrigin.status).toBe(204);
   });
 
   it('refuses invalid reports, bad JSON and large bodies without logging', async () => {

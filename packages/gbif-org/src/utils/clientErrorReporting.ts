@@ -43,7 +43,8 @@ type ErrorLike = {
   stack?: unknown;
   isCanceled?: unknown;
   status?: unknown;
-  // QueryError (hooks/useQuery): no message of its own, the cause is in error or graphQLErrors.
+  statusText?: unknown;
+  // QueryError (hooks/useQuery) builds its message from these; used if it ends up empty.
   error?: { message?: unknown };
   graphQLErrors?: Array<{ message?: unknown }>;
 };
@@ -83,6 +84,13 @@ export function buildReport(
     }
     if (!message && typeof e.error?.message === 'string') message = e.error.message;
     if (!message && graphQLErrors?.length) message = graphQLErrors[0];
+    // A response thrown from a loader, or React Router's ErrorResponse for one.
+    if (!message && !stack && typeof e.status === 'number' && 'statusText' in e) {
+      name = 'RouteErrorResponse';
+      message = `${e.status} ${typeof e.statusText === 'string' ? e.statusText : ''}`.trim();
+    }
+    // new Error() without a message is still an error.
+    if (!message && stack) message = '(no message)';
     // Rejections with plain objects ({ status: 500 } and the like). Only the field names: the
     // values could be anything, tokens included.
     if (!message && !stack) {
@@ -185,12 +193,12 @@ export function createReporter({
           commit: getCommit(),
         });
         if (!report || isNoise(report)) return;
+        const sent = counter.get();
+        if (sent >= MAX_REPORTS_PER_SESSION) return;
         // The same error is often caught twice (a boundary and window.onerror), or repeats.
         const key = `${report.name}: ${report.message}`;
         if (seen.has(key)) return;
         seen.add(key);
-        const sent = counter.get();
-        if (sent >= MAX_REPORTS_PER_SESSION) return;
         counter.set(sent + 1);
         send(report);
       } catch {
@@ -215,7 +223,10 @@ function sendToServer(report: ClientErrorReport) {
 
 const reporter = createReporter({
   send: sendToServer,
-  getPath: () => (typeof window === 'undefined' ? undefined : window.location.pathname),
+  // With the query string: the filters and search are what the visitor was looking at. The server
+  // blanks parameters that hold secrets.
+  getPath: () =>
+    typeof window === 'undefined' ? undefined : window.location.pathname + window.location.search,
   getCommit: getBuildCommit,
   counter: sessionCounter(),
 });

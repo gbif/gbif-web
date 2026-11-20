@@ -41,13 +41,18 @@ describe('buildReport', () => {
     expect(report?.message).toContain('Failed to fetch');
   });
 
-  it('still reports a query error without any message', () => {
-    // QueryError builds its message from its errors; with none, it is empty.
-    const error = Object.assign(new QueryError({ query: 'q' }), {
-      error: { message: 'Underlying cause' },
+  it('reports router error responses and errors without a message', () => {
+    const response = {
+      status: 500,
+      statusText: 'Internal Server Error',
+      internal: false,
+      data: '',
+    };
+    expect(buildReport(response, 'route', context)).toMatchObject({
+      name: 'RouteErrorResponse',
+      message: '500 Internal Server Error',
     });
-    error.message = '';
-    expect(buildReport(error, 'boundary', context)?.message).toBe('Underlying cause');
+    expect(buildReport(new Error(), 'window', context)?.message).toBe('(no message)');
   });
 
   it('skips not found', () => {
