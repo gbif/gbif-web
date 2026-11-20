@@ -5,7 +5,7 @@ import { useSearchContext } from '@/contexts/search';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
-import { Dashboard as DashboardPresentation } from './dashboard';
+import { Dashboard as DashboardPresentation, filterIndependentCharts } from './dashboard';
 
 export function Dashboard() {
   const currentFilterContext = useContext(FilterContext);
@@ -30,6 +30,13 @@ export function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, searchContext]);
 
+  // Filters a site has excluded are not available, so charts must not set them on click.
+  const availableFilters = useMemo(
+    () =>
+      Object.keys(filters).filter((filter) => !searchContext?.excludedFilters?.includes(filter)),
+    [filters, searchContext?.excludedFilters]
+  );
+
   useEffect(() => {
     // set chart types to be names of available filters
     const availableFilters = Object.keys(filters);
@@ -45,6 +52,7 @@ export function Dashboard() {
       <DashboardPresentation
         predicate={query?.predicate}
         q={query?.q}
+        availableFilters={availableFilters}
         chartsTypes={[
           'map',
           'table',
@@ -57,6 +65,7 @@ export function Dashboard() {
           'sex',
           'occurrenceIssue',
           'sequencePhylogeny',
+          ...filterIndependentCharts,
           ...chartsTypes,
         ]}
       />

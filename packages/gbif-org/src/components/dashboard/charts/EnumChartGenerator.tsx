@@ -15,6 +15,7 @@ type EnumChartGeneratorProps = {
   currentFilter?: Record<string, unknown>; //excluding root predicate
   searchType?: string;
   includeMapPredicate?: boolean;
+  disablePaging?: boolean; // for facets that do not take a `from` argument
   [key: string]: unknown;
 };
 
@@ -31,12 +32,13 @@ export function EnumChartGenerator({
   currentFilter = {}, //excluding root predicate
   searchType = 'occurrenceSearch',
   includeMapPredicate,
+  disablePaging,
   ...props
 }: EnumChartGeneratorProps) {
   const GQL_QUERY = `
     query summary($q: String, $predicate: Predicate${
       !disableUnknown ? ', $hasPredicate: Predicate' : ''
-    }, $size: Int, $from: Int){
+    }, $size: Int${disablePaging ? '' : ', $from: Int'}){
       search: ${searchType}(q: $q, predicate: $predicate) {
         documents(size: 0) {
           total
@@ -45,7 +47,7 @@ export function EnumChartGenerator({
           total: ${fieldName}
         }
         facet {
-          results: ${fieldName}(size: $size, from: $from) {
+          results: ${fieldName}(size: $size${disablePaging ? '' : ', from: $from'}) {
             key
             count
             ${

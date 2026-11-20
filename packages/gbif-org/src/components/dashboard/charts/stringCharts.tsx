@@ -75,6 +75,8 @@ type StringFacetEntry = {
         higherGeography?: string[];
         samplingProtocol?: string[];
         gadm?: Record<string, { gid: string; name: string }>;
+        verbatimScientificName?: string;
+        organismQuantityType?: string;
       }>;
     };
   };
@@ -360,6 +362,129 @@ export const Biostratigraphy = getStringChart({
   fieldName: 'biostratigraphy',
   showFreeTextWarning: true,
   title: <FormattedMessage id="filters.biostratigraphy.name" defaultMessage="Biostratigraphy" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const RecordNumber = getStringChart({
+  fieldName: 'recordNumber',
+  title: <FormattedMessage id="filters.recordNumber.name" defaultMessage="Record number" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const FieldNumber = getStringChart({
+  fieldName: 'fieldNumber',
+  title: <FormattedMessage id="filters.fieldNumber.name" defaultMessage="Field number" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const ParentEventId = getStringChart({
+  fieldName: 'parentEventId',
+  title: <FormattedMessage id="filters.parentEventId.name" defaultMessage="Parent event ID" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const Programme = getStringChart({
+  fieldName: 'programme',
+  title: <FormattedMessage id="filters.programme.name" defaultMessage="Programme" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const Locality = getStringChart({
+  fieldName: 'locality',
+  showFreeTextWarning: true,
+  title: <FormattedMessage id="filters.locality.name" defaultMessage="Locality" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const Island = getStringChart({
+  fieldName: 'island',
+  showFreeTextWarning: true,
+  title: <FormattedMessage id="filters.island.name" defaultMessage="Island" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const IslandGroup = getStringChart({
+  fieldName: 'islandGroup',
+  showFreeTextWarning: true,
+  title: <FormattedMessage id="filters.islandGroup.name" defaultMessage="Island group" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const GeoreferencedBy = getStringChart({
+  fieldName: 'georeferencedBy',
+  showFreeTextWarning: true,
+  title: <FormattedMessage id="filters.georeferencedBy.name" defaultMessage="Georeferenced by" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const LifeStage = getStringChart({
+  fieldName: 'lifeStage',
+  title: <FormattedMessage id="filters.lifeStage.name" defaultMessage="Life stage" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+// The facet keys for verbatimScientificName are lower cased, so the displayed value is taken from a sample record.
+export const VerbatimScientificName = getStringChart({
+  fieldName: 'verbatimScientificName',
+  showFreeTextWarning: true,
+  title: (
+    <FormattedMessage
+      id="filters.verbatimScientificName.name"
+      defaultMessage="Verbatim scientific name"
+    />
+  ),
+  gqlEntity: `occurrences {documents(size: 1) {results {verbatimScientificName}}}`,
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
+      const title = x?.entity?.documents?.results?.[0]?.verbatimScientificName ?? x.key;
+      return {
+        key: x.key,
+        count: x.count,
+        occurrences: x.occurrences,
+        title,
+        plainTextTitle: title,
+        filter: { verbatimScientificName: [title] },
+      };
+    });
+  },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+// The facet keys for organismQuantityType are lower cased, so the displayed value is taken from a sample record.
+export const OrganismQuantityType = getStringChart({
+  fieldName: 'organismQuantityType',
+  showFreeTextWarning: true,
+  title: (
+    <FormattedMessage
+      id="filters.organismQuantityType.name"
+      defaultMessage="Organism quantity type"
+    />
+  ),
+  gqlEntity: `occurrences {documents(size: 1) {results {organismQuantityType}}}`,
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
+      const title = x?.entity?.documents?.results?.[0]?.organismQuantityType ?? x.key;
+      return {
+        key: x.key,
+        count: x.count,
+        occurrences: x.occurrences,
+        title,
+        plainTextTitle: title,
+        filter: { organismQuantityType: [title] },
+      };
+    });
+  },
   options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
 });

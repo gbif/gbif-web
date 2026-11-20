@@ -663,11 +663,12 @@ const chartGroups = {
     values: ['organismId', 'previousIdentifications'],
   },
   materialEntity: {
-    values: ['preparations', 'associatedSequences', 'isSequenced'],
+    values: ['preparations', 'associatedSequences'],
   },
   event: {
     values: [
       'eventId',
+      'parentEventId',
       'fieldNumber',
       'eventDate',
       'startDayOfYear',
@@ -742,13 +743,24 @@ const chartGroups = {
       'publishedByGbifRegion',
       'hostingOrganization',
       'networkKey',
+      'installationKey',
+      'datasetCategory',
       'protocol',
       'projectId',
       'programme',
+      'repatriated',
     ],
   },
   other: {
-    values: ['dataQuality', 'occurrenceSummary', 'datasetId', 'datasetName'],
+    values: [
+      'dataQuality',
+      'occurrenceSummary',
+      'datasetId',
+      'datasetName',
+      'isInCluster',
+      'isSequenced',
+      'taxonomicIssue',
+    ],
   },
 };
 
