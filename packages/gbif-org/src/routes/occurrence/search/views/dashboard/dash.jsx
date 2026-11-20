@@ -30,6 +30,13 @@ export function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, searchContext]);
 
+  // Filters a site has excluded are not available, so charts must not set them on click.
+  const availableFilters = useMemo(
+    () =>
+      Object.keys(filters).filter((filter) => !searchContext?.excludedFilters?.includes(filter)),
+    [filters, searchContext?.excludedFilters]
+  );
+
   useEffect(() => {
     // set chart types to be names of available filters
     const availableFilters = Object.keys(filters);
@@ -45,7 +52,7 @@ export function Dashboard() {
       <DashboardPresentation
         predicate={query?.predicate}
         q={query?.q}
-        availableFilters={Object.keys(filters)}
+        availableFilters={availableFilters}
         chartsTypes={[
           'map',
           'table',

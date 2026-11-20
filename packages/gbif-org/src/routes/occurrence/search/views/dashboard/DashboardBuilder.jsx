@@ -630,6 +630,7 @@ const chartGroups = {
       'collectionCode',
       'collectionKey',
       'basisOfRecord',
+      'isInCluster',
     ],
   },
   occurrence: {
