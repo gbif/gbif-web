@@ -61,8 +61,9 @@ export function renderCommitScript(commit, nonce) {
 }
 
 // Cache-Control for the static client build. Content-hashed files in assets/ are kept across
-// releases on the host and can be cached forever; build-info.json changes with every deploy and is
-// used to check what is deployed. Everything else keeps the default.
+// releases on the host and can be cached forever. build-info.json changes with every deploy and is
+// used to check what is deployed, so it gets a short cache: fresh within half a minute of a deploy,
+// but cheap if something polls it. Everything else keeps the default.
 export function createStaticHeaders(clientDir) {
   const assetsDir = path.join(clientDir, 'assets') + path.sep;
   const buildInfoFile = path.join(clientDir, BUILD_INFO_FILE);
@@ -70,7 +71,7 @@ export function createStaticHeaders(clientDir) {
     if (filePath.startsWith(assetsDir)) {
       res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     } else if (filePath === buildInfoFile) {
-      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Cache-Control', 'public, max-age=30');
     }
   };
 }

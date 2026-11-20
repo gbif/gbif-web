@@ -114,8 +114,8 @@ describe('createStaticHeaders', () => {
     );
   });
 
-  it('never serves a cached build-info.json without checking', () => {
-    expect(cacheControlFor(BUILD_INFO_FILE)).toBe('no-cache');
+  it('caches build-info.json only briefly', () => {
+    expect(cacheControlFor(BUILD_INFO_FILE)).toBe('public, max-age=30');
   });
 
   it('leaves other files on the default', () => {
