@@ -3,18 +3,24 @@ import { useToast } from '@/components/ui/use-toast';
 import { NotFoundLoaderResponse } from '@/errors';
 import { QueryError } from '@/hooks/useQuery';
 import { NotFoundPage } from '@/notFoundPage';
+import { reportClientError } from '@/utils/clientErrorReporting';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useLocation, useRouteError } from 'react-router-dom';
 
 export function RootErrorPage(): React.ReactElement {
   const error = useRouteError();
+  const notFound =
+    (error instanceof Error && error.message === '404') ||
+    (typeof error === 'object' && error != null && 'status' in error && error.status === 404);
 
-  if (error instanceof Error && error.message === '404') {
-    return <NotFoundPage />;
-  }
+  // Errors from loaders and rendering that the router caught, e.g. failed queries or a chunk that
+  // could not be loaded. Not found is not an error.
+  useEffect(() => {
+    if (!notFound) reportClientError(error, 'route');
+  }, [error, notFound]);
 
-  if (typeof error === 'object' && error != null && 'status' in error && error.status === 404) {
+  if (notFound) {
     return <NotFoundPage />;
   }
 

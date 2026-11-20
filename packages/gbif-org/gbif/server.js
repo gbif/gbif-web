@@ -19,6 +19,9 @@ import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
+import { getRuntimeSettings } from './config/runtimeSettings.mjs';
+import { renderEarlyErrorScript } from './routes/clientErrors/clientErrors.mjs';
+import { register as registerClientErrors } from './routes/clientErrors/endpoints.mjs';
 import { escapeForScript as escapeScriptText } from '../src/utils/escapeForScript.js';
 import { toSafeLocation } from '../src/utils/localPath.js';
 import {
@@ -43,6 +46,11 @@ if (IS_PRODUCTION) process.setSourceMapsEnabled(true);
 globalThis.__GBIF_COMMIT__ = commit;
 const PORT = parseInt(env.PORT || 3000);
 
+// The early error script, which also switches on error reporting in the page (see
+// src/utils/clientErrorReporting.ts). Left out while reporting is switched off from Backstage.
+const earlyErrorScript = (nonce) =>
+  getRuntimeSettings().clientErrorReporting ? renderEarlyErrorScript(nonce) : '';
+
 const getPostRenderRedirect = createGetPostRenderRedirect(env);
 const getPreRenderRedirect = createGetPreRenderRedirect(env);
 
@@ -59,6 +67,9 @@ async function main() {
   // browser-side HMR client can't reach it — repeated WS reconnect failures cause
   // @vite/client to fall back to full reloads in a loop when PORT is not the default.
   const httpServer = createHttpServer(app);
+
+  // Errors reported by browsers. Before the body parsers below, so its own size limit applies.
+  registerClientErrors(app, { logger });
 
   // Add middleware for parsing requests
   app.use(
@@ -313,7 +324,9 @@ async function main() {
             `</script>`
           : '';
 
-        const commitScript = renderCommitScript(commit, res.locals.cspNonce);
+        // First in <head>: the commit, and catching errors from before the app starts.
+        const commitScript =
+          renderCommitScript(commit, res.locals.cspNonce) + earlyErrorScript(res.locals.cspNonce);
 
         // Predicate posted to */download/request (see the referer-source middleware above),
         // inlined so the client can pick it up once on this response - see consumeInitialPredicate.
@@ -409,7 +422,7 @@ async function main() {
         // The fallback renders the whole app in the browser, so it needs the commit too.
         fallbackHtmlFile = fallbackHtmlFile.replace(
           '<!--head-html-->',
-          renderCommitScript(commit, res.locals.cspNonce)
+          renderCommitScript(commit, res.locals.cspNonce) + earlyErrorScript(res.locals.cspNonce)
         );
 
         res

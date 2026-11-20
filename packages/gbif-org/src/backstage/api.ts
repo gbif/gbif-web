@@ -7,6 +7,8 @@ import {
   PoolSettings,
   Settings,
   SettingsResult,
+  WebSettings,
+  WebSettingsResult,
 } from './types';
 
 // A partial update: any subset of fields, at any depth, may be sent.
@@ -92,4 +94,22 @@ export async function applySettings(
   if (response.status === 404) throw new NotAuthorisedError();
   if (!response.ok) throw new Error(`Update failed (${response.status})`);
   return response.json() as Promise<{ results: SettingsResult[] }>;
+}
+
+export function fetchWebSettings(): Promise<{ results: WebSettingsResult[] }> {
+  return getJson('/api/admin/web-settings');
+}
+
+export async function applyWebSettings(
+  settings: Partial<WebSettings>
+): Promise<{ results: WebSettingsResult[] }> {
+  const response = await fetch('/api/admin/web-settings', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', accept: 'application/json' },
+    credentials: 'same-origin',
+    body: JSON.stringify({ settings }),
+  });
+  if (response.status === 404) throw new NotAuthorisedError();
+  if (!response.ok) throw new Error(`Update failed (${response.status})`);
+  return response.json() as Promise<{ results: WebSettingsResult[] }>;
 }
