@@ -106,15 +106,38 @@ describe('parseReport', () => {
     );
     expect(message("?email=o'brien@x.com&q=puma")).toBe('?email=…&q=puma');
     expect(message('?token=abc:1234&q=1')).toBe('?token=…&q=1');
+    expect(message('?token=abc:123')).toBe('?token=…');
+    expect(message('?token=12:30)')).toBe('?token=…)');
   });
 
   it('blanks bearer tokens, JWTs and email addresses anywhere', () => {
     expect(
       parseReport({
         ...valid,
-        message: 'Authorization: Bearer abc.def-ghi, eyJhbGciOi.eyJzdWIi.c2ln, from me@example.org',
+        message:
+          'Authorization: Bearer 8f3a1c9e2b7d4f60a1c3, eyJhbGciOi.eyJzdWIi.c2ln, from me@example.org',
       }).message
     ).toBe('Authorization: Bearer …, …, from …@…');
+  });
+
+  it('blanks email addresses with the @ URL-encoded, as search URLs have them', () => {
+    expect(
+      parseReport({ ...valid, path: '/occurrence/search?q=a%40b.org&recordedBy=x%2540y.com' }).path
+    ).toBe('/occurrence/search?q=…@…&recordedBy=…@…');
+  });
+
+  it('does not take package versions or ordinary words for secrets', () => {
+    const message = (text) => parseReport({ ...valid, message: text }).message;
+    expect(message('react-dom@18.2.0 and @tanstack/react-query@5.0.1')).toBe(
+      'react-dom@18.2.0 and @tanstack/react-query@5.0.1'
+    );
+    expect(message('The Basic Plan')).toBe('The Basic Plan');
+  });
+
+  it('blanks the code filter too, as it is also the one-time code in account links', () => {
+    expect(parseReport({ ...valid, path: '/user/confirm?code=abc123' }).path).toBe(
+      '/user/confirm?code=…'
+    );
   });
 
   it('keeps Firefox and Safari stack frames, which contain an @', () => {
@@ -124,7 +147,7 @@ describe('parseReport', () => {
   });
 
   it('only accepts paths on this site', () => {
-    expect(parseReport({ ...valid, path: '//evil.example/a' }).path).toBe(undefined);
+    expect(parseReport({ ...valid, path: '//evil.example/a' }).path).toBe('/evil.example/a');
     expect(parseReport({ ...valid, path: 'https://evil.example/a' }).path).toBe(undefined);
   });
 
@@ -140,9 +163,19 @@ describe('parseReport', () => {
   });
 
   it('is quick on large reports of junk', () => {
-    const junk = `?${'a&'.repeat(5000)}${'a'.repeat(5000)}`;
+    const junks = [
+      `?${'a&'.repeat(5000)}${'a'.repeat(5000)}`,
+      `?${'otp'.repeat(5300)}`,
+      `?${'mail'.repeat(4000)}`,
+      `${'a'.repeat(16000)}@`,
+    ];
     const start = performance.now();
-    for (let i = 0; i < 20; i++) parseReport({ ...valid, message: junk, stack: junk });
+    for (const junk of junks) {
+      for (let i = 0; i < 10; i++) {
+        parseReport({ ...valid, message: junk, stack: junk, path: junk, graphQLErrors: [junk] });
+      }
+    }
+    // Under 5 ms a report, even on a slow test machine.
     expect(performance.now() - start).toBeLessThan(200);
   });
 

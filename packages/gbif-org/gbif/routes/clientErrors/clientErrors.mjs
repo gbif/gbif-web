@@ -31,14 +31,17 @@ const BOT_PATTERN = /bot|crawl|spider|slurp|headless|lighthouse|pingdom|uptime/i
 // password_confirmation, x-api-key), and a few exact names. Exact only for code, state and key, as
 // names that merely contain them are GBIF filters (institutionCode, stateProvince, datasetKey).
 // Everything else (filters, the search text) is kept: it is what the visitor was looking at when
-// the error happened.
+// the error happened. `code` is blanked although institution and collection search use it as a
+// filter: it is also the one-time code in account confirmation and password links (/user/...).
+// The parts around a secret word are bounded so the pattern stays linear on hostile input.
 const SECRET_NAME =
-  '[\\w.-]*?(?:token|secret|passw(?:or)?d|pwd|signature|api[_-]?key|access[_-]?key|private[_-]?key|e?mail|session|jwt|otp|credential|ticket|nonce)[\\w.-]*|code|state|key|auth|authorization|sid|sig|pass|username|user_name';
+  '[\\w.-]{0,40}?(?:token|secret|passw(?:or)?d|pwd|signature|api[_-]?key|access[_-]?key|private[_-]?key|e?mail|session|jwt|otp|credential|ticket|nonce)[\\w.-]{0,40}|code|state|key|auth|authorization|sid|sig|pass|username|user_name';
 // A secret name=value pair in a query string or fragment, wherever it is: in the page URL, in a URL
 // in a message or stack (nested in another URL's parameter too). The value ends where the parameter
-// or the URL does; a stack frame's line and column right before ")" or the end of a line are kept.
+// or the URL does. A stack frame's line and column (":12:34" right before ")" or the end of a line)
+// are kept; both must be there, so the end of a value such as "12:30" is not mistaken for one.
 const SECRET_PARAM = new RegExp(
-  `(?<=[?&;#])(${SECRET_NAME})(\\[[^\\]=&]*\\]|%5B[^=&]*?%5D)?=[^&;#\\s"<>()\\[\\]]*?((?::\\d+){1,2}(?=[)\\n]|$))?(?=[&;#\\s"<>()\\[\\]]|$)`,
+  `(?<=[?&;#])(${SECRET_NAME})(\\[[^\\]=&]*\\]|%5B[^=&]*?%5D)?=[^&;#\\s"<>()\\[\\]]*?((?::\\d+){2}(?=[)\\n]|$))?(?=[&;#\\s"<>()\\[\\]]|$)`,
   'gi'
 );
 // The same, URL-encoded once or twice (a URL inside another URL's parameter): "%3Ftoken%3Dabc",
@@ -47,12 +50,13 @@ const SECRET_PARAM_ENCODED = new RegExp(
   `(?<=%(?:25)?(?:3F|26|23|3B))(${SECRET_NAME})((?:%(?:25)?5B.*?%(?:25)?5D)?)(%(?:25)?3D)(?:(?!%(?:25)?(?:26|23|3B))[^&;#\\s"<>])*`,
   'gi'
 );
-// Secrets and personal data outside URLs.
-const BEARER_TOKEN = /\b(Bearer|Basic)\s+[\w~+/.=-]+/gi;
+// Secrets and personal data outside URLs. Credentials are long: "The Basic Plan" stays.
+const BEARER_TOKEN = /\b(Bearer|Basic)\s+[\w~+/.=-]{16,}/gi;
 const JWT = /\beyJ[\w-]+\.[\w-]+\.[\w-]*/g;
-// An email address. Not a Firefox or Safari stack frame ("fn@https://..."): the domain needs a dot
-// before any colon.
-const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
+// An email address, also with the @ URL-encoded (%40, as URLSearchParams writes it, or %2540). The
+// domain ends in letters, so package versions (react-dom@18.2.0) and Firefox or Safari stack frames
+// ("fn@https://...") are not taken for one. Parts are bounded to keep the pattern linear.
+const EMAIL = /[\w.+-]{1,64}(?:@|%(?:25)?40)[\w-]{1,63}(?:\.[\w-]{1,63}){0,8}\.[a-z]{2,24}\b/gi;
 
 export function shortString(value, max) {
   if (typeof value !== 'string') return undefined;
@@ -100,8 +104,9 @@ export function parseReport(body) {
     stack: redactSecrets(shortString(body.stack, LIMITS.stack)),
     componentStack: shortString(body.componentStack, LIMITS.componentStack),
     graphQLErrors: graphQLErrors.length ? graphQLErrors : undefined,
-    // A path on this site: "/x", not "//other.site/x".
-    path: path?.startsWith('/') && !path.startsWith('//') ? path : undefined,
+    // A path on this site. "//x" (a visit to https://www.gbif.org//x) is logged as "/x", so it can't
+    // read as a link to another site.
+    path: path?.startsWith('/') ? path.replace(/^\/+/, '/') : undefined,
     commit: commit ? body.commit : undefined,
   };
 }
