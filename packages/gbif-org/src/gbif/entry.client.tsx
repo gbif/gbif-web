@@ -8,6 +8,11 @@ import {
   mergeCustomMessages,
 } from '@/reactRouterPlugins/i18n/loadMessages';
 import { MessagesProvider } from '@/reactRouterPlugins/i18n/messagesContext';
+import {
+  enableClientErrorReporting,
+  ignoreClientErrors,
+  reportClientError,
+} from '@/utils/clientErrorReporting';
 import { hydrateRoot } from 'react-dom/client';
 import { createBrowserRouter, matchRoutes, RouteObject, RouterProvider } from 'react-router-dom';
 
@@ -26,6 +31,8 @@ declare global {
   }
 }
 
+// First, so errors while starting up are reported too.
+enableClientErrorReporting();
 hydrate();
 
 async function hydrate() {
@@ -37,6 +44,8 @@ async function hydrate() {
   const [, messages] = await Promise.all([loadLazyRoutes(routes), loadInitialMessages()]);
 
   const router = createBrowserRouter(routes);
+  // Errors from the server render, passed along so the same error page shows. Already logged there.
+  ignoreClientErrors(Object.values(router.state.errors ?? {}));
 
   const root = document.getElementById('app');
   if (root == null) throw new Error("Couldn't find root element");
@@ -49,7 +58,10 @@ async function hydrate() {
       </MessagesProvider>
     </Root>,
     {
-      onRecoverableError: (error) => console.error(error),
+      onRecoverableError: (error, errorInfo) => {
+        console.error(error);
+        reportClientError(error, 'recoverable', { componentStack: errorInfo.componentStack });
+      },
     }
   );
 }
