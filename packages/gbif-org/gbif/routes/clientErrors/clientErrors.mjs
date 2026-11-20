@@ -25,34 +25,23 @@ const MAX_GRAPHQL_ERRORS = 5;
 const COMMIT_PATTERN = /^[0-9a-f]{7,40}$/i;
 // Crawlers and headless browsers (including our own e2e tests) are not users.
 const BOT_PATTERN = /bot|crawl|spider|slurp|headless|lighthouse|pingdom|uptime/i;
-// A URL's query string inside a message or stack: after an absolute URL, or after a path starting
-// with / at the start of the text or after a space, bracket or quote.
-const URL_QUERY =
-  /([a-z][a-z0-9+.-]*:\/\/[^\s?#)'"]+|(?:^|(?<=[\s('"]))\/[^\s?#)'"]*)\?([^\s#)'"]*)/gi;
-// Query parameters whose values are secrets or identify someone. Everything else (filters, the
-// search text) is kept: it is what the visitor was looking at when the error happened.
-const SECRET_PARAMS = new Set([
-  'token',
-  'code',
-  'state',
-  'key',
-  'apikey',
-  'api_key',
-  'secret',
-  'password',
-  'pwd',
-  'auth',
-  'authorization',
-  'session',
-  'sid',
-  'jwt',
-  'signature',
-  'sig',
-  'email',
-  'mail',
-  'username',
-]);
-const SECRET_PARAM_SUFFIX = /(token|secret|password|signature)$/i;
+// Parameter names whose values are secrets or identify someone: names ending in token, secret,
+// password, signature, apikey, email and the like (accessToken, userEmail, id_token), and a few
+// exact names. Everything else (filters, the search text) is kept: it is what the visitor was
+// looking at when the error happened.
+const SECRET_NAME =
+  '[\\w.-]*?(?:token|secret|passw(?:or)?d|pwd|signature|api_?key|e?mail|session|jwt)|code|state|key|auth|authorization|sid|sig|username';
+// A secret name=value pair in a query string or fragment, wherever it is: in the page URL, in a URL
+// in a message or stack (nested in another URL's parameter too), or URL-encoded. The value ends
+// where the parameter or the URL does; a stack frame's line and column after it are kept.
+const SECRET_PARAM = new RegExp(
+  `(?<=[?&;#])(${SECRET_NAME})(\\[\\])?=[^&;#\\s'"()<>\\[\\]]*?((?::\\d+){1,2})?(?=[&;#\\s'"()<>\\[\\]]|$)`,
+  'gi'
+);
+const SECRET_PARAM_ENCODED = new RegExp(
+  `(?<=%3F|%26|%23)(${SECRET_NAME})%3D[^%&;#\\s'"()<>]*`,
+  'gi'
+);
 
 export function shortString(value, max) {
   if (typeof value !== 'string') return undefined;
@@ -61,42 +50,28 @@ export function shortString(value, max) {
   return trimmed.length > max ? `${trimmed.slice(0, max)}…` : trimmed;
 }
 
-// "taxonKey=1&token=abc" -> "taxonKey=1&token=…"
-function redactQuery(query) {
-  return query
-    .split('&')
-    .map((pair) => {
-      const [name, ...value] = pair.split('=');
-      const secret = SECRET_PARAMS.has(name.toLowerCase()) || SECRET_PARAM_SUFFIX.test(name);
-      return secret && value.length ? `${name}=…` : pair;
-    })
-    .join('&');
-}
-
-// Blank secret query parameters in every URL in the text. Fragments are dropped: OAuth flows put
-// tokens there too.
-function redactUrls(text) {
+// "?taxonKey=1&token=abc" -> "?taxonKey=1&token=…"
+function redactSecrets(text) {
   return text
-    ?.replace(URL_QUERY, (match, url, query) => {
-      // In a stack frame the line and column follow the query: "?a=b:1:2".
-      const [, params, position] = query.match(/^(.*?)((?::\d+){1,2})?$/);
-      return `${url}?${redactQuery(params)}${position ?? ''}`;
-    })
-    .replace(/(\S)#[^\s)'"]*/g, '$1');
+    ?.replace(
+      SECRET_PARAM,
+      (match, name, brackets, position) => `${name}${brackets ?? ''}=…${position ?? ''}`
+    )
+    .replace(SECRET_PARAM_ENCODED, (match, name) => `${name}%3D…`);
 }
 
 // The report as logged, or null if it isn't one. Unknown fields are dropped.
 export function parseReport(body) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return null;
-  const message = redactUrls(shortString(body.message, LIMITS.message));
+  const message = redactSecrets(shortString(body.message, LIMITS.message));
   if (!message || !SOURCES.has(body.source)) return null;
 
-  const path = redactUrls(shortString(body.path, LIMITS.path));
+  const path = redactSecrets(shortString(body.path, LIMITS.path));
   const commit = typeof body.commit === 'string' && COMMIT_PATTERN.test(body.commit);
   const graphQLErrors = Array.isArray(body.graphQLErrors)
     ? body.graphQLErrors
         .slice(0, MAX_GRAPHQL_ERRORS)
-        .map((error) => redactUrls(shortString(error, LIMITS.graphQLError)))
+        .map((error) => redactSecrets(shortString(error, LIMITS.graphQLError)))
         .filter(Boolean)
     : [];
 
@@ -104,7 +79,7 @@ export function parseReport(body) {
     source: body.source,
     name: shortString(body.name, LIMITS.name) ?? 'Error',
     message,
-    stack: redactUrls(shortString(body.stack, LIMITS.stack)),
+    stack: redactSecrets(shortString(body.stack, LIMITS.stack)),
     componentStack: shortString(body.componentStack, LIMITS.componentStack),
     graphQLErrors: graphQLErrors.length ? graphQLErrors : undefined,
     path: path?.startsWith('/') ? path : undefined,
@@ -120,11 +95,17 @@ function normalise(text) {
 }
 
 // Minified identifiers (one to three characters) change between builds. Replace them where common
-// messages name one: "Ab is not a function", "Cannot access 'Xk' before initialization".
+// messages name one: "Ab is not a function" (Chrome, Firefox), Safari's "Ab is not a function.
+// (In 'Ab(t)', 'Ab' is undefined)", and "Cannot access 'Xk' before initialization". Other quoted
+// names, such as the property in "reading 'map'", are real names and stay.
 function withoutMinifiedNames(message) {
   return message
     .replace(/^[\w$]{1,3}(?=(\.[\w$]+)* is not (a function|a constructor|defined|iterable)\b)/, '…')
-    .replace(/'[\w$]{1,3}'/g, "'…'");
+    .replace(/\(In '[^']*', '[^']*' is (undefined|null)\)/, '(In …)')
+    .replace(
+      /^Cannot access '[\w$]{1,3}' before initialization/,
+      "Cannot access '…' before initialization"
+    );
 }
 
 // The file the error was thrown in, from the first stack frame that has one. Only the file:
@@ -196,7 +177,22 @@ export function clientAddress(req) {
     req.socket?.remoteAddress ||
     'unknown';
   const address = last.replace(/^::ffff:/i, '').replace(/^(\d+\.\d+\.\d+\.\d+):\d+$/, '$1');
-  return PRIVATE_ADDRESS.test(address) ? undefined : address;
+  if (PRIVATE_ADDRESS.test(address)) return undefined;
+  return address.includes(':') ? ipv6Network(address) : address;
+}
+
+// One IPv6 connection usually has a whole /64 network to itself, so a visitor could pick a new
+// address for every request. Count the network: the first four groups.
+function ipv6Network(address) {
+  const [head, tail] = address.replace(/^\[|\](:\d+)?$/g, '').split('::');
+  const headGroups = head ? head.split(':') : [];
+  const tailGroups = tail !== undefined && tail !== '' ? tail.split(':') : [];
+  const missing = Math.max(0, 8 - headGroups.length - tailGroups.length);
+  const groups = [...headGroups, ...Array(missing).fill('0'), ...tailGroups];
+  return `${groups
+    .slice(0, 4)
+    .map((group) => group.toLowerCase().replace(/^0+(?=.)/, ''))
+    .join(':')}::/64`;
 }
 
 // Browsers mark requests made by another site's page. Such reports could only be made up.
@@ -254,8 +250,9 @@ export function createLimiter({
 // Inline at the top of every gbif.org page, before any of the app's code. Errors from before the
 // app has started would otherwise go unseen: a module that throws while loading, or one of the
 // app's own scripts failing to load (those fire on the script element, not on window, hence the
-// capturing listener; only the first is kept, as one failed chunk makes the scripts that import it
-// fail too). They are queued for the app's reporter, which takes them over when it starts. If the
+// capturing listener). Only the app's own chunks count (other sites' scripts, such as the status
+// page widget, are blocked by many ad blockers), and only the first, as one failed chunk makes the
+// scripts that import it fail too. They are queued for the app's reporter, which takes them over when it starts. If the
 // app never starts, this sends them itself after 10 seconds, within the same per-session limit.
 // Kept small and in old-style JS: it runs on every page.
 export function renderEarlyErrorScript(nonce) {
@@ -269,9 +266,10 @@ export function renderEarlyErrorScript(nonce) {
   addEventListener('unhandledrejection', function (e) { add('unhandledrejection', e.reason); });
   addEventListener('error', function (e) {
     var t = e.target;
-    if (!chunkFailed && t && (t.tagName === 'SCRIPT' || (t.tagName === 'LINK' && t.rel === 'modulepreload'))) {
+    var url = t && (t.tagName === 'SCRIPT' || (t.tagName === 'LINK' && t.rel === 'modulepreload')) ? String(t.src || t.href) : '';
+    if (!chunkFailed && url.indexOf(location.origin + '/assets/') === 0) {
       chunkFailed = true;
-      add('window', { name: 'ChunkLoadError', message: 'Failed to load ' + String(t.src || t.href).split('?')[0] });
+      add('window', { name: 'ChunkLoadError', message: 'Failed to load ' + url.split('?')[0] });
     }
   }, true);
   setTimeout(function () {

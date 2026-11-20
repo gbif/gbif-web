@@ -45,12 +45,14 @@ describe('parseReport', () => {
     expect(report).not.toHaveProperty('email');
   });
 
-  it('keeps filters and searches in the page URL, but not secrets or the fragment', () => {
+  it('keeps filters and searches in the page URL, but not secrets', () => {
     const report = parseReport({
       ...valid,
       path: '/occurrence/search?q=puma&taxonKey=2435099&token=abc&accessToken=x#access_token=y',
     });
-    expect(report.path).toBe('/occurrence/search?q=puma&taxonKey=2435099&token=…&accessToken=…');
+    expect(report.path).toBe(
+      '/occurrence/search?q=puma&taxonKey=2435099&token=…&accessToken=…#access_token=…'
+    );
   });
 
   it('blanks secrets in URLs in messages and stacks, absolute or relative', () => {
@@ -63,6 +65,38 @@ describe('parseReport', () => {
       'Failed https://www.gbif.org/api/x?q=name&apikey=… and /en/login?code=…&state=…'
     );
     expect(report.stack).toBe('Error\n    at f (https://www.gbif.org/en/user?code=…:1:2)');
+  });
+
+  it('finds secrets in nested, awkward and encoded URLs', () => {
+    const message = (text) => parseReport({ ...valid, message: text }).message;
+    expect(message('?redirect=https://b.org/?token=S&q=puma')).toBe(
+      '?redirect=https://b.org/?token=…&q=puma'
+    );
+    expect(message("?q=o'brien&token=S")).toBe("?q=o'brien&token=…");
+    expect(message('?token[]=a;sid=b')).toBe('?token[]=…;sid=…');
+    expect(message('?userEmail=me@example.org&taxonKey=5')).toBe('?userEmail=…&taxonKey=5');
+    expect(message('https://a.org/?next=%2Fx%3Ftoken%3DSECRET%26q%3Dpuma')).toBe(
+      'https://a.org/?next=%2Fx%3Ftoken%3D…%26q%3Dpuma'
+    );
+    expect(message('<a href=?token=x>')).toBe('<a href=?token=…>');
+  });
+
+  it('leaves other text alone', () => {
+    const message = (text) => parseReport({ ...valid, message: text }).message;
+    expect(message("Unexpected token '#'")).toBe("Unexpected token '#'");
+    expect(message("'div#main > a' is not a valid selector")).toBe(
+      "'div#main > a' is not a valid selector"
+    );
+    expect(message('state=open is not a secret outside a query string')).toBe(
+      'state=open is not a secret outside a query string'
+    );
+  });
+
+  it('is quick on large reports of junk', () => {
+    const junk = `?${'a&'.repeat(5000)}${'a'.repeat(5000)}`;
+    const start = performance.now();
+    for (let i = 0; i < 20; i++) parseReport({ ...valid, message: junk, stack: junk });
+    expect(performance.now() - start).toBeLessThan(200);
   });
 
   it('leaves a question mark in ordinary text alone', () => {
@@ -152,6 +186,24 @@ describe('fingerprint', () => {
       stack: `global code@https://www.gbif.org/${file}.js:1:2`,
     });
     expect(fingerprint(safari('a'))).not.toBe(fingerprint(safari('b')));
+  });
+
+  it('keeps real property names apart', () => {
+    const reading = (name) => ({
+      ...valid,
+      message: `Cannot read properties of undefined (reading '${name}')`,
+      stack: '',
+    });
+    expect(fingerprint(reading('id'))).not.toBe(fingerprint(reading('map')));
+  });
+
+  it("groups Safari's message for a minified function across builds", () => {
+    const safari = (name) => ({
+      ...valid,
+      message: `${name} is not a function. (In '${name}(t)', '${name}' is undefined)`,
+      stack: '',
+    });
+    expect(fingerprint(safari('Ab'))).toBe(fingerprint(safari('Xk')));
   });
 
   it('ignores minified names in messages', () => {
@@ -247,6 +299,12 @@ describe('clientAddress', () => {
     expect(clientAddress(request('203.0.113.7, 10.1.2.3'))).toBe(undefined);
     expect(clientAddress(request('172.20.0.5'))).toBe(undefined);
     expect(clientAddress(request('fd12:3456::1'))).toBe(undefined);
+  });
+
+  it('counts an IPv6 visitor by their /64 network', () => {
+    expect(clientAddress(request('2001:db8:85a3:12:1::7'))).toBe('2001:db8:85a3:12::/64');
+    expect(clientAddress(request('2001:db8:85a3:12:ffff::9'))).toBe('2001:db8:85a3:12::/64');
+    expect(clientAddress(request('2001:db8::1'))).toBe('2001:db8:0:0::/64');
   });
 
   it('falls back to the connection without the header', () => {

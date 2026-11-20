@@ -82,14 +82,25 @@ describe('early error script', () => {
 
   it('reports only the first script that fails to load', () => {
     runEarlyErrorScript();
-    failToLoad('link', 'https://www.gbif.org/assets/vendor-react-AbCd1234.js');
-    failToLoad('script', 'https://www.gbif.org/assets/main-EfGh5678.js?v=1');
+    failToLoad('link', `${location.origin}/assets/vendor-react-AbCd1234.js`);
+    failToLoad('script', `${location.origin}/assets/main-EfGh5678.js?v=1`);
     vi.advanceTimersByTime(10_000);
     expect(sentReports()).toEqual([
       expect.objectContaining({
         name: 'ChunkLoadError',
-        message: 'Failed to load https://www.gbif.org/assets/vendor-react-AbCd1234.js',
+        message: `Failed to load ${location.origin}/assets/vendor-react-AbCd1234.js`,
       }),
+    ]);
+  });
+
+  it("ignores other sites' scripts, which ad blockers often block", () => {
+    runEarlyErrorScript();
+    failToLoad('script', 'https://status.example.org/embed/script.js');
+    failToLoad('script', `${location.origin}/spoor/js/script.js`);
+    failToLoad('script', `${location.origin}/assets/main-EfGh5678.js`);
+    vi.advanceTimersByTime(10_000);
+    expect(sentReports().map((report) => report.message)).toEqual([
+      `Failed to load ${location.origin}/assets/main-EfGh5678.js`,
     ]);
   });
 
