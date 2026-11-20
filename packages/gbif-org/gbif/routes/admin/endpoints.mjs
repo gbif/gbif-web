@@ -1,6 +1,17 @@
 import logger from '../../config/logger.mjs';
 import { secretEnv } from '../../envConfig.mjs';
-import { appendUser, generateGraphQLToken } from '../auth/utils.mjs';
+import {
+  getRuntimeSettings,
+  setRuntimeSettings,
+  validateRuntimeSettings,
+} from '../../config/runtimeSettings.mjs';
+import {
+  appendUser,
+  generateGraphQLToken,
+  generateInstanceAdminToken,
+  verifyInstanceAdminToken,
+} from '../auth/utils.mjs';
+import { getByUserName } from '../user/user.model.mjs';
 
 /**
  * Backstage admin API (server side).
@@ -62,6 +73,13 @@ function getEsNodes() {
   return parseNodes(secretEnv.ADMIN_ES_API_NODES);
 }
 
+// The gbif-web instances themselves (this server), for their runtime settings such as switching
+// off error reporting from browsers. Their own internal base URLs, so each can be reached past the
+// load balancer. Without the list, settings change on the instance serving the request only.
+function getWebNodes() {
+  return parseNodes(secretEnv.ADMIN_GBIF_WEB_NODES);
+}
+
 function isAuthorisedAdmin(user) {
   if (!user || !user.email || !Array.isArray(user.roles)) return false;
   // Users email must be included in ADMIN_USERS
@@ -80,6 +98,27 @@ function requireAdmin(req, res, next) {
     res.status(404).json({ error: 'Not found' });
     return;
   }
+  next();
+}
+
+// For one gbif-web instance's own settings endpoint, called by another instance on an admin's
+// behalf: a short-lived token that instance signed (see generateInstanceAdminToken), for a user who
+// is still an authorised admin. 404 for anything else, like the rest of this surface.
+async function requireInstanceAdmin(req, res, next) {
+  res.set('Cache-Control', 'no-store');
+  const token = req.get('Authorization')?.match(/^Bearer (.+)$/)?.[1];
+  const userName = token && verifyInstanceAdminToken(token);
+  let user;
+  try {
+    user = userName ? await getByUserName(userName) : undefined;
+  } catch {
+    user = undefined;
+  }
+  if (!isAuthorisedAdmin(user)) {
+    res.status(404).json({ error: 'Not found' });
+    return;
+  }
+  req.user = user;
   next();
 }
 
@@ -123,6 +162,86 @@ async function fanOut(nodes, perNode) {
 }
 
 export function register(app) {
+  // This instance's runtime settings. Called by whichever instance served the Backstage request.
+  app.get('/api/admin/instance/settings', requireInstanceAdmin, (req, res) => {
+    res.json({ settings: getRuntimeSettings() });
+  });
+  app.post('/api/admin/instance/settings', requireInstanceAdmin, (req, res) => {
+    try {
+      const settings = setRuntimeSettings(req.body?.settings);
+      logger.warn('admin runtime settings change on this instance', {
+        actor: req.user?.userName,
+        settings: req.body?.settings,
+      });
+      res.json({ settings });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  });
+
+  // Read: each gbif-web instance's runtime settings.
+  app.get('/api/admin/web-settings', appendUser, requireAdmin, async (req, res) => {
+    const nodes = getWebNodes();
+    if (!nodes.length) {
+      res.json({
+        results: [{ node: 'this instance', url: '', ok: true, settings: getRuntimeSettings() }],
+      });
+      return;
+    }
+    const token = generateInstanceAdminToken(req.user);
+    const results = await fanOut(nodes, async (node) => {
+      const { status, ok, body } = await fetchNodeJson(`${node.url}/api/admin/instance/settings`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      return ok
+        ? { ok: true, status, settings: body?.settings }
+        : { ok: false, status, error: body };
+    });
+    res.json({ results });
+  });
+
+  // Write: apply a settings patch to every gbif-web instance (or the targeted ones).
+  // Body: { settings: { clientErrorReporting: false }, targets?: string[] (instance urls) }
+  app.post('/api/admin/web-settings', appendUser, requireAdmin, async (req, res) => {
+    const { settings, targets } = req.body ?? {};
+    try {
+      validateRuntimeSettings(settings);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    const nodes = getWebNodes();
+    let results;
+    if (!nodes.length) {
+      results = [
+        { node: 'this instance', url: '', ok: true, settings: setRuntimeSettings(settings) },
+      ];
+    } else {
+      const token = generateInstanceAdminToken(req.user);
+      const targetSet = Array.isArray(targets) && targets.length ? new Set(targets) : null;
+      results = await fanOut(nodes, async (node) => {
+        if (targetSet && !targetSet.has(node.url)) return { ok: true, skipped: true };
+        const { status, ok, body } = await fetchNodeJson(
+          `${node.url}/api/admin/instance/settings`,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+            body: JSON.stringify({ settings }),
+          }
+        );
+        return ok
+          ? { ok: true, status, settings: body?.settings }
+          : { ok: false, status, error: body };
+      });
+    }
+    logger.warn('admin settings change to gbif-web instances', {
+      actor: req.user?.userName,
+      targets: nodes.length ? (targets ?? 'all') : 'this instance',
+      settings,
+    });
+    res.json({ results });
+  });
+
   // Cheap auth probe for the UI gate: 200 if the caller passes the full admin
   // check, 404 otherwise (via requireAdmin). No fan-out, no data. The backstage
   // route loader hits this so non-admins get the standard 404 page instead of

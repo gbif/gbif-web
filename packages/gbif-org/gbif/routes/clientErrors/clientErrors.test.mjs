@@ -1,4 +1,5 @@
 import express from 'express';
+import { setRuntimeSettings } from '../../config/runtimeSettings.mjs';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import {
   clientAddress,
@@ -507,6 +508,17 @@ describe('POST /api/client-error', () => {
     const response = await post({ ...valid, message: 'ResizeObserver loop limit exceeded' });
     expect(response.status).toBe(204);
     expect(logged).toHaveLength(0);
+  });
+
+  it('logs nothing while switched off from Backstage', async () => {
+    setRuntimeSettings({ clientErrorReporting: false });
+    try {
+      const response = await post({ ...valid, message: 'While switched off' });
+      expect(response.status).toBe(204);
+      expect(logged).toHaveLength(0);
+    } finally {
+      setRuntimeSettings({ clientErrorReporting: true });
+    }
   });
 
   it('refuses reports another site posts', async () => {

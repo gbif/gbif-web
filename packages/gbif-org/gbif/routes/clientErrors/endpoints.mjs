@@ -1,4 +1,5 @@
 import express from 'express';
+import { getRuntimeSettings } from '../../config/runtimeSettings.mjs';
 import {
   CLIENT_ERROR_PATH,
   MAX_BODY_SIZE,
@@ -24,6 +25,9 @@ export function register(app, { logger, limiter = createLimiter() }) {
       // This route runs before the app's other middleware; don't advertise the framework.
       res.removeHeader('X-Powered-By');
       if (isCrossSite(req)) return res.status(403).end();
+      // Switched off from Backstage: accepted, not logged. Pages stop sending reports too, but some
+      // are still open or cached.
+      if (!getRuntimeSettings().clientErrorReporting) return res.status(204).end();
       const report = parseReport(req.body);
       if (!report) return res.status(400).end();
 

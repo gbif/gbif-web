@@ -258,9 +258,11 @@ export function ignoreClientErrors(errors: unknown[]) {
 
 let listening = false;
 
-// Switches reporting on and reports errors nothing else catches.
+// Switches reporting on and reports errors nothing else catches. Only on pages that have the early
+// error script (gbif/server.js): it is left out while reporting is switched off from Backstage.
 export function enableClientErrorReporting() {
   if (typeof window === 'undefined' || listening) return;
+  if (!Array.isArray(window.__GBIF_EARLY_ERRORS__)) return;
   listening = true;
   reporter.enable();
   window.addEventListener('error', (event) => {

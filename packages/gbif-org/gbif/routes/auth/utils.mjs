@@ -55,6 +55,32 @@ export const generateGraphQLToken = (user, ttl) => {
   });
 };
 
+// The audience of tokens one gbif-web instance uses to change another's runtime settings (see
+// gbif/routes/admin). Login cookies have no audience, so they can't be used for that.
+const INSTANCE_ADMIN_AUDIENCE = 'gbif-web-instance-admin';
+
+// A short-lived token saying an authorised admin made this change. All gbif-web instances share
+// JWT_SECRET (logins work on any of them), so each can check the others' tokens.
+export const generateInstanceAdminToken = (user) =>
+  jwt.sign({ userName: user.userName }, JWT_SECRET, {
+    expiresIn: '2m',
+    algorithm: 'HS256',
+    audience: INSTANCE_ADMIN_AUDIENCE,
+  });
+
+// The user name in a valid instance admin token, or undefined.
+export function verifyInstanceAdminToken(token) {
+  try {
+    const payload = jwt.verify(token, JWT_SECRET, {
+      algorithms: ['HS256'],
+      audience: INSTANCE_ADMIN_AUDIENCE,
+    });
+    return typeof payload?.userName === 'string' ? payload.userName : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * Sets the token as a secure cookie
  */

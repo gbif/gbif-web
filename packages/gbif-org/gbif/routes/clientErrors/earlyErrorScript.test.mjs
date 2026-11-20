@@ -118,6 +118,13 @@ describe('early error script', () => {
     ]);
   });
 
+  it('the app reports nothing on pages without the script (reporting switched off)', async () => {
+    const { enableClientErrorReporting } = await import('../../../src/utils/clientErrorReporting');
+    enableClientErrorReporting();
+    throwOnWindow('Not reported');
+    expect(sendBeacon).not.toHaveBeenCalled();
+  });
+
   it('hands its queue over to the app, which sends it instead', async () => {
     runEarlyErrorScript();
     throwOnWindow('Thrown while loading');

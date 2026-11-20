@@ -19,6 +19,7 @@ import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
+import { getRuntimeSettings } from './config/runtimeSettings.mjs';
 import { renderEarlyErrorScript } from './routes/clientErrors/clientErrors.mjs';
 import { register as registerClientErrors } from './routes/clientErrors/endpoints.mjs';
 import { escapeForScript as escapeScriptText } from '../src/utils/escapeForScript.js';
@@ -44,6 +45,11 @@ if (IS_PRODUCTION) process.setSourceMapsEnabled(true);
 // for the browser. See getBuildCommit.
 globalThis.__GBIF_COMMIT__ = commit;
 const PORT = parseInt(env.PORT || 3000);
+
+// The early error script, which also switches on error reporting in the page (see
+// src/utils/clientErrorReporting.ts). Left out while reporting is switched off from Backstage.
+const earlyErrorScript = (nonce) =>
+  getRuntimeSettings().clientErrorReporting ? renderEarlyErrorScript(nonce) : '';
 
 const getPostRenderRedirect = createGetPostRenderRedirect(env);
 const getPreRenderRedirect = createGetPreRenderRedirect(env);
@@ -320,8 +326,7 @@ async function main() {
 
         // First in <head>: the commit, and catching errors from before the app starts.
         const commitScript =
-          renderCommitScript(commit, res.locals.cspNonce) +
-          renderEarlyErrorScript(res.locals.cspNonce);
+          renderCommitScript(commit, res.locals.cspNonce) + earlyErrorScript(res.locals.cspNonce);
 
         // Predicate posted to */download/request (see the referer-source middleware above),
         // inlined so the client can pick it up once on this response - see consumeInitialPredicate.
@@ -417,8 +422,7 @@ async function main() {
         // The fallback renders the whole app in the browser, so it needs the commit too.
         fallbackHtmlFile = fallbackHtmlFile.replace(
           '<!--head-html-->',
-          renderCommitScript(commit, res.locals.cspNonce) +
-            renderEarlyErrorScript(res.locals.cspNonce)
+          renderCommitScript(commit, res.locals.cspNonce) + earlyErrorScript(res.locals.cspNonce)
         );
 
         res
