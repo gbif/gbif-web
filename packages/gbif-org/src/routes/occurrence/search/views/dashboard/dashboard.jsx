@@ -502,6 +502,11 @@ const preconfiguredCharts = {
       <FilterAwareChart chart={charts.IsRepatriated} filter="repatriated" {...props} />
     ),
   },
+  datasetCategory: {
+    component: (props) => (
+      <FilterAwareChart chart={charts.DatasetCategory} filter="datasetCategory" {...props} />
+    ),
+  },
   installationKey: {
     translation: 'installation.installation',
     // there is no installation filter, so this chart is never interactive
@@ -573,4 +578,5 @@ export const filterIndependentCharts = [
   'isSequenced',
   'repatriated',
   'installationKey',
+  'datasetCategory',
 ];

@@ -744,6 +744,7 @@ const chartGroups = {
       'hostingOrganization',
       'networkKey',
       'installationKey',
+      'datasetCategory',
       'protocol',
       'projectId',
       'programme',

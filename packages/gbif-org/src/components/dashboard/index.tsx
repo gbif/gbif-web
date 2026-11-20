@@ -69,6 +69,7 @@ export const NucleotideSequenceLength = lazyChart('NucleotideSequenceLength');
 export const Pathway = lazyChart('Pathway');
 export const DegreeOfEstablishment = lazyChart('DegreeOfEstablishment');
 export const Installations = lazyChart('Installations');
+export const DatasetCategory = lazyChart('DatasetCategory');
 
 // stringCharts
 export const InstitutionCodes = lazyChart('InstitutionCodes');

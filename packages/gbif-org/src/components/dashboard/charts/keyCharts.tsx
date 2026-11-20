@@ -466,6 +466,88 @@ export function DegreeOfEstablishment({
   );
 }
 
+type DatasetCategoryData = FacetQueryData & {
+  labels?: { results?: Array<{ name: string; title: string }> };
+};
+
+// The datasetCategory facet has no concept to resolve labels from, so the query fetches the
+// vocabulary's labels alongside it. A record can be in several categories, so the counts can sum
+// to more than the records with a value, and an Other slice would be wrong.
+export function DatasetCategory({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: KeyChartProps) {
+  const GQL_QUERY = `
+    query summary($q: String, $predicate: Predicate, $hasPredicate: Predicate, $vocabularyLocale: String, $size: Int, $from: Int) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        documents(size: 0) {
+          total
+        }
+        cardinality {
+          total: datasetCategory
+        }
+        facet {
+          results: datasetCategory(size: $size, from: $from) {
+            key
+            count
+            occurrences {
+              metaPredicate
+              _meta
+            }
+          }
+        }
+      }
+      isNotNull: occurrenceSearch(q: $q, predicate: $hasPredicate) {
+        documents(size: 0) {
+          total
+        }
+      }
+      labels: vocabularyConceptSearch(vocabulary: "DatasetCategory", limit: 100) {
+        results {
+          name
+          title: uiLabel(language: $vocabularyLocale)
+        }
+      }
+    }
+  `;
+
+  return (
+    <ChartWrapper
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        gqlQuery: GQL_QUERY,
+        predicateKey: 'datasetCategory',
+        facetSize: 10,
+        disableOther: true,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        title: (
+          <FormattedMessage id="filters.datasetCategory.name" defaultMessage="Dataset category" />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          const { search, labels } = (data ?? {}) as DatasetCategoryData;
+          return search?.facet?.results?.map((x) => {
+            const title = labels?.results?.find((l) => l.name === x.key)?.title ?? x.key;
+            return {
+              key: x.key,
+              title,
+              plainTextTitle: title,
+              count: x.count,
+              occurrences: x.occurrences,
+              filter: { datasetCategory: [x.key] },
+            };
+          });
+        },
+        ...props,
+      }}
+    />
+  );
+}
+
 // There is no installation filter in occurrence search, so rows only link to the installation page.
 export function Installations({
   predicate,
