@@ -1,7 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { escapeForScript } from '../../src/utils/escapeForScript.js';
 
 // Written next to the client build, so it is served as /build-info.json and the server can read
 // which commit it is running.
@@ -52,26 +51,9 @@ export function readBuiltCommit(distDir) {
 
 // The inline script that hands the commit to the browser (read by src/utils/buildCommit.ts).
 // Goes on every server-rendered page and on the fallback page served when rendering fails.
+// Only a commit hash (hex digits) is ever written, so the value needs no escaping.
 export function renderCommitScript(commit, nonce) {
   const value = asCommit(commit);
   if (!value) return '';
-  return `<script nonce="${nonce}">window.__GBIF_COMMIT__=${escapeForScript(
-    JSON.stringify(value)
-  )};</script>`;
-}
-
-// Cache-Control for the static client build. Content-hashed files in assets/ are kept across
-// releases on the host and can be cached forever. build-info.json changes with every deploy and is
-// used to check what is deployed, so it gets a short cache: fresh within half a minute of a deploy,
-// but cheap if something polls it. Everything else keeps the default.
-export function createStaticHeaders(clientDir) {
-  const assetsDir = path.join(clientDir, 'assets') + path.sep;
-  const buildInfoFile = path.join(clientDir, BUILD_INFO_FILE);
-  return (res, filePath) => {
-    if (filePath.startsWith(assetsDir)) {
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    } else if (filePath === buildInfoFile) {
-      res.setHeader('Cache-Control', 'public, max-age=30');
-    }
-  };
+  return `<script nonce="${nonce}">window.__GBIF_COMMIT__="${value}";</script>`;
 }

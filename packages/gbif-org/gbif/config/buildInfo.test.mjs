@@ -4,7 +4,6 @@ import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
   BUILD_INFO_FILE,
-  createStaticHeaders,
   getServerCommit,
   readBuiltCommit,
   renderCommitScript,
@@ -95,31 +94,11 @@ describe('renderCommitScript', () => {
 
   it('renders nothing without a valid commit', () => {
     expect(renderCommitScript(undefined, 'abc123')).toBe('');
+  });
+
+  it('only ever writes a commit hash into the page', () => {
+    // A value that could break out of the script element is refused, not escaped.
     expect(renderCommitScript('</script><script>alert(1)', 'abc123')).toBe('');
-  });
-});
-
-describe('createStaticHeaders', () => {
-  const clientDir = path.join(os.tmpdir(), 'client');
-  const setHeaders = createStaticHeaders(clientDir);
-  function cacheControlFor(file) {
-    const headers = {};
-    setHeaders({ setHeader: (name, value) => (headers[name] = value) }, path.join(clientDir, file));
-    return headers['Cache-Control'];
-  }
-
-  it('caches hashed assets forever', () => {
-    expect(cacheControlFor('assets/app-shared-CNktY3zd.js')).toBe(
-      'public, max-age=31536000, immutable'
-    );
-  });
-
-  it('caches build-info.json only briefly', () => {
-    expect(cacheControlFor(BUILD_INFO_FILE)).toBe('public, max-age=30');
-  });
-
-  it('leaves other files on the default', () => {
-    expect(cacheControlFor('gbif/index.html')).toBe(undefined);
-    expect(cacheControlFor(`${BUILD_INFO_FILE}.br`)).toBe(undefined);
+    expect(renderCommitScript(`${SHA}"</script>`, 'abc123')).toBe('');
   });
 });
