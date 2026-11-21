@@ -50,6 +50,31 @@ using typed `graphql()` need `npm run codegen`.
    chart from the select under the right group, click a bar (sets a filter when `interactive`),
    reload (layout restored from URL and localStorage), switch views.
 
+## The two-dimensional chart (`crosstab`)
+
+`charts/crosstab/` is a heatmap of any two dimensions: a count for each pair, coloured by count
+(absolute) or by share of the row or column (relative). Add a dimension in `dimensions.ts`: it needs
+an API facet (terms) or histogram (number) field, the filter handle a click sets, and a label id.
+Dimension ids are in shared `layout` URLs (`crosstab.rows-basisOfRecord.cols-year.cInt-5`): do not
+rename.
+
+- **One query, no API change.** Each facet or histogram bucket has `occurrences`, a search limited to
+  that bucket, so the rows are the outer facet and the columns a facet inside each row bucket
+  (`plan.ts: buildQuery`). Labels come from the API's `label(language:)` on every facet bucket.
+- **Numbers are histograms** with a bucket size: automatic (about ten buckets) or set by the user
+  (`rInt`, `cInt`), raised if it would give more than 24. Planning takes up to three requests in a
+  row (`useCrosstab.ts`): minimum and maximum, a fine histogram to find the 1st to 99th percentile,
+  then the table. When a few outliers (elevation typos) stretch the scale, the table shows only that
+  range (the `window`) and says so; ordinary data is left whole.
+- **Columns** are the 8 values with most records among the rows shown (all 12 for months). "Top per
+  row" lists each row's own 8 instead. A row's column facet asks for 40 values, so on a column with
+  more than that a small cell can be missing; the card says so.
+- **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not
+  turn the rest pale. Ink is white or dark by contrast against the theme's `--primary500`.
+- Logic that does not need React is in `plan.ts` and tested in `plan.test.ts`. A GraphQL variable
+  that is declared and unused makes the whole query fail, so `buildQuery` declares `$language` and
+  `$checklistKey` only when used.
+
 ## Caveats
 
 - **Chart id is a public contract.** It is in shared `layout` URLs and in localStorage

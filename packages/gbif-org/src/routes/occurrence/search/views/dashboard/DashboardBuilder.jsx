@@ -619,7 +619,7 @@ function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty, columnCount 
 /** @type {Record<string, { values: string[] }>} */
 const chartGroups = {
   views: {
-    values: ['map', 'table', 'gallery'],
+    values: ['map', 'table', 'gallery', 'crosstab'],
   },
   record: {
     values: [

@@ -71,6 +71,9 @@ export const DegreeOfEstablishment = lazyChart('DegreeOfEstablishment');
 export const Installations = lazyChart('Installations');
 export const DatasetCategory = lazyChart('DatasetCategory');
 
+// crosstab: two dimensions as a heatmap
+export const Crosstab = lazyChart('Crosstab');
+
 // stringCharts
 export const InstitutionCodes = lazyChart('InstitutionCodes');
 export const NucleotideSequenceTargetGene = lazyChart('NucleotideSequenceTargetGene');

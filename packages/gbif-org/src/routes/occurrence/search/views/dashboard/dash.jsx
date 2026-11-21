@@ -62,6 +62,7 @@ export function Dashboard() {
           'dataQuality',
           'synonyms',
           'taxa',
+          'crosstab',
           'sex',
           'occurrenceIssue',
           'sequencePhylogeny',

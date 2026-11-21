@@ -339,6 +339,12 @@ const preconfiguredCharts = {
       return <charts.Datasets predicate={predicate} interactive {...props} />;
     },
   },
+  crosstab: {
+    translation: 'dashboard.crosstab.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.Crosstab predicate={predicate} interactive {...props} />;
+    },
+  },
   taxa: {
     translation: 'dashboard.taxa',
     component: ({ predicate, ...props }) => {

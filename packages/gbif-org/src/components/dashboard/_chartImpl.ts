@@ -6,6 +6,7 @@ export * from './charts/keyCharts';
 export * from './charts/stringCharts';
 export * from './charts/timeCharts';
 export * from './Custom';
+export { Crosstab } from './charts/crosstab/Crosstab';
 export { DataQuality } from './DataQuality';
 export { OccurrenceSummary } from './OccurrenceSummary';
 export { OccurrenceTaxonomySunburst } from './OccurrenceTaxonomySunburst';
