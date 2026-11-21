@@ -41,7 +41,12 @@
     "rows": "Rows",
     "columns": "Columns",
     "swap": "Swap rows and columns",
-    "bucketSize": "Bucket size",
+    "bucketSizeFor": "Bucket size for {dimension}",
+    "corner": "{rows} / {cols}",
+    "range": "{from}–{to}",
+    "cell": "{row} · {column}: {count} ({share})",
+    "countShare": "{count} · {share}",
+    "lessThanOnePercent": "<1%",
     "layout": "Layout",
     "layoutOverall": "Top overall",
     "layoutPerRow": "Top per row",
@@ -69,7 +74,6 @@
       "multi": "A record can have several values, so it can be counted in several cells.",
       "shadeColumn": "Colours show each cell's share of the column total across the rows shown.",
       "raised": "The bucket size for {dimension} was raised to {size} to keep the number of buckets manageable.",
-      "window": "{dimension}: values from {from} up to {to} are shown, where most records are. Records outside that range are left out.",
       "window": "{dimension}: values from {from} up to {to} are shown, where most records are. Records outside that range are left out."
     }
   },

@@ -13,6 +13,10 @@ export type Dimension = {
   labelId: string;
   /** Histogram: values are whole numbers, so a bucket reads 2000–2009 rather than 2000–2010. */
   integer?: boolean;
+  /** Taxon ranks: 1 for kingdom to 7 for species. */
+  rank?: number;
+  /** False when the occurrence search has no filter to set for it, so a click can do nothing. */
+  clickable?: boolean;
   /** Terms: lines read in key order (months), not by count. */
   byKey?: boolean;
   /** The field takes a checklistKey, and a click filters on taxonKey. */
@@ -39,15 +43,15 @@ const histogram = (id: string, labelId: string, more: Partial<Dimension> = {}): 
   ...more,
 });
 
-const rank = (id: string, rankName: string): Dimension =>
-  terms(id, `enums.taxonRank.${rankName}`, { filter: 'taxonKey', checklist: true });
+const rank = (id: string, rankName: string, order: number): Dimension =>
+  terms(id, `enums.taxonRank.${rankName}`, { filter: 'taxonKey', checklist: true, rank: order });
 
 export const dimensions: Dimension[] = [
   terms('basisOfRecord', 'filters.basisOfRecord.name'),
   terms('countryCode', 'filters.country.name', { filter: 'country' }),
   terms('continent', 'filters.continent.name'),
   terms('publishingCountry', 'filters.publishingCountryCode.name', {
-    filter: 'publishingCountryCode',
+    filter: 'publishingCountry',
   }),
   terms('publishedByGbifRegion', 'filters.publishedByGbifRegion.name'),
   terms('gbifRegion', 'filters.gbifRegion.name'),
@@ -63,20 +67,21 @@ export const dimensions: Dimension[] = [
   terms('lifeStage', 'filters.lifeStage.name'),
   terms('establishmentMeans', 'filters.establishmentMeans.name'),
   terms('iucnRedListCategory', 'filters.iucnRedListCategory.name', { checklist: true }),
-  rank('kingdomKey', 'KINGDOM'),
-  rank('phylumKey', 'PHYLUM'),
-  rank('classKey', 'CLASS'),
-  rank('orderKey', 'ORDER'),
-  rank('familyKey', 'FAMILY'),
-  rank('genusKey', 'GENUS'),
-  rank('speciesKey', 'SPECIES'),
+  rank('kingdomKey', 'KINGDOM', 1),
+  rank('phylumKey', 'PHYLUM', 2),
+  rank('classKey', 'CLASS', 3),
+  rank('orderKey', 'ORDER', 4),
+  rank('familyKey', 'FAMILY', 5),
+  rank('genusKey', 'GENUS', 6),
+  rank('speciesKey', 'SPECIES', 7),
   histogram('year', 'filters.year.name', { integer: true, plain: true }),
   terms('month', 'filters.month.name', { byKey: true }),
   histogram('startDayOfYear', 'filters.startDayOfYear.name', { integer: true, plain: true }),
   histogram('elevation', 'filters.elevation.name'),
   histogram('depth', 'filters.depth.name'),
-  histogram('decimalLatitude', 'dashboard.crosstab.dimension.latitude'),
-  histogram('decimalLongitude', 'dashboard.crosstab.dimension.longitude'),
+  // The search page has no latitude or longitude filter, so these can be looked at but not clicked.
+  histogram('decimalLatitude', 'dashboard.crosstab.dimension.latitude', { clickable: false }),
+  histogram('decimalLongitude', 'dashboard.crosstab.dimension.longitude', { clickable: false }),
 ];
 
 const byId = new Map(dimensions.map((d) => [d.id, d]));

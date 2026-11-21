@@ -131,9 +131,15 @@ function serializeValue({
       return value.value;
     } else if (type === 'range') {
       // if a range query, then transform to string format
-      return `${value.value.gte || value.value.gt || '*'},${
-        value.value.lte || value.value.lgt || '*'
-      }`;
+      // 0 is a bound like any other, so presence is not tested by truthiness. v1 ranges are inclusive,
+      // so an exclusive upper bound (lt) is written as the nearest inclusive one.
+      const bound = (...candidates: unknown[]) =>
+        candidates.find((x) => x !== undefined && x !== null && x !== '') ?? '*';
+      return `${bound(value.value.gte, value.value.gt)},${bound(
+        value.value.lte,
+        value.value.lt,
+        value.value.lgt
+      )}`;
     } else if (type === 'geoDistance') {
       // if a geoDistance query, then transform to string format
       return `${value.latitude},${value.longitude},${value.distance}`;
