@@ -8,10 +8,18 @@
   "STORAGE_OTHER": "Opbevaring andet",
   "STORAGE_REFRIGERATED": "Opbevaring kølerum",
   "STORAGE_RECORDED": "Opbevaring registreret",
+  "STORAGE_VACUUM": "Opbevaring i vakuum",
+  "SAMPLE_CRYOPRESERVED": "Prøve, kryokonserveret",
+  "SAMPLE_DRIED": "Prøve tørret",
+  "SAMPLE_EMBEDDED": "Eksempel indlejret",
+  "SAMPLE_FLUID_PRESERVED": "Prøve væske opbevaret",
   "SAMPLE_PINNED": "Prøve nålet",
   "SAMPLE_PRESSED": "Prøve presset",
   "SAMPLE_SKELETONIZED": "Prøven skeletiseret",
   "SAMPLE_SLIDE_MOUNT": "Prøve objektglasmonteret",
   "SAMPLE_SURFACE_COATING": "Prøve overfladebehandlet",
-  "SAMPLE_TANNED": "Prøve garvet"
+  "SAMPLE_TANNED": "Prøve garvet",
+  "SAMPLE_WAX_BLOCK": "Prøve i voksblok",
+  "SAMPLE_OTHER": "Prøve andet",
+  "SAMPLE_FREEZE_DRYING": "Prøve frysetørret"
 }
