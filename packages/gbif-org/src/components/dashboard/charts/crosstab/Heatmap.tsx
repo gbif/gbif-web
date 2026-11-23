@@ -260,7 +260,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                   </Cell>
                 );
               })}
-              <td className={rest}>{table.rest[i] > 0 ? f.count(table.rest[i]) : ''}</td>
+              <RestCell shade={shade} count={table.rest[i]} of={r.count} f={f} />
               <td className={cn(rest, 'g-text-slate-700')}>{f.count(r.count)}</td>
             </tr>
           ))}
@@ -282,6 +282,26 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
       </table>
     </div>
   );
+}
+
+/**
+ * A row's "other or no value": a count, or its share of the row when shares of rows are shown (the
+ * row's total includes it). A share of a column means nothing for it, so that shows the count. An
+ * empty one shows a muted 0, like an empty cell.
+ */
+function RestCell({
+  shade,
+  count,
+  of,
+  f,
+}: {
+  shade: Shade;
+  count: number;
+  of: number;
+  f: ReturnType<typeof useFormatters>;
+}) {
+  const text = shade === 'row' ? f.share(of ? count / of : 0) : f.count(count);
+  return <td className={cn(rest, count > 0 ? undefined : 'g-text-slate-400')}>{text}</td>;
 }
 
 /** The cell's text: the count, or the share. */
@@ -359,7 +379,7 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                   </Cell>
                 );
               })}
-              <td className={rest}>{r.rest > 0 ? f.count(r.rest) : ''}</td>
+              <RestCell shade={shade} count={r.rest} of={r.count} f={f} />
               <td className={cn(rest, 'g-text-slate-700')}>{f.count(r.count)}</td>
             </tr>
           ))}

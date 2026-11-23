@@ -157,7 +157,8 @@ function CrosstabMain(props: CrosstabProps) {
         <FormattedMessage key={key} id={`dashboard.crosstab.notes.${id}`} values={values} />
       );
     const rowsOther = table ? table.rowsOther : ranked ? ranked.rowsOther : 0;
-    if (rowsOther > 0) note('rowsOther', { count: fmt(rowsOther) });
+    // A number, not formatted text: the message picks its plural from it and formats it itself.
+    if (rowsOther > 0) note('rowsOther', { count: rowsOther });
     if (!fits) {
       note('tooManyColumns', {
         dimension: name(loaded.cols.dim),

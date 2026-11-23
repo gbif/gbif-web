@@ -67,7 +67,7 @@
       "longitude": "Longitude"
     },
     "notes": {
-      "rowsOther": "{count} records are in rows that are not shown, or have no value.",
+      "rowsOther": "{count, plural, one {# record is} other {# records are}} in rows that are not shown, or have no value.",
       "columns": "The {n} values with most records are shown as columns, the same on every page. The rest are under other.",
       "tooManyColumns": "{dimension} has {count} values here, more than the {n} that can be compared across all rows, so each row lists its own {rank} most frequent values.",
       "multi": "A record can have several values, so it can be counted in several cells.",
