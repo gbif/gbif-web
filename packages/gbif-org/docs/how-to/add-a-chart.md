@@ -87,7 +87,7 @@ rename.
 - **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not
   turn the rest pale. The rank picks a colour along the theme's `heatmapColors` (colour stops from
   fewest to most records, `#rgb` or `#rrggbb`; default in `config/theme/heatmapColors.ts`, a
-  softened "plasma" scale from cream to deep indigo). `src/gbif/config.ts` lists three other scales,
+  softened "plasma" scale from cream to deep indigo). `src/gbif/config.ts` runs from GBIF's chart orange to its purple and lists three other scales,
   commented out, to try. Ink is white or black, whichever contrasts more with the cell (`colour.ts`).
 - **Cells** sit on a light grey, with a thin line around every cell and label. An empty cell shows a
   muted 0. With a share shown, cells show only the share (the count is in the hover bar). Column

@@ -166,8 +166,11 @@ export const gbifConfig: Config = {
       EX: '#231F20',
     },
     // Dashboard heatmap colours, from fewest to most records. Keep one active.
+    // From GBIF's chart orange (#ECAC7C) to its purple (#664192), the steps between worked out in
+    // OKLCH so they stay clear rather than greyish; a lighter orange before and a deeper purple after.
+    heatmapColors: ['#f5d1b6', '#ECAC7C', '#d47c7e', '#a5588c', '#664192', '#45206a'],
     // Plasma, softened: cream, apricot, coral, rose, purple, indigo.
-    heatmapColors: ['#fbf0c2', '#f6c88f', '#eb9a82', '#d07196', '#8f4a9c', '#35206e'],
+    // heatmapColors: ['#fbf0c2', '#f6c88f', '#eb9a82', '#d07196', '#8f4a9c', '#35206e'],
     // Plasma: yellow, orange, red, magenta, purple.
     // heatmapColors: ['#f0f921', '#fca636', '#e16462', '#b12a90', '#6a00a8', '#0d0887'],
     // Viridis: yellow, green, teal, blue, purple.
