@@ -12,6 +12,7 @@ import {
   canFilter,
   canFilterCell,
   lineFilter,
+  asShown,
   makeIntensity,
   measure,
   planAxes,
@@ -539,6 +540,15 @@ describe('colour', () => {
     expect(f(2)).toBeGreaterThan(f(1));
     expect(f(3)).toBeGreaterThan(f(2));
     expect(f(3)).toBeLessThan(1);
+  });
+
+  test('shares rank as shown, so cells that read alike shade alike', () => {
+    expect(asShown('row', 0.996)).toBe(asShown('row', 1));
+    expect(asShown('row', 0.001)).toBe(asShown('row', 0.0049));
+    expect(asShown('row', 0)).toBe(0);
+    expect(asShown('count', 1234)).toBe(1234);
+    const f = makeIntensity([0.996, 1, 0.5].map((v) => asShown('row', v)));
+    expect(f(asShown('row', 0.996))).toBe(f(asShown('row', 1)));
   });
 
   test('intensity: equal values shade alike, a lone value is full', () => {

@@ -8,6 +8,7 @@ import {
   canFilterCell,
   cellFilter,
   lineFilter,
+  asShown,
   makeIntensity,
   measure,
   MIN_INTENSITY,
@@ -159,6 +160,14 @@ function Cell({
 /** The Total labels have the weight of the totals. */
 const totalLabel = 'g-font-medium g-text-slate-700';
 const totalCell = cn(rest, 'g-text-slate-700 g-font-medium');
+/**
+ * A column only as wide as its longest word or number, with its label folded onto a line per word
+ * ("No / value"), so the short Other and No value columns don't take room from the values.
+ */
+const narrow = 'g-w-[1%]';
+const Folded = ({ children }: { children: React.ReactNode }) => (
+  <span className="g-inline-block g-w-min">{children}</span>
+);
 
 /** Column labels longer than this are cut, with the whole label in the bar on hover. */
 const MAX_LABEL = 60;
@@ -224,7 +233,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   const scale = useScale();
   const { rows, cols, shade, interactive, onPick } = common;
   const cell = (i: number, j: number) =>
-    measure(shade, table.counts[i][j], table.rows[i].count, table.cols[j].count);
+    asShown(shade, measure(shade, table.counts[i][j], table.rows[i].count, table.cols[j].count));
   const intensity = useMemo(
     () => makeIntensity(table.counts.flatMap((row, i) => row.map((_, j) => cell(i, j)))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -255,13 +264,21 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               </ColumnHeader>
             ))}
             {table.showOther && (
-              <ColumnHeader onHover={common.onHover} label={f.otherHint(common.colLabel)}>
-                {f.otherLabel}
+              <ColumnHeader
+                onHover={common.onHover}
+                label={f.otherHint(common.colLabel)}
+                className={narrow}
+              >
+                <Folded>{f.otherLabel}</Folded>
               </ColumnHeader>
             )}
             {table.showNoValue && (
-              <ColumnHeader onHover={common.onHover} label={f.noValueHint(common.colLabel)}>
-                {f.noValueLabel}
+              <ColumnHeader
+                onHover={common.onHover}
+                label={f.noValueHint(common.colLabel)}
+                className={narrow}
+              >
+                <Folded>{f.noValueLabel}</Folded>
               </ColumnHeader>
             )}
             <ColumnHeader onHover={common.onHover} label={f.rowTotalHint} className={totalLabel}>
@@ -398,7 +415,8 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
   const f = useFormatters();
   const scale = useScale();
   const { rows, cols, shade, interactive, onPick } = common;
-  const value = (count: number, total: number) => measure(shade, count, total, total);
+  const value = (count: number, total: number) =>
+    asShown(shade, measure(shade, count, total, total));
   const intensity = useMemo(
     () => makeIntensity(table.rows.flatMap((r) => r.items.map((i) => value(i.count, r.count)))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -415,25 +433,31 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
       >
         <thead>
           <tr>
-            {/* The rows and the ranked values need no header: the selectors above name them. Other
-                and Total keep theirs, as their numbers would read as values otherwise. */}
-            <td colSpan={table.width + 1} className="g-border-0" aria-hidden="true" />
+            <th scope="col" className={th}>
+              {f.corner(common.rowLabel, common.colLabel)}
+            </th>
+            {/* Each row's values in order, most frequent first. */}
+            {ranks.map((k) => (
+              <th key={k} scope="col" className={th}>
+                {f.count(k)}
+              </th>
+            ))}
             {table.showOther && (
               <th
                 scope="col"
-                className={cn(th, 'g-text-end')}
+                className={cn(th, 'g-text-end', narrow)}
                 {...labelHover(f.otherHint(common.colLabel), common.onHover)}
               >
-                {f.otherLabel}
+                <Folded>{f.otherLabel}</Folded>
               </th>
             )}
             {table.showNoValue && (
               <th
                 scope="col"
-                className={cn(th, 'g-text-end')}
+                className={cn(th, 'g-text-end', narrow)}
                 {...labelHover(f.noValueHint(common.colLabel), common.onHover)}
               >
-                {f.noValueLabel}
+                <Folded>{f.noValueLabel}</Folded>
               </th>
             )}
             <th

@@ -89,7 +89,8 @@ rename.
   Each column is shown only when the whole filtered data has something for it, so every page of rows
   has the same columns. A multi-valued column has no "other": one record can be in several cells.
 - **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not
-  turn the rest pale. The rank picks a colour along the theme's `heatmapColors` (colour stops from
+  turn the rest pale. A share ranks as it is shown (`asShown`: a whole percentage, all of "<1%" one
+  value), so cells that read the same have the same colour. The rank picks a colour along the theme's `heatmapColors` (colour stops from
   fewest to most records, `#rgb` or `#rrggbb`; default in `config/theme/heatmapColors.ts`, a
   softened "plasma" scale from cream to deep indigo). `src/gbif/config.ts` runs from GBIF's chart orange to its purple and lists three other scales,
   commented out, to try. Ink is white below a relative luminance of 0.31 and black above (`colour.ts`): white reads better on saturated mid tones than the WCAG contrast ratio suggests.

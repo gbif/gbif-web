@@ -840,6 +840,15 @@ export function measure(shade: Shade, count: number, rowTotal: number, colTotal:
   return count;
 }
 
+/**
+ * A measure as the cell shows it: a share as a whole percentage, with everything under half a percent
+ * one value ("<1%"). Colour goes by this, so two cells that both read 100% get the same colour.
+ */
+export function asShown(shade: Shade, value: number): number {
+  if (shade === 'count' || !(value > 0)) return value;
+  return value < 0.005 ? 0.004 : Math.round(value * 100) / 100;
+}
+
 export const MIN_INTENSITY = 0.12;
 
 /**
