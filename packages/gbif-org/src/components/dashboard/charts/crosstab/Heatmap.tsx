@@ -129,7 +129,10 @@ function RowHeader({
         label={line.label}
         onClick={() => common.onPick(lineFilter(axis, line.key))}
       >
-        {line.label}
+        {/* Long labels (dataset titles) would push the table wide: cut them, the full one on hover. */}
+        <span className="g-block g-max-w-[16rem] g-truncate" title={line.label}>
+          {line.label}
+        </span>
       </Pickable>
     </th>
   );
