@@ -7,7 +7,15 @@ import { ChartMessages } from '../OneDimensionalChart';
 import { AxisControl, Segmented, SwapButton } from './Controls';
 import { getDimension, type Dimension } from './dimensions';
 import { Heatmap, Legend, RankedHeatmap } from './Heatmap';
-import { LIMITS, shapeRanked, shapeTable, type Layout, type Shade } from './plan';
+import {
+  columnCardinality,
+  fitsOverall,
+  LIMITS,
+  shapeRanked,
+  shapeTable,
+  type Layout,
+  type Shade,
+} from './plan';
 import { useCrosstab } from './useCrosstab';
 
 export const DEFAULT_ROWS = 'basisOfRecord';
@@ -62,15 +70,28 @@ function CrosstabMain(props: CrosstabProps) {
     cols: cols.kind === 'histogram' ? positive(get('cInt')) : undefined,
   };
   // "Top per row" lists each row's own biggest values, which only means something for a terms column.
-  const layout: Layout = get('layout') === 'perRow' && cols.kind === 'terms' ? 'perRow' : 'overall';
+  const wantedLayout: Layout =
+    get('layout') === 'perRow' && cols.kind === 'terms' ? 'perRow' : 'overall';
+
+  const state = useCrosstab({ predicate, q, rows, cols, ask, layout: wantedLayout });
+  const { loaded } = state;
+
+  // "Top overall" is only exact when the column has few enough values; otherwise the same data is shown
+  // as each row's own top values, which are exact (`fitsOverall`).
+  const fits = loaded ? fitsOverall(loaded.data, loaded.rows, loaded.cols) : true;
+  const shownLayout: Layout | undefined = loaded
+    ? loaded.layout === 'overall' && fits
+      ? 'overall'
+      : 'perRow'
+    : undefined;
+  // Only the data for the column chosen now says whether overall is possible.
+  const tooMany = !!loaded && loaded.cols.dim.id === cols.id && !fits;
+  const layout: Layout = tooMany ? 'perRow' : wantedLayout;
   const wantedShade = get('shade');
   const shade: Shade =
     wantedShade === 'row' || (wantedShade === 'column' && layout === 'overall')
       ? wantedShade
       : 'count';
-
-  const state = useCrosstab({ predicate, q, rows, cols, ask, layout });
-  const { loaded } = state;
 
   const name = (d: Dimension) => intl.formatMessage({ id: d.labelId, defaultMessage: d.id });
   const fmt = (n: number) => intl.formatNumber(n);
@@ -83,19 +104,19 @@ function CrosstabMain(props: CrosstabProps) {
   // old table stays, and must be read as it was fetched.
   const table = useMemo(
     () =>
-      loaded?.layout === 'overall'
+      loaded && shownLayout === 'overall'
         ? shapeTable(loaded.data, loaded.rows, loaded.cols, formatting)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [loaded]
+    [loaded, shownLayout]
   );
   const ranked = useMemo(
     () =>
-      loaded?.layout === 'perRow'
+      loaded && shownLayout === 'perRow'
         ? shapeRanked(loaded.data, loaded.rows, loaded.cols, formatting)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [loaded]
+    [loaded, shownLayout]
   );
 
   const setRows = (id: string) =>
@@ -122,11 +143,17 @@ function CrosstabMain(props: CrosstabProps) {
       );
     const rowsOther = table ? table.rowsOther : ranked ? ranked.rowsOther : 0;
     if (rowsOther > 0) note('rowsOther', { count: fmt(rowsOther) });
-    if (loaded.layout === 'perRow') note('perRow', { n: LIMITS.rank });
+    if (!fits) {
+      note('tooManyColumns', {
+        dimension: name(loaded.cols.dim),
+        count: fmt(columnCardinality(loaded.data) ?? LIMITS.nested),
+        n: LIMITS.nested,
+      });
+    }
+    if (shownLayout === 'perRow') note('perRow', { n: LIMITS.rank });
     else if (loaded.cols.dim.kind === 'terms') note('columns', { n: LIMITS.cols });
-    if (table?.approximate) note('approximate');
     if (rows.multi || cols.multi) note('multi');
-    if (shade === 'column') note('shadeColumn');
+    if (shade === 'column') note(table?.colTotalsKnown ? 'shadeColumn' : 'shadeColumnShown');
     (['rows', 'cols'] as const).forEach((axis) => {
       const { interval: size, window, dim } = loaded[axis];
       if (window) {
@@ -201,6 +228,13 @@ function CrosstabMain(props: CrosstabProps) {
                 {
                   id: 'overall',
                   text: intl.formatMessage({ id: 'dashboard.crosstab.layoutOverall' }),
+                  disabled: tooMany,
+                  title: tooMany
+                    ? intl.formatMessage(
+                        { id: 'dashboard.crosstab.layoutOverallUnavailable' },
+                        { dimension: name(cols), n: LIMITS.nested }
+                      )
+                    : undefined,
                 },
                 {
                   id: 'perRow',

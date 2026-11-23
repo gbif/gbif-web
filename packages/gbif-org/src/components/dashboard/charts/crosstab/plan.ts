@@ -19,8 +19,9 @@ export const LIMITS = {
   /** Histogram buckets: aim for `target`, never more than `max` (an interval is raised to keep to it). */
   bins: { target: 10, max: 24 },
   /**
-   * Values asked for in each row's column facet. More than are shown, so that the columns that are
-   * biggest overall can be picked from them.
+   * Values asked for in each row's column facet. "Top overall" picks the biggest columns from these, so
+   * it is only offered when the column has no more values than this: then every row's facet is complete
+   * and every cell exact (`fitsOverall`).
    */
   nested: 40,
 };
@@ -283,9 +284,16 @@ export function buildQuery(
   const language =
     rows.dim.kind === 'terms' || cols.dim.kind === 'terms' ? ', $language: String' : '';
   const checklist = rows.dim.checklist || cols.dim.checklist ? ', $checklistKey: ID' : '';
+  // How many values a terms column has under the filter decides whether "top overall" is exact.
+  const cardinality =
+    cols.dim.kind === 'terms'
+      ? `cardinality { cols: ${cols.dim.id}${cols.dim.checklist ? '(checklistKey: $checklistKey)' : ''} }`
+      : '';
   return `query crosstab($q: String, $predicate: Predicate${language}${checklist}) {
   search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) { total }
+    ${cardinality}
+    ${level(cols, 'colTotals', LIMITS.nested)}
     ${level(rows, 'rows', LIMITS.rows, level(cols, 'cols', colSize))}
   }
 }`;
@@ -303,7 +311,14 @@ export type Raw = {
   facet?: Record<string, RawBucket[] | null | undefined> | null;
   histogram?: Record<string, { buckets?: RawBucket[] | null } | null | undefined> | null;
 };
-export type CrosstabData = { search?: (Raw & { documents?: { total?: number } }) | null };
+export type CrosstabData = {
+  search?:
+    | (Raw & {
+        documents?: { total?: number };
+        cardinality?: { cols?: number | string | null } | null;
+      })
+    | null;
+};
 
 type Bucket = { key: string | number; label: string; count: number; occurrences?: Raw | null };
 
@@ -355,8 +370,11 @@ export type Table = {
   total: number;
   /** Records in rows that are not shown (other values, or no value). */
   rowsOther: number;
-  /** A row's column facet was cut short, so a small cell may be missing. */
-  approximate: boolean;
+  /**
+   * Column counts are each value's total under the filter, across all rows. Otherwise (the totals
+   * didn't come back) they are the sum over the rows shown.
+   */
+  colTotalsKnown: boolean;
 };
 
 /** How numbers and ranges are written: the page's locale decides, so the caller passes it in. */
@@ -401,7 +419,16 @@ export function shapeTable(
   const { buckets: rowBuckets, lines: rowLine } = rowLines(root, rows, fmt);
   const children = rowBuckets.map((b) => readBuckets(b.occurrences, 'cols', cols.dim));
 
-  // Columns: histograms in order, filled; terms the biggest by the sum over the rows shown.
+  // Each column value's total under the filter, across all rows: what "% of column" divides by. The
+  // sum over the rows shown would leave out the other rows, and count a record with several row values
+  // more than once.
+  const totals = new Map(
+    readBuckets(root, 'colTotals', cols.dim).map((b) => [keyOf(cols.dim, b.key), b.count])
+  );
+  const colTotalsKnown = totals.size > 0;
+
+  // Columns: histograms in order, filled; terms the biggest by their total (or, without totals, by the
+  // sum over the rows shown), among the values the rows shown have.
   const sums = new Map<string, { bucket: Bucket; sum: number }>();
   for (const bucket of children.flat()) {
     const k = keyOf(cols.dim, bucket.key);
@@ -409,6 +436,7 @@ export function shapeTable(
     if (have) have.sum += bucket.count;
     else sums.set(k, { bucket, sum: bucket.count });
   }
+  if (colTotalsKnown) for (const [k, s] of sums) s.sum = totals.get(k) ?? s.sum;
   let colBuckets: Bucket[];
   if (cols.dim.kind === 'histogram') {
     colBuckets = fill([...sums.values()].map((s) => s.bucket).sort(byKeyOrder), cols.interval ?? 1);
@@ -432,13 +460,45 @@ export function shapeTable(
   const total = Number(root?.documents?.total) || 0;
   return {
     rows: rowLine,
-    cols: colBuckets.map((b, j) => lineOf(cols, b, sumOf(counts.map((r) => r[j])), fmt)),
+    cols: colBuckets.map((b, j) =>
+      lineOf(
+        cols,
+        b,
+        (colTotalsKnown ? totals.get(keyOf(cols.dim, b.key)) : undefined) ??
+          sumOf(counts.map((r) => r[j])),
+        fmt
+      )
+    ),
     counts,
     rest: rowLine.map((r, i) => Math.max(0, r.count - sumOf(counts[i]))),
     total,
     rowsOther: Math.max(0, total - sumOf(rowLine.map((r) => r.count))),
-    approximate: cols.dim.kind === 'terms' && children.some((c) => c.length >= LIMITS.nested),
+    colTotalsKnown,
   };
+}
+
+/** How many values a terms column has under the filter, when the API said. */
+export function columnCardinality(data: CrosstabData | undefined): number | null {
+  return num(data?.search?.cardinality?.cols);
+}
+
+/**
+ * Whether "top overall" is exact. It picks the biggest columns from each row's own top values, so a
+ * value outside a row's top would show as an empty cell although the row has records with it. That
+ * can't happen when the column has at most `LIMITS.nested` values. Numeric columns are fetched whole.
+ * Without a cardinality, every row's facet having come back short of the limit tells the same.
+ */
+export function fitsOverall(
+  data: CrosstabData | undefined,
+  rows: AxisPlan,
+  cols: AxisPlan
+): boolean {
+  if (cols.dim.kind !== 'terms') return true;
+  const cardinality = columnCardinality(data);
+  if (cardinality !== null) return cardinality <= LIMITS.nested;
+  return !readBuckets(data?.search, 'rows', rows.dim).some(
+    (b) => readBuckets(b.occurrences, 'cols', cols.dim).length >= LIMITS.nested
+  );
 }
 
 export type RankedRow = Line & { items: Line[]; rest: number };

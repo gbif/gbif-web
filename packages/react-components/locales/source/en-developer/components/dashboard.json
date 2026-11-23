@@ -52,6 +52,7 @@
     "layout": "Layout",
     "layoutOverall": "Top overall",
     "layoutPerRow": "Top per row",
+    "layoutOverallUnavailable": "Top overall needs {dimension} to have at most {n} values here",
     "shade": "Colour by",
     "shadeCount": "Count",
     "shadeRow": "% of row",
@@ -72,9 +73,10 @@
       "rowsOther": "{count} records are in rows that are not shown, or have no value.",
       "columns": "The {n} values with most records are shown as columns. The rest are under other.",
       "perRow": "Each row lists its {n} most frequent values.",
-      "approximate": "Some columns have many values, so small cells can be missing.",
+      "tooManyColumns": "{dimension} has {count} values here, more than the {n} that can be compared across all rows, so each row lists its own most frequent values.",
       "multi": "A record can have several values, so it can be counted in several cells.",
-      "shadeColumn": "Colours show each cell's share of the column total across the rows shown.",
+      "shadeColumn": "Colours show each cell's share of all records with that column value.",
+      "shadeColumnShown": "Colours show each cell's share of the column total across the rows shown.",
       "raised": "The bucket size for {dimension} was raised to {size} to keep the number of buckets manageable.",
       "window": "{dimension}: values from {from} up to {to} are shown, where most records are. Records outside that range are left out."
     }

@@ -7,6 +7,7 @@ import {
   cellFilter,
   coarseInterval,
   buildQuery,
+  fitsOverall,
   buildStatsQuery,
   canFilter,
   lineFilter,
@@ -184,7 +185,6 @@ describe('shapeTable', () => {
   test('records in rows that are not shown', () => {
     expect(t.total).toBe(1000);
     expect(t.rowsOther).toBe(100);
-    expect(t.approximate).toBe(false);
   });
 
   test('terms columns: the biggest overall, picked across rows', () => {
@@ -217,18 +217,95 @@ describe('shapeTable', () => {
     expect(table.counts[0]).toHaveLength(8);
   });
 
-  test('a facet cut at the limit is flagged as approximate', () => {
-    const cut = Array.from({ length: 40 }, (_, i) => ({ key: `C${i}`, count: 1, label: `C${i}` }));
+  test('column counts are the totals across all rows, and pick the columns', () => {
     const data: CrosstabData = {
       search: {
-        documents: { total: 40 },
-        facet: { rows: [{ key: 'A', count: 40, occurrences: { facet: { cols: cut } } }] },
+        documents: { total: 1000 },
+        facet: {
+          // B is small in the rows shown but biggest overall
+          colTotals: [
+            { key: 'B', count: 900 },
+            { key: 'A', count: 50 },
+          ],
+          rows: [
+            {
+              key: 'R',
+              count: 60,
+              occurrences: {
+                facet: {
+                  cols: [
+                    { key: 'A', count: 40 },
+                    { key: 'B', count: 20 },
+                  ],
+                },
+              },
+            },
+          ],
+        },
       },
     };
-    expect(
-      shapeTable(data, { dim: basis }, { dim: getDimension('countryCode', 'countryCode') })
-        .approximate
-    ).toBe(true);
+    const t = shapeTable(data, { dim: basis }, { dim: getDimension('countryCode', 'countryCode') });
+    expect(t.colTotalsKnown).toBe(true);
+    expect(t.cols.map((c) => [c.key, c.count])).toEqual([
+      ['B', 900],
+      ['A', 50],
+    ]);
+    // so a cell's share of its column is of all records with that value
+    expect(measure('column', t.counts[0][0], t.rows[0].count, t.cols[0].count)).toBeCloseTo(
+      20 / 900
+    );
+  });
+
+  describe('top overall is only exact when the column has few enough values', () => {
+    const country = { dim: getDimension('countryCode', 'countryCode') };
+    const withCols = (n: number, cardinality?: number | null): CrosstabData => ({
+      search: {
+        documents: { total: n },
+        cardinality: cardinality === undefined ? undefined : { cols: cardinality },
+        facet: {
+          rows: [
+            {
+              key: 'A',
+              count: n,
+              occurrences: {
+                facet: {
+                  cols: Array.from({ length: n }, (_, i) => ({
+                    key: `C${i}`,
+                    count: 1,
+                    label: 'C',
+                  })),
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    test('by the cardinality, when the API gives it', () => {
+      expect(fitsOverall(withCols(5, 40), { dim: basis }, country)).toBe(true);
+      // a row may come back short while other rows have values it lacks
+      expect(fitsOverall(withCols(5, 41), { dim: basis }, country)).toBe(false);
+    });
+
+    test('without a cardinality, by whether a row facet was cut at the limit', () => {
+      expect(fitsOverall(withCols(39, null), { dim: basis }, country)).toBe(true);
+      expect(fitsOverall(withCols(40), { dim: basis }, country)).toBe(false);
+    });
+
+    test('numeric columns are fetched whole', () => {
+      expect(fitsOverall(withCols(5, 1000), { dim: basis }, { dim: year, interval: 10 })).toBe(
+        true
+      );
+    });
+
+    test('the query asks for the cardinality of a terms column, with the checklist for taxa', () => {
+      expect(buildQuery({ dim: basis }, country)).toContain('cardinality { cols: countryCode }');
+      expect(buildQuery({ dim: basis }, { dim: family })).toContain(
+        'cardinality { cols: familyKey(checklistKey: $checklistKey) }'
+      );
+      expect(buildQuery({ dim: basis }, { dim: year, interval: 10 })).not.toContain('cardinality');
+    });
   });
 
   test('months: all twelve are shown, not just the biggest eight', () => {
