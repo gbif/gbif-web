@@ -18,7 +18,7 @@
   "yearRange": "연 범위",
   "identifiedToSpecies": "종으로 동정됨",
   "withCoordinates": "좌표가 있음",
-  "withEventDate": "",
+  "withEventDate": "이벤트 날짜와 함께",
   "withCollector": "수집자가 있음",
   "withMedia": "미디어가 있음",
   "withSequence": "시퀀싱됨",
@@ -33,17 +33,17 @@
   "metricsFromGbifData": "이 수치는 GBIF를 통해 공유된 기록에 기반합니다.",
   "notVocabularyWarning": "해석이 없는 항목. 동일한 개념이 여러 가지 표기로 나타날 수 있습니다.",
   "taxonomicBreakdown": "분류학적 내역",
-  "showMoreInfo": "",
+  "showMoreInfo": "더 많은 정보 보기",
   "help": {
     "dataQuality": {
-      "intro": "",
-      "identifiedToSpecies": "",
-      "withCollector": ""
+      "intro": "각 행은 현재 필터 조건에 맞는 모든 기록 중에서 특정 속성을 가진 출현 기록의 개수를 집계한 것입니다. 막대는 해당 비율을 나타냅니다.",
+      "identifiedToSpecies": "종 수준까지 동정됨: GBIF 해석을 거쳐 종 수준까지 동정된 기록으로, 종 키(species key)와 일치된 것을 의미합니다. 원본 기록에 종명이 명시되어 있을 수 있으나, 해당 이름이 인정되지 않는 경우에는 집계 대상에서 제외됩니다.",
+      "withCollector": "수집자 포함: recordedBy(기록 제공자) 필드가 입력된 채워진 기록. \"수집자 없음\" 같은 값은 누락된 것으로 간주되지 않습니다."
     },
     "occurrenceSummary": {
-      "occurrenceRecords": "",
-      "species": "",
-      "yearRange": ""
+      "occurrenceRecords": "출현 기록: 현재 필터 조건에 부합하는 출현 기록의 수입니다.",
+      "species": "종: 해석 후 확인된 개별 종의 수. 인식되지 않은 이름은 종 수에 포함되지 않습니다.",
+      "yearRange": "연도 범위: 일치하는 기록의 연도 필드에 있는 가장 이른 값과 가장 늦은 값입니다. 이는 eventDate(이벤트 날짜) 필드가 아닌 연도 필드입니다."
     }
   },
   "group": {
@@ -51,7 +51,7 @@
     "record": "기록",
     "taxon": "분류군",
     "occurrence": "출현",
-    "nucleotideSequence": "뉴클레오티드 서열",
+    "nucleotideSequence": "뉴클레오타이드 서열",
     "organism": "유기체",
     "materialEntity": "물질적 실체",
     "event": "이벤트",
@@ -69,14 +69,14 @@
     "materialCollected": "수집된 재료",
     "samplingEffort": "샘플링 노력"
   },
-  "occurrencesPerGroup": "",
+  "occurrencesPerGroup": "그룹 별 출현",
   "sequenceDendrogram": "서열 계통도",
   "sequencePhylogeny.downloadAlignment": "정렬 (FASTA)",
   "sequencePhylogeny.downloadNewick": "뉴윅",
   "sequencePhylogeny.about": {
     "label": "이 트리가 어떻게 만들어지는지",
     "title": "이 트리가 어떻게 만들어지는지",
-    "align": "일치하는 출현값들의 구별되는 뉴클레오티드 서열은 <k>kalign</k> (다중 서열 정렬 도구)을 사용하여 정렬됩니다.",
+    "align": "일치하는 출현값들의 구별되는 뉴클레오타이드 서열은 <k>kalign</k> (다중 서열 정렬 도구)을 사용하여 정렬됩니다.",
     "tree": "해당 정렬 결과로부터 쌍간(pairwise) 유전적 거리(p-거리, 갭 및 모호한 위치를 무시함)를 읽고, 이를 바탕으로 이웃 결합 트리(neighbour-joining tree)를 구축합니다. 0에 가까운 내부 가지는 임의의 사다리가 아닌 다중 분기 형태로 표시됩니다.",
     "collapse": "축소 슬라이더는 선택된 동일성 비율 이상을 공유하는 서열들을 하나의 팁으로 통합합니다. 각 팁에는 해당 서열들이 나타내는 일치 분류군이 표시됩니다.",
     "downloads": "다운로드 데이터는 현재 화면, 즉 전체 정렬(<fasta>FASTA</fasta>)과 트리 (<newick>Newick</newick>, 현재 축약 수준에서)를 반영합니다."

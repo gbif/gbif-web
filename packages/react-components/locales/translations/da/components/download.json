@@ -1,31 +1,31 @@
 {
   "download": {
     "unsupported.title": "Ikke understøttet forespørgsel",
-    "unsupported.description": "",
+    "unsupported.description": "Fritekstsøgning kan bruges til at udforske indholdet, men understøttes ikke ved download.",
     "unsupported.remove": "Fjern filter",
-    "unsupported.error": "",
+    "unsupported.error": "Denne forespørgsel ser ud til ikke at være understøttet",
     "download": "Download",
-    "redirectNotice": "",
+    "redirectNotice": "Du er ved at downloade, og du vil blive omdirigeret til GBIF.org. \n\n Bemærk, at du skal have en konto for at kunne downloade data.",
     "continueToGBIF": "Fortsæt",
     "continue": "Fortsæt",
     "invalid": "Ugyldig",
     "validate": "Validér",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "sqlEditor": "SQL-editor",
+    "predicateEditor": "Predicate-editor",
     "sql": {
-      "createNewSqlDownload": "",
-      "placeholder": "",
-      "noSql": "",
+      "createNewSqlDownload": "Opret ny SQL-download",
+      "placeholder": "Indtast din SQL-forespørgsel her...",
+      "noSql": "Ingen SQL-forespørgsel",
       "note": {
         "title": "Note",
-        "description": "",
-        "occurrence_search": ""
+        "description": "Den nemmeste måde at downloade og udforske data på er via {occurrence_search}. Men til komplekse forespørgsler og aggregeringsværktøjer giver SQL-editoren mere frihed.",
+        "occurrence_search": "Brugergrænseflade til forekomstsøgning"
       },
       "errors": {
-        "invalid-SQL": "",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "invalid-SQL": "Ugyldig SQL",
+        "network-error": "Netværksfejl",
+        "parsingErrorDescription": "Det er ikke muligt at fortolke SQL",
+        "networkErrorDescription": "Kunne ikke validere SQL på grund af en netværksfejl"
       }
     },
     "create": "Opret",
@@ -35,26 +35,26 @@
     "reformat": "Omformater",
     "discard": "Kassér",
     "keep": "Behold",
-    "readTheDocumentation": "",
+    "readTheDocumentation": "Læs dokumentationen",
     "request": {
-      "placeholder": "",
-      "createNewDownload": "",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "placeholder": "Indtast dit predikat her...",
+      "createNewDownload": "Opret ny download",
+      "weHaveRestoredYourPredicate": "Vi har genoprettet det prædikat, du arbejdede på sidste gang, du var her.",
+      "noPredicate": "Intet prædikat",
       "currentFilter": "Nuværende filter",
       "errors": {
         "invalid-json": "Ugyldig JSON",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
+        "invalid-predicate": "Ugyldigt prædikat",
+        "faild-to-load-predicate": "Det lykkedes ikke at indlæse prædikatet",
         "unexpectedError": "En uventet fejl opstod",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "failedToParseJSON": "Det var ikke muligt at fortolke JSON",
+        "failedToVisualizePredicate": "Det lykkedes ikke at visualisere prædikatet. Viser rå JSON"
       }
     },
     "downloadOptions": {
       "title": "Valgmuligheder for download",
-      "chooseChecklist": "",
-      "chooseChecklistDescription": "",
+      "chooseChecklist": "Vælg tjekliste",
+      "chooseChecklistDescription": "Vælg den taksonomiske tjekliste for at organisere taxonnavnene i din download",
       "content": {
         "rawData": "Rådata",
         "interpretedData": "Fortolket data",
@@ -72,7 +72,7 @@
         "links": "links"
       }
     },
-    "failedToRefreshDownloadStatus": "",
+    "failedToRefreshDownloadStatus": "Kunne ikke opdatere downloadstatus",
     "descriptionByDownloadCreator": "Beskrivelse af download"
   }
 }

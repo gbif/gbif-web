@@ -1,1 +1,25 @@
-{}
+{
+  "STORAGE_OUTDOORS": "Opbevaring udendørs",
+  "STORAGE_INDOORS": "Opbevaring indendørs",
+  "STORAGE_CONTROLLED_ATMOSPHERE": "Opbevaring under kontrollerede atmosfære",
+  "STORAGE_FROZEN_MINUS_20": "Opbevaring frosset minus 20",
+  "STORAGE_FROZEN_MINUS_80": "Opbevaring frosset minus 80",
+  "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Opbevaring frosset mellem minus 132 og minus 196",
+  "STORAGE_OTHER": "Opbevaring andet",
+  "STORAGE_REFRIGERATED": "Opbevaring kølerum",
+  "STORAGE_RECORDED": "Opbevaring registreret",
+  "STORAGE_VACUUM": "Opbevaring i vakuum",
+  "SAMPLE_CRYOPRESERVED": "Prøve, kryokonserveret",
+  "SAMPLE_DRIED": "Prøve tørret",
+  "SAMPLE_EMBEDDED": "Eksempel indlejret",
+  "SAMPLE_FLUID_PRESERVED": "Prøve væske opbevaret",
+  "SAMPLE_PINNED": "Prøve nålet",
+  "SAMPLE_PRESSED": "Prøve presset",
+  "SAMPLE_SKELETONIZED": "Prøven skeletiseret",
+  "SAMPLE_SLIDE_MOUNT": "Prøve objektglasmonteret",
+  "SAMPLE_SURFACE_COATING": "Prøve overfladebehandlet",
+  "SAMPLE_TANNED": "Prøve garvet",
+  "SAMPLE_WAX_BLOCK": "Prøve i voksblok",
+  "SAMPLE_OTHER": "Prøve andet",
+  "SAMPLE_FREEZE_DRYING": "Prøve frysetørret"
+}

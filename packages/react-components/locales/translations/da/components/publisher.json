@@ -1,25 +1,25 @@
 {
-  "searchTitle": "",
-  "searchDescription": "",
+  "searchTitle": "Søgning efter udgiver",
+  "searchDescription": "Søg efter udgivere i GBIF. Gratis og åben adgang til biodiversitetsdata.",
   "tabs": {
     "aboutPublisher": "Om",
     "metrics": "Grafer",
-    "publishersHomepage": ""
+    "publishersHomepage": "Hjemmeside"
   },
-  "joinedDate": "",
+  "joinedDate": "Tilmeldt {date}",
   "newPublisher": "Ny forlægger",
-  "technicalContact": "",
+  "technicalContact": "Teknisk kontakt",
   "country": "Land eller område",
   "hosting": "Vært",
   "description": "Beskriveslse",
   "endorsedBy": "Godkendt af",
-  "notYetEndorsed": "",
+  "notYetEndorsed": "Endnu ikke anbefalet",
   "pendingEndorsementBy": "Afventer godkendelse fra",
-  "endorsementWithheld": "",
+  "endorsementWithheld": "Anbefaling tilbageholdt",
   "installations": "Installationer",
-  "getDownloadReport": "",
+  "getDownloadReport": "Download aktivitetsrapport",
   "contacts": "Kontakter",
-  "administrativeContact": "",
+  "administrativeContact": "Administrativ kontakt",
   "header": {
     "publisher": "Forlægger",
     "sinceDate": "Siden {DATE}"

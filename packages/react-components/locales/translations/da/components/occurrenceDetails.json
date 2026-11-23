@@ -38,7 +38,7 @@
     "UNKNOWN": ""
   },
   "showMore": "",
-  "showLess": "",
+  "showLess": "Vis mindre",
   "searchSimilarSequences": "",
   "dnaSequence": {
     "original": "Original",
@@ -116,7 +116,7 @@
         "Rating": "",
         "commenterLiteral": "",
         "commenter": "",
-        "comments": "",
+        "comments": "Kommentarer",
         "reviewerLiteral": "",
         "reviewer": "",
         "reviewerComments": "",
@@ -751,7 +751,7 @@
       }
     },
     "humboldtEcologicalInventory": {
-      "name": "",
+      "name": "Humboldt-udvidelsen",
       "recordsHeader": "",
       "groups": {
         "protocols": "Protokoller",

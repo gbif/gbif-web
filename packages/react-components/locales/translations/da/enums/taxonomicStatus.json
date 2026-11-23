@@ -8,5 +8,7 @@
   "AMBIGUOUS_SYNONYM": "Tvetydigt synonym",
   "PROVISIONALLY_ACCEPTED": "Foreløbigt accepteret",
   "MISAPPLIED": "Misanvendt",
-  "BARE_NAME": "Kun navn"
+  "BARE_NAME": "Kun navn",
+  "INTERMEDIATE_RANK_SYNONYM": "Synonym for mellemrang",
+  "DETERMINATION_SYNONYM": "Bestemmelsessynonym"
 }
