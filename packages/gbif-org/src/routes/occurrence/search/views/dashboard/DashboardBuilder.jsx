@@ -631,7 +631,7 @@ function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty, columnCount 
 /** @type {Record<string, { values: string[] }>} */
 const chartGroups = {
   views: {
-    values: ['map', 'table', 'gallery', 'crosstab'],
+    values: ['map', 'table', 'gallery'],
   },
   record: {
     values: [
@@ -772,6 +772,7 @@ const chartGroups = {
       'isInCluster',
       'isSequenced',
       'taxonomicIssue',
+      'crosstab',
     ],
   },
 };
@@ -825,6 +826,11 @@ function CreateOptions({ onAdd, chartsTypes }) {
     }
     return acc;
   }, groupOrdering);
+
+  // The two-dimensional heatmap is last in Other, after the charts of a single field.
+  groupedCharts.other.sort(
+    (a, b) => Number(a.value === 'crosstab') - Number(b.value === 'crosstab')
+  );
 
   // remove empty groups
   Object.keys(groupedCharts).forEach((group) => {
