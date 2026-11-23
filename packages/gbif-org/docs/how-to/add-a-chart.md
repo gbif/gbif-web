@@ -78,6 +78,12 @@ rename.
   marked `noPaging`. The page isn't saved in the layout; a new filter or axis starts on page one.
 - **Shares** divide by true totals: a row's count from the row facet, a column's from the top-level
   column facet. With a multi-valued field a row's or column's shares can add up to more than 100%.
+- **Other and no value** are separate columns. A row's records with a column value are the sum of its
+  column buckets when the column has one value per record and the facets are complete; otherwise
+  (`needsValueCounts`: a multi-valued column, or "top per row") a small second request counts them
+  (`buildValueCountQuery`), with the rows restricted to those shown and one count over all rows.
+  Each column is shown only when the whole filtered data has something for it, so every page of rows
+  has the same columns. A multi-valued column has no "other": one record can be in several cells.
 - **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not
   turn the rest pale. The rank picks a colour along the theme's `heatmapColors` (colour stops from
   fewest to most records, `#rgb` or `#rrggbb`; default in `config/theme/heatmapColors.ts`, the

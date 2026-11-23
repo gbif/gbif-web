@@ -177,9 +177,12 @@ describe('shapeTable', () => {
     ]);
   });
 
-  test('column totals sum the rows shown; what a row leaves out is its rest', () => {
+  test('column totals sum the rows shown; what a row leaves out has no value', () => {
     expect(t.cols.map((c) => c.count)).toEqual([100, 200, 400]);
-    expect(t.rest).toEqual([100, 100]);
+    // histogram buckets come whole, so nothing is "other"
+    expect(t.noValue).toEqual([100, 100]);
+    expect(t.other).toEqual([0, 0]);
+    expect(t.showOther).toBe(false);
   });
 
   test('records in rows that are not shown', () => {
@@ -349,8 +352,10 @@ describe('shapeTable', () => {
       const t = shapeTable(pageWith(30, 30, ['V29']), { dim: basis }, country);
       expect(t.cols.map((c) => c.key)).toEqual(totalsOf(8).map((v) => v.key));
       expect(t.allCols).toBe(false);
-      // V29 is not a column, so the row's 5 are under other
-      expect(t.rest).toEqual([10]);
+      // V29 is not a column, so the row's 5 with it are other; the other 5 have no value
+      expect(t.other).toEqual([5]);
+      expect(t.noValue).toEqual([5]);
+      expect(t.showOther).toBe(true);
     });
 
     test('rows are paged when the facet takes from; histograms and occurrence status are not', () => {
@@ -445,9 +450,45 @@ describe('shapeRanked', () => {
     };
     const ranked = shapeRanked(data, { dim: basis }, country);
     expect(ranked.rows[0].items.map((i) => i.label)).toEqual(['Sweden', 'Denmark']);
-    expect(ranked.rows[0].rest).toBe(10);
+    expect(ranked.rows[0].noValue).toBe(10);
+    expect(ranked.rows[0].other).toBe(0);
     expect(ranked.width).toBe(2);
     expect(ranked.rowsOther).toBe(40);
+
+    // When the row's records with a value had to be counted, the count decides
+    const counted: CrosstabData = {
+      search: { documents: { total: 55 }, facet: { rows: [{ key: 'A', count: 55 }] } },
+    };
+    const withCount = shapeRanked(data, { dim: basis }, country, undefined, counted);
+    expect(withCount.rows[0].noValue).toBe(5);
+    expect(withCount.rows[0].other).toBe(5);
+    expect(withCount.showNoValue).toBe(true);
+  });
+
+  test('a multi-valued column has no "other": a record can be in several cells', () => {
+    const issue = { dim: getDimension('issue', 'issue') };
+    const data: CrosstabData = {
+      search: {
+        documents: { total: 10 },
+        facet: {
+          rows: [
+            {
+              key: 'A',
+              count: 10,
+              occurrences: { facet: { cols: [{ key: 'X', count: 9, label: 'X' }] } },
+            },
+          ],
+        },
+      },
+    };
+    const counted: CrosstabData = {
+      search: { documents: { total: 10 }, facet: { rows: [{ key: 'A', count: 10 }] } },
+    };
+    const t = shapeTable(data, { dim: basis }, issue, undefined, counted);
+    expect(t.other).toEqual([null]);
+    expect(t.showOther).toBe(false);
+    expect(t.noValue).toEqual([0]);
+    expect(t.showNoValue).toBe(false);
   });
 });
 

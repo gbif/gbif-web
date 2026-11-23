@@ -62,7 +62,8 @@ function useFormatters() {
         { id: 'dashboard.crosstab.cell' },
         { row, column, count: count(n), share: share(of ? n / of : 0) }
       ),
-    restLabel: intl.formatMessage({ id: 'dashboard.crosstab.rest' }),
+    otherLabel: intl.formatMessage({ id: 'dashboard.crosstab.other' }),
+    noValueLabel: intl.formatMessage({ id: 'dashboard.crosstab.noValue' }),
     totalLabel: intl.formatMessage({ id: 'dashboard.crosstab.total' }),
     corner: (rows: string, cols: string) =>
       intl.formatMessage({ id: 'dashboard.crosstab.corner' }, { rows, cols }),
@@ -240,9 +241,16 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                 </Pickable>
               </ColumnHeader>
             ))}
-            <ColumnHeader slanted={slanted} label={f.restLabel}>
-              {f.restLabel}
-            </ColumnHeader>
+            {table.showOther && (
+              <ColumnHeader slanted={slanted} label={f.otherLabel}>
+                {f.otherLabel}
+              </ColumnHeader>
+            )}
+            {table.showNoValue && (
+              <ColumnHeader slanted={slanted} label={f.noValueLabel}>
+                {f.noValueLabel}
+              </ColumnHeader>
+            )}
             <ColumnHeader slanted={slanted} label={f.totalLabel}>
               {f.totalLabel}
             </ColumnHeader>
@@ -290,7 +298,12 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                   </Cell>
                 );
               })}
-              <RestCell shade={shade} count={table.rest[i]} of={r.count} f={f} />
+              {table.showOther && (
+                <RestCell shade={shade} count={table.other[i]} of={r.count} f={f} />
+              )}
+              {table.showNoValue && (
+                <RestCell shade={shade} count={table.noValue[i]} of={r.count} f={f} />
+              )}
               <td className={cn(rest, 'g-text-slate-700 g-font-medium')}>{f.count(r.count)}</td>
               {slanted && <td aria-hidden="true" />}
             </tr>
@@ -306,7 +319,8 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                 {f.count(c.count)}
               </td>
             ))}
-            <td className={rest}></td>
+            {table.showOther && <td className={rest}></td>}
+            {table.showNoValue && <td className={rest}></td>}
             <td className={rest}></td>
             {slanted && <td aria-hidden="true" />}
           </tr>
@@ -317,9 +331,9 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
 }
 
 /**
- * A row's "other or no value": a count, or its share of the row when shares of rows are shown (the
- * row's total includes it). A share of a column means nothing for it, so that shows the count. An
- * empty one shows a muted 0, like an empty cell.
+ * A row's "other" or "no value": a count, or its share of the row when shares of rows are shown (the
+ * row's total includes it). A share of a column means nothing for them, so that shows the count. An
+ * empty one shows a muted 0, like an empty cell; null (not knowable) shows nothing.
  */
 function RestCell({
   shade,
@@ -328,10 +342,11 @@ function RestCell({
   f,
 }: {
   shade: Shade;
-  count: number;
+  count: number | null;
   of: number;
   f: ReturnType<typeof useFormatters>;
 }) {
+  if (count === null) return <td className={rest} />;
   const text = shade === 'row' ? f.share(of ? count / of : 0) : f.count(count);
   return <td className={cn(rest, count > 0 ? undefined : 'g-text-slate-400')}>{text}</td>;
 }
@@ -377,9 +392,16 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
             {/* The rows and the ranked values need no header: the selectors above name them. Other
                 and Total keep theirs, as their numbers would read as values otherwise. */}
             <td colSpan={table.width + 1} className="g-border-0" aria-hidden="true" />
-            <th scope="col" className={cn(th, 'g-text-end')}>
-              <FormattedMessage id="dashboard.crosstab.rest" />
-            </th>
+            {table.showOther && (
+              <th scope="col" className={cn(th, 'g-text-end')}>
+                {f.otherLabel}
+              </th>
+            )}
+            {table.showNoValue && (
+              <th scope="col" className={cn(th, 'g-text-end')}>
+                {f.noValueLabel}
+              </th>
+            )}
             <th scope="col" className={cn(th, 'g-text-end')}>
               <FormattedMessage id="dashboard.crosstab.total" />
             </th>
@@ -423,7 +445,8 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                   </Cell>
                 );
               })}
-              <RestCell shade={shade} count={r.rest} of={r.count} f={f} />
+              {table.showOther && <RestCell shade={shade} count={r.other} of={r.count} f={f} />}
+              {table.showNoValue && <RestCell shade={shade} count={r.noValue} of={r.count} f={f} />}
               <td className={cn(rest, 'g-text-slate-700 g-font-medium')}>{f.count(r.count)}</td>
             </tr>
           ))}

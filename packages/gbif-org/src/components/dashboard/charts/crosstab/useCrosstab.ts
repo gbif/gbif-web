@@ -8,8 +8,12 @@ import {
   buildCoarseQuery,
   buildQuery,
   buildStatsQuery,
+  buildValueCountQuery,
   LIMITS,
+  needsValueCounts,
   pagesRows,
+  valueCountPredicate,
+  valueTotalPredicate,
   planAxes,
   robustRange,
   withWindows,
@@ -40,6 +44,8 @@ export type CrosstabState = {
     rowPage: number;
     /** The bucket sizes asked for when this was fetched. */
     ask: { rows?: number; cols?: number };
+    /** Per row shown, the records with a column value, when they had to be counted (`needsValueCounts`). */
+    values?: CrosstabData;
     rows: AxisPlan;
     cols: AxisPlan;
     auto: { rows?: number; cols?: number };
@@ -118,9 +124,10 @@ export function useCrosstab({
         cols: range('cols'),
       });
       const query = buildQuery(plan.rows, plan.cols);
+      const tablePredicate = withWindows(predicate, [plan.rows, plan.cols]);
       const from = pagesRows(plan.rows) ? { from: rowPage * LIMITS.rows } : {};
       const { data, errors } = await run<CrosstabData>(query, {
-        predicate: withWindows(predicate, [plan.rows, plan.cols]),
+        predicate: tablePredicate,
         q,
         language,
         ...from,
@@ -130,7 +137,31 @@ export function useCrosstab({
       const search = data.search;
       const answered = search?.facet?.rows?.length || search?.histogram?.rows?.buckets?.length;
       if (errors && !answered) throw new Error(errors);
-      setState({ loading: false, loaded: { data, rowPage, ask, ...plan } });
+      // Splitting other from no value sometimes needs a small count; without it the table still shows,
+      // from what the main answer allows.
+      let values: CrosstabData | undefined;
+      if (needsValueCounts(data, plan.rows, plan.cols)) {
+        values = await run<CrosstabData>(buildValueCountQuery(plan.rows), {
+          q,
+          language,
+          predicate: valueCountPredicate(
+            tablePredicate,
+            data,
+            plan.rows,
+            plan.cols,
+            needsChecklist ? checklistKey : undefined
+          ),
+          allPredicate: valueTotalPredicate(
+            tablePredicate,
+            plan.cols,
+            needsChecklist ? checklistKey : undefined
+          ),
+          ...(needsChecklist ? { checklistKey } : {}),
+        })
+          .then((r) => r.data)
+          .catch(() => undefined);
+      }
+      setState({ loading: false, loaded: { data, rowPage, ask, values, ...plan } });
     })().catch((error) => {
       if (controller.signal.aborted) return;
       // The previous table is dropped: it would sit under axis names it no longer matches.

@@ -104,7 +104,7 @@ function CrosstabMain(props: CrosstabProps) {
   const table = useMemo(
     () =>
       loaded && shownLayout === 'overall'
-        ? shapeTable(loaded.data, loaded.rows, loaded.cols, formatting)
+        ? shapeTable(loaded.data, loaded.rows, loaded.cols, formatting, loaded.values)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [loaded, shownLayout]
@@ -112,7 +112,7 @@ function CrosstabMain(props: CrosstabProps) {
   const ranked = useMemo(
     () =>
       loaded && shownLayout === 'perRow'
-        ? shapeRanked(loaded.data, loaded.rows, loaded.cols, formatting)
+        ? shapeRanked(loaded.data, loaded.rows, loaded.cols, formatting, loaded.values)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [loaded, shownLayout]

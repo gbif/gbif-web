@@ -324,6 +324,8 @@ export type Raw = {
   histogram?: Record<string, { buckets?: RawBucket[] | null } | null | undefined> | null;
 };
 export type CrosstabData = {
+  /** In the value count only: all records under the filter with a column value, in every row. */
+  all?: { documents?: { total?: number } } | null;
   search?:
     | (Raw & {
         documents?: { total?: number };
@@ -376,8 +378,14 @@ export type Table = {
   cols: Line[];
   /** counts[row][col] */
   counts: number[][];
-  /** Per row: records in none of the shown columns (other values, or no value). */
-  rest: number[];
+  /** Per row: records with no value in the column field. */
+  noValue: number[];
+  /** Per row: records with a value that isn't a column; null for a multi-valued column (unknowable). */
+  other: (number | null)[];
+  /** Some record under the filter has no column value: the column is shown on every page. */
+  showNoValue: boolean;
+  /** The column has values that aren't columns (and has one value per record): shown on every page. */
+  showOther: boolean;
   /** All records matching the filter. */
   total: number;
   /** Records in rows that are not shown (other values, or no value). */
@@ -432,7 +440,8 @@ export function shapeTable(
   data: CrosstabData | undefined,
   rows: AxisPlan,
   cols: AxisPlan,
-  fmt: Fmt = plainFmt
+  fmt: Fmt = plainFmt,
+  valueData?: CrosstabData
 ): Table {
   const root = data?.search;
   const { buckets: rowBuckets, lines: rowLine } = rowLines(root, rows, fmt);
@@ -481,6 +490,8 @@ export function shapeTable(
     return line;
   });
   const total = Number(root?.documents?.total) || 0;
+  const withValue = valueCounts(data, rows, cols, valueData, colTotalsKnown ? totalBuckets : null);
+  const rowWithValue = rowBuckets.map((b, i) => withValue.row(b, children[i]));
   return {
     rows: rowLine,
     cols: colBuckets.map((b, j) =>
@@ -493,7 +504,15 @@ export function shapeTable(
       )
     ),
     counts,
-    rest: rowLine.map((r, i) => Math.max(0, r.count - sumOf(counts[i]))),
+    noValue: rowLine.map((r, i) => Math.max(0, r.count - rowWithValue[i])),
+    other: rowLine.map((_, i) =>
+      cols.dim.multi ? null : Math.max(0, rowWithValue[i] - sumOf(counts[i]))
+    ),
+    showNoValue: withValue.anyWithout(
+      total,
+      rowLine.map((r, i) => r.count - rowWithValue[i])
+    ),
+    showOther: cols.dim.kind === 'terms' && !cols.dim.multi && values > colBuckets.length,
     total,
     rowsOther: Math.max(0, total - sumOf(rowLine.map((r) => r.count))),
     colTotalsKnown,
@@ -530,25 +549,47 @@ export function fitsOverall(
   );
 }
 
-export type RankedRow = Line & { items: Line[]; rest: number };
+export type RankedRow = Line & {
+  items: Line[];
+  /** Records with no value in the column field. */
+  noValue: number;
+  /** Records with a value outside the row's own top; null for a multi-valued column. */
+  other: number | null;
+};
 
-export type Ranked = { rows: RankedRow[]; width: number; total: number; rowsOther: number };
+export type Ranked = {
+  rows: RankedRow[];
+  width: number;
+  total: number;
+  rowsOther: number;
+  showNoValue: boolean;
+  showOther: boolean;
+};
 
 /** The answer as rows that each list their own biggest values of the column. */
 export function shapeRanked(
   data: CrosstabData | undefined,
   rows: AxisPlan,
   cols: AxisPlan,
-  fmt: Fmt = plainFmt
+  fmt: Fmt = plainFmt,
+  valueData?: CrosstabData
 ): Ranked {
   const root = data?.search;
   const { buckets, lines } = rowLines(root, rows, fmt);
+  const withValue = valueCounts(data, rows, cols, valueData, null);
   const out = lines.map((line, i): RankedRow => {
-    const children = readBuckets(buckets[i].occurrences, 'cols', cols.dim)
+    const all = readBuckets(buckets[i].occurrences, 'cols', cols.dim);
+    const children = [...all]
       .sort((a, b) => b.count - a.count || String(a.key).localeCompare(String(b.key)))
       .slice(0, LIMITS.rank);
     const items = children.map((c) => lineOf(cols, c, c.count, fmt));
-    return { ...line, items, rest: Math.max(0, line.count - sumOf(items.map((c) => c.count))) };
+    const has = withValue.row(buckets[i], all);
+    return {
+      ...line,
+      items,
+      noValue: Math.max(0, line.count - has),
+      other: cols.dim.multi ? null : Math.max(0, has - sumOf(items.map((c) => c.count))),
+    };
   });
   const total = Number(root?.documents?.total) || 0;
   return {
@@ -556,6 +597,123 @@ export function shapeRanked(
     width: Math.max(0, ...out.map((r) => r.items.length)),
     total,
     rowsOther: Math.max(0, total - sumOf(lines.map((l) => l.count))),
+    showNoValue: withValue.anyWithout(
+      total,
+      out.map((r) => r.noValue)
+    ),
+    showOther: !cols.dim.multi && (columnCardinality(data) ?? Infinity) > LIMITS.rank,
+  };
+}
+
+// ---- other, and no value ------------------------------------------------------------------------
+
+/**
+ * What a row leaves out of its shown cells is split in two: records with no value in the column field
+ * ("no value"), and records with a value that isn't a column ("other"). Both need the row's records
+ * that have a column value. When the column has one value per record and every row's column facet is
+ * complete, that is the sum of the row's column buckets, with no request. Otherwise (a multi-valued
+ * column, or one with too many values for the facets to be complete) a small request counts them.
+ */
+export function needsValueCounts(
+  data: CrosstabData | undefined,
+  rows: AxisPlan,
+  cols: AxisPlan
+): boolean {
+  return !!cols.dim.multi || !fitsOverall(data, rows, cols);
+}
+
+/**
+ * The query counting the records that have a value in the column field: per row shown (`$predicate`,
+ * see `valueCountPredicate`), and in all rows (`$allPredicate`, see `valueTotalPredicate`), which
+ * decides whether the no-value column is shown at all.
+ */
+export function buildValueCountQuery(rows: AxisPlan): string {
+  const language = rows.dim.kind === 'terms' ? ', $language: String' : '';
+  const checklist = rows.dim.checklist ? ', $checklistKey: ID' : '';
+  return `query crosstabValues($q: String, $predicate: Predicate, $allPredicate: Predicate${language}${checklist}) {
+  all: occurrenceSearch(q: $q, predicate: $allPredicate) {
+    documents(size: 0) { total }
+  }
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
+    documents(size: 0) { total }
+    ${level(rows, 'rows', LIMITS.rows)}
+  }
+}`;
+}
+
+const hasValue = (cols: AxisPlan, checklistKey?: string) => ({
+  type: 'isNotNull',
+  key: cols.dim.id,
+  ...(cols.dim.checklist ? { checklistKey } : {}),
+});
+
+/** The filter for the count in all rows: the table's, and records with a value in the column field. */
+export function valueTotalPredicate(
+  tablePredicate: unknown,
+  cols: AxisPlan,
+  checklistKey?: string
+): unknown {
+  return {
+    type: 'and',
+    predicates: [...(tablePredicate ? [tablePredicate] : []), hasValue(cols, checklistKey)],
+  };
+}
+
+/**
+ * Its filter: the table's, records with a value in the column field and, for terms rows, only the rows
+ * shown, so the facet counts exactly those (a histogram's buckets come whole anyway).
+ */
+export function valueCountPredicate(
+  tablePredicate: unknown,
+  data: CrosstabData | undefined,
+  rows: AxisPlan,
+  cols: AxisPlan,
+  checklistKey?: string
+): unknown {
+  const extra: unknown[] = [hasValue(cols, checklistKey)];
+  if (rows.dim.kind === 'terms') {
+    const values = readBuckets(data?.search, 'rows', rows.dim).map((b) => b.key);
+    extra.push({
+      type: 'in',
+      key: rows.dim.id,
+      values,
+      ...(rows.dim.checklist ? { checklistKey } : {}),
+    });
+  }
+  return { type: 'and', predicates: [...(tablePredicate ? [tablePredicate] : []), ...extra] };
+}
+
+/** Records with a column value: per row, and whether any record under the filter has none. */
+function valueCounts(
+  data: CrosstabData | undefined,
+  rows: AxisPlan,
+  cols: AxisPlan,
+  valueData: CrosstabData | undefined,
+  totalBuckets: Bucket[] | null
+) {
+  const counted = valueData?.search
+    ? new Map(
+        readBuckets(valueData.search, 'rows', rows.dim).map((b) => [
+          keyOf(rows.dim, b.key),
+          b.count,
+        ])
+      )
+    : null;
+  // All records under the filter with a column value: from the count, or the column's own facet when
+  // it is complete and has one value per record.
+  const withValueTotal = valueData?.all
+    ? num(valueData.all.documents?.total)
+    : totalBuckets && !cols.dim.multi && fitsOverall(data, rows, cols)
+      ? sumOf(totalBuckets.map((b) => b.count))
+      : null;
+  return {
+    row: (bucket: Bucket, children: Bucket[]) =>
+      counted
+        ? (counted.get(keyOf(rows.dim, bucket.key)) ?? 0)
+        : sumOf(children.map((c) => c.count)),
+    /** Without a total, fall back to the rows shown. */
+    anyWithout: (total: number, rowsWithout: number[]) =>
+      withValueTotal !== null ? total - withValueTotal > 0 : rowsWithout.some((n) => n > 0),
   };
 }
 
