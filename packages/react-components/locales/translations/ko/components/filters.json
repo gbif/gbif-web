@@ -322,7 +322,7 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "정착 수단",
+    "name": "서식 상태",
     "description": ""
   },
   "sex": {
@@ -368,7 +368,7 @@
     "description": ""
   },
   "recordedBy": {
-    "name": "에 의해 기록됨",
+    "name": "기록 제공자",
     "description": ""
   },
   "fieldNumber": {
