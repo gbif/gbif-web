@@ -355,6 +355,7 @@ const preconfiguredCharts = {
     },
   },
   occurrenceIssue: {
+    aliasKey: 'issue',
     component: ({ predicate, ...props }) => {
       return <charts.OccurrenceIssue predicate={predicate} interactive {...props} />;
     },
