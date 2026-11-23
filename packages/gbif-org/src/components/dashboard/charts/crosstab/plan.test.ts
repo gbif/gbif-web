@@ -256,37 +256,6 @@ describe('shapeTable', () => {
     );
   });
 
-  test('a value none of the rows shown has is still a column, with zeros', () => {
-    const data: CrosstabData = {
-      search: {
-        documents: { total: 1000 },
-        facet: {
-          colTotals: [
-            { key: 'HUMAN_OBSERVATION', count: 800, label: 'Human observation' },
-            { key: 'FOSSIL_SPECIMEN', count: 100, label: 'Fossil specimen' },
-          ],
-          rows: [
-            {
-              key: 'eBird',
-              count: 500,
-              occurrences: {
-                facet: {
-                  cols: [{ key: 'HUMAN_OBSERVATION', count: 500, label: 'Human observation' }],
-                },
-              },
-            },
-          ],
-        },
-      },
-    };
-    const t = shapeTable(data, { dim: getDimension('datasetKey', 'datasetKey') }, { dim: basis });
-    expect(t.cols.map((c) => [c.label, c.count])).toEqual([
-      ['Human observation', 800],
-      ['Fossil specimen', 100],
-    ]);
-    expect(t.counts).toEqual([[500, 0]]);
-  });
-
   describe('top overall is only exact when the column has few enough values', () => {
     const country = { dim: getDimension('countryCode', 'countryCode') };
     const withCols = (n: number, cardinality?: number | null): CrosstabData => ({

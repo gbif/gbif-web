@@ -422,14 +422,13 @@ export function shapeTable(
   // Each column value's total under the filter, across all rows: what "% of column" divides by. The
   // sum over the rows shown would leave out the other rows, and count a record with several row values
   // more than once.
-  const totalBuckets = readBuckets(root, 'colTotals', cols.dim);
-  const totals = new Map(totalBuckets.map((b) => [keyOf(cols.dim, b.key), b.count]));
+  const totals = new Map(
+    readBuckets(root, 'colTotals', cols.dim).map((b) => [keyOf(cols.dim, b.key), b.count])
+  );
   const colTotalsKnown = totals.size > 0;
 
   // Columns: histograms in order, filled; terms the biggest by their total (or, without totals, by the
-  // sum over the rows shown). With totals, a value none of the rows shown has is a column too: the
-  // table is only shown this way when every row's facet is complete (`fitsOverall`), so its cells are
-  // zero, not unknown.
+  // sum over the rows shown), among the values the rows shown have.
   const sums = new Map<string, { bucket: Bucket; sum: number }>();
   for (const bucket of children.flat()) {
     const k = keyOf(cols.dim, bucket.key);
@@ -437,13 +436,7 @@ export function shapeTable(
     if (have) have.sum += bucket.count;
     else sums.set(k, { bucket, sum: bucket.count });
   }
-  if (colTotalsKnown) {
-    for (const [k, s] of sums) s.sum = totals.get(k) ?? s.sum;
-    for (const bucket of totalBuckets) {
-      const k = keyOf(cols.dim, bucket.key);
-      if (!sums.has(k)) sums.set(k, { bucket, sum: bucket.count });
-    }
-  }
+  if (colTotalsKnown) for (const [k, s] of sums) s.sum = totals.get(k) ?? s.sum;
   let colBuckets: Bucket[];
   if (cols.dim.kind === 'histogram') {
     colBuckets = fill([...sums.values()].map((s) => s.bucket).sort(byKeyOrder), cols.interval ?? 1);
