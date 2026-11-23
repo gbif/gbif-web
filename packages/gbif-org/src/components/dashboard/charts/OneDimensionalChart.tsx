@@ -405,7 +405,7 @@ type ChartMessagesProps = {
 export function ChartMessages({ messages = [] }: ChartMessagesProps) {
   if (!messages || messages.length === 0) return null;
   return (
-    <div className="g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
+    <div className="g-text-slate-500 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
       {messages.map((message, i) => {
         const isString = typeof message === 'string';
         return (

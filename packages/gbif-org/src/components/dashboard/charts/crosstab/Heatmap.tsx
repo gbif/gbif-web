@@ -30,7 +30,12 @@ type CommonProps = {
   onPick: PickFilter;
   rowLabel: string;
   colLabel: string;
+  /** The cell under the pointer or focus, or none: shown in the bar at the bottom of the card. */
+  onHover?: (hover: Hover | null) => void;
 };
+
+/** What the bar at the bottom of the card says about the cell under the pointer. */
+export type Hover = { row: string; column: string; count: number; share: number; of: string };
 
 // The table sits on a very light grey, with a slightly darker line around every cell, header and
 // label, so empty cells and rows still read as a grid.
@@ -45,7 +50,8 @@ function useFormatters() {
   /** A share as a whole percentage, "less than 1%" for what rounds to nothing. */
   const share = (x: number) =>
     x > 0 && x < 0.005
-      ? intl.formatMessage({ id: 'dashboard.crosstab.lessThanOnePercent' })
+      ? // "<" and 1% as the page's language writes a percentage ("1 %", "%1", "١٪"): nothing to translate.
+        `<${intl.formatNumber(0.01, { style: 'percent', maximumFractionDigits: 0 })}`
       : intl.formatNumber(x, { style: 'percent', maximumFractionDigits: 0 });
   return {
     count,
@@ -106,21 +112,27 @@ function useScale(): Scale {
 function Cell({
   intensity,
   scale,
-  title,
   className,
+  onHover,
   children,
 }: {
   intensity: number;
   scale: Scale;
-  title: string;
   className?: string;
+  /** Shows the cell in the bar at the bottom of the card, at once, unlike a tooltip. */
+  onHover?: () => void;
   children: React.ReactNode;
 }) {
   const fill = intensity ? scale(intensity) : undefined;
   const style = fill ? { backgroundColor: cssColour(fill) } : undefined;
   const ink = fill ? (inkFor(fill) === 'light' ? 'g-text-white' : 'g-text-slate-900') : '';
   return (
-    <td className={cn(cellBase, ink, className)} style={style} title={title}>
+    <td
+      className={cn(cellBase, ink, className)}
+      style={style}
+      onMouseEnter={onHover}
+      onFocus={onHover}
+    >
       {children}
     </td>
   );
@@ -207,7 +219,11 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
 
   return (
     <div className="g-overflow-auto">
-      <table aria-label={common.caption} className="g-text-sm g-border-collapse">
+      <table
+        aria-label={common.caption}
+        className="g-w-full g-text-sm g-border-collapse"
+        onMouseLeave={() => common.onHover?.(null)}
+      >
         <thead>
           <tr>
             <th scope="col" className={th}>
@@ -248,7 +264,15 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                     key={j}
                     intensity={intensity(cell(i, j))}
                     scale={scale}
-                    title={title}
+                    onHover={() =>
+                      common.onHover?.({
+                        row: r.label,
+                        column: c.label,
+                        count: n,
+                        share: shade === 'column' ? cell(i, j) : r.count ? n / r.count : 0,
+                        of: shade === 'column' ? c.label : r.label,
+                      })
+                    }
                     // An empty cell shows the table's grey with a muted 0.
                     className={n > 0 ? undefined : 'g-text-slate-400'}
                   >
@@ -267,7 +291,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                 );
               })}
               <RestCell shade={shade} count={table.rest[i]} of={r.count} f={f} />
-              <td className={cn(rest, 'g-text-slate-700')}>{f.count(r.count)}</td>
+              <td className={cn(rest, 'g-text-slate-700 g-font-medium')}>{f.count(r.count)}</td>
               {slanted && <td aria-hidden="true" />}
             </tr>
           ))}
@@ -278,7 +302,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               <FormattedMessage id="dashboard.crosstab.total" />
             </th>
             {table.cols.map((c, j) => (
-              <td key={j} className={cn(rest, 'g-text-slate-700')}>
+              <td key={j} className={cn(rest, 'g-text-slate-700 g-font-medium')}>
                 {f.count(c.count)}
               </td>
             ))}
@@ -343,7 +367,11 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
 
   return (
     <div className="g-overflow-auto">
-      <table aria-label={common.caption} className="g-text-sm g-border-collapse">
+      <table
+        aria-label={common.caption}
+        className="g-w-full g-text-sm g-border-collapse"
+        onMouseLeave={() => common.onHover?.(null)}
+      >
         <thead>
           <tr>
             {/* The rows and the ranked values need no header: the selectors above name them. Other
@@ -371,7 +399,15 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                     key={k}
                     intensity={intensity(value(item.count, r.count)) || MIN_INTENSITY}
                     scale={scale}
-                    title={title}
+                    onHover={() =>
+                      common.onHover?.({
+                        row: r.label,
+                        column: item.label,
+                        count: item.count,
+                        share,
+                        of: r.label,
+                      })
+                    }
                     className="g-text-start g-min-w-[7rem] g-max-w-[10rem]"
                   >
                     <Pickable
@@ -388,7 +424,7 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                 );
               })}
               <RestCell shade={shade} count={r.rest} of={r.count} f={f} />
-              <td className={cn(rest, 'g-text-slate-700')}>{f.count(r.count)}</td>
+              <td className={cn(rest, 'g-text-slate-700 g-font-medium')}>{f.count(r.count)}</td>
             </tr>
           ))}
         </tbody>
@@ -415,6 +451,44 @@ export function Legend({ shade }: { shade: Shade }) {
         }}
       />
       <FormattedMessage id={`dashboard.crosstab.legend.${id}High`} />
+    </div>
+  );
+}
+
+/**
+ * The cell under the pointer, in a black bar floating at the bottom centre of the card: shown at once,
+ * where a tooltip would wait. "Denmark × Human observation", then "145 occurrences · 87% of Denmark".
+ */
+export function HoverBar({ hover }: { hover: Hover | null }) {
+  const intl = useIntl();
+  const f = useFormatters();
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className={cn(
+        'g-pointer-events-none g-absolute g-bottom-3 g-left-1/2 -g-translate-x-1/2 g-z-10 g-max-w-[90%] g-rounded-md g-bg-slate-900 g-px-3 g-py-2 g-text-center g-text-sm g-text-white g-shadow-lg',
+        !hover && 'g-hidden'
+      )}
+    >
+      {hover && (
+        <>
+          <div className="g-truncate g-font-semibold">
+            {intl.formatMessage(
+              { id: 'dashboard.crosstab.title' },
+              { rows: hover.row, cols: hover.column }
+            )}
+          </div>
+          <div>
+            {intl.formatMessage({ id: 'dashboard.crosstab.hoverCount' }, { count: hover.count })}
+            {' · '}
+            {intl.formatMessage(
+              { id: 'dashboard.crosstab.hoverShare' },
+              { share: f.share(hover.share), of: hover.of }
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

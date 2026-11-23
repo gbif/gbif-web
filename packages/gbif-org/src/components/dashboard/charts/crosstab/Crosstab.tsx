@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CardHeader } from '../../shared';
 import ChartClickWrapper from '../ChartClickWrapper';
 import { ChartMessages } from '../OneDimensionalChart';
 import { AxisControl, Segmented, SwapButton } from './Controls';
 import { getDimension, type Dimension } from './dimensions';
-import { Heatmap, Legend, RankedHeatmap } from './Heatmap';
+import { Heatmap, HoverBar, Legend, RankedHeatmap, type Hover } from './Heatmap';
 import {
   columnCardinality,
   fitsOverall,
@@ -183,6 +183,10 @@ function CrosstabMain(props: CrosstabProps) {
     });
   }
 
+  // The cell under the pointer, for the bar at the bottom of the card. New data clears it.
+  const [hover, setHover] = useState<Hover | null>(null);
+  useEffect(() => setHover(null), [loaded]);
+
   const common = {
     caption: title,
     rows: loaded?.rows ?? { dim: rows },
@@ -192,10 +196,11 @@ function CrosstabMain(props: CrosstabProps) {
     onPick: (filter: Record<string, unknown[]>) => handleRedirect?.({ filter }),
     rowLabel: name((loaded?.rows ?? { dim: rows }).dim),
     colLabel: name((loaded?.cols ?? { dim: cols }).dim),
+    onHover: setHover,
   };
 
   return (
-    <Card loading={state.loading} error={!!state.error && !loaded}>
+    <Card className="g-relative" loading={state.loading} error={!!state.error && !loaded}>
       <CardHeader>
         <div className="g-flex g-flex-col g-gap-1">
           <CardTitle>{title}</CardTitle>
@@ -205,56 +210,60 @@ function CrosstabMain(props: CrosstabProps) {
         </div>
       </CardHeader>
       <CardContent>
+        {/* The axes on the left; the colour choice on the right, on the same line when there is
+            room and below otherwise, still on the right. */}
         <div className="g-flex g-flex-wrap g-items-center g-gap-2 g-mb-3">
-          <AxisControl
-            label={intl.formatMessage({ id: 'dashboard.crosstab.rows' })}
-            dimension={rows}
-            onChange={setRows}
-            bucketLabel={intl.formatMessage(
-              { id: 'dashboard.crosstab.bucketSizeFor' },
-              { dimension: name(rows) }
-            )}
-            interval={ask.rows}
-            auto={loaded?.auto.rows}
-            raised={raisedFor('rows', rows)}
-            onInterval={(size) => update({ rInt: size })}
-          />
-          <SwapButton
-            label={intl.formatMessage({ id: 'dashboard.crosstab.swap' })}
-            onClick={swap}
-          />
-          <AxisControl
-            label={intl.formatMessage({ id: 'dashboard.crosstab.columns' })}
-            dimension={cols}
-            onChange={setCols}
-            bucketLabel={intl.formatMessage(
-              { id: 'dashboard.crosstab.bucketSizeFor' },
-              { dimension: name(cols) }
-            )}
-            interval={ask.cols}
-            auto={loaded?.auto.cols}
-            raised={raisedFor('cols', cols)}
-            onInterval={(size) => update({ cInt: size })}
-          />
-        </div>
-        <div className="g-flex g-flex-wrap g-items-center g-gap-2 g-mb-3">
-          <Segmented<Shade>
-            label={intl.formatMessage({ id: 'dashboard.crosstab.shade' })}
-            value={shade}
-            onChange={(value) => update({ shade: value })}
-            options={[
-              { id: 'count', text: intl.formatMessage({ id: 'dashboard.crosstab.shadeCount' }) },
-              { id: 'row', text: intl.formatMessage({ id: 'dashboard.crosstab.shadeRow' }) },
-              ...(layout === 'overall'
-                ? [
-                    {
-                      id: 'column' as const,
-                      text: intl.formatMessage({ id: 'dashboard.crosstab.shadeColumn' }),
-                    },
-                  ]
-                : []),
-            ]}
-          />
+          <div className="g-flex g-flex-wrap g-items-center g-gap-2">
+            <AxisControl
+              label={intl.formatMessage({ id: 'dashboard.crosstab.rows' })}
+              dimension={rows}
+              onChange={setRows}
+              bucketLabel={intl.formatMessage(
+                { id: 'dashboard.crosstab.bucketSizeFor' },
+                { dimension: name(rows) }
+              )}
+              interval={ask.rows}
+              auto={loaded?.auto.rows}
+              raised={raisedFor('rows', rows)}
+              onInterval={(size) => update({ rInt: size })}
+            />
+            <SwapButton
+              label={intl.formatMessage({ id: 'dashboard.crosstab.swap' })}
+              onClick={swap}
+            />
+            <AxisControl
+              label={intl.formatMessage({ id: 'dashboard.crosstab.columns' })}
+              dimension={cols}
+              onChange={setCols}
+              bucketLabel={intl.formatMessage(
+                { id: 'dashboard.crosstab.bucketSizeFor' },
+                { dimension: name(cols) }
+              )}
+              interval={ask.cols}
+              auto={loaded?.auto.cols}
+              raised={raisedFor('cols', cols)}
+              onInterval={(size) => update({ cInt: size })}
+            />
+          </div>
+          <div className="g-ms-auto">
+            <Segmented<Shade>
+              label={intl.formatMessage({ id: 'dashboard.crosstab.shade' })}
+              value={shade}
+              onChange={(value) => update({ shade: value })}
+              options={[
+                { id: 'count', text: intl.formatMessage({ id: 'dashboard.crosstab.shadeCount' }) },
+                { id: 'row', text: intl.formatMessage({ id: 'dashboard.crosstab.shadeRow' }) },
+                ...(layout === 'overall'
+                  ? [
+                      {
+                        id: 'column' as const,
+                        text: intl.formatMessage({ id: 'dashboard.crosstab.shadeColumn' }),
+                      },
+                    ]
+                  : []),
+              ]}
+            />
+          </div>
         </div>
         {state.error && (
           <p className="g-text-sm g-text-red-600" role="alert">
@@ -282,6 +291,7 @@ function CrosstabMain(props: CrosstabProps) {
           <ChartMessages messages={messages} />
         </div>
       </CardContent>
+      <HoverBar hover={hover} />
     </Card>
   );
 }

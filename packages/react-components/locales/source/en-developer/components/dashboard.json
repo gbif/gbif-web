@@ -48,7 +48,6 @@
     "corner": "{rows} / {cols}",
     "range": "{from}–{to}",
     "cell": "{row} · {column}: {count} ({share})",
-    "lessThanOnePercent": "<1%",
     "shade": "Colour by",
     "shadeCount": "Count",
     "shadeRow": "% of row",
@@ -56,6 +55,8 @@
     "rest": "Other or no value",
     "total": "Total",
     "rowsShown": "Rows {from}–{to} of {total}",
+    "hoverCount": "{count, plural, one {# occurrence} other {# occurrences}}",
+    "hoverShare": "{share} of {of}",
     "legend": {
       "countLow": "Fewer records",
       "countHigh": "More records",
