@@ -61,6 +61,10 @@ rename.
 - **One query, no API change.** Each facet or histogram bucket has `occurrences`, a search limited to
   that bucket, so the rows are the outer facet and the columns a facet inside each row bucket
   (`plan.ts: buildQuery`). Labels come from the API's `label(language:)` on every facet bucket.
+- **The same field on both axes** is allowed: for a multi-valued field it shows which values occur
+  together. Two values of one field in a filter mean either, not both, so only a cell of a value
+  with itself filters on click (`canFilterCell`).
+- **Yes/no fields are columns only** (`columnsOnly`): the API rejects a facet inside a yes/no bucket.
 - **Numbers are histograms** with a bucket size: automatic (about ten buckets) or set by the user
   (`rInt`, `cInt`), raised if it would give more than 24. Planning takes up to three requests in a
   row (`useCrosstab.ts`): minimum and maximum, a fine histogram to find the 1st to 99th percentile,

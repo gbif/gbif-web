@@ -5,6 +5,7 @@ import { useConfig } from '@/config/config';
 import { cssColour, inkFor, makeScale } from './colour';
 import {
   canFilter,
+  canFilterCell,
   cellFilter,
   lineFilter,
   makeIntensity,
@@ -286,7 +287,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                   >
                     {n > 0 ? (
                       <Pickable
-                        on={interactive && canFilter(rows) && canFilter(cols)}
+                        on={interactive && canFilterCell(rows, r.key, cols, c.key)}
                         label={title}
                         onClick={() => onPick(cellFilter(rows, r.key, cols, c.key))}
                       >
@@ -432,7 +433,7 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                     className="g-text-start g-min-w-[7rem] g-max-w-[10rem]"
                   >
                     <Pickable
-                      on={interactive && canFilter(rows) && canFilter(cols)}
+                      on={interactive && canFilterCell(rows, r.key, cols, item.key)}
                       label={title}
                       onClick={() => onPick(cellFilter(rows, r.key, cols, item.key))}
                     >

@@ -788,6 +788,20 @@ export function lineFilter(axis: AxisPlan, key: string | number): Record<string,
 export const canFilter = (axis: AxisPlan) => axis.dim.clickable !== false;
 
 /**
+ * Whether a click on a cell can filter. With the same field on both axes, two values in a filter mean
+ * either of them, not both, so only a cell of a value with itself can.
+ */
+export const canFilterCell = (
+  rows: AxisPlan,
+  rowKey: string | number,
+  cols: AxisPlan,
+  colKey: string | number
+) =>
+  canFilter(rows) &&
+  canFilter(cols) &&
+  (rows.dim.id !== cols.dim.id || String(rowKey) === String(colKey));
+
+/**
  * The filter for a cell: both lines'. Two taxon ranks share the handle `taxonKey`, so the lower rank
  * (species in a family) is kept: it already implies the higher one.
  */

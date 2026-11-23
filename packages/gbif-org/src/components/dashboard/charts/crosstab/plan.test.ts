@@ -10,6 +10,7 @@ import {
   fitsOverall,
   buildStatsQuery,
   canFilter,
+  canFilterCell,
   lineFilter,
   makeIntensity,
   measure,
@@ -257,6 +258,13 @@ describe('shapeTable', () => {
     expect(measure('column', t.counts[0][0], t.rows[0].count, t.cols[0].count)).toBeCloseTo(
       20 / 900
     );
+  });
+
+  test('the same field on both axes: only a cell of a value with itself filters', () => {
+    const issue = { dim: getDimension('issue', 'issue') };
+    expect(canFilterCell(issue, 'A', issue, 'A')).toBe(true);
+    expect(canFilterCell(issue, 'A', issue, 'B')).toBe(false);
+    expect(canFilterCell(issue, 'A', { dim: basis }, 'B')).toBe(true);
   });
 
   describe('top overall is only exact when the column has few enough values', () => {

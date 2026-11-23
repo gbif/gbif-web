@@ -63,12 +63,8 @@ function CrosstabMain(props: CrosstabProps) {
   // A dimension that can only be columns (from a shared link, or a swap) falls back to the default.
   const rowsWanted = getDimension(get('rows'), DEFAULT_ROWS);
   const rows = rowsWanted.columnsOnly ? getDimension(DEFAULT_ROWS, '') : rowsWanted;
-  const colsWanted = getDimension(get('cols'), DEFAULT_COLS);
-  // The same dimension on both axes is a table of its own diagonal: use the other default.
-  const cols =
-    colsWanted.id === rows.id
-      ? getDimension(rows.id === DEFAULT_COLS ? DEFAULT_ROWS : DEFAULT_COLS, '')
-      : colsWanted;
+  // The same dimension may be on both axes: for a multi-valued field it shows which values go together.
+  const cols = getDimension(get('cols'), DEFAULT_COLS);
   const ask = {
     rows: rows.kind === 'histogram' ? positive(get('rInt')) : undefined,
     cols: cols.kind === 'histogram' ? positive(get('cInt')) : undefined,
@@ -120,14 +116,8 @@ function CrosstabMain(props: CrosstabProps) {
     [loaded, shownLayout]
   );
 
-  const setRows = (id: string) =>
-    id === cols.id
-      ? update({ rows: id, cols: rows.id, rInt: get('cInt'), cInt: get('rInt') })
-      : update({ rows: id, cols: cols.id, rInt: undefined });
-  const setCols = (id: string) =>
-    id === rows.id
-      ? update({ rows: cols.id, cols: id, rInt: get('cInt'), cInt: get('rInt') })
-      : update({ rows: rows.id, cols: id, cInt: undefined });
+  const setRows = (id: string) => update({ rows: id, cols: cols.id, rInt: undefined });
+  const setCols = (id: string) => update({ rows: rows.id, cols: id, cInt: undefined });
   const swap = () => update({ rows: cols.id, cols: rows.id, rInt: get('cInt'), cInt: get('rInt') });
 
   // A bucket size that was raised, for the mark next to its field: only from data fetched for this
