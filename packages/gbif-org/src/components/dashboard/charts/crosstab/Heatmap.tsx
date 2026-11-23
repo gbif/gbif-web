@@ -34,7 +34,7 @@ type CommonProps = {
 
 // The table sits on a very light grey, with a slightly darker line around every cell, header and
 // label, so empty cells and rows still read as a grid.
-const grid = 'g-border g-border-solid g-border-slate-200';
+const grid = 'g-border g-border-solid g-border-slate-200 g-bg-slate-50';
 const th = cn(grid, 'g-px-2 g-py-1 g-text-start g-font-normal g-text-slate-600 g-align-bottom');
 const cellBase = cn(grid, 'g-px-2 g-py-1 g-text-end g-align-middle g-min-w-[3.5rem]');
 const rest = cn(grid, 'g-px-2 g-py-1 g-text-end g-text-slate-500');
@@ -126,9 +126,15 @@ function Cell({
   );
 }
 
+const slantedHeader =
+  'g-p-0 g-font-normal g-text-slate-600 g-align-bottom g-bg-slate-50 g-border-0 g-border-y g-border-solid g-border-slate-200';
+/** Width of the cell after the last slanted header: about what a slanted 10rem label sticks out. */
+const spill = 'g-w-24 g-min-w-[6rem]';
+
 /**
  * A column header. Slanted, its label rises at 45° from the bottom of the column, so the column is as
- * narrow as its cells; it has a line under it only, as lines between slanted labels would cross them.
+ * narrow as its cells. The slanted headers share one outline: lines above and below, closed by the
+ * corner cell on the left and a spill cell after the last column (`spill`) on the right.
  */
 function ColumnHeader({
   slanted,
@@ -147,10 +153,7 @@ function ColumnHeader({
     );
   }
   return (
-    <th
-      scope="col"
-      className="g-p-0 g-font-normal g-text-slate-600 g-align-bottom g-border-0 g-border-b g-border-solid g-border-slate-200"
-    >
+    <th scope="col" className={slantedHeader}>
       <div className="g-relative g-h-[7.5rem]">
         <div className="g-absolute g-bottom-1 g-left-1/2 g-origin-bottom-left g-rotate-[-45deg] g-whitespace-nowrap g-text-start">
           <span className="g-block g-max-w-[10rem] g-truncate" title={label}>
@@ -203,9 +206,8 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   );
 
   return (
-    // Slanted headers stick out to the right of the last column: room for them.
-    <div className={cn('g-overflow-auto', slanted && 'g-pe-24')}>
-      <table aria-label={common.caption} className="g-text-sm g-border-collapse g-bg-slate-50">
+    <div className="g-overflow-auto">
+      <table aria-label={common.caption} className="g-text-sm g-border-collapse">
         <thead>
           <tr>
             <th scope="col" className={th}>
@@ -228,6 +230,10 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
             <ColumnHeader slanted={slanted} label={f.totalLabel}>
               {f.totalLabel}
             </ColumnHeader>
+            {/* Slanted labels stick out past the last column: room for them, inside the outline. */}
+            {slanted && (
+              <th aria-hidden="true" className={cn(slantedHeader, spill, 'g-border-e')} />
+            )}
           </tr>
         </thead>
         <tbody>
@@ -262,6 +268,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               })}
               <RestCell shade={shade} count={table.rest[i]} of={r.count} f={f} />
               <td className={cn(rest, 'g-text-slate-700')}>{f.count(r.count)}</td>
+              {slanted && <td aria-hidden="true" />}
             </tr>
           ))}
         </tbody>
@@ -277,6 +284,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
             ))}
             <td className={rest}></td>
             <td className={rest}></td>
+            {slanted && <td aria-hidden="true" />}
           </tr>
         </tfoot>
       </table>
@@ -335,7 +343,7 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
 
   return (
     <div className="g-overflow-auto">
-      <table aria-label={common.caption} className="g-text-sm g-border-collapse g-bg-slate-50">
+      <table aria-label={common.caption} className="g-text-sm g-border-collapse">
         <thead>
           <tr>
             {/* The rows and the ranked values need no header: the selectors above name them. Other
