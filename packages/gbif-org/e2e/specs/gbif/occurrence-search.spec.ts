@@ -58,7 +58,8 @@ test('switching views keeps the filters', async ({ page, waitForIdle }) => {
       name: 'Dashboard',
       view: 'dashboard',
       check: async () => {
-        await page.locator('select').filter({ hasText: 'New' }).selectOption('basisOfRecord');
+        await page.getByRole('button', { name: 'New', exact: true }).click();
+        await page.getByRole('option', { name: 'Basis of record', exact: true }).click();
         await expect(page.getByRole('heading', { name: 'Basis of record' })).toBeVisible();
       },
     },

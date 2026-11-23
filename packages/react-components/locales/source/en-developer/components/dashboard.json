@@ -1,6 +1,8 @@
 {
   "numberOfOccurrences": "Number of occurrences",
   "addNew": "New",
+  "searchForChart": "Search for a chart",
+  "noMatchingCharts": "No matching charts",
   "removeEmptyGroup": "Remove empty group",
   "newGroup": "Add new group",
   "invalidLayoutWarning": "The layout was created for a larger screen.",
