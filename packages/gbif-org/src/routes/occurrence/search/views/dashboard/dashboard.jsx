@@ -125,6 +125,7 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, availabl
 /** @type {ChartTypes} */
 const preconfiguredCharts = {
   iucn: {
+    aliasKey: 'iucnRedListCategory',
     translation: 'dashboard.iucnThreatStatus',
     component: ({ predicate, ...props }) => {
       return <charts.Iucn predicate={predicate} interactive {...props} />;
@@ -176,6 +177,7 @@ const preconfiguredCharts = {
     },
   },
   iucnCounts: {
+    aliasKey: 'iucnRedListCategory',
     translation: 'filters.iucnRedListCategory.name',
     component: ({ predicate, ...props }) => {
       return <charts.IucnCounts predicate={predicate} interactive {...props} />;
@@ -346,6 +348,7 @@ const preconfiguredCharts = {
     },
   },
   taxa: {
+    aliasKey: 'taxonKey',
     translation: 'dashboard.taxa',
     component: ({ predicate, ...props }) => {
       return <charts.Taxa predicate={predicate} interactive {...props} />;
@@ -369,6 +372,7 @@ const preconfiguredCharts = {
     },
   },
   TaxonomicBreakdown: {
+    aliasKey: 'taxonKey',
     translation: 'dashboard.taxonomicBreakdown',
     component: ({ predicate, ...props }) => {
       return <charts.OccurrenceTaxonomySunburst predicate={predicate} {...props} />;
@@ -416,6 +420,7 @@ const preconfiguredCharts = {
     ),
   },
   taxonomicIssue: {
+    aliasKey: 'occurrenceTaxonomicIssue',
     translation: 'filters.occurrenceTaxonomicIssue.name',
     component: (props) => (
       <FilterAwareChart chart={charts.TaxonomicIssue} filter="taxonomicIssue" {...props} />

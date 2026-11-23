@@ -32,7 +32,7 @@ import { useUncontrolledProp } from 'uncontrollable';
 /**
  * @typedef {import('./layoutSerialization').ChartItem} ChartItem
  * @typedef {import('./layoutSerialization').Layout} Layout
- * @typedef {{ translation?: string, r?: boolean, component: React.ComponentType<any> }} ChartType
+ * @typedef {{ translation?: string, aliasKey?: string, r?: boolean, component: React.ComponentType<any> }} ChartType
  * @typedef {Record<string, ChartType>} ChartTypes
  * @typedef {(value: Layout, useUrl?: boolean) => void} SetLayout
  * @typedef {(item: ChartItem, index: number) => void} UpdateItem
@@ -856,7 +856,10 @@ function CreateOptions({ onAdd, chartsTypes }) {
                 <React.Fragment key={group}>
                   <CommandGroup heading={heading}>
                     {groupedCharts[group].map((option) => {
-                      const rawAlias = intl.messages[`filterAliases.${option.value}`];
+                      // search aliases are kept per filter; aliasKey names the filter when the
+                      // chart type is keyed differently
+                      const aliasKey = chartsTypes[option.value]?.aliasKey ?? option.value;
+                      const rawAlias = intl.messages[`filterAliases.${aliasKey}`];
                       const aliases = typeof rawAlias === 'string' ? rawAlias : '';
                       // cmdk needs a unique value per item, so the chart type ends the search text
                       const searchValue = `${getFilterSearchValue({
