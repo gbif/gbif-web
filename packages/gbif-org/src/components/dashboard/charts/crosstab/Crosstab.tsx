@@ -60,7 +60,9 @@ function CrosstabMain(props: CrosstabProps) {
   const update = (patch: Params) =>
     onParamsChange ? onParamsChange(patch) : setLocal((l) => ({ ...l, ...patch }));
 
-  const rows = getDimension(get('rows'), DEFAULT_ROWS);
+  // A dimension that can only be columns (from a shared link, or a swap) falls back to the default.
+  const rowsWanted = getDimension(get('rows'), DEFAULT_ROWS);
+  const rows = rowsWanted.columnsOnly ? getDimension(DEFAULT_ROWS, '') : rowsWanted;
   const colsWanted = getDimension(get('cols'), DEFAULT_COLS);
   // The same dimension on both axes is a table of its own diagonal: use the other default.
   const cols =
@@ -223,6 +225,7 @@ function CrosstabMain(props: CrosstabProps) {
         <div className="g-flex g-flex-wrap g-items-center g-gap-2 g-mb-3">
           <div className="g-flex g-flex-wrap g-items-center g-gap-2">
             <AxisControl
+              forRows
               label={intl.formatMessage({ id: 'dashboard.crosstab.rows' })}
               dimension={rows}
               onChange={setRows}
@@ -238,6 +241,7 @@ function CrosstabMain(props: CrosstabProps) {
             <SwapButton
               label={intl.formatMessage({ id: 'dashboard.crosstab.swap' })}
               onClick={swap}
+              disabled={cols.columnsOnly}
             />
             <AxisControl
               label={intl.formatMessage({ id: 'dashboard.crosstab.columns' })}

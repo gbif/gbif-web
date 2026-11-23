@@ -280,7 +280,7 @@ function level(axis: AxisPlan, alias: string, size: number, inner?: string, page
 export const pagesRows = (rows: AxisPlan) => rows.dim.kind === 'terms' && !rows.dim.noPaging;
 
 const cardinalityOf = (alias: string, dim: Dimension) =>
-  `${alias}: ${dim.id}${dim.checklist ? '(checklistKey: $checklistKey)' : ''}`;
+  `${alias}: ${dim.id}${dim.checklist && !dim.cardinalityWithoutChecklist ? '(checklistKey: $checklistKey)' : ''}`;
 
 /** The query for the table: rows, and the columns inside each row. `colSize` is how many values of a terms column. */
 export function buildQuery(
@@ -776,7 +776,8 @@ function valueCounts(
 export function lineFilter(axis: AxisPlan, key: string | number): Record<string, unknown[]> {
   const { dim } = axis;
   if (dim.clickable === false) return {};
-  if (dim.kind === 'terms') return { [dim.filter]: [key] };
+  // Yes/no filters store "true" and "false" as text; the facet's keys are booleans.
+  if (dim.kind === 'terms') return { [dim.filter]: [typeof key === 'boolean' ? String(key) : key] };
   const from = Number(key);
   const interval = axis.interval ?? 1;
   const value = { gte: from, lte: tidy(from + interval - (dim.integer ? 1 : 0)) };

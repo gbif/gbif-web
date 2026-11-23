@@ -27,6 +27,10 @@ export type Dimension = {
   multi?: boolean;
   /** The facet takes no `from`, so its rows can't be paged (it has few values anyway). */
   noPaging?: boolean;
+  /** Columns only: the API can't look inside its buckets (yes/no facets), so it can't be the rows. */
+  columnsOnly?: boolean;
+  /** Its cardinality takes no checklistKey, though its facet does. */
+  cardinalityWithoutChecklist?: boolean;
 };
 
 const terms = (id: string, labelId: string, more: Partial<Dimension> = {}): Dimension => ({
@@ -69,6 +73,61 @@ export const dimensions: Dimension[] = [
   terms('lifeStage', 'filters.lifeStage.name'),
   terms('establishmentMeans', 'filters.establishmentMeans.name'),
   terms('iucnRedListCategory', 'filters.iucnRedListCategory.name', { checklist: true }),
+  terms('taxonomicIssue', 'filters.occurrenceTaxonomicIssue.name', {
+    checklist: true,
+    multi: true,
+    cardinalityWithoutChecklist: true,
+  }),
+  terms('degreeOfEstablishment', 'filters.degreeOfEstablishment.name'),
+  terms('pathway', 'filters.pathway.name'),
+  terms('datasetCategory', 'filters.datasetCategory.name', { multi: true }),
+  // Yes/no
+  terms('isInCluster', 'filters.isInCluster.name', { columnsOnly: true }),
+  terms('isSequenced', 'filters.isSequenced.name', { columnsOnly: true }),
+  terms('repatriated', 'filters.repatriated.name', { columnsOnly: true, noPaging: true }),
+  // Publishing and holding
+  terms('hostingOrganizationKey', 'filters.hostingOrganizationKey.name'),
+  // There is no installation filter on the search page.
+  terms('installationKey', 'installation.installation', { clickable: false }),
+  terms('networkKey', 'filters.networkKey.name', { multi: true }),
+  terms('institutionKey', 'filters.institutionKey.name'),
+  terms('collectionKey', 'filters.collectionKey.name'),
+  terms('institutionCode', 'filters.institutionCode.name'),
+  terms('collectionCode', 'filters.collectionCode.name'),
+  terms('catalogNumber', 'filters.catalogNumber.name'),
+  terms('datasetId', 'filters.datasetId.name', { multi: true }),
+  terms('projectId', 'filters.projectId.name', { multi: true }),
+  terms('programme', 'filters.programme.name'),
+  terms('dwcaExtension', 'filters.dwcaExtension.name', { multi: true }),
+  // People
+  terms('recordedBy', 'filters.recordedBy.name', { multi: true }),
+  terms('identifiedBy', 'filters.identifiedBy.name', { multi: true }),
+  terms('georeferencedBy', 'filters.georeferencedBy.name'),
+  // Event and sampling
+  terms('eventId', 'filters.eventId.name'),
+  terms('parentEventId', 'filters.parentEventId.name'),
+  terms('fieldNumber', 'filters.fieldNumber.name'),
+  terms('recordNumber', 'filters.recordNumber.name'),
+  terms('samplingProtocol', 'filters.samplingProtocol.name', { multi: true }),
+  terms('sampleSizeUnit', 'filters.sampleSizeUnit.name'),
+  // Organism and material
+  terms('organismId', 'filters.organismId.name'),
+  terms('organismQuantityType', 'filters.organismQuantityType.name'),
+  terms('preparations', 'filters.preparations.name', { multi: true }),
+  terms('verbatimScientificName', 'filters.verbatimScientificName.name'),
+  terms('nucleotideSequenceTargetGene', 'filters.nucleotideSequenceTargetGene.name', {
+    multi: true,
+  }),
+  // Place
+  terms('stateProvince', 'filters.stateProvince.name'),
+  terms('waterBody', 'filters.waterBody.name'),
+  terms('higherGeography', 'filters.higherGeography.name', { multi: true }),
+  terms('locality', 'filters.locality.name'),
+  terms('island', 'filters.island.name'),
+  terms('islandGroup', 'filters.islandGroup.name'),
+  // Geology
+  terms('lithostratigraphy', 'filters.lithostratigraphy.name', { multi: true }),
+  terms('biostratigraphy', 'filters.biostratigraphy.name', { multi: true }),
   rank('kingdomKey', 'KINGDOM', 1),
   rank('phylumKey', 'PHYLUM', 2),
   rank('classKey', 'CLASS', 3),
@@ -81,6 +140,10 @@ export const dimensions: Dimension[] = [
   histogram('startDayOfYear', 'filters.startDayOfYear.name', { integer: true, plain: true }),
   histogram('elevation', 'filters.elevation.name'),
   histogram('depth', 'filters.depth.name'),
+  histogram('nucleotideSequenceSequenceLength', 'filters.nucleotideSequenceSequenceLength.name', {
+    integer: true,
+    multi: true,
+  }),
   // The search page has no latitude or longitude filter, so these can be looked at but not clicked.
   histogram('decimalLatitude', 'dashboard.crosstab.dimension.latitude', { clickable: false }),
   histogram('decimalLongitude', 'dashboard.crosstab.dimension.longitude', { clickable: false }),

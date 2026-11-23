@@ -68,9 +68,12 @@ export function AxisControl({
   auto,
   raised,
   onInterval,
+  forRows,
 }: {
   label: string;
   dimension: Dimension;
+  /** The rows' picker: dimensions that can only be columns are left out. */
+  forRows?: boolean;
   onChange: (id: string) => void;
   bucketLabel: string;
   /** The bucket size asked for, if any. */
@@ -85,7 +88,12 @@ export function AxisControl({
     <span className="g-inline-flex g-items-center g-gap-1">
       {/* The dimension and its bucket size sit together, as one group. */}
       <span className={segmentGroup}>
-        <DimensionPicker label={label} dimension={dimension} onChange={onChange} />
+        <DimensionPicker
+          label={label}
+          dimension={dimension}
+          onChange={onChange}
+          options={forRows ? dimensions.filter((d) => !d.columnsOnly) : dimensions}
+        />
         {dimension.kind === 'histogram' && (
           <SizeInput
             label={bucketLabel}
@@ -106,10 +114,12 @@ function DimensionPicker({
   label,
   dimension,
   onChange,
+  options,
 }: {
   label: string;
   dimension: Dimension;
   onChange: (id: string) => void;
+  options: Dimension[];
 }) {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
@@ -137,7 +147,7 @@ function DimensionPicker({
           </CommandEmpty>
           <CommandList>
             <CommandGroup heading={label}>
-              {dimensions.map((d) => (
+              {options.map((d) => (
                 <CommandItem
                   key={d.id}
                   // cmdk needs a unique value per item, so the id ends the search text
@@ -228,13 +238,22 @@ function SizeInput({
   );
 }
 
-export function SwapButton({ label, onClick }: { label: string; onClick: () => void }) {
+export function SwapButton({
+  label,
+  onClick,
+  disabled,
+}: {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+}) {
   return (
     <button
       type="button"
       aria-label={label}
       title={label}
       onClick={onClick}
+      disabled={disabled}
       className={cn(segmentGroup, segment, 'g-items-center')}
     >
       <MdSwapHoriz />
