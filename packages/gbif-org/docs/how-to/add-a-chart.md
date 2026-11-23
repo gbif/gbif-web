@@ -91,8 +91,9 @@ rename.
   commented out, to try. Ink is white or black, whichever contrasts more with the cell (`colour.ts`).
 - **Cells** sit on a light grey, with a thin line around every cell and label. An empty cell shows a
   muted 0. With a share shown, cells show only the share (the count is in the hover bar) and the
-  column headers are slanted: each label ends at its column and rises to the left over the columns
-  before it and the corner cell, so the columns can be narrow and nothing sticks out on the right.
+  column headers are slanted: each label starts at its column and rises to the right over the headers
+  after it, so the columns can be narrow. The Total column has a minimum width so its own label stays
+  inside the table.
 - Logic that does not need React is in `plan.ts` and tested in `plan.test.ts`. A GraphQL variable
   that is declared and unused makes the whole query fail, so `buildQuery` declares `$language` and
   `$checklistKey` only when used.

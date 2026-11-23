@@ -151,19 +151,22 @@ const slantedHeader =
   'g-p-0 g-font-normal g-text-slate-600 g-align-bottom g-bg-slate-50 g-border-0 g-border-y last:g-border-e g-border-solid g-border-slate-200';
 
 /**
- * A column header. Slanted, its label ends at the bottom of the column and rises at 45° to the left,
- * over the columns before it and the corner cell, so the column is as narrow as its cells and nothing
- * sticks out past the table. The slanted headers share one outline with the corner cell: lines above
- * and below, and on the right of the last one.
+ * A column header. Slanted, its label starts at the bottom of the column and rises at 45° to the right,
+ * over the headers after it, so the column is as narrow as its cells. The slanted headers share one
+ * outline: lines above and below, and on the right of the last one (Total, which is `wide` so its own
+ * short label stays inside the table).
  */
 function ColumnHeader({
   slanted,
   label,
+  wide,
   onHover,
   children,
 }: {
   slanted: boolean;
   label: string;
+  /** Room for the label to rise inside the column: for the last column, with nothing after it. */
+  wide?: boolean;
   onHover?: (hover: Hover | null) => void;
   children: React.ReactNode;
 }) {
@@ -176,9 +179,9 @@ function ColumnHeader({
     );
   }
   return (
-    <th scope="col" className={slantedHeader} {...show}>
+    <th scope="col" className={cn(slantedHeader, wide && 'g-min-w-[6rem]')} {...show}>
       <div className="g-relative g-h-[7.5rem]">
-        <div className="g-absolute g-bottom-1 g-right-1/2 g-origin-bottom-right g-rotate-[45deg] g-whitespace-nowrap g-text-end">
+        <div className="g-absolute g-bottom-1 g-left-1/2 g-origin-bottom-left g-rotate-[-45deg] g-whitespace-nowrap g-text-start">
           {/* At most what fits the header's height at 45°, so a long one ends in an ellipsis. */}
           <span className="g-block g-max-w-[8.5rem] g-truncate">{children}</span>
         </div>
@@ -245,11 +248,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
       >
         <thead>
           <tr>
-            <th
-              scope="col"
-              // Slanted labels rise over the corner: no line on its right, and room for the first label.
-              className={cn(th, slanted && 'g-border-e-0 g-min-w-[8rem]')}
-            >
+            <th scope="col" className={th}>
               {f.corner(common.rowLabel, common.colLabel)}
             </th>
             {table.cols.map((c, j) => (
@@ -273,7 +272,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                 {f.noValueLabel}
               </ColumnHeader>
             )}
-            <ColumnHeader slanted={slanted} onHover={common.onHover} label={f.totalLabel}>
+            <ColumnHeader slanted={slanted} wide onHover={common.onHover} label={f.totalLabel}>
               {f.totalLabel}
             </ColumnHeader>
           </tr>
