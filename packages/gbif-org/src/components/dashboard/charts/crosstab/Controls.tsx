@@ -1,12 +1,19 @@
+import { filterSearchScore } from '@/components/filters/filterSearch';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
-import { MdSwapHoriz } from 'react-icons/md';
+import { MdArrowDropDown, MdCheck, MdSwapHoriz } from 'react-icons/md';
 import { useIntl } from 'react-intl';
 import { dimensions, type Dimension } from './dimensions';
-
-const field =
-  'g-border g-border-slate-300 g-rounded-md g-bg-white g-px-2 g-py-1 g-text-sm g-text-slate-700 focus-visible:g-outline-none focus-visible:g-ring-2 focus-visible:g-ring-primary-500';
 
 type SegmentedProps<T extends string> = {
   label: string;
@@ -14,6 +21,13 @@ type SegmentedProps<T extends string> = {
   options: { id: T; text: string; title?: string }[];
   onChange: (value: T) => void;
 };
+
+// Controls side by side in one outline, with a line between them: the colour choice, and each axis
+// (its dimension and, for numbers, its bucket size).
+const segmentGroup =
+  'g-inline-flex g-max-w-full g-flex-wrap g-rounded-md g-border g-border-slate-300 g-overflow-hidden';
+const segment = 'g-px-2 g-py-1 g-text-sm g-border-e g-border-slate-300 last:g-border-e-0';
+const idleSegment = 'g-bg-white g-text-slate-600 hover:g-bg-slate-100';
 
 /** A few exclusive choices as buttons side by side. */
 export function Segmented<T extends string>({
@@ -23,11 +37,7 @@ export function Segmented<T extends string>({
   onChange,
 }: SegmentedProps<T>) {
   return (
-    <div
-      role="group"
-      aria-label={label}
-      className="g-inline-flex g-max-w-full g-flex-wrap g-rounded-md g-border g-border-slate-300 g-overflow-hidden"
-    >
+    <div role="group" aria-label={label} className={segmentGroup}>
       {options.map((o) => (
         <button
           key={o.id}
@@ -35,12 +45,7 @@ export function Segmented<T extends string>({
           aria-pressed={value === o.id}
           title={o.title}
           onClick={() => onChange(o.id)}
-          className={cn(
-            'g-px-2 g-py-1 g-text-sm g-border-e g-border-slate-300 last:g-border-e-0',
-            value === o.id
-              ? 'g-bg-primary-500 g-text-white'
-              : 'g-bg-white g-text-slate-600 hover:g-bg-slate-100'
-          )}
+          className={cn(segment, value === o.id ? 'g-bg-primary-500 g-text-white' : idleSegment)}
         >
           {o.text}
         </button>
@@ -72,33 +77,82 @@ export function AxisControl({
   raised?: { size: number; message: string };
   onInterval: (size: number | undefined) => void;
 }) {
-  const intl = useIntl();
   return (
     <span className="g-inline-flex g-items-center g-gap-1">
-      <select
-        value={dimension.id}
-        aria-label={label}
-        title={label}
-        className={cn(field, 'g-max-w-[12rem]')}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        {dimensions.map((d) => (
-          <option key={d.id} value={d.id}>
-            {intl.formatMessage({ id: d.labelId, defaultMessage: d.id })}
-          </option>
-        ))}
-      </select>
-      {dimension.kind === 'histogram' && (
-        <SizeInput
-          label={bucketLabel}
-          value={interval}
-          shown={raised?.size}
-          placeholder={auto}
-          onCommit={onInterval}
-        />
-      )}
+      {/* The dimension and its bucket size sit together, as one group. */}
+      <span className={segmentGroup}>
+        <DimensionPicker label={label} dimension={dimension} onChange={onChange} />
+        {dimension.kind === 'histogram' && (
+          <SizeInput
+            label={bucketLabel}
+            value={interval}
+            shown={raised?.size}
+            placeholder={auto}
+            onCommit={onInterval}
+          />
+        )}
+      </span>
       {dimension.kind === 'histogram' && raised && <RaisedMark message={raised.message} />}
     </span>
+  );
+}
+
+/** The dimension of an axis: a button that opens a searchable list, like More filters. */
+function DimensionPicker({
+  label,
+  dimension,
+  onChange,
+}: {
+  label: string;
+  dimension: Dimension;
+  onChange: (id: string) => void;
+}) {
+  const intl = useIntl();
+  const [open, setOpen] = useState(false);
+  const name = (d: Dimension) => intl.formatMessage({ id: d.labelId, defaultMessage: d.id });
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label={`${label}: ${name(dimension)}`}
+          title={label}
+          className={cn(segment, idleSegment, 'g-inline-flex g-items-center g-max-w-[14rem]')}
+        >
+          <span className="g-truncate">{name(dimension)}</span>
+          <MdArrowDropDown className="g-ms-1 g-flex-none" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="g-p-0 g-w-72" align="start">
+        <Command filter={filterSearchScore}>
+          <CommandInput
+            placeholder={intl.formatMessage({ id: 'dashboard.crosstab.searchDimension' })}
+          />
+          <CommandEmpty>
+            {intl.formatMessage({ id: 'dashboard.crosstab.noMatchingDimensions' })}
+          </CommandEmpty>
+          <CommandList>
+            <CommandGroup heading={label}>
+              {dimensions.map((d) => (
+                <CommandItem
+                  key={d.id}
+                  // cmdk needs a unique value per item, so the id ends the search text
+                  value={`${name(d)} ${d.id}`}
+                  className="g-flex g-items-center g-justify-between"
+                  onSelect={() => {
+                    setOpen(false);
+                    if (d.id !== dimension.id) onChange(d.id);
+                  }}
+                >
+                  {name(d)}
+                  {d.id === dimension.id && <MdCheck className="g-flex-none" />}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -159,7 +213,10 @@ function SizeInput({
       placeholder={placeholder === undefined ? '' : String(placeholder)}
       aria-label={label}
       title={label}
-      className={cn(field, 'g-w-20')}
+      className={cn(
+        segment,
+        'g-w-20 g-bg-white g-text-slate-700 focus-visible:g-outline-none focus:g-ring-2 focus:g-ring-inset focus:g-ring-primary-500'
+      )}
       onChange={(e) => setText(e.target.value)}
       onBlur={commit}
       onKeyDown={(e) => e.key === 'Enter' && commit()}
@@ -174,7 +231,7 @@ export function SwapButton({ label, onClick }: { label: string; onClick: () => v
       aria-label={label}
       title={label}
       onClick={onClick}
-      className={cn(field, 'g-inline-flex g-items-center g-text-slate-500 hover:g-bg-slate-100')}
+      className={cn(segmentGroup, idleSegment, 'g-items-center g-px-2 g-py-1.5')}
     >
       <MdSwapHoriz />
     </button>

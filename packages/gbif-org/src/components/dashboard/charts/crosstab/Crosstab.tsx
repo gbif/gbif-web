@@ -170,7 +170,9 @@ function CrosstabMain(props: CrosstabProps) {
     (['rows', 'cols'] as const).forEach((axis) => {
       const { interval: size, window, dim } = loaded[axis];
       if (window) {
-        const values = { dimension: name(dim), from: fmt(window.from), to: fmt(window.to) };
+        // Years read without a thousands separator; elevations and depths with one.
+        const value = dim.plain ? String : fmt;
+        const values = { dimension: name(dim), from: value(window.from), to: value(window.to) };
         note(`window-${axis}`, values, 'window');
       }
       if (loaded.raised[axis] && size !== undefined) {

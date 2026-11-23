@@ -43,6 +43,8 @@
     "rows": "Rows",
     "columns": "Columns",
     "swap": "Swap rows and columns",
+    "searchDimension": "Search for a dimension",
+    "noMatchingDimensions": "No matching dimensions",
     "bucketSizeFor": "Bucket size for {dimension}",
     "corner": "{rows} / {cols}",
     "range": "{from}–{to}",
