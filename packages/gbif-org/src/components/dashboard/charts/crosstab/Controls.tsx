@@ -25,7 +25,7 @@ export function Segmented<T extends string>({
     <div
       role="group"
       aria-label={label}
-      className="g-inline-flex g-rounded-md g-border g-border-slate-300 g-overflow-hidden"
+      className="g-inline-flex g-max-w-full g-flex-wrap g-rounded-md g-border g-border-slate-300 g-overflow-hidden"
     >
       {options.map((o) => (
         <button

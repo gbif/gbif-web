@@ -31,7 +31,9 @@ type CrosstabProps = Params & {
   interactive?: boolean;
 };
 
-const positive = (v: unknown) => (Number(v) > 0 ? Number(v) : undefined);
+/** A bucket size from the layout URL: a positive, finite number, or nothing. */
+const positive = (v: unknown) =>
+  Number(v) > 0 && Number.isFinite(Number(v)) ? Number(v) : undefined;
 
 /**
  * A two-dimensional chart: any two dimensions, a count for each pair, shown as a heatmap. Numbers are
@@ -72,21 +74,28 @@ function CrosstabMain(props: CrosstabProps) {
 
   const name = (d: Dimension) => intl.formatMessage({ id: d.labelId, defaultMessage: d.id });
   const fmt = (n: number) => intl.formatNumber(n);
+  const formatting = {
+    number: fmt,
+    range: (from: string, to: string) =>
+      intl.formatMessage({ id: 'dashboard.crosstab.range' }, { from, to }),
+  };
+  // Read by the layout the data was asked for, not the one chosen since: until the new data arrives the
+  // old table stays, and must be read as it was fetched.
   const table = useMemo(
     () =>
-      loaded && layout === 'overall'
-        ? shapeTable(loaded.data, loaded.rows, loaded.cols, fmt)
+      loaded?.layout === 'overall'
+        ? shapeTable(loaded.data, loaded.rows, loaded.cols, formatting)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [loaded, layout]
+    [loaded]
   );
   const ranked = useMemo(
     () =>
-      loaded && layout === 'perRow'
-        ? shapeRanked(loaded.data, loaded.rows, loaded.cols, fmt)
+      loaded?.layout === 'perRow'
+        ? shapeRanked(loaded.data, loaded.rows, loaded.cols, formatting)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [loaded, layout]
+    [loaded]
   );
 
   const setRows = (id: string) =>
@@ -113,8 +122,8 @@ function CrosstabMain(props: CrosstabProps) {
       );
     const rowsOther = table ? table.rowsOther : ranked ? ranked.rowsOther : 0;
     if (rowsOther > 0) note('rowsOther', { count: fmt(rowsOther) });
-    if (layout === 'perRow') note('perRow', { n: LIMITS.rank });
-    else if (cols.kind === 'terms') note('columns', { n: LIMITS.cols });
+    if (loaded.layout === 'perRow') note('perRow', { n: LIMITS.rank });
+    else if (loaded.cols.dim.kind === 'terms') note('columns', { n: LIMITS.cols });
     if (table?.approximate) note('approximate');
     if (rows.multi || cols.multi) note('multi');
     if (shade === 'column') note('shadeColumn');
@@ -131,6 +140,7 @@ function CrosstabMain(props: CrosstabProps) {
   }
 
   const common = {
+    caption: title,
     rows: loaded?.rows ?? { dim: rows },
     cols: loaded?.cols ?? { dim: cols },
     shade,
@@ -156,7 +166,10 @@ function CrosstabMain(props: CrosstabProps) {
             label={intl.formatMessage({ id: 'dashboard.crosstab.rows' })}
             dimension={rows}
             onChange={setRows}
-            bucketLabel={intl.formatMessage({ id: 'dashboard.crosstab.bucketSize' })}
+            bucketLabel={intl.formatMessage(
+              { id: 'dashboard.crosstab.bucketSizeFor' },
+              { dimension: name(rows) }
+            )}
             interval={ask.rows}
             auto={loaded?.auto.rows}
             onInterval={(size) => update({ rInt: size })}
@@ -169,7 +182,10 @@ function CrosstabMain(props: CrosstabProps) {
             label={intl.formatMessage({ id: 'dashboard.crosstab.columns' })}
             dimension={cols}
             onChange={setCols}
-            bucketLabel={intl.formatMessage({ id: 'dashboard.crosstab.bucketSize' })}
+            bucketLabel={intl.formatMessage(
+              { id: 'dashboard.crosstab.bucketSizeFor' },
+              { dimension: name(cols) }
+            )}
             interval={ask.cols}
             auto={loaded?.auto.cols}
             onInterval={(size) => update({ cInt: size })}

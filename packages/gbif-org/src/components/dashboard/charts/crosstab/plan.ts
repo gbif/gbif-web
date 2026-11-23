@@ -50,12 +50,17 @@ export function niceWidth(raw: number): number {
   return tidy(m * p);
 }
 
+/**
+ * Bucket sizes are whole numbers, whatever the field: the API names a bucket by its lower edge as an ID,
+ * and a fractional edge (-89.5) is an error that blanks the whole histogram.
+ */
+const whole = (width: number) => Math.max(1, Math.ceil(width));
+
 /** About `bins.target` buckets between the smallest and largest value. */
-export function autoInterval(stats: Stats | undefined, integer = false): number {
+export function autoInterval(stats: Stats | undefined): number {
   const [min, max] = [num(stats?.min), num(stats?.max)];
   if (min === null || max === null || !(max > min)) return 1;
-  const width = niceWidth((max - min) / LIMITS.bins.target);
-  return integer ? Math.max(1, Math.ceil(width)) : width;
+  return whole(niceWidth((max - min) / LIMITS.bins.target));
 }
 
 /**
@@ -64,16 +69,13 @@ export function autoInterval(stats: Stats | undefined, integer = false): number 
  */
 export function resolveInterval(
   stats: Stats | undefined,
-  integer: boolean,
   requested?: number
 ): { interval: number; auto: number; raised: boolean } {
-  const auto = autoInterval(stats, integer);
+  const auto = autoInterval(stats);
   if (!(Number(requested) > 0)) return { interval: auto, auto, raised: false };
   const [min, max] = [num(stats?.min), num(stats?.max)];
   const least = min !== null && max !== null ? (max - min) / LIMITS.bins.max : 0;
-  let interval = Math.max(Number(requested), least);
-  if (integer) interval = Math.max(1, Math.ceil(interval));
-  interval = tidy(interval);
+  const interval = whole(Math.max(Number(requested), least));
   return { interval, auto, raised: interval > Number(requested) };
 }
 
@@ -82,12 +84,13 @@ export function binLabel(
   key: number,
   interval: number,
   integer: boolean,
-  format: (n: number) => string = String
+  format: (n: number) => string = String,
+  range: (from: string, to: string) => string = (from, to) => `${from}–${to}`
 ): string {
   if (integer) {
-    return interval === 1 ? format(key) : `${format(key)}–${format(tidy(key + interval - 1))}`;
+    return interval === 1 ? format(key) : range(format(key), format(tidy(key + interval - 1)));
   }
-  return `${format(key)}–${format(tidy(key + interval))}`;
+  return range(format(key), format(tidy(key + interval)));
 }
 
 // ---- queries -----------------------------------------------------------------------------------
@@ -148,7 +151,7 @@ export function planAxes(
 } {
   const axis = (dim: Dimension, s: Stats | undefined, ask?: number, t?: Stats) => {
     if (dim.kind !== 'histogram') return { plan: { dim } as AxisPlan };
-    const r = resolveInterval(t ?? s, !!dim.integer, ask);
+    const r = resolveInterval(t ?? s, ask);
     return {
       r,
       plan: { dim, interval: r.interval, window: t ? snap(t, r.interval) : undefined } as AxisPlan,
@@ -171,11 +174,10 @@ export const COARSE_BINS = 200;
 /** The range that holds the 1st to 99th percentile is used when it is under this share of min to max. */
 export const TRIM_BELOW = 0.7;
 
-export function coarseInterval(stats: Stats | undefined, integer: boolean): number | undefined {
+export function coarseInterval(stats: Stats | undefined): number | undefined {
   const [min, max] = [num(stats?.min), num(stats?.max)];
   if (min === null || max === null || !(max > min)) return undefined;
-  const width = niceWidth((max - min) / COARSE_BINS);
-  return integer ? Math.max(1, Math.ceil(width)) : width;
+  return whole(niceWidth((max - min) / COARSE_BINS));
 }
 
 /** A fine histogram of each numeric axis, to find the 1st and 99th percentile. Undefined if none has a spread. */
@@ -191,9 +193,7 @@ export function buildCoarseQuery(
     ] as const
   ).flatMap(([alias, dim]) => {
     const interval =
-      dim.kind === 'histogram'
-        ? coarseInterval(stats?.search?.stats?.[alias], !!dim.integer)
-        : undefined;
+      dim.kind === 'histogram' ? coarseInterval(stats?.search?.stats?.[alias]) : undefined;
     return interval ? [`${alias}: ${dim.id}(interval: ${interval}) { buckets { key count } }`] : [];
   });
   if (!fields.length) return undefined;
@@ -219,10 +219,9 @@ export type CoarseData = {
 export function robustRange(
   data: CoarseData | undefined,
   alias: 'rows' | 'cols',
-  stats: Stats | undefined,
-  integer: boolean
+  stats: Stats | undefined
 ): Stats | undefined {
-  const interval = coarseInterval(stats, integer);
+  const interval = coarseInterval(stats);
   const raw = data?.search?.histogram?.[alias]?.buckets;
   const [min, max] = [num(stats?.min), num(stats?.max)];
   if (!interval || !raw?.length || min === null || max === null) return undefined;
@@ -360,7 +359,10 @@ export type Table = {
   approximate: boolean;
 };
 
-type Fmt = (n: number) => string;
+/** How numbers and ranges are written: the page's locale decides, so the caller passes it in. */
+export type Fmt = { number: (n: number) => string; range?: (from: string, to: string) => string };
+
+const plainFmt: Fmt = { number: String };
 
 function rowLines(
   root: CrosstabData['search'],
@@ -377,7 +379,13 @@ function lineOf(axis: AxisPlan, b: Bucket, count: number, fmt: Fmt): Line {
   const { dim } = axis;
   const label =
     dim.kind === 'histogram'
-      ? binLabel(Number(b.key), axis.interval ?? 1, !!dim.integer, dim.plain ? String : fmt)
+      ? binLabel(
+          Number(b.key),
+          axis.interval ?? 1,
+          !!dim.integer,
+          dim.plain ? String : fmt.number,
+          fmt.range
+        )
       : b.label;
   return { key: b.key, label, count };
 }
@@ -387,7 +395,7 @@ export function shapeTable(
   data: CrosstabData | undefined,
   rows: AxisPlan,
   cols: AxisPlan,
-  fmt: Fmt = String
+  fmt: Fmt = plainFmt
 ): Table {
   const root = data?.search;
   const { buckets: rowBuckets, lines: rowLine } = rowLines(root, rows, fmt);
@@ -442,7 +450,7 @@ export function shapeRanked(
   data: CrosstabData | undefined,
   rows: AxisPlan,
   cols: AxisPlan,
-  fmt: Fmt = String
+  fmt: Fmt = plainFmt
 ): Ranked {
   const root = data?.search;
   const { buckets, lines } = rowLines(root, rows, fmt);
@@ -465,26 +473,46 @@ export function shapeRanked(
 // ---- clicks ------------------------------------------------------------------------------------
 
 /**
- * The filter a line stands for, in the shape `handleRedirect` takes. A histogram bucket is a range:
- * whole numbers end one short of the next bucket, other numbers end below it.
+ * The filter a line stands for, in the shape `handleRedirect` takes. A histogram bucket is a range. The
+ * search URL's range is inclusive at both ends, so a bucket of whole numbers ends one short of the next
+ * and other numbers end at the next bucket's start (a value exactly on the edge is in both).
+ * Empty when the dimension has no filter on the search page.
  */
 export function lineFilter(axis: AxisPlan, key: string | number): Record<string, unknown[]> {
   const { dim } = axis;
+  if (dim.clickable === false) return {};
   if (dim.kind === 'terms') return { [dim.filter]: [key] };
   const from = Number(key);
   const interval = axis.interval ?? 1;
-  const value = dim.integer
-    ? { gte: from, lte: tidy(from + interval - 1) }
-    : { gte: from, lt: tidy(from + interval) };
+  const value = { gte: from, lte: tidy(from + interval - (dim.integer ? 1 : 0)) };
   return { [dim.filter]: [{ type: 'range', value }] };
+}
+
+/** Whether a click on this axis's lines can filter. */
+export const canFilter = (axis: AxisPlan) => axis.dim.clickable !== false;
+
+/**
+ * The filter for a cell: both lines'. Two taxon ranks share the handle `taxonKey`, so the lower rank
+ * (species in a family) is kept: it already implies the higher one.
+ */
+export function cellFilter(
+  rows: AxisPlan,
+  rowKey: string | number,
+  cols: AxisPlan,
+  colKey: string | number
+): Record<string, unknown[]> {
+  const [r, c] = [lineFilter(rows, rowKey), lineFilter(cols, colKey)];
+  if (rows.dim.filter !== cols.dim.filter) return { ...r, ...c };
+  return (rows.dim.rank ?? 0) >= (cols.dim.rank ?? 0) ? r : c;
 }
 
 // ---- colour ------------------------------------------------------------------------------------
 
 /** What a cell is coloured by: its count, or its share of its row or of its column. */
 export function measure(shade: Shade, count: number, rowTotal: number, colTotal: number): number {
-  if (shade === 'row') return rowTotal > 0 ? count / rowTotal : 0;
-  if (shade === 'column') return colTotal > 0 ? count / colTotal : 0;
+  // A cell can exceed its row (the API's bucket search takes in vocabulary children), so shares stop at 1.
+  if (shade === 'row') return rowTotal > 0 ? Math.min(1, count / rowTotal) : 0;
+  if (shade === 'column') return colTotal > 0 ? Math.min(1, count / colTotal) : 0;
   return count;
 }
 

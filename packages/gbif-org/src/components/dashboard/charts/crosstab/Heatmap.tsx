@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { fillCss, inkFor, readPrimary } from './colour';
 import {
+  canFilter,
+  cellFilter,
   lineFilter,
   makeIntensity,
   measure,
@@ -17,6 +19,8 @@ import {
 export type PickFilter = (filter: Record<string, unknown[]>) => void;
 
 type CommonProps = {
+  /** The chart's title, as the table's accessible name. */
+  caption: string;
   rows: AxisPlan;
   cols: AxisPlan;
   shade: Shade;
@@ -33,13 +37,28 @@ const rest = 'g-px-2 g-py-1 g-text-end g-text-slate-500';
 
 function useFormatters() {
   const intl = useIntl();
+  const count = (n: number) => intl.formatNumber(n);
+  /** A share as a whole percentage, "less than 1%" for what rounds to nothing. */
+  const share = (x: number) =>
+    x > 0 && x < 0.005
+      ? intl.formatMessage({ id: 'dashboard.crosstab.lessThanOnePercent' })
+      : intl.formatNumber(x, { style: 'percent', maximumFractionDigits: 0 });
   return {
-    count: (n: number) => intl.formatNumber(n),
-    /** A share as a whole percentage, "<1%" for what rounds to nothing. */
-    share: (x: number) =>
-      x > 0 && x < 0.005
-        ? '<1%'
-        : intl.formatNumber(x, { style: 'percent', maximumFractionDigits: 0 }),
+    count,
+    share,
+    /** "Human observation · Denmark: 1,000 (50%)", for tooltips and screen readers. */
+    cell: (row: string, column: string, n: number, of: number) =>
+      intl.formatMessage(
+        { id: 'dashboard.crosstab.cell' },
+        { row, column, count: count(n), share: share(of ? n / of : 0) }
+      ),
+    countShare: (n: number, x: number) =>
+      intl.formatMessage(
+        { id: 'dashboard.crosstab.countShare' },
+        { count: count(n), share: share(x) }
+      ),
+    corner: (rows: string, cols: string) =>
+      intl.formatMessage({ id: 'dashboard.crosstab.corner' }, { rows, cols }),
   };
 }
 
@@ -61,7 +80,7 @@ function Pickable({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="g-w-full g-text-inherit g-[text-align:inherit] hover:g-underline"
+      className="g-w-full g-text-inherit [text-align:inherit] hover:g-underline"
     >
       {children}
     </button>
@@ -106,7 +125,7 @@ function RowHeader({
   return (
     <th scope="row" className={cn(th, 'g-align-middle g-whitespace-nowrap')}>
       <Pickable
-        on={common.interactive}
+        on={common.interactive && canFilter(axis)}
         label={line.label}
         onClick={() => common.onPick(lineFilter(axis, line.key))}
       >
@@ -131,16 +150,19 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
 
   return (
     <div className="g-overflow-auto">
-      <table className="g-text-sm g-border-separate g-border-spacing-px">
+      <table
+        aria-label={common.caption}
+        className="g-text-sm g-border-separate g-border-spacing-px"
+      >
         <thead>
           <tr>
             <th scope="col" className={th}>
-              {common.rowLabel} \ {common.colLabel}
+              {f.corner(common.rowLabel, common.colLabel)}
             </th>
             {table.cols.map((c, j) => (
               <th key={j} scope="col" className={cn(th, 'g-text-end')}>
                 <Pickable
-                  on={interactive}
+                  on={interactive && canFilter(cols)}
                   label={c.label}
                   onClick={() => onPick(lineFilter(cols, c.key))}
                 >
@@ -162,16 +184,14 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               <RowHeader line={r} axis={rows} common={common} />
               {table.cols.map((c, j) => {
                 const n = table.counts[i][j];
-                const title = `${r.label} · ${c.label}: ${f.count(n)} (${f.share(r.count ? n / r.count : 0)})`;
+                const title = f.cell(r.label, c.label, n, r.count);
                 return (
                   <Cell key={j} intensity={intensity(cell(i, j))} primary={primary} title={title}>
                     {n > 0 && (
                       <Pickable
-                        on={interactive}
+                        on={interactive && canFilter(rows) && canFilter(cols)}
                         label={title}
-                        onClick={() =>
-                          onPick({ ...lineFilter(rows, r.key), ...lineFilter(cols, c.key) })
-                        }
+                        onClick={() => onPick(cellFilter(rows, r.key, cols, c.key))}
                       >
                         <Value shade={shade} count={n} share={cell(i, j)} f={f} />
                       </Pickable>
@@ -218,8 +238,8 @@ function Value({
   if (shade === 'count') return <>{f.count(count)}</>;
   return (
     <>
-      <div>{f.share(share)}</div>
-      <div className="g-text-[10px] g-opacity-80">{f.count(count)}</div>
+      <span className="g-block">{f.share(share)}</span>
+      <span className="g-block g-text-[10px]">{f.count(count)}</span>
     </>
   );
 }
@@ -239,11 +259,14 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
 
   return (
     <div className="g-overflow-auto">
-      <table className="g-text-sm g-border-separate g-border-spacing-px">
+      <table
+        aria-label={common.caption}
+        className="g-text-sm g-border-separate g-border-spacing-px"
+      >
         <thead>
           <tr>
             <th scope="col" className={th}>
-              {common.rowLabel} \ {common.colLabel}
+              {f.corner(common.rowLabel, common.colLabel)}
             </th>
             {ranks.map((k) => (
               <th key={k} scope="col" className={cn(th, 'g-text-center')}>
@@ -266,7 +289,7 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                 const item = r.items[k - 1];
                 if (!item) return <td key={k} />;
                 const share = r.count ? item.count / r.count : 0;
-                const title = `${r.label} · ${item.label}: ${f.count(item.count)} (${f.share(share)})`;
+                const title = f.cell(r.label, item.label, item.count, r.count);
                 return (
                   <Cell
                     key={k}
@@ -276,16 +299,12 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                     className="g-text-start g-min-w-[7rem] g-max-w-[10rem]"
                   >
                     <Pickable
-                      on={interactive}
+                      on={interactive && canFilter(rows) && canFilter(cols)}
                       label={title}
-                      onClick={() =>
-                        onPick({ ...lineFilter(rows, r.key), ...lineFilter(cols, item.key) })
-                      }
+                      onClick={() => onPick(cellFilter(rows, r.key, cols, item.key))}
                     >
-                      <div className="g-truncate">{item.label}</div>
-                      <div className="g-text-xs g-opacity-80">
-                        {f.count(item.count)} · {f.share(share)}
-                      </div>
+                      <span className="g-block g-truncate">{item.label}</span>
+                      <span className="g-block g-text-xs">{f.countShare(item.count, share)}</span>
                     </Pickable>
                   </Cell>
                 );

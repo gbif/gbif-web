@@ -279,3 +279,17 @@ test('it will fail on unknown types', () => {
     filter: {},
   });
 });
+
+test('a range bound of zero is kept, and an exclusive upper bound is written as the nearest inclusive one', () => {
+  const config = {
+    fields: {
+      elevation: { defaultType: PredicateType.Range, v1: { supportedTypes: ['range'] } },
+    },
+  };
+  const run = (value: Record<string, number>) =>
+    filter2v1({ must: { elevation: [{ type: 'range', value }] } }, config);
+  expect(run({ gte: 0, lte: 100 })).toEqual({ filter: { elevation: ['0,100'] } });
+  expect(run({ gte: -50, lte: 0 })).toEqual({ filter: { elevation: ['-50,0'] } });
+  expect(run({ gte: 100, lt: 200 })).toEqual({ filter: { elevation: ['100,200'] } });
+  expect(run({ gte: 0 })).toEqual({ filter: { elevation: ['0,*'] } });
+});

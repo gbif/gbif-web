@@ -4,8 +4,11 @@ import {
   autoInterval,
   binLabel,
   buildCoarseQuery,
+  cellFilter,
+  coarseInterval,
   buildQuery,
   buildStatsQuery,
+  canFilter,
   lineFilter,
   makeIntensity,
   measure,
@@ -26,8 +29,8 @@ const family = getDimension('familyKey', 'familyKey');
 
 describe('intervals', () => {
   test('automatic: round widths, about ten buckets', () => {
-    expect(autoInterval({ min: 1900, max: 2024 }, true)).toBe(20); // 124 / 10 -> 20
-    expect(autoInterval({ min: 0, max: 5 }, true)).toBe(1); // whole numbers never go below 1
+    expect(autoInterval({ min: 1900, max: 2024 })).toBe(20); // 124 / 10 -> 20
+    expect(autoInterval({ min: 0, max: 5 })).toBe(1); // whole numbers never go below 1
     expect(autoInterval({ min: 0, max: 4500 })).toBe(500);
     expect(autoInterval({ min: -90, max: 90 })).toBe(20);
   });
@@ -39,33 +42,36 @@ describe('intervals', () => {
   });
 
   test('a requested interval is kept, unless it gives too many buckets', () => {
-    expect(resolveInterval({ min: 1900, max: 2024 }, true, 5)).toEqual({
+    expect(resolveInterval({ min: 1900, max: 2024 }, 5)).toEqual({
       interval: 6,
       auto: 20,
       raised: true,
     });
-    expect(resolveInterval({ min: 1900, max: 2024 }, true, 10)).toEqual({
+    expect(resolveInterval({ min: 1900, max: 2024 }, 10)).toEqual({
       interval: 10,
       auto: 20,
       raised: false,
     });
-    expect(resolveInterval({ min: 0, max: 1000 }, false, 0)).toMatchObject({
+    expect(resolveInterval({ min: 0, max: 1000 }, 0)).toMatchObject({
       interval: 100,
       raised: false,
     });
-    expect(resolveInterval({ min: 0, max: 1000 }, false, -3)).toMatchObject({ interval: 100 });
+    expect(resolveInterval({ min: 0, max: 1000 }, -3)).toMatchObject({ interval: 100 });
   });
 
   test('a whole-number interval stays whole', () => {
     // 2.5 would give 40 buckets; the least that keeps to 24 is 100 / 24, rounded up to a whole number
-    expect(resolveInterval({ min: 0, max: 100 }, true, 2.5).interval).toBe(5);
-    expect(resolveInterval({ min: 0, max: 20 }, true, 2.5).interval).toBe(3);
+    expect(resolveInterval({ min: 0, max: 100 }, 2.5).interval).toBe(5);
+    expect(resolveInterval({ min: 0, max: 20 }, 2.5).interval).toBe(3);
   });
 
   test('bucket labels', () => {
     expect(binLabel(2000, 10, true)).toBe('2000–2009');
     expect(binLabel(2000, 1, true)).toBe('2000');
-    expect(binLabel(0.5, 0.25, false)).toBe('0.5–0.75');
+    expect(binLabel(50, 25, false)).toBe('50–75');
+    expect(binLabel(-60, 20, false)).toBe('-60–-40');
+    // the caller's range formatter decides how the two ends are joined
+    expect(binLabel(-60, 20, false, String, (a, b) => `${a} to ${b}`)).toBe('-60 to -40');
   });
 });
 
@@ -322,12 +328,12 @@ describe('clicks', () => {
     expect(lineFilter({ dim: family }, 'LV7')).toEqual({ taxonKey: ['LV7'] });
   });
 
-  test('a histogram bucket sets a range: whole numbers end one short of the next bucket', () => {
+  test('a histogram bucket sets a range: whole numbers end one short of the next bucket, others at its start', () => {
     expect(lineFilter({ dim: year, interval: 10 }, 2000)).toEqual({
       year: [{ type: 'range', value: { gte: 2000, lte: 2009 } }],
     });
     expect(lineFilter({ dim: elevation, interval: 500 }, 500)).toEqual({
-      elevation: [{ type: 'range', value: { gte: 500, lt: 1000 } }],
+      elevation: [{ type: 'range', value: { gte: 500, lte: 1000 } }],
     });
   });
 });
@@ -383,8 +389,7 @@ describe('outliers', () => {
         [98500, 10],
       ]),
       'rows',
-      stats,
-      false
+      stats
     );
     expect(range).toEqual({ min: 0, max: 1500 });
   });
@@ -392,7 +397,7 @@ describe('outliers', () => {
   test('ordinary data is left whole', () => {
     // 0 to 1499 in buckets of 10, evenly filled
     const even = Array.from({ length: 150 }, (_, i): [number, number] => [i * 10, 20]);
-    expect(robustRange(coarse(even), 'rows', { min: 0, max: 1499 }, false)).toBeUndefined();
+    expect(robustRange(coarse(even), 'rows', { min: 0, max: 1499 })).toBeUndefined();
   });
 
   test('few records: nothing is trimmed', () => {
@@ -403,15 +408,14 @@ describe('outliers', () => {
           [98500, 1],
         ]),
         'rows',
-        stats,
-        false
+        stats
       )
     ).toBeUndefined();
   });
 
   test('no values: nothing to trim', () => {
-    expect(robustRange(coarse([]), 'rows', stats, false)).toBeUndefined();
-    expect(robustRange(undefined, 'rows', stats, false)).toBeUndefined();
+    expect(robustRange(coarse([]), 'rows', stats)).toBeUndefined();
+    expect(robustRange(undefined, 'rows', stats)).toBeUndefined();
   });
 
   test('the interval is planned for the range, and the window is whole buckets', () => {
@@ -444,5 +448,66 @@ describe('outliers', () => {
     });
     expect(withWindows(undefined, [axis])).toMatchObject({ type: 'and' });
     expect(withWindows(filter, [{ dim: basis }])).toBe(filter);
+  });
+});
+
+describe('review findings', () => {
+  test('bucket sizes are always whole numbers: a fractional bucket key is an API error', () => {
+    // narrow ranges used to give 0.5 or 2.5 for latitude, elevation and depth
+    expect(autoInterval({ min: 54, max: 58 })).toBe(1);
+    expect(autoInterval({ min: 0, max: 22 })).toBe(3); // 2.5 -> 3
+    expect(coarseInterval({ min: 0, max: 30 })).toBe(1);
+    expect(resolveInterval({ min: -422, max: 13287 }, 1e-9)).toMatchObject({
+      interval: 572,
+      raised: true,
+    });
+    expect(resolveInterval({ min: 0, max: 100 }, 2.5).interval).toBe(5);
+    for (const max of [3, 17, 22, 99, 180, 10001]) {
+      expect(Number.isInteger(autoInterval({ min: 0, max }))).toBe(true);
+    }
+  });
+
+  test('two taxon ranks: the lower rank is kept, whichever axis it is on', () => {
+    const [kingdom, familyDim] = [getDimension('kingdomKey', ''), getDimension('familyKey', '')];
+    // a cell of Anatidae (family) x Animalia (kingdom) is Anatidae, not all of Animalia
+    expect(cellFilter({ dim: familyDim }, 'F1', { dim: kingdom }, 'K1')).toEqual({
+      taxonKey: ['F1'],
+    });
+    expect(cellFilter({ dim: kingdom }, 'K1', { dim: familyDim }, 'F1')).toEqual({
+      taxonKey: ['F1'],
+    });
+  });
+
+  test('a cell of two different handles sets both', () => {
+    expect(
+      cellFilter({ dim: basis }, 'HUMAN_OBSERVATION', { dim: year, interval: 10 }, 2000)
+    ).toEqual({
+      basisOfRecord: ['HUMAN_OBSERVATION'],
+      year: [{ type: 'range', value: { gte: 2000, lte: 2009 } }],
+    });
+  });
+
+  test('the publishing country click uses the search page filter handle', () => {
+    expect(lineFilter({ dim: getDimension('publishingCountry', '') }, 'DK')).toEqual({
+      publishingCountry: ['DK'],
+    });
+  });
+
+  test('latitude and longitude have no filter on the search page: nothing to click', () => {
+    const latitude = { dim: getDimension('decimalLatitude', ''), interval: 10 };
+    expect(canFilter(latitude)).toBe(false);
+    expect(lineFilter(latitude, 10)).toEqual({});
+    expect(canFilter({ dim: basis })).toBe(true);
+  });
+
+  test('a bucket of other numbers filters on the inclusive range the search URL can express', () => {
+    expect(lineFilter({ dim: elevation, interval: 100 }, 0)).toEqual({
+      elevation: [{ type: 'range', value: { gte: 0, lte: 100 } }],
+    });
+  });
+
+  test('a share never passes 100%: the API can count a cell above its row', () => {
+    expect(measure('row', 35297, 32783, 1)).toBe(1);
+    expect(measure('column', 5, 100, 4)).toBe(1);
   });
 });
