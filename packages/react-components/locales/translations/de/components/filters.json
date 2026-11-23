@@ -103,7 +103,7 @@
   },
   "datasetCategory": {
     "name": "",
-    "description": ""
+    "description": "Die Kategorie des Datensatzes, zu der die Funddaten zugeordnet sind, basierend auf dem Vokabular „DatasetCategory“. Beispiele hierfür sind Bürgerwissenschaft, eDNA und DNA-Referenzbibliothek."
   },
   "pathway": {
     "name": "Verbringungsweg",
