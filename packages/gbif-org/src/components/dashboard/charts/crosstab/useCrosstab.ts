@@ -8,6 +8,8 @@ import {
   buildCoarseQuery,
   buildQuery,
   buildStatsQuery,
+  LIMITS,
+  pagesRows,
   planAxes,
   robustRange,
   withWindows,
@@ -24,6 +26,8 @@ export type CrosstabInput = {
   cols: Dimension;
   /** Bucket sizes the user asked for, for numeric axes. */
   ask: { rows?: number; cols?: number };
+  /** Which page of rows, from 0, when the rows are paged (`pagesRows`). */
+  rowPage?: number;
 };
 
 export type CrosstabState = {
@@ -32,6 +36,8 @@ export type CrosstabState = {
   /** The answer and the plan it answers: kept together, so a table never mixes two requests. */
   loaded?: {
     data: CrosstabData;
+    /** The page of rows this is. */
+    rowPage: number;
     rows: AxisPlan;
     cols: AxisPlan;
     auto: { rows?: number; cols?: number };
@@ -46,7 +52,14 @@ type Errors = { message: string }[] | undefined;
  * bucket size can be chosen: three requests in a row when there is one, and a single request otherwise. A change cancels what is
  * on its way. The previous table stays on screen, dimmed, until the next arrives.
  */
-export function useCrosstab({ predicate, q, rows, cols, ask }: CrosstabInput): CrosstabState {
+export function useCrosstab({
+  predicate,
+  q,
+  rows,
+  cols,
+  ask,
+  rowPage = 0,
+}: CrosstabInput): CrosstabState {
   const config = useConfig();
   const { locale } = useI18n();
   const checklistKey = useChecklistKey();
@@ -60,6 +73,7 @@ export function useCrosstab({ predicate, q, rows, cols, ask }: CrosstabInput): C
     rows.id,
     cols.id,
     ask,
+    rowPage,
     language,
     needsChecklist ? checklistKey : null,
   ]);
@@ -102,17 +116,19 @@ export function useCrosstab({ predicate, q, rows, cols, ask }: CrosstabInput): C
         cols: range('cols'),
       });
       const query = buildQuery(plan.rows, plan.cols);
+      const from = pagesRows(plan.rows) ? { from: rowPage * LIMITS.rows } : {};
       const { data, errors } = await run<CrosstabData>(query, {
         predicate: withWindows(predicate, [plan.rows, plan.cols]),
         q,
         language,
+        ...from,
         ...(needsChecklist ? { checklistKey } : {}),
       });
       // A failed field can blank a whole axis while the rest arrives: that is an error, not "no data".
       const search = data.search;
       const answered = search?.facet?.rows?.length || search?.histogram?.rows?.buckets?.length;
       if (errors && !answered) throw new Error(errors);
-      setState({ loading: false, loaded: { data, ...plan } });
+      setState({ loading: false, loaded: { data, rowPage, ...plan } });
     })().catch((error) => {
       if (controller.signal.aborted) return;
       // The previous table is dropped: it would sit under axis names it no longer matches.

@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
 import { useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -11,6 +12,8 @@ import {
   columnCardinality,
   fitsOverall,
   LIMITS,
+  pagesRows,
+  rowCardinality,
   shapeRanked,
   shapeTable,
   type Layout,
@@ -68,7 +71,13 @@ function CrosstabMain(props: CrosstabProps) {
     rows: rows.kind === 'histogram' ? positive(get('rInt')) : undefined,
     cols: cols.kind === 'histogram' ? positive(get('cInt')) : undefined,
   };
-  const state = useCrosstab({ predicate, q, rows, cols, ask });
+  // The page of rows, kept with what it is a page of: a new filter or axis starts again at the first.
+  const pageOf = JSON.stringify([predicate, q, rows.id, cols.id, ask]);
+  const [paging, setPaging] = useState({ of: pageOf, page: 0 });
+  const rowPage = paging.of === pageOf ? paging.page : 0;
+  const setRowPage = (page: number) => setPaging({ of: pageOf, page });
+
+  const state = useCrosstab({ predicate, q, rows, cols, ask, rowPage });
   const { loaded } = state;
 
   // The columns that are biggest overall, when that is exact: the column has few enough values
@@ -140,7 +149,7 @@ function CrosstabMain(props: CrosstabProps) {
         n: LIMITS.nested,
         rank: LIMITS.rank,
       });
-    } else if (loaded.cols.dim.kind === 'terms') note('columns', { n: LIMITS.cols });
+    } else if (table && !table.allCols) note('columns', { n: LIMITS.cols });
     if (rows.multi || cols.multi) note('multi');
     if (shade === 'column') note(table?.colTotalsKnown ? 'shadeColumn' : 'shadeColumnShown');
     (['rows', 'cols'] as const).forEach((axis) => {
@@ -238,12 +247,63 @@ function CrosstabMain(props: CrosstabProps) {
         )}
         {table && shown ? <Heatmap table={table} {...common} /> : null}
         {ranked && shown ? <RankedHeatmap table={ranked} {...common} /> : null}
+        {loaded && shown ? (
+          <RowPager
+            page={loaded.rowPage}
+            shown={shown}
+            total={pagesRows(loaded.rows) ? rowCardinality(loaded.data) : null}
+            paged={pagesRows(loaded.rows)}
+            onPage={setRowPage}
+          />
+        ) : null}
         {loaded && shown ? <Legend shade={shade} /> : null}
         <div className="g-mt-2">
           <ChartMessages messages={messages} />
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+/** Previous and next page of rows. The columns stay the same on every page. */
+function RowPager({
+  page,
+  shown,
+  total,
+  paged,
+  onPage,
+}: {
+  page: number;
+  shown: number;
+  total: number | null;
+  paged: boolean;
+  onPage: (page: number) => void;
+}) {
+  const intl = useIntl();
+  if (!paged) return null;
+  const first = page * LIMITS.rows;
+  // Without a count, a full page may have a next one.
+  const hasNext = total !== null ? first + shown < total : shown === LIMITS.rows;
+  if (page === 0 && !hasNext) return null;
+  return (
+    <div className="g-flex g-flex-wrap g-items-center g-gap-2 g-my-2 g-text-sm g-text-slate-600">
+      <Button size="sm" variant="secondary" disabled={page === 0} onClick={() => onPage(page - 1)}>
+        <FormattedMessage id="pagination.previous" />
+      </Button>
+      <Button size="sm" variant="secondary" disabled={!hasNext} onClick={() => onPage(page + 1)}>
+        <FormattedMessage id="pagination.next" />
+      </Button>
+      <span>
+        {intl.formatMessage(
+          { id: 'dashboard.crosstab.rowsShown' },
+          {
+            from: intl.formatNumber(first + 1),
+            to: intl.formatNumber(first + shown),
+            total: total !== null ? intl.formatNumber(total) : '…',
+          }
+        )}
+      </span>
+    </div>
   );
 }
 

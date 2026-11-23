@@ -86,7 +86,7 @@ describe('queries', () => {
 
   test('terms rows with a histogram inside', () => {
     const q = buildQuery({ dim: basis }, { dim: year, interval: 10 });
-    expect(q).toContain('rows: basisOfRecord(size: 12)');
+    expect(q).toContain('rows: basisOfRecord(size: 12, from: $from)');
     expect(q).toContain('label(language: $language)');
     expect(q).toContain('histogram { cols: year(interval: 10) { buckets { key count');
     expect(q).not.toContain('checklistKey');
@@ -105,7 +105,7 @@ describe('queries', () => {
   test('taxon axes take the checklist', () => {
     const q = buildQuery({ dim: family }, { dim: basis }, 8);
     expect(q).toContain('$checklistKey: ID');
-    expect(q).toContain('familyKey(size: 12, checklistKey: $checklistKey)');
+    expect(q).toContain('familyKey(size: 12, from: $from, checklistKey: $checklistKey)');
     expect(q).toContain('basisOfRecord(size: 8)');
   });
 
@@ -195,12 +195,12 @@ describe('shapeTable', () => {
         documents: { total: 100 },
         facet: {
           rows: [
-            { key: 'A', count: 50, label: 'A', occurrences: { facet: { cols: many(12) } } },
+            { key: 'A', count: 50, label: 'A', occurrences: { facet: { cols: many(13) } } },
             {
               key: 'B',
               count: 50,
               label: 'B',
-              occurrences: { facet: { cols: many(12).reverse() } },
+              occurrences: { facet: { cols: many(13).reverse() } },
             },
           ],
         },
@@ -212,7 +212,7 @@ describe('shapeTable', () => {
       { dim: getDimension('countryCode', 'countryCode') }
     );
     expect(table.cols).toHaveLength(8);
-    // C0 and C11 are big in one row each (12 + 1), the middle ones are 6 or 7 + 6 or 7
+    // C0 and C12 are big in one row each (13 + 1), the middle ones are 6 or 7 + 6 or 7
     expect(table.cols[0].count).toBeGreaterThanOrEqual(table.cols[7].count);
     expect(table.counts[0]).toHaveLength(8);
   });
@@ -299,12 +299,66 @@ describe('shapeTable', () => {
       );
     });
 
-    test('the query asks for the cardinality of a terms column, with the checklist for taxa', () => {
-      expect(buildQuery({ dim: basis }, country)).toContain('cardinality { cols: countryCode }');
-      expect(buildQuery({ dim: basis }, { dim: family })).toContain(
+    test('the query asks for the cardinality of terms axes, with the checklist for taxa', () => {
+      expect(buildQuery({ dim: basis }, country)).toContain(
+        'cardinality { rows: basisOfRecord cols: countryCode }'
+      );
+      expect(buildQuery({ dim: elevation, interval: 100 }, { dim: family })).toContain(
         'cardinality { cols: familyKey(checklistKey: $checklistKey) }'
       );
-      expect(buildQuery({ dim: basis }, { dim: year, interval: 10 })).not.toContain('cardinality');
+      expect(
+        buildQuery({ dim: elevation, interval: 100 }, { dim: year, interval: 10 })
+      ).not.toContain('cardinality');
+    });
+  });
+
+  describe('columns come from the column facet, so every page of rows has the same', () => {
+    const totalsOf = (n: number) =>
+      Array.from({ length: n }, (_, i) => ({ key: `V${i}`, count: 1000 - i, label: `V${i}` }));
+    const pageWith = (n: number, cardinality: number, rowCols: string[]): CrosstabData => ({
+      search: {
+        documents: { total: 100000 },
+        cardinality: { cols: cardinality },
+        facet: {
+          colTotals: totalsOf(n),
+          rows: [
+            {
+              key: 'R',
+              count: 10,
+              label: 'R',
+              occurrences: {
+                facet: { cols: rowCols.map((key) => ({ key, count: 5, label: key })) },
+              },
+            },
+          ],
+        },
+      },
+    });
+    const country = { dim: getDimension('countryCode', 'countryCode') };
+
+    test('up to twelve values: all of them, also those the rows shown lack', () => {
+      const a = shapeTable(pageWith(12, 12, ['V0']), { dim: basis }, country);
+      const b = shapeTable(pageWith(12, 12, ['V11', 'V3']), { dim: basis }, country);
+      expect(a.cols.map((c) => c.key)).toEqual(totalsOf(12).map((v) => v.key));
+      expect(b.cols.map((c) => c.key)).toEqual(a.cols.map((c) => c.key));
+      expect(a.allCols).toBe(true);
+      expect(a.counts[0].filter((n) => n > 0)).toEqual([5]);
+    });
+
+    test('more than twelve: the biggest eight by their total', () => {
+      const t = shapeTable(pageWith(30, 30, ['V29']), { dim: basis }, country);
+      expect(t.cols.map((c) => c.key)).toEqual(totalsOf(8).map((v) => v.key));
+      expect(t.allCols).toBe(false);
+      // V29 is not a column, so the row's 5 are under other
+      expect(t.rest).toEqual([10]);
+    });
+
+    test('rows are paged when the facet takes from; histograms and occurrence status are not', () => {
+      const status = getDimension('occurrenceStatus', 'occurrenceStatus');
+      expect(buildQuery({ dim: basis }, country)).toContain('$from: Int');
+      expect(buildQuery({ dim: status }, country)).not.toContain('$from');
+      expect(buildQuery({ dim: status }, country)).toContain('occurrenceStatus(size: 12)');
+      expect(buildQuery({ dim: elevation, interval: 100 }, country)).not.toContain('$from');
     });
   });
 

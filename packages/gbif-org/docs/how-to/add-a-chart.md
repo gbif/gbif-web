@@ -66,12 +66,16 @@ rename.
   row (`useCrosstab.ts`): minimum and maximum, a fine histogram to find the 1st to 99th percentile,
   then the table. When a few outliers (elevation typos) stretch the scale, the table shows only that
   range (the `window`) and says so; ordinary data is left whole.
-- **Columns** are up to 8 values that appear in the rows shown (all 12 for months), picked by their
-  total under the filter from a top-level facet on the column field. A value none of the rows shown
-  has is not a column. Each row's column facet asks for 40 values, so this is only
-  exact when the column has at most 40 values: the query also asks for the column's cardinality
-  (`fitsOverall`). Above that, the same data is shown as each row's own 8 most frequent values,
-  which are exact, and the card says why. There is no setting for this.
+- **Columns** come from a top-level facet on the column field under the filter, not from the rows
+  shown, so every page of rows has the same columns: all values when there are at most 12
+  (`LIMITS.allCols`), else the 8 biggest by total. A column a row lacks is zero. Each row's column
+  facet asks for 40 values, so this is only exact when the column has at most 40 values: the query
+  also asks for the column's cardinality (`fitsOverall`). Above that, the same data is shown as each
+  row's own 8 most frequent values, which are exact, and the card says why. There is no setting for
+  this.
+- **Rows** come 12 at a time, with Previous and Next under the table, using the facet's `from` and
+  the row field's cardinality. Histogram rows come whole, and `occurrenceStatus` (no `from`) is
+  marked `noPaging`. The page isn't saved in the layout; a new filter or axis starts on page one.
 - **Shares** divide by true totals: a row's count from the row facet, a column's from the top-level
   column facet. With a multi-valued field a row's or column's shares can add up to more than 100%.
 - **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not

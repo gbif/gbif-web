@@ -8,9 +8,11 @@
 import type { Dimension } from './dimensions';
 
 export const LIMITS = {
-  /** Lines of a terms axis down the side; the rest are counted together. */
+  /** Lines of a terms axis down the side, per page; the rest are counted together. */
   rows: 12,
-  /** Columns of a terms axis across the top. */
+  /** A terms column with at most this many values under the filter shows all of them. */
+  allCols: 12,
+  /** Columns of a terms axis with more values than `allCols`: the biggest by their total. */
   cols: 8,
   /** Columns of a dimension with few, fixed values read in order (months): all of them. */
   ordered: 12,
@@ -263,15 +265,22 @@ export function withWindows(predicate: unknown, axes: AxisPlan[]): unknown {
 }
 
 /** One level of the query: the axis's buckets, with `inner` (a selection on `occurrences`) in each. */
-function level(axis: AxisPlan, alias: string, size: number, inner?: string): string {
+function level(axis: AxisPlan, alias: string, size: number, inner?: string, paged = false): string {
   const { dim } = axis;
   const occurrences = inner ? `occurrences { ${inner} }` : '';
   if (dim.kind === 'histogram') {
     return `histogram { ${alias}: ${dim.id}(interval: ${axis.interval ?? 1}) { buckets { key count ${occurrences} } } }`;
   }
+  const from = paged ? ', from: $from' : '';
   const checklist = dim.checklist ? ', checklistKey: $checklistKey' : '';
-  return `facet { ${alias}: ${dim.id}(size: ${size}${checklist}) { key count label(language: $language) ${occurrences} } }`;
+  return `facet { ${alias}: ${dim.id}(size: ${size}${from}${checklist}) { key count label(language: $language) ${occurrences} } }`;
 }
+
+/** Rows come a page at a time when they are terms whose facet takes `from`. Histograms come whole. */
+export const pagesRows = (rows: AxisPlan) => rows.dim.kind === 'terms' && !rows.dim.noPaging;
+
+const cardinalityOf = (alias: string, dim: Dimension) =>
+  `${alias}: ${dim.id}${dim.checklist ? '(checklistKey: $checklistKey)' : ''}`;
 
 /** The query for the table: rows, and the columns inside each row. `colSize` is how many values of a terms column. */
 export function buildQuery(
@@ -284,17 +293,20 @@ export function buildQuery(
   const language =
     rows.dim.kind === 'terms' || cols.dim.kind === 'terms' ? ', $language: String' : '';
   const checklist = rows.dim.checklist || cols.dim.checklist ? ', $checklistKey: ID' : '';
-  // How many values a terms column has under the filter decides whether "top overall" is exact.
-  const cardinality =
-    cols.dim.kind === 'terms'
-      ? `cardinality { cols: ${cols.dim.id}${cols.dim.checklist ? '(checklistKey: $checklistKey)' : ''} }`
-      : '';
-  return `query crosstab($q: String, $predicate: Predicate${language}${checklist}) {
+  const paged = pagesRows(rows);
+  // How many values a terms column has decides which columns are shown and whether they are exact;
+  // how many rows there are, whether there is a next page.
+  const counted = [
+    ...(paged ? [cardinalityOf('rows', rows.dim)] : []),
+    ...(cols.dim.kind === 'terms' ? [cardinalityOf('cols', cols.dim)] : []),
+  ];
+  const cardinality = counted.length ? `cardinality { ${counted.join(' ')} }` : '';
+  return `query crosstab($q: String, $predicate: Predicate${language}${checklist}${paged ? ', $from: Int' : ''}) {
   search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) { total }
     ${cardinality}
     ${level(cols, 'colTotals', LIMITS.nested)}
-    ${level(rows, 'rows', LIMITS.rows, level(cols, 'cols', colSize))}
+    ${level(rows, 'rows', LIMITS.rows, level(cols, 'cols', colSize), paged)}
   }
 }`;
 }
@@ -315,7 +327,7 @@ export type CrosstabData = {
   search?:
     | (Raw & {
         documents?: { total?: number };
-        cardinality?: { cols?: number | string | null } | null;
+        cardinality?: { rows?: number | string | null; cols?: number | string | null } | null;
       })
     | null;
 };
@@ -375,6 +387,8 @@ export type Table = {
    * didn't come back) they are the sum over the rows shown.
    */
   colTotalsKnown: boolean;
+  /** Every value of a terms column is a column; otherwise the biggest `LIMITS.cols`. */
+  allCols: boolean;
 };
 
 /** How numbers and ranges are written: the page's locale decides, so the caller passes it in. */
@@ -408,7 +422,12 @@ function lineOf(axis: AxisPlan, b: Bucket, count: number, fmt: Fmt): Line {
   return { key: b.key, label, count };
 }
 
-/** The answer as a table: the biggest columns overall, a count for each pair. */
+/**
+ * The answer as a table, a count for each pair. The columns come from the column's own facet under the
+ * filter, not from the rows shown, so every page of rows has the same columns: all values when there
+ * are at most `LIMITS.allCols`, else the biggest `LIMITS.cols`. A column a row lacks is zero, as every
+ * row's facet is complete when this is used (`fitsOverall`).
+ */
 export function shapeTable(
   data: CrosstabData | undefined,
   rows: AxisPlan,
@@ -422,28 +441,32 @@ export function shapeTable(
   // Each column value's total under the filter, across all rows: what "% of column" divides by. The
   // sum over the rows shown would leave out the other rows, and count a record with several row values
   // more than once.
-  const totals = new Map(
-    readBuckets(root, 'colTotals', cols.dim).map((b) => [keyOf(cols.dim, b.key), b.count])
-  );
+  const totalBuckets = readBuckets(root, 'colTotals', cols.dim);
+  const totals = new Map(totalBuckets.map((b) => [keyOf(cols.dim, b.key), b.count]));
   const colTotalsKnown = totals.size > 0;
 
-  // Columns: histograms in order, filled; terms the biggest by their total (or, without totals, by the
-  // sum over the rows shown), among the values the rows shown have.
+  // Without the column's own facet (it failed), fall back to the values the rows shown have, summed.
   const sums = new Map<string, { bucket: Bucket; sum: number }>();
-  for (const bucket of children.flat()) {
-    const k = keyOf(cols.dim, bucket.key);
-    const have = sums.get(k);
-    if (have) have.sum += bucket.count;
-    else sums.set(k, { bucket, sum: bucket.count });
+  if (colTotalsKnown) {
+    for (const bucket of totalBuckets)
+      sums.set(keyOf(cols.dim, bucket.key), { bucket, sum: bucket.count });
+  } else {
+    for (const bucket of children.flat()) {
+      const k = keyOf(cols.dim, bucket.key);
+      const have = sums.get(k);
+      if (have) have.sum += bucket.count;
+      else sums.set(k, { bucket, sum: bucket.count });
+    }
   }
-  if (colTotalsKnown) for (const [k, s] of sums) s.sum = totals.get(k) ?? s.sum;
+  const values = columnCardinality(data) ?? sums.size;
+  const allCols = values <= LIMITS.allCols;
   let colBuckets: Bucket[];
   if (cols.dim.kind === 'histogram') {
     colBuckets = fill([...sums.values()].map((s) => s.bucket).sort(byKeyOrder), cols.interval ?? 1);
   } else {
     colBuckets = [...sums.values()]
       .sort((a, b) => b.sum - a.sum || String(a.bucket.key).localeCompare(String(b.bucket.key)))
-      .slice(0, cols.dim.byKey ? LIMITS.ordered : LIMITS.cols)
+      .slice(0, allCols ? LIMITS.allCols : cols.dim.byKey ? LIMITS.ordered : LIMITS.cols)
       .map((s) => s.bucket);
     if (cols.dim.byKey) colBuckets.sort(byKeyOrder);
   }
@@ -474,7 +497,13 @@ export function shapeTable(
     total,
     rowsOther: Math.max(0, total - sumOf(rowLine.map((r) => r.count))),
     colTotalsKnown,
+    allCols: cols.dim.kind === 'histogram' || allCols,
   };
+}
+
+/** How many values a paged terms row axis has under the filter, when the API said. */
+export function rowCardinality(data: CrosstabData | undefined): number | null {
+  return num(data?.search?.cardinality?.rows);
 }
 
 /** How many values a terms column has under the filter, when the API said. */

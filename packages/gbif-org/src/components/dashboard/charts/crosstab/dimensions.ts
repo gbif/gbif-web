@@ -25,6 +25,8 @@ export type Dimension = {
   plain?: boolean;
   /** A record can have several values, so one record can be in several cells. */
   multi?: boolean;
+  /** The facet takes no `from`, so its rows can't be paged (it has few values anyway). */
+  noPaging?: boolean;
 };
 
 const terms = (id: string, labelId: string, more: Partial<Dimension> = {}): Dimension => ({
@@ -59,7 +61,7 @@ export const dimensions: Dimension[] = [
   terms('publishingOrg', 'filters.publisherKey.name'),
   terms('license', 'filters.license.name'),
   terms('protocol', 'filters.protocol.name'),
-  terms('occurrenceStatus', 'filters.occurrenceStatus.name'),
+  terms('occurrenceStatus', 'filters.occurrenceStatus.name', { noPaging: true }),
   terms('issue', 'filters.occurrenceIssue.name', { multi: true }),
   terms('mediaType', 'filters.mediaType.name', { multi: true }),
   terms('typeStatus', 'filters.typeStatus.name', { multi: true }),
