@@ -1,7 +1,8 @@
 import { cn } from '@/utils/shadcn';
 import { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { fillCss, inkFor, readPrimary } from './colour';
+import { useConfig } from '@/config/config';
+import { cssColour, inkFor, makeScale } from './colour';
 import {
   canFilter,
   cellFilter,
@@ -31,9 +32,12 @@ type CommonProps = {
   colLabel: string;
 };
 
-const th = 'g-px-2 g-py-1 g-text-start g-font-normal g-text-slate-600 g-align-bottom';
-const cellBase = 'g-px-2 g-py-1 g-text-end g-align-middle g-min-w-[3.5rem]';
-const rest = 'g-px-2 g-py-1 g-text-end g-text-slate-500';
+// The table sits on a very light grey, with a slightly darker line around every cell, header and
+// label, so empty cells and rows still read as a grid.
+const grid = 'g-border g-border-solid g-border-slate-200';
+const th = cn(grid, 'g-px-2 g-py-1 g-text-start g-font-normal g-text-slate-600 g-align-bottom');
+const cellBase = cn(grid, 'g-px-2 g-py-1 g-text-end g-align-middle g-min-w-[3.5rem]');
+const rest = cn(grid, 'g-px-2 g-py-1 g-text-end g-text-slate-500');
 
 function useFormatters() {
   const intl = useIntl();
@@ -52,11 +56,8 @@ function useFormatters() {
         { id: 'dashboard.crosstab.cell' },
         { row, column, count: count(n), share: share(of ? n / of : 0) }
       ),
-    countShare: (n: number, x: number) =>
-      intl.formatMessage(
-        { id: 'dashboard.crosstab.countShare' },
-        { count: count(n), share: share(x) }
-      ),
+    restLabel: intl.formatMessage({ id: 'dashboard.crosstab.rest' }),
+    totalLabel: intl.formatMessage({ id: 'dashboard.crosstab.total' }),
     corner: (rows: string, cols: string) =>
       intl.formatMessage({ id: 'dashboard.crosstab.corner' }, { rows, cols }),
   };
@@ -87,29 +88,77 @@ function Pickable({
   );
 }
 
+type Scale = (intensity: number) => ReturnType<ReturnType<typeof makeScale>>;
+
+/**
+ * The colour for an intensity (`makeIntensity`: from MIN_INTENSITY for the lowest cell to 1 for the
+ * highest), along the theme's heatmap colours.
+ */
+function useScale(): Scale {
+  const { theme } = useConfig();
+  const colours = theme?.heatmapColors;
+  return useMemo(() => {
+    const along = makeScale(colours);
+    return (intensity: number) => along((intensity - MIN_INTENSITY) / (1 - MIN_INTENSITY));
+  }, [colours]);
+}
+
 function Cell({
   intensity,
-  primary,
+  scale,
   title,
   className,
   children,
 }: {
   intensity: number;
-  primary: ReturnType<typeof readPrimary>;
+  scale: Scale;
   title: string;
   className?: string;
   children: React.ReactNode;
 }) {
-  const style = intensity ? { backgroundColor: fillCss(intensity) } : undefined;
-  const ink = intensity
-    ? inkFor(primary, intensity) === 'light'
-      ? 'g-text-white'
-      : 'g-text-slate-900'
-    : '';
+  const fill = intensity ? scale(intensity) : undefined;
+  const style = fill ? { backgroundColor: cssColour(fill) } : undefined;
+  const ink = fill ? (inkFor(fill) === 'light' ? 'g-text-white' : 'g-text-slate-900') : '';
   return (
     <td className={cn(cellBase, ink, className)} style={style} title={title}>
       {children}
     </td>
+  );
+}
+
+/**
+ * A column header. Slanted, its label rises at 45° from the bottom of the column, so the column is as
+ * narrow as its cells; it has a line under it only, as lines between slanted labels would cross them.
+ */
+function ColumnHeader({
+  slanted,
+  label,
+  children,
+}: {
+  slanted: boolean;
+  label: string;
+  children: React.ReactNode;
+}) {
+  if (!slanted) {
+    return (
+      <th scope="col" className={cn(th, 'g-text-end')}>
+        {children}
+      </th>
+    );
+  }
+  return (
+    <th
+      scope="col"
+      className="g-p-0 g-font-normal g-text-slate-600 g-align-bottom g-border-0 g-border-b g-border-solid g-border-slate-200"
+    >
+      <div className="g-relative g-h-[7.5rem]">
+        <div className="g-absolute g-bottom-1 g-left-1/2 g-origin-bottom-left g-rotate-[-45deg] g-whitespace-nowrap g-text-start">
+          <span className="g-block g-max-w-[10rem] g-truncate" title={label}>
+            {children}
+          </span>
+        </div>
+      </div>
+    </th>
   );
 }
 
@@ -141,8 +190,10 @@ function RowHeader({
 /** Rows and columns, a count for each pair, coloured by the chosen measure. */
 export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   const f = useFormatters();
-  const primary = useMemo(readPrimary, []);
+  const scale = useScale();
   const { rows, cols, shade, interactive, onPick } = common;
+  // Shares are short, so the cells can be narrow if the column headers are slanted.
+  const slanted = shade !== 'count';
   const cell = (i: number, j: number) =>
     measure(shade, table.counts[i][j], table.rows[i].count, table.cols[j].count);
   const intensity = useMemo(
@@ -152,18 +203,16 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   );
 
   return (
-    <div className="g-overflow-auto">
-      <table
-        aria-label={common.caption}
-        className="g-text-sm g-border-separate g-border-spacing-px"
-      >
+    // Slanted headers stick out to the right of the last column: room for them.
+    <div className={cn('g-overflow-auto', slanted && 'g-pe-24')}>
+      <table aria-label={common.caption} className="g-text-sm g-border-collapse g-bg-slate-50">
         <thead>
           <tr>
             <th scope="col" className={th}>
               {f.corner(common.rowLabel, common.colLabel)}
             </th>
             {table.cols.map((c, j) => (
-              <th key={j} scope="col" className={cn(th, 'g-text-end')}>
+              <ColumnHeader key={j} slanted={slanted} label={c.label}>
                 <Pickable
                   on={interactive && canFilter(cols)}
                   label={c.label}
@@ -171,14 +220,14 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                 >
                   {c.label}
                 </Pickable>
-              </th>
+              </ColumnHeader>
             ))}
-            <th scope="col" className={cn(th, 'g-text-end')}>
-              <FormattedMessage id="dashboard.crosstab.rest" />
-            </th>
-            <th scope="col" className={cn(th, 'g-text-end')}>
-              <FormattedMessage id="dashboard.crosstab.total" />
-            </th>
+            <ColumnHeader slanted={slanted} label={f.restLabel}>
+              {f.restLabel}
+            </ColumnHeader>
+            <ColumnHeader slanted={slanted} label={f.totalLabel}>
+              {f.totalLabel}
+            </ColumnHeader>
           </tr>
         </thead>
         <tbody>
@@ -189,8 +238,15 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                 const n = table.counts[i][j];
                 const title = f.cell(r.label, c.label, n, r.count);
                 return (
-                  <Cell key={j} intensity={intensity(cell(i, j))} primary={primary} title={title}>
-                    {n > 0 && (
+                  <Cell
+                    key={j}
+                    intensity={intensity(cell(i, j))}
+                    scale={scale}
+                    title={title}
+                    // An empty cell shows the table's grey with a muted 0.
+                    className={n > 0 ? undefined : 'g-text-slate-400'}
+                  >
+                    {n > 0 ? (
                       <Pickable
                         on={interactive && canFilter(rows) && canFilter(cols)}
                         label={title}
@@ -198,6 +254,8 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
                       >
                         <Value shade={shade} count={n} share={cell(i, j)} f={f} />
                       </Pickable>
+                    ) : (
+                      <Value shade={shade} count={0} share={0} f={f} />
                     )}
                   </Cell>
                 );
@@ -226,7 +284,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   );
 }
 
-/** The cell's text: the count, or the share with the count under it. */
+/** The cell's text: the count, or the share. */
 function Value({
   shade,
   count,
@@ -238,19 +296,14 @@ function Value({
   share: number;
   f: ReturnType<typeof useFormatters>;
 }) {
-  if (shade === 'count') return <>{f.count(count)}</>;
-  return (
-    <>
-      <span className="g-block">{f.share(share)}</span>
-      <span className="g-block g-text-[10px]">{f.count(count)}</span>
-    </>
-  );
+  // The count is in the cell's tooltip when a share is shown.
+  return <>{shade === 'count' ? f.count(count) : f.share(share)}</>;
 }
 
 /** Each row lists its own biggest values of the column, named in the cells. */
 export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranked }) {
   const f = useFormatters();
-  const primary = useMemo(readPrimary, []);
+  const scale = useScale();
   const { rows, cols, shade, interactive, onPick } = common;
   const value = (count: number, total: number) => measure(shade, count, total, total);
   const intensity = useMemo(
@@ -262,20 +315,12 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
 
   return (
     <div className="g-overflow-auto">
-      <table
-        aria-label={common.caption}
-        className="g-text-sm g-border-separate g-border-spacing-px"
-      >
+      <table aria-label={common.caption} className="g-text-sm g-border-collapse g-bg-slate-50">
         <thead>
           <tr>
-            <th scope="col" className={th}>
-              {f.corner(common.rowLabel, common.colLabel)}
-            </th>
-            {ranks.map((k) => (
-              <th key={k} scope="col" className={cn(th, 'g-text-center')}>
-                {k}
-              </th>
-            ))}
+            {/* The rows and the ranked values need no header: the selectors above name them. Other
+                and Total keep theirs, as their numbers would read as values otherwise. */}
+            <td colSpan={table.width + 1} className="g-border-0" aria-hidden="true" />
             <th scope="col" className={cn(th, 'g-text-end')}>
               <FormattedMessage id="dashboard.crosstab.rest" />
             </th>
@@ -290,14 +335,14 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
               <RowHeader line={r} axis={rows} common={common} />
               {ranks.map((k) => {
                 const item = r.items[k - 1];
-                if (!item) return <td key={k} />;
+                if (!item) return <td key={k} className={grid} />;
                 const share = r.count ? item.count / r.count : 0;
                 const title = f.cell(r.label, item.label, item.count, r.count);
                 return (
                   <Cell
                     key={k}
                     intensity={intensity(value(item.count, r.count)) || MIN_INTENSITY}
-                    primary={primary}
+                    scale={scale}
                     title={title}
                     className="g-text-start g-min-w-[7rem] g-max-w-[10rem]"
                   >
@@ -307,7 +352,9 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                       onClick={() => onPick(cellFilter(rows, r.key, cols, item.key))}
                     >
                       <span className="g-block g-truncate">{item.label}</span>
-                      <span className="g-block g-text-xs">{f.countShare(item.count, share)}</span>
+                      <span className="g-block g-text-xs g-truncate">
+                        <Value shade={shade} count={item.count} share={share} f={f} />
+                      </span>
                     </Pickable>
                   </Cell>
                 );
@@ -325,6 +372,10 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
 /** A gradient from the least to the most; colour is by rank among the cells shown. */
 export function Legend({ shade }: { shade: Shade }) {
   const id = shade === 'count' ? 'count' : 'share';
+  const scale = useScale();
+  const steps = [0, 0.25, 0.5, 0.75, 1].map((t) =>
+    cssColour(scale(MIN_INTENSITY + (1 - MIN_INTENSITY) * t))
+  );
   return (
     <div className="g-flex g-items-center g-gap-2 g-text-xs g-text-slate-500 g-mt-2">
       <FormattedMessage id={`dashboard.crosstab.legend.${id}Low`} />
@@ -332,7 +383,7 @@ export function Legend({ shade }: { shade: Shade }) {
         aria-hidden="true"
         className="g-inline-block g-h-2 g-w-32 g-rounded"
         style={{
-          backgroundImage: `linear-gradient(to right, ${fillCss(MIN_INTENSITY)}, ${fillCss(1)})`,
+          backgroundImage: `linear-gradient(to right, ${steps.join(', ')})`,
         }}
       />
       <FormattedMessage id={`dashboard.crosstab.legend.${id}High`} />

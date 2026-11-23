@@ -71,6 +71,8 @@ export interface Theme {
   mapPointSizes: number[];
   chartColors: string[];
   iucnColors?: { [key: string]: string }; //custom colors for iucn categories
+  /** Colour stops of the dashboard heatmap, from fewest to most records ("#rgb" or "#rrggbb"). */
+  heatmapColors?: string[];
   proseQuoteBorders?: string;
   preTitleSeparatorColor?: string;
   // _cssVariables: { [key: string]: any };

@@ -47,7 +47,6 @@
     "corner": "{rows} / {cols}",
     "range": "{from}–{to}",
     "cell": "{row} · {column}: {count} ({share})",
-    "countShare": "{count} · {share}",
     "lessThanOnePercent": "<1%",
     "shade": "Colour by",
     "shadeCount": "Count",

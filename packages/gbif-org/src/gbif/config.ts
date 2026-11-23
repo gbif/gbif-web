@@ -165,6 +165,13 @@ export const gbifConfig: Config = {
       EW: '#442D59',
       EX: '#231F20',
     },
+    // Dashboard heatmap colours, from fewest to most records. Keep one active.
+    // Plasma: yellow, orange, red, magenta, purple.
+    heatmapColors: ['#f0f921', '#fca636', '#e16462', '#b12a90', '#6a00a8', '#0d0887'],
+    // Viridis: yellow, green, teal, blue, purple.
+    // heatmapColors: ['#fde725', '#addc30', '#5ec962', '#28ae80', '#21918c', '#2c728e', '#3b528b', '#472d7b', '#440154'],
+    // Red, yellow, green, as in spreadsheet colour scales.
+    // heatmapColors: ['#e67c73', '#ffd666', '#57bb8a'],
     fontFamily:
       '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
     headerFontFamily:
