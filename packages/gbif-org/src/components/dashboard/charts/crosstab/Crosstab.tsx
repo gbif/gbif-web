@@ -144,7 +144,8 @@ function CrosstabMain(props: CrosstabProps) {
   };
 
   const title = intl.formatMessage(
-    { id: layout === 'perRow' ? 'dashboard.crosstab.titleTopPer' : 'dashboard.crosstab.titleBy' },
+    // A cross, not a word: it reads the same in every language and has no direction.
+    { id: 'dashboard.crosstab.title' },
     { rows: name(rows), cols: name(cols) }
   );
   const shown = loaded && (table ? table.rows.length : ranked ? ranked.rows.length : 0);

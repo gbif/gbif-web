@@ -38,8 +38,7 @@
   "showMoreInfo": "Show more information",
   "crosstab": {
     "name": "Two-dimensional heatmap",
-    "titleBy": "{rows} by {cols}",
-    "titleTopPer": "Top {cols} per {rows}",
+    "title": "{rows} × {cols}",
     "rows": "Rows",
     "columns": "Columns",
     "swap": "Swap rows and columns",
