@@ -66,8 +66,9 @@ rename.
   row (`useCrosstab.ts`): minimum and maximum, a fine histogram to find the 1st to 99th percentile,
   then the table. When a few outliers (elevation typos) stretch the scale, the table shows only that
   range (the `window`) and says so; ordinary data is left whole.
-- **Columns** are the 8 values with most records under the filter (all 12 for months), counted from
-  a top-level facet on the column field. Each row's column facet asks for 40 values, so this is only
+- **Columns** are up to 8 values that appear in the rows shown (all 12 for months), picked by their
+  total under the filter from a top-level facet on the column field. A value none of the rows shown
+  has is not a column. Each row's column facet asks for 40 values, so this is only
   exact when the column has at most 40 values: the query also asks for the column's cardinality
   (`fitsOverall`). Above that, the same data is shown as each row's own 8 most frequent values,
   which are exact, and the card says why. There is no setting for this.
