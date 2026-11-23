@@ -427,6 +427,10 @@ export type Table = {
   showNoValue: boolean;
   /** The column has values that aren't columns (and has one value per record): shown on every page. */
   showOther: boolean;
+  /** Over all rows, like the column totals: records with no column value; null when unknown. */
+  noValueTotal: number | null;
+  /** Over all rows: records with a column value that isn't a column; null when unknown or multi. */
+  otherTotal: number | null;
   /** All records matching the filter. */
   total: number;
   /** Records in rows that are not shown (other values, or no value). */
@@ -557,6 +561,14 @@ export function shapeTable(
       rowLine.map((r, i) => r.count - rowWithValue[i])
     ),
     showOther: cols.dim.kind === 'terms' && !cols.dim.multi && values > colBuckets.length,
+    noValueTotal: withValue.total === null ? null : Math.max(0, total - withValue.total),
+    otherTotal:
+      withValue.total === null || !colTotalsKnown || cols.dim.multi || cols.dim.kind !== 'terms'
+        ? null
+        : Math.max(
+            0,
+            withValue.total - sumOf(colBuckets.map((b) => totals.get(keyOf(cols.dim, b.key)) ?? 0))
+          ),
     total,
     rowsOther: Math.max(0, total - sumOf(rowLine.map((r) => r.count))),
     ...rowsSplit(data, rows, sumOf(rowLine.map((r) => r.count)), total),
@@ -755,6 +767,8 @@ function valueCounts(
       ? sumOf(totalBuckets.map((b) => b.count))
       : null;
   return {
+    /** All records under the filter with a column value, in every row; null when unknown. */
+    total: withValueTotal,
     row: (bucket: Bucket, children: Bucket[]) =>
       counted
         ? (counted.get(keyOf(rows.dim, bucket.key)) ?? 0)

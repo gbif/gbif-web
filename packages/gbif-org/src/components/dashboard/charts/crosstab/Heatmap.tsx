@@ -69,6 +69,14 @@ function useFormatters() {
     otherLabel: intl.formatMessage({ id: 'dashboard.crosstab.other' }),
     noValueLabel: intl.formatMessage({ id: 'dashboard.crosstab.noValue' }),
     totalLabel: intl.formatMessage({ id: 'dashboard.crosstab.total' }),
+    /** What the totals count, for the hover bar: the label alone doesn't say. */
+    rowTotalHint: intl.formatMessage({ id: 'dashboard.crosstab.rowTotalHint' }),
+    columnTotalHint: intl.formatMessage({ id: 'dashboard.crosstab.columnTotalHint' }),
+    allHint: intl.formatMessage({ id: 'dashboard.crosstab.allHint' }),
+    otherHint: (dimension: string) =>
+      intl.formatMessage({ id: 'dashboard.crosstab.otherHint' }, { dimension }),
+    noValueHint: (dimension: string) =>
+      intl.formatMessage({ id: 'dashboard.crosstab.noValueHint' }, { dimension }),
     corner: (rows: string, cols: string) =>
       intl.formatMessage({ id: 'dashboard.crosstab.corner' }, { rows, cols }),
   };
@@ -150,6 +158,7 @@ function Cell({
 
 /** The Total labels have the weight of the totals. */
 const totalLabel = 'g-font-medium g-text-slate-700';
+const totalCell = cn(rest, 'g-text-slate-700 g-font-medium');
 
 /** Column labels longer than this are cut, with the whole label in the bar on hover. */
 const MAX_LABEL = 60;
@@ -246,16 +255,16 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               </ColumnHeader>
             ))}
             {table.showOther && (
-              <ColumnHeader onHover={common.onHover} label={f.otherLabel}>
+              <ColumnHeader onHover={common.onHover} label={f.otherHint(common.colLabel)}>
                 {f.otherLabel}
               </ColumnHeader>
             )}
             {table.showNoValue && (
-              <ColumnHeader onHover={common.onHover} label={f.noValueLabel}>
+              <ColumnHeader onHover={common.onHover} label={f.noValueHint(common.colLabel)}>
                 {f.noValueLabel}
               </ColumnHeader>
             )}
-            <ColumnHeader onHover={common.onHover} label={f.totalLabel} className={totalLabel}>
+            <ColumnHeader onHover={common.onHover} label={f.rowTotalHint} className={totalLabel}>
               {f.totalLabel}
             </ColumnHeader>
           </tr>
@@ -305,23 +314,41 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               {table.showNoValue && (
                 <RestCell shade={shade} count={table.noValue[i]} of={r.count} f={f} />
               )}
-              <td className={cn(rest, 'g-text-slate-700 g-font-medium')}>{f.count(r.count)}</td>
+              <td className={totalCell} {...labelHover(f.rowTotalHint, common.onHover)}>
+                {f.count(r.count)}
+              </td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
-            <th scope="row" className={cn(th, totalLabel)}>
-              <FormattedMessage id="dashboard.crosstab.total" />
+            {/* Each column's records in all rows, including rows not shown. */}
+            <th
+              scope="row"
+              className={cn(th, totalLabel)}
+              {...labelHover(f.columnTotalHint, common.onHover)}
+            >
+              {f.totalLabel}
             </th>
             {table.cols.map((c, j) => (
-              <td key={j} className={cn(rest, 'g-text-slate-700 g-font-medium')}>
+              <td key={j} className={totalCell} {...labelHover(f.columnTotalHint, common.onHover)}>
                 {f.count(c.count)}
               </td>
             ))}
-            {table.showOther && <td className={rest}></td>}
-            {table.showNoValue && <td className={rest}></td>}
-            <td className={rest}></td>
+            {table.showOther && (
+              <td className={totalCell} {...labelHover(f.columnTotalHint, common.onHover)}>
+                {table.otherTotal === null ? '' : f.count(table.otherTotal)}
+              </td>
+            )}
+            {table.showNoValue && (
+              <td className={totalCell} {...labelHover(f.columnTotalHint, common.onHover)}>
+                {table.noValueTotal === null ? '' : f.count(table.noValueTotal)}
+              </td>
+            )}
+            {/* All records under the filter. */}
+            <td className={totalCell} {...labelHover(f.allHint, common.onHover)}>
+              {f.count(table.total)}
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -392,17 +419,29 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                 and Total keep theirs, as their numbers would read as values otherwise. */}
             <td colSpan={table.width + 1} className="g-border-0" aria-hidden="true" />
             {table.showOther && (
-              <th scope="col" className={cn(th, 'g-text-end')}>
+              <th
+                scope="col"
+                className={cn(th, 'g-text-end')}
+                {...labelHover(f.otherHint(common.colLabel), common.onHover)}
+              >
                 {f.otherLabel}
               </th>
             )}
             {table.showNoValue && (
-              <th scope="col" className={cn(th, 'g-text-end')}>
+              <th
+                scope="col"
+                className={cn(th, 'g-text-end')}
+                {...labelHover(f.noValueHint(common.colLabel), common.onHover)}
+              >
                 {f.noValueLabel}
               </th>
             )}
-            <th scope="col" className={cn(th, 'g-text-end', totalLabel)}>
-              <FormattedMessage id="dashboard.crosstab.total" />
+            <th
+              scope="col"
+              className={cn(th, 'g-text-end', totalLabel)}
+              {...labelHover(f.rowTotalHint, common.onHover)}
+            >
+              {f.totalLabel}
             </th>
           </tr>
         </thead>
@@ -447,7 +486,9 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
               })}
               {table.showOther && <RestCell shade={shade} count={r.other} of={r.count} f={f} />}
               {table.showNoValue && <RestCell shade={shade} count={r.noValue} of={r.count} f={f} />}
-              <td className={cn(rest, 'g-text-slate-700 g-font-medium')}>{f.count(r.count)}</td>
+              <td className={totalCell} {...labelHover(f.rowTotalHint, common.onHover)}>
+                {f.count(r.count)}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -364,6 +364,11 @@ describe('shapeTable', () => {
       expect(t.other).toEqual([5]);
       expect(t.noValue).toEqual([5]);
       expect(t.showOther).toBe(true);
+      // over all rows: 100000 records, of which the 30 values hold 1000 + 999 + … + 971
+      const withValue = Array.from({ length: 30 }, (_, i) => 1000 - i).reduce((a, b) => a + b, 0);
+      const shownTotals = Array.from({ length: 8 }, (_, i) => 1000 - i).reduce((a, b) => a + b, 0);
+      expect(t.noValueTotal).toBe(100000 - withValue);
+      expect(t.otherTotal).toBe(withValue - shownTotals);
     });
 
     test('rows are paged when the facet takes from; histograms and occurrence status are not', () => {
