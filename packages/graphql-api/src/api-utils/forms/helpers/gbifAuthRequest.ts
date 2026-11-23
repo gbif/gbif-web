@@ -1,11 +1,9 @@
-import crypto from 'node:crypto';
 import logger from '@/logger';
 import request from './request';
 import { z } from 'zod';
 import config from '@/config';
 import { signingUser } from '@/helpers/auth/userHeader';
-
-const NEWLINE = '\n';
+import { gbifAuthHeaders } from '@/helpers/auth/gbifSignature';
 
 // Thrown when an upstream call answers with an unexpected status. It keeps only
 // the status code and body: the full response holds the signed request headers
@@ -58,47 +56,19 @@ function expectJson(options: any) {
  * options name a valid userName or ask for asApp: true.
  */
 export function createSignedHeaders(options: any) {
-  const headers = createHeader(options, signingUser(options, config.appKey));
-  signHeader(options.method, headers, expectJson(options));
-  return headers;
+  const hasBody = options.method == 'POST' || options.method == 'PUT';
+  return gbifAuthHeaders({
+    method: options.method,
+    url: options.url,
+    user: signingUser(options, config.appKey),
+    // the request is sent with `json: body`, which serializes it with JSON.stringify and sets this
+    // content type
+    body: hasBody ? JSON.stringify(options.body) : undefined,
+    contentType: hasBody ? 'application/json' : undefined,
+    appKey: config.appKey,
+    appSecret: config.appSecret,
+  });
 }
-
-function createHeader(options: any, gbifUser: string) {
-  const headers: Record<string, string> = {};
-  headers['x-url'] = options.canonicalPath || options.url;
-  headers['x-gbif-user'] = gbifUser;
-  if (options.method == 'POST' || options.method == 'PUT') {
-    headers['Content-MD5'] = crypto
-      .createHash('md5')
-      .update(JSON.stringify(options.body))
-      .digest('base64');
-  }
-  return headers;
-}
-
-function signHeader(
-  method: Method,
-  headers: Record<string, string>,
-  isJson: boolean,
-) {
-  let stringToSign = method + NEWLINE + headers['x-url'];
-  if (headers['Content-MD5']) {
-    if (isJson) {
-      stringToSign += NEWLINE + 'application/json';
-    }
-    stringToSign += NEWLINE + headers['Content-MD5'];
-  }
-  if (headers['x-gbif-user']) {
-    stringToSign += NEWLINE + headers['x-gbif-user'];
-  }
-  let signature = crypto
-    .createHmac('sha1', config.appSecret)
-    .update(stringToSign)
-    .digest('base64');
-  headers.Authorization = 'GBIF ' + config.appKey + ':' + signature;
-}
-
-type Method = z.infer<typeof OptionsSchema>['method'];
 
 const OptionsSchema = z.union([
   z.object({
@@ -109,7 +79,6 @@ const OptionsSchema = z.union([
     method: z.enum(['POST', 'PUT']),
     url: z.string(),
     body: z.object({}),
-    canonicalPath: z.string(),
   }),
 ]);
 

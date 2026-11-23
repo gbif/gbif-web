@@ -1,11 +1,10 @@
-import crypto from 'crypto';
 import { fetchWithRetry } from './utils.mjs';
 import { secretEnv } from '../../envConfig.mjs';
 import { isValidUserHeader } from './userHeader.mjs';
+import { gbifAuthHeaders } from './gbifSignature.mjs';
 
 const appKey = secretEnv.APP_KEY;
 const secret = secretEnv.APP_SECRET;
-const NEWLINE = '\n';
 
 export class RequestError extends Error {
   constructor(message, statusCode) {
@@ -27,9 +26,9 @@ export async function authenticatedRequest(options) {
   }
   if (
     (options.method === 'POST' || options.method === 'PUT') &&
-    (typeof options.canonicalPath !== 'string' || typeof options.body !== 'object')
+    (typeof options.body !== 'object' || options.body === null)
   ) {
-    throw new Error('POST/PUT requests require a canonicalPath (string) and body (object)');
+    throw new Error('POST/PUT requests require a body (object)');
   }
   // The request is signed either as a user or as the app itself. Signing as the app gives the app's
   // own rights, so that has to be asked for explicitly and never happens because a user name is
@@ -42,14 +41,11 @@ export async function authenticatedRequest(options) {
     throw new Error('A request needs a valid userName, or asApp: true to run as the app');
   }
 
-  let hasJsonBody = options.body && typeof options.body === 'object';
-  let headers = createHeader(options);
-  signHeader(options.method, headers, hasJsonBody);
-
-  let fetchOptions = {
+  const requestBody = options.body ? JSON.stringify(options.body) : undefined;
+  const fetchOptions = {
     method: options.method,
-    headers,
-    body: options.body ? JSON.stringify(options.body) : undefined,
+    headers: createHeaders(options, requestBody),
+    body: requestBody,
   };
 
   const response = await fetchWithRetry(options.url, fetchOptions);
@@ -83,32 +79,20 @@ export async function authenticatedRequest(options) {
   return { body, statusCode: response.status };
 }
 
-function createHeader(options) {
-  let headers = {};
-  headers['x-url'] = options.canonicalPath || options.url;
-  headers['x-gbif-user'] = options.asApp === true ? appKey : options.userName;
+function createHeaders(options, body) {
+  const contentType = body === undefined ? undefined : 'application/json';
+  const headers = gbifAuthHeaders({
+    method: options.method,
+    url: options.url,
+    user: options.asApp === true ? appKey : options.userName,
+    body,
+    contentType,
+    appKey,
+    appSecret: secret,
+  });
   headers['User-Agent'] = 'GBIF-portal';
-  if (options.method == 'POST' || options.method == 'PUT') {
-    headers['Content-MD5'] = crypto
-      .createHash('md5')
-      .update(JSON.stringify(options.body))
-      .digest('base64');
-    headers['Content-Type'] = 'application/json';
+  if (contentType) {
+    headers['Content-Type'] = contentType;
   }
   return headers;
-}
-
-function signHeader(method, headers, hasJsonBody) {
-  let stringToSign = method + NEWLINE + headers['x-url'];
-  if (headers['Content-MD5']) {
-    if (hasJsonBody) {
-      stringToSign += NEWLINE + 'application/json';
-    }
-    stringToSign += NEWLINE + headers['Content-MD5'];
-  }
-  if (headers['x-gbif-user']) {
-    stringToSign += NEWLINE + headers['x-gbif-user'];
-  }
-  let signature = crypto.createHmac('sha1', secret).update(stringToSign).digest('base64');
-  headers.Authorization = 'GBIF ' + appKey + ':' + signature;
 }

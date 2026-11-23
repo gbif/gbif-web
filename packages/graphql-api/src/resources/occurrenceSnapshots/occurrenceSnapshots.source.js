@@ -10,7 +10,7 @@ class OccurrenceSnapshotsAPI extends RESTDataSource {
 
   willSendRequest(path, request) {
     const header = createSignedGetHeader(
-      path,
+      this.requestURL(path, request),
       this.config,
       { userName: 'download.gbif.org' },
     );

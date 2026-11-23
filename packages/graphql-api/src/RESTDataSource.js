@@ -60,6 +60,17 @@ export class RESTDataSource extends ApolloRESTDataSource {
     return url;
   }
 
+  // The URL `fetch` will request. `willSendRequest` runs before the URL is resolved and the params
+  // are added to it, but a signed request has to sign the query string that is actually sent.
+  // Mirrors @apollo/datasource-rest `fetch`.
+  requestURL(path, request) {
+    const url = this.resolveURL(path, request);
+    for (const [name, value] of request.params) {
+      url.searchParams.append(name, value);
+    }
+    return url;
+  }
+
   // Convert the legacy `(params, init)` arguments into a v6 request options
   // object. `params` may be a query string, a plain object or URLSearchParams.
   // eslint-disable-next-line class-methods-use-this

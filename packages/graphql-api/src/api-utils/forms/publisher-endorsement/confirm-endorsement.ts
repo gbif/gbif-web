@@ -31,7 +31,6 @@ export async function confirmEndorsement(
       method: 'POST',
       body: { confirmationKey: dto.code },
       url: config.apiv1 + urlPath`/organization/${dto.key}/endorsement`,
-      canonicalPath: urlPath`organization/${dto.key}/endorsement`,
       // The endorsing node has no login here; the confirmation key is what proves the request.
       asApp: true,
     });
