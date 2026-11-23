@@ -147,45 +147,29 @@ function Cell({
   );
 }
 
-const slantedHeader =
-  'g-p-0 g-font-normal g-text-slate-600 g-align-bottom g-bg-slate-50 g-border-0 g-border-y last:g-border-e g-border-solid g-border-slate-200';
+/** The Total labels have the weight of the totals. */
+const totalLabel = 'g-font-medium g-text-slate-700';
 
-/**
- * A column header. Slanted, its label starts at the bottom of the column and rises at 45° to the right,
- * over the headers after it, so the column is as narrow as its cells. The slanted headers share one
- * outline: lines above and below, and on the right of the last one (Total, which is `wide` so its own
- * short label stays inside the table).
- */
+/** Column labels longer than this are cut, with the whole label in the bar on hover. */
+const MAX_LABEL = 60;
+const cutLabel = (label: string) =>
+  label.length > MAX_LABEL ? `${label.slice(0, MAX_LABEL - 1).trimEnd()}…` : label;
+
+/** A column header; the whole label shows in the bar at the bottom of the card on hover. */
 function ColumnHeader({
-  slanted,
   label,
-  wide,
   onHover,
+  className,
   children,
 }: {
-  slanted: boolean;
   label: string;
-  /** Room for the label to rise inside the column: for the last column, with nothing after it. */
-  wide?: boolean;
   onHover?: (hover: Hover | null) => void;
+  className?: string;
   children: React.ReactNode;
 }) {
-  const show = labelHover(label, onHover);
-  if (!slanted) {
-    return (
-      <th scope="col" className={cn(th, 'g-text-end')} {...show}>
-        {children}
-      </th>
-    );
-  }
   return (
-    <th scope="col" className={cn(slantedHeader, wide && 'g-min-w-[6rem]')} {...show}>
-      <div className="g-relative g-h-[7.5rem]">
-        <div className="g-absolute g-bottom-1 g-left-1/2 g-origin-bottom-left g-rotate-[-45deg] g-whitespace-nowrap g-text-start">
-          {/* At most what fits the header's height at 45°, so a long one ends in an ellipsis. */}
-          <span className="g-block g-max-w-[8.5rem] g-truncate">{children}</span>
-        </div>
-      </div>
+    <th scope="col" className={cn(th, 'g-text-end', className)} {...labelHover(label, onHover)}>
+      {children}
     </th>
   );
 }
@@ -229,8 +213,6 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   const f = useFormatters();
   const scale = useScale();
   const { rows, cols, shade, interactive, onPick } = common;
-  // Shares are short, so the cells can be narrow if the column headers are slanted.
-  const slanted = shade !== 'count';
   const cell = (i: number, j: number) =>
     measure(shade, table.counts[i][j], table.rows[i].count, table.cols[j].count);
   const intensity = useMemo(
@@ -252,27 +234,27 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               {f.corner(common.rowLabel, common.colLabel)}
             </th>
             {table.cols.map((c, j) => (
-              <ColumnHeader key={j} slanted={slanted} onHover={common.onHover} label={c.label}>
+              <ColumnHeader key={j} onHover={common.onHover} label={c.label}>
                 <Pickable
                   on={interactive && canFilter(cols)}
                   label={c.label}
                   onClick={() => onPick(lineFilter(cols, c.key))}
                 >
-                  {c.label}
+                  {cutLabel(c.label)}
                 </Pickable>
               </ColumnHeader>
             ))}
             {table.showOther && (
-              <ColumnHeader slanted={slanted} onHover={common.onHover} label={f.otherLabel}>
+              <ColumnHeader onHover={common.onHover} label={f.otherLabel}>
                 {f.otherLabel}
               </ColumnHeader>
             )}
             {table.showNoValue && (
-              <ColumnHeader slanted={slanted} onHover={common.onHover} label={f.noValueLabel}>
+              <ColumnHeader onHover={common.onHover} label={f.noValueLabel}>
                 {f.noValueLabel}
               </ColumnHeader>
             )}
-            <ColumnHeader slanted={slanted} wide onHover={common.onHover} label={f.totalLabel}>
+            <ColumnHeader onHover={common.onHover} label={f.totalLabel} className={totalLabel}>
               {f.totalLabel}
             </ColumnHeader>
           </tr>
@@ -328,7 +310,7 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
         </tbody>
         <tfoot>
           <tr>
-            <th scope="row" className={th}>
+            <th scope="row" className={cn(th, totalLabel)}>
               <FormattedMessage id="dashboard.crosstab.total" />
             </th>
             {table.cols.map((c, j) => (
@@ -418,7 +400,7 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
                 {f.noValueLabel}
               </th>
             )}
-            <th scope="col" className={cn(th, 'g-text-end')}>
+            <th scope="col" className={cn(th, 'g-text-end', totalLabel)}>
               <FormattedMessage id="dashboard.crosstab.total" />
             </th>
           </tr>
