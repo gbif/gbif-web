@@ -1,6 +1,8 @@
-// Person ids that the website lists publicly: the contact-us directory tables
-// and the node contacts shown on country and participant pages.
+// Person ids that the website lists publicly: the contact-us directory tables,
+// the node contacts shown on country and participant pages and the volunteer lists.
 // Only these may be looked up directly through `directoryContact(id)`.
+
+import { VOLUNTEER_ROLES } from './validGbifRoles';
 
 const TTL_MS = 10 * 60 * 1000;
 
@@ -13,9 +15,9 @@ const PARTICIPANT_GROUPS = [
   { type: 'OTHER', participation_status: 'ASSOCIATE' },
 ];
 
-async function loadPublicPersonIds({ participantAPI, nodeAPI }) {
+async function loadPublicPersonIds({ participantAPI, nodeAPI, directoryPersonAPI }) {
   const directory = participantAPI.directoryAPI;
-  const [participantGroups, committees, nsg, secretariat, nodes] = await Promise.all([
+  const [participantGroups, committees, nsg, secretariat, nodes, volunteers] = await Promise.all([
     Promise.all(PARTICIPANT_GROUPS.map((query) => directory.searchParticipants({ query: { limit: 1000, ...query } }))),
     Promise.all([
       directory.getBudgetCommitteeReport(),
@@ -26,6 +28,11 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI }) {
     directory.getNsgReport(),
     directory.getSecretariatReport(),
     nodeAPI.searchNodes({ query: { limit: 1000 } }),
+    Promise.all(
+      VOLUNTEER_ROLES.map((role) =>
+        directoryPersonAPI.searchPeopleByRole({ query: { limit: 1000, role } }),
+      ),
+    ),
   ]);
 
   const ids = [
@@ -36,6 +43,7 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI }) {
     ...nsg.map((member) => member.id),
     ...secretariat.map((member) => member.id),
     ...nodes.results.flatMap((node) => (node.contacts ?? []).map((c) => c.key)),
+    ...volunteers.flatMap((response) => response.results.map((r) => r.personId)),
   ];
 
   return new Set(ids.filter((id) => id != null).map(String));

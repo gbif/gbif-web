@@ -3,7 +3,7 @@ import assert from 'assert';
 import { clearPublicDirectoryPersonCache, isPublicDirectoryPerson } from './publicDirectoryPersons';
 
 function createDataSources({ failNodes = false } = {}) {
-  const calls = { participants: [], nodes: 0 };
+  const calls = { participants: [], nodes: 0, volunteerRoles: [] };
   const participantsByGroup = {
     'COUNTRY:VOTING': [{ people: [{ person: { id: 1 } }] }],
     'COUNTRY:ASSOCIATE': [{ people: [{ person: { id: 2 } }] }],
@@ -30,7 +30,13 @@ function createDataSources({ failNodes = false } = {}) {
       return { results: [{ contacts: [{ key: 9 }] }, {}] };
     },
   };
-  return { calls, dataSources: { participantAPI: { directoryAPI }, nodeAPI } };
+  const directoryPersonAPI = {
+    searchPeopleByRole: async ({ query }) => {
+      calls.volunteerRoles.push(query.role);
+      return { results: query.role === 'TRANSLATOR' ? [{ personId: 11 }] : [] };
+    },
+  };
+  return { calls, dataSources: { participantAPI: { directoryAPI }, nodeAPI, directoryPersonAPI } };
 }
 
 describe('isPublicDirectoryPerson', () => {
@@ -38,7 +44,7 @@ describe('isPublicDirectoryPerson', () => {
 
   it('allows people listed in the directory tables and node contacts', async () => {
     const { dataSources } = createDataSources();
-    const ids = ['1', '2', '3', '4', '5', '6', '7', 8, '9'];
+    const ids = ['1', '2', '3', '4', '5', '6', '7', 8, '9', 11];
     const results = await Promise.all(ids.map((id) => isPublicDirectoryPerson(id, dataSources)));
     assert.deepStrictEqual(
       results,
@@ -63,6 +69,18 @@ describe('isPublicDirectoryPerson', () => {
       calls.participants.map((q) => `${q.type}:${q.participation_status}`),
       ['COUNTRY:VOTING', 'COUNTRY:ASSOCIATE', 'OTHER:ASSOCIATE'],
     );
+  });
+
+  it('includes volunteers for every volunteer role', async () => {
+    const { calls, dataSources } = createDataSources();
+    await isPublicDirectoryPerson('11', dataSources);
+    assert.deepStrictEqual(calls.volunteerRoles.sort(), [
+      'AMBASSADOR',
+      'MENTOR',
+      'REVIEWER',
+      'TRAINER',
+      'TRANSLATOR',
+    ]);
   });
 
   it('caches the allowlist and shares concurrent loads', async () => {

@@ -34,19 +34,20 @@ export function reducePersonRole(personRole) {
   };
 }
 
-export function reduceTranslator(person) {
+// One shape for all volunteer lists (ambassadors, mentors, trainers, translators, reviewers).
+export function reduceVolunteer(person) {
   return {
-    ...pick(person, ['firstName', 'surname', 'countryCode', 'orcidId', 'languages']),
-    certifications: person.certifications?.map((c) => pick(c, ['year'])),
+    ...pick(person, [
+      'firstName',
+      'surname',
+      'email',
+      'orcidId',
+      'institutionName',
+      'countryCode',
+      'languages',
+    ]),
+    certifications: person.certifications?.map((c) => pick(c, ['title', 'year'])),
   };
-}
-
-export function reduceAmbassador(person) {
-  return pick(person, ['firstName', 'surname', 'email', 'orcidId', 'institutionName', 'countryCode', 'areasExpertise']);
-}
-
-export function reduceMentor(person) {
-  return pick(person, ['firstName', 'surname', 'email', 'countryCode', 'areasExpertise']);
 }
 
 export function reduceAwardWinner(person) {
@@ -72,7 +73,9 @@ export function reduceDirectoryContact(person) {
       'phone',
       'address',
       'countryCode',
+      'languages',
     ]),
+    certifications: person.certifications?.map((c) => pick(c, ['title', 'year'])),
     roles: (person.roles ?? [])
       .filter((r) => VALID_GBIF_ROLES.has(r.role))
       .map((r) => ({ role: r.role, term: pickTerm(r.term) })),
@@ -114,16 +117,8 @@ class DirectoryPersonAPI extends RESTDataSource {
     return this.get(urlPath`/directory/person/${key}`);
   }
 
-  async getTranslatorByKey({ key }) {
-    return reduceTranslator(await this.getPersonByKey(key));
-  }
-
-  async getAmbassadorByKey({ key }) {
-    return reduceAmbassador(await this.getPersonByKey(key));
-  }
-
-  async getMentorByKey({ key }) {
-    return reduceMentor(await this.getPersonByKey(key));
+  async getVolunteerByKey({ key }) {
+    return reduceVolunteer(await this.getPersonByKey(key));
   }
 
   async getAwardWinnerByKey({ key }) {

@@ -1,12 +1,10 @@
 /* eslint-env mocha */
 import assert from 'assert';
 import {
-  reduceAmbassador,
   reduceAwardWinner,
   reduceDirectoryContact,
-  reduceMentor,
   reducePersonRole,
-  reduceTranslator,
+  reduceVolunteer,
 } from './directoryPerson.source';
 
 const term = { start: '2020-01-01', end: '2022-01-01', createdBy: 'staff@x' };
@@ -59,36 +57,16 @@ describe('directory person reducers', () => {
     );
   });
 
-  it('reduces translators to the shown fields', () => {
-    assert.deepStrictEqual(reduceTranslator(fullPerson), {
-      firstName: 'Ada',
-      surname: 'Lovelace',
-      countryCode: 'DK',
-      orcidId: '0000-0001',
-      languages: ['en'],
-      certifications: [{ year: 2021 }],
-    });
-  });
-
-  it('reduces ambassadors to the shown fields', () => {
-    assert.deepStrictEqual(reduceAmbassador(fullPerson), {
+  it('reduces volunteers to the shown fields', () => {
+    assert.deepStrictEqual(reduceVolunteer(fullPerson), {
       firstName: 'Ada',
       surname: 'Lovelace',
       email: 'ada@example.org',
       orcidId: '0000-0001',
       institutionName: 'Institute',
       countryCode: 'DK',
-      areasExpertise: ['TAXONOMY'],
-    });
-  });
-
-  it('reduces mentors to the shown fields', () => {
-    assert.deepStrictEqual(reduceMentor(fullPerson), {
-      firstName: 'Ada',
-      surname: 'Lovelace',
-      email: 'ada@example.org',
-      countryCode: 'DK',
-      areasExpertise: ['TAXONOMY'],
+      languages: ['en'],
+      certifications: [{ title: 'Cert', year: 2021 }],
     });
   });
 
@@ -114,6 +92,8 @@ describe('directory person reducers', () => {
       phone: '+45 1234',
       address: 'Street 1',
       countryCode: 'DK',
+      languages: ['en'],
+      certifications: [{ title: 'Cert', year: 2021 }],
       roles: [
         { role: 'AWARD_WINNER', term: cleanTerm },
         { role: 'INVOICE_CONTACT', term: cleanTerm },
@@ -124,7 +104,7 @@ describe('directory person reducers', () => {
 
   it('handles people without roles, terms or participants', () => {
     const contact = reduceDirectoryContact({ id: 2 });
-    assert.deepStrictEqual(contact, { id: 2, roles: [], participants: [] });
+    assert.deepStrictEqual(contact, { id: 2, certifications: undefined, roles: [], participants: [] });
     assert.deepStrictEqual(reduceAwardWinner({ roles: [{ role: 'AWARD_WINNER' }] }).roles, [
       { award: undefined, term: undefined },
     ]);

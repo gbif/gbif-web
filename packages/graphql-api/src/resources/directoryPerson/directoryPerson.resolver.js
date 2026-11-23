@@ -1,5 +1,7 @@
+import { GraphQLError } from 'graphql';
 import { NotFoundError } from '../../helpers/GraphQL404Error';
 import { isPublicDirectoryPerson } from './publicDirectoryPersons';
+import { VOLUNTEER_ROLES } from './validGbifRoles';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -10,18 +12,15 @@ import { isPublicDirectoryPerson } from './publicDirectoryPersons';
  */
 export default {
   Query: {
-    directoryTranslators: (parent, { limit, offset }, { dataSources }) =>
-      dataSources.directoryPersonAPI.searchPeopleByRole({
-        query: { limit, offset, role: 'TRANSLATOR' },
-      }),
-    directoryAmbassadors: (parent, { limit, offset }, { dataSources }) =>
-      dataSources.directoryPersonAPI.searchPeopleByRole({
-        query: { limit, offset, role: 'AMBASSADOR' },
-      }),
-    directoryMentors: (parent, { limit, offset }, { dataSources }) =>
-      dataSources.directoryPersonAPI.searchPeopleByRole({
-        query: { limit, offset, role: 'MENTOR' },
-      }),
+    directoryVolunteers: (parent, { role, limit, offset }, { dataSources }) => {
+      // only the volunteer roles are public, never let the client pick an arbitrary directory role
+      if (!VOLUNTEER_ROLES.includes(role)) {
+        throw new GraphQLError(`role must be one of ${VOLUNTEER_ROLES.join(', ')}`, {
+          extensions: { code: 'BAD_USER_INPUT' },
+        });
+      }
+      return dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role } });
+    },
     directoryAwardWinners: (parent, { award = [] }, { dataSources }) =>
       dataSources.directoryPersonAPI
         .searchPeopleByRole({ query: { role: 'AWARD_WINNER' } })
@@ -59,16 +58,9 @@ export default {
       });
     },
   },
-  DirectoryTranslatorRole: {
+  DirectoryVolunteerRole: {
     Person: ({ personId }, args, { dataSources }) =>
-      dataSources.directoryPersonAPI.getTranslatorByKey({ key: personId }),
-  },
-  DirectoryAmbassadorRole: {
-    Person: ({ personId }, args, { dataSources }) =>
-      dataSources.directoryPersonAPI.getAmbassadorByKey({ key: personId }),
-  },
-  DirectoryMentorRole: {
-    Person: ({ personId }, args, { dataSources }) => dataSources.directoryPersonAPI.getMentorByKey({ key: personId }),
+      dataSources.directoryPersonAPI.getVolunteerByKey({ key: personId }),
   },
   DirectoryContact: {
     profilePicture: ({ id }, args, { dataSources }) =>

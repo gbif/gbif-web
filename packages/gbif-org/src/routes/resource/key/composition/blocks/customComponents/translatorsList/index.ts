@@ -1,1 +1,0 @@
-export { TranslatorsList } from './TranslatorsList';

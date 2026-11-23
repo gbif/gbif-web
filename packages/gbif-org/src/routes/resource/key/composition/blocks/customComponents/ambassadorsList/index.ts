@@ -1,1 +1,0 @@
-export { AmbassadorsList } from './AmbassadorsList';

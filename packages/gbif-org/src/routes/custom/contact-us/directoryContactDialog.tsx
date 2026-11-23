@@ -1,5 +1,5 @@
 import { ContactAction, ContactEmail, ContactTelephone } from '@/components/contact';
-import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DirectoryContactQuery, DirectoryContactQueryVariables, NodeType } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -12,6 +12,7 @@ import { LongDate } from '@/components/dateFormats';
 import { MdLocationOn, MdPerson } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 import { safeHref } from '@/utils/safeHref';
+import { Tag } from '@/components/resultCards';
 
 const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
   query DirectoryContact($id: ID!) {
@@ -26,6 +27,11 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
       email
       orcidId
       jobTitle
+      languages
+      certifications {
+        title
+        year
+      }
       profilePicture
       participants {
         id
@@ -56,6 +62,24 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
 type Props = {
   personId?: string | null;
 };
+
+/**
+ * Controlled dialog for a person in the directory. Open it by setting a personId and close it in onClose.
+ * Only one dialog is needed per list, instead of one per row.
+ */
+export function DirectoryContactDialog({
+  personId,
+  onClose,
+}: {
+  personId?: string | null;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={!!personId} onOpenChange={(open) => !open && onClose()}>
+      <DirectoryContactDialogContent personId={personId} />
+    </Dialog>
+  );
+}
 
 export function DirectoryContactDialogContent({ personId }: Props) {
   const { data, loading, load } = useQuery<DirectoryContactQuery, DirectoryContactQueryVariables>(
@@ -148,6 +172,36 @@ export function DirectoryContactDialogContent({ personId }: Props) {
             {person.phone && <ContactTelephone tel={person.phone} />}
           </div>
 
+          {(person.languages.length > 0 || person.badges.length > 0) && (
+            <div className="g-w-full g-space-y-2">
+              {person.languages.length > 0 && (
+                <p className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage id="directory.languages" defaultMessage="Languages" />:
+                  </span>{' '}
+                  {person.languages.map((lang, i) => (
+                    <span key={lang}>
+                      {i > 0 && ', '}
+                      <FormattedMessage id={`enums.language.${lang}`} defaultMessage={lang} />
+                    </span>
+                  ))}
+                </p>
+              )}
+              {person.badges.length > 0 && (
+                <div className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage id="directory.badges" defaultMessage="Badges" />:
+                  </span>{' '}
+                  {person.badges.map((badge) => (
+                    <Tag key={`${badge.title}-${badge.year}`} className="g-me-1 g-mb-1">
+                      {[badge.title, badge.year].filter(Boolean).join(' ')}
+                    </Tag>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {person.roles.length > 0 && (
             <div>
               <Separator>
@@ -225,6 +279,8 @@ type PreparedData = {
   email?: string;
   orcidId?: string;
   roles: Role[];
+  languages: string[];
+  badges: { title?: string; year?: number }[];
   profilePicture?: string;
   countryCode?: string;
 };
@@ -314,6 +370,11 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
     email: data.email ?? undefined,
     orcidId: data.orcidId ?? undefined,
     roles,
+    languages: data.languages?.filter(notNull) ?? [],
+    badges: (data.certifications ?? []).filter(notNull).map((c) => ({
+      title: c.title ?? undefined,
+      year: c.year ?? undefined,
+    })),
     profilePicture: data.profilePicture ?? undefined,
   };
 

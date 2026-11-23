@@ -56,3 +56,6 @@ export const VALID_GBIF_ROLES = new Set([
   'NODE_MANAGER',
   'NODE_STAFF',
 ]);
+
+// Roles that are shown as public volunteer lists on the website (see the volunteersList custom component).
+export const VOLUNTEER_ROLES = ['AMBASSADOR', 'MENTOR', 'TRAINER', 'TRANSLATOR', 'REVIEWER'];
