@@ -1,3 +1,4 @@
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
 import { MdSwapHoriz } from 'react-icons/md';
@@ -56,6 +57,7 @@ export function AxisControl({
   bucketLabel,
   interval,
   auto,
+  raised,
   onInterval,
 }: {
   label: string;
@@ -66,6 +68,8 @@ export function AxisControl({
   interval?: number;
   /** The bucket size used when none is asked for. */
   auto?: number;
+  /** The size asked for was raised to keep the number of buckets manageable: the size used, and why. */
+  raised?: { size: number; message: string };
   onInterval: (size: number | undefined) => void;
 }) {
   const intl = useIntl();
@@ -85,31 +89,65 @@ export function AxisControl({
         ))}
       </select>
       {dimension.kind === 'histogram' && (
-        <SizeInput label={bucketLabel} value={interval} placeholder={auto} onCommit={onInterval} />
+        <SizeInput
+          label={bucketLabel}
+          value={interval}
+          shown={raised?.size}
+          placeholder={auto}
+          onCommit={onInterval}
+        />
       )}
+      {dimension.kind === 'histogram' && raised && <RaisedMark message={raised.message} />}
     </span>
   );
 }
 
-/** A bucket size. Applied when the field is left or Enter is pressed, not on every key. */
+/** Shown next to a bucket size that was raised: the size in the field is not the one typed. */
+function RaisedMark({ message }: { message: string }) {
+  return (
+    <SimpleTooltip title={message}>
+      <span
+        role="img"
+        aria-label={message}
+        className="g-inline-flex g-items-center g-justify-center g-w-4 g-h-4 g-rounded-full g-bg-orange-500 g-text-yellow-100 g-text-[11px] g-font-bold g-leading-none g-cursor-help"
+      >
+        !
+      </span>
+    </SimpleTooltip>
+  );
+}
+
+/**
+ * A bucket size. Applied when the field is left or Enter is pressed, not on every key. `shown` is the
+ * size used when it differs from the one asked for (it was raised): the field shows it, while the
+ * size asked for stays stored, so it applies again once a filter allows it.
+ */
 function SizeInput({
   label,
   value,
+  shown,
   placeholder,
   onCommit,
 }: {
   label: string;
   value?: number;
+  shown?: number;
   placeholder?: number;
   onCommit: (size: number | undefined) => void;
 }) {
-  const [text, setText] = useState(value ? String(value) : '');
-  useEffect(() => setText(value ? String(value) : ''), [value]);
+  const display = shown ?? value;
+  const [text, setText] = useState(display ? String(display) : '');
+  useEffect(() => setText(display ? String(display) : ''), [display]);
   const commit = () => {
     const n = Number(text.replace(',', '.'));
     const next = text.trim() !== '' && n > 0 ? n : undefined;
+    // Leaving the field as it was, or typing the size asked for again, changes nothing.
+    if (next === value || (shown !== undefined && next === shown)) {
+      setText(display ? String(display) : '');
+      return;
+    }
     setText(next ? String(next) : '');
-    if (next !== value) onCommit(next);
+    onCommit(next);
   };
   return (
     <input

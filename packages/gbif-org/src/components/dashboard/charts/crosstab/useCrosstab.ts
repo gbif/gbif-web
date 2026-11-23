@@ -38,6 +38,8 @@ export type CrosstabState = {
     data: CrosstabData;
     /** The page of rows this is. */
     rowPage: number;
+    /** The bucket sizes asked for when this was fetched. */
+    ask: { rows?: number; cols?: number };
     rows: AxisPlan;
     cols: AxisPlan;
     auto: { rows?: number; cols?: number };
@@ -128,7 +130,7 @@ export function useCrosstab({
       const search = data.search;
       const answered = search?.facet?.rows?.length || search?.histogram?.rows?.buckets?.length;
       if (errors && !answered) throw new Error(errors);
-      setState({ loading: false, loaded: { data, rowPage, ...plan } });
+      setState({ loading: false, loaded: { data, rowPage, ask, ...plan } });
     })().catch((error) => {
       if (controller.signal.aborted) return;
       // The previous table is dropped: it would sit under axis names it no longer matches.

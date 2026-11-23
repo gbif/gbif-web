@@ -128,6 +128,21 @@ function CrosstabMain(props: CrosstabProps) {
       : update({ rows: rows.id, cols: id, cInt: undefined });
   const swap = () => update({ rows: cols.id, cols: rows.id, rInt: get('cInt'), cInt: get('rInt') });
 
+  // A bucket size that was raised, for the mark next to its field: only from data fetched for this
+  // axis and this size, so the field doesn't jump back while a new size loads.
+  const raisedFor = (axis: 'rows' | 'cols', dim: Dimension) => {
+    if (!loaded?.raised[axis] || loaded[axis].dim.id !== dim.id) return undefined;
+    const size = loaded[axis].interval;
+    if (size === undefined || loaded.ask[axis] !== ask[axis]) return undefined;
+    return {
+      size,
+      message: intl.formatMessage(
+        { id: 'dashboard.crosstab.notes.raised' },
+        { size: fmt(size), dimension: name(dim) }
+      ),
+    };
+  };
+
   const title = intl.formatMessage(
     { id: layout === 'perRow' ? 'dashboard.crosstab.titleTopPer' : 'dashboard.crosstab.titleBy' },
     { rows: name(rows), cols: name(cols) }
@@ -197,6 +212,7 @@ function CrosstabMain(props: CrosstabProps) {
             )}
             interval={ask.rows}
             auto={loaded?.auto.rows}
+            raised={raisedFor('rows', rows)}
             onInterval={(size) => update({ rInt: size })}
           />
           <SwapButton
@@ -213,6 +229,7 @@ function CrosstabMain(props: CrosstabProps) {
             )}
             interval={ask.cols}
             auto={loaded?.auto.cols}
+            raised={raisedFor('cols', cols)}
             onInterval={(size) => update({ cInt: size })}
           />
         </div>
