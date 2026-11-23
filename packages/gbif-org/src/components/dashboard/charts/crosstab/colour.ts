@@ -8,8 +8,12 @@ import { DEFAULT_HEATMAP_COLORS } from '../../../../config/theme/heatmapColors';
 
 export type Rgb = [number, number, number];
 
-// Black, not a dark grey: at mid-brightness cells every bit of contrast counts.
-const DARK_INK: Rgb = [0, 0, 0];
+/**
+ * Below this relative luminance a cell gets white text, above it black. Picking whichever has the
+ * higher WCAG contrast would put black on saturated mid tones such as rose (rgb 204 118 128), where
+ * white reads better; that measure is known to overrate dark text on such colours.
+ */
+const WHITE_INK_BELOW = 0.31;
 
 /** A colour written "#rgb" or "#rrggbb", as numbers. */
 export function parseColour(value: string | undefined | null): Rgb | undefined {
@@ -51,14 +55,10 @@ const channel = (v: number) => {
 };
 const luminance = ([r, g, b]: Rgb) =>
   0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-const contrast = (a: Rgb, b: Rgb) => {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
-};
 
-/** White or dark ink, whichever reads better on the colour. */
+/** White or black ink, whichever reads better on the colour. */
 export function inkFor(fill: Rgb): 'light' | 'dark' {
-  return contrast(fill, [255, 255, 255]) > contrast(fill, DARK_INK) ? 'light' : 'dark';
+  return luminance(fill) < WHITE_INK_BELOW ? 'light' : 'dark';
 }
 
 export const cssColour = ([r, g, b]: Rgb) => `rgb(${r} ${g} ${b})`;

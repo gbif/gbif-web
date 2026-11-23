@@ -92,7 +92,7 @@ rename.
   turn the rest pale. The rank picks a colour along the theme's `heatmapColors` (colour stops from
   fewest to most records, `#rgb` or `#rrggbb`; default in `config/theme/heatmapColors.ts`, a
   softened "plasma" scale from cream to deep indigo). `src/gbif/config.ts` runs from GBIF's chart orange to its purple and lists three other scales,
-  commented out, to try. Ink is white or black, whichever contrasts more with the cell (`colour.ts`).
+  commented out, to try. Ink is white below a relative luminance of 0.31 and black above (`colour.ts`): white reads better on saturated mid tones than the WCAG contrast ratio suggests.
 - **Cells** sit on a light grey, with a thin line around every cell and label. An empty cell shows a
   muted 0. With a share shown, cells show only the share (the count is in the hover bar). Column
   labels longer than 60 characters end in "…" (`MAX_LABEL`), and long row labels are cut at 16rem;

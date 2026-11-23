@@ -33,6 +33,18 @@ describe('heatmap colours', () => {
     expect(inkFor(scale(1))).toBe('light');
   });
 
+  test('white on saturated mid tones, black on light ones', () => {
+    for (const rose of [
+      [178, 98, 136],
+      [183, 102, 135],
+      [204, 118, 128],
+    ] as const) {
+      expect(inkFor([...rose])).toBe('light');
+    }
+    expect(inkFor([236, 172, 124])).toBe('dark'); // GBIF chart orange
+    expect(inkFor([230, 124, 115])).toBe('dark'); // spreadsheet red
+  });
+
   test('ink reads on its colour', () => {
     expect(inkFor([255, 214, 102])).toBe('dark');
     expect(inkFor([20, 40, 90])).toBe('light');
