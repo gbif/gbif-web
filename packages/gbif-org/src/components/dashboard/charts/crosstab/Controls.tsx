@@ -9,6 +9,8 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { toggleVariants } from '@/components/ui/toggle';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
 import { MdArrowDropDown, MdCheck, MdSwapHoriz } from 'react-icons/md';
@@ -24,12 +26,13 @@ type SegmentedProps<T extends string> = {
 
 // Controls side by side in one outline, with a line between them: the colour choice, and each axis
 // (its dimension and, for numbers, its bucket size).
+// Styled as the site's toggle groups (e.g. "has coordinates" in the location filter): the group's
+// outline as `ToggleGroup`'s, each part as one of its items.
 const segmentGroup =
-  'g-inline-flex g-max-w-full g-flex-wrap g-rounded-md g-border g-border-slate-300 g-overflow-hidden';
-const segment = 'g-px-2 g-py-1 g-text-sm g-border-e g-border-slate-300 last:g-border-e-0';
-const idleSegment = 'g-bg-white g-text-slate-600 hover:g-bg-slate-100';
+  'g-bg-white g-inline-flex g-max-w-full g-flex-wrap g-items-stretch g-rounded g-border g-border-solid g-border-primary-500 g-overflow-hidden';
+const segment = toggleVariants({ variant: 'primary', size: 'sm' });
 
-/** A few exclusive choices as buttons side by side. */
+/** A few exclusive choices as buttons side by side: the site's toggle group. */
 export function Segmented<T extends string>({
   label,
   value,
@@ -37,20 +40,21 @@ export function Segmented<T extends string>({
   onChange,
 }: SegmentedProps<T>) {
   return (
-    <div role="group" aria-label={label} className={segmentGroup}>
+    <ToggleGroup
+      type="single"
+      size="sm"
+      variant="primary"
+      aria-label={label}
+      value={value}
+      // A click on the chosen one would clear the choice: keep it.
+      onValueChange={(next) => next && onChange(next as T)}
+    >
       {options.map((o) => (
-        <button
-          key={o.id}
-          type="button"
-          aria-pressed={value === o.id}
-          title={o.title}
-          onClick={() => onChange(o.id)}
-          className={cn(segment, value === o.id ? 'g-bg-primary-500 g-text-white' : idleSegment)}
-        >
+        <ToggleGroupItem key={o.id} value={o.id} variant="primary" size="sm" title={o.title}>
           {o.text}
-        </button>
+        </ToggleGroupItem>
       ))}
-    </div>
+    </ToggleGroup>
   );
 }
 
@@ -117,7 +121,7 @@ function DimensionPicker({
           type="button"
           aria-label={`${label}: ${name(dimension)}`}
           title={label}
-          className={cn(segment, idleSegment, 'g-inline-flex g-items-center g-max-w-[14rem]')}
+          className={cn(segment, 'g-inline-flex g-items-center g-max-w-[14rem]')}
         >
           <span className="g-truncate">{name(dimension)}</span>
           <MdArrowDropDown className="g-ms-1 g-flex-none" />
@@ -215,7 +219,7 @@ function SizeInput({
       title={label}
       className={cn(
         segment,
-        'g-w-20 g-bg-white g-text-slate-700 focus-visible:g-outline-none focus:g-ring-2 focus:g-ring-inset focus:g-ring-primary-500'
+        'g-w-20 focus-visible:g-outline-none focus:g-ring-2 focus:g-ring-inset focus:g-ring-primary-500'
       )}
       onChange={(e) => setText(e.target.value)}
       onBlur={commit}
@@ -231,7 +235,7 @@ export function SwapButton({ label, onClick }: { label: string; onClick: () => v
       aria-label={label}
       title={label}
       onClick={onClick}
-      className={cn(segmentGroup, idleSegment, 'g-items-center g-px-2 g-py-1.5')}
+      className={cn(segmentGroup, segment, 'g-items-center')}
     >
       <MdSwapHoriz />
     </button>

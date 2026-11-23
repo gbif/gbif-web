@@ -301,14 +301,53 @@ export function buildQuery(
     ...(cols.dim.kind === 'terms' ? [cardinalityOf('cols', cols.dim)] : []),
   ];
   const cardinality = counted.length ? `cardinality { ${counted.join(' ')} }` : '';
-  return `query crosstab($q: String, $predicate: Predicate${language}${checklist}${paged ? ', $from: Int' : ''}) {
+  // `rowValues` counts the records with a row value (`rowValuePredicate`): the rest of the records
+  // outside the rows shown have none.
+  return `query crosstab($q: String, $predicate: Predicate, $rowValuePredicate: Predicate${language}${checklist}${paged ? ', $from: Int' : ''}) {
   search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) { total }
     ${cardinality}
     ${level(cols, 'colTotals', LIMITS.nested)}
     ${level(rows, 'rows', LIMITS.rows, level(cols, 'cols', colSize), paged)}
   }
+  rowValues: occurrenceSearch(q: $q, predicate: $rowValuePredicate) {
+    documents(size: 0) { total }
+  }
 }`;
+}
+
+/** The filter for `rowValues`: the table's, and records with a value in the row field. */
+export function rowValuePredicate(
+  tablePredicate: unknown,
+  rows: AxisPlan,
+  checklistKey?: string
+): unknown {
+  return {
+    type: 'and',
+    predicates: [
+      ...(tablePredicate ? [tablePredicate] : []),
+      { type: 'isNotNull', key: rows.dim.id, ...(rows.dim.checklist ? { checklistKey } : {}) },
+    ],
+  };
+}
+
+/**
+ * The records outside the rows shown, split: those in rows that aren't shown, and those with no row
+ * value. Unknown (null) without the `rowValues` count. With a multi-valued row field a record can be in
+ * several rows, so "in rows not shown" can't be told from counts and is null too.
+ */
+function rowsSplit(
+  data: CrosstabData | undefined,
+  rows: AxisPlan,
+  shown: number,
+  total: number
+): { rowsNotShown: number | null; noRowValue: number | null } {
+  const withValue = num(data?.rowValues?.documents?.total);
+  if (withValue === null) return { rowsNotShown: null, noRowValue: null };
+  return {
+    rowsNotShown: rows.dim.multi ? null : Math.max(0, withValue - shown),
+    noRowValue: Math.max(0, total - withValue),
+  };
 }
 
 // ---- reading the answer ------------------------------------------------------------------------
@@ -326,6 +365,8 @@ export type Raw = {
 export type CrosstabData = {
   /** In the value count only: all records under the filter with a column value, in every row. */
   all?: { documents?: { total?: number } } | null;
+  /** In the table query: all records under the filter with a row value. */
+  rowValues?: { documents?: { total?: number } } | null;
   search?:
     | (Raw & {
         documents?: { total?: number };
@@ -390,6 +431,9 @@ export type Table = {
   total: number;
   /** Records in rows that are not shown (other values, or no value). */
   rowsOther: number;
+  /** Of those, in rows that aren't shown, and with no row value; null when unknown (`rowsSplit`). */
+  rowsNotShown: number | null;
+  noRowValue: number | null;
   /**
    * Column counts are each value's total under the filter, across all rows. Otherwise (the totals
    * didn't come back) they are the sum over the rows shown.
@@ -515,6 +559,7 @@ export function shapeTable(
     showOther: cols.dim.kind === 'terms' && !cols.dim.multi && values > colBuckets.length,
     total,
     rowsOther: Math.max(0, total - sumOf(rowLine.map((r) => r.count))),
+    ...rowsSplit(data, rows, sumOf(rowLine.map((r) => r.count)), total),
     colTotalsKnown,
     allCols: cols.dim.kind === 'histogram' || allCols,
   };
@@ -562,6 +607,8 @@ export type Ranked = {
   width: number;
   total: number;
   rowsOther: number;
+  rowsNotShown: number | null;
+  noRowValue: number | null;
   showNoValue: boolean;
   showOther: boolean;
 };
@@ -597,6 +644,7 @@ export function shapeRanked(
     width: Math.max(0, ...out.map((r) => r.items.length)),
     total,
     rowsOther: Math.max(0, total - sumOf(lines.map((l) => l.count))),
+    ...rowsSplit(data, rows, sumOf(lines.map((l) => l.count)), total),
     showNoValue: withValue.anyWithout(
       total,
       out.map((r) => r.noValue)

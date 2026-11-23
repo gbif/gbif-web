@@ -8,7 +8,8 @@ import { DEFAULT_HEATMAP_COLORS } from '../../../../config/theme/heatmapColors';
 
 export type Rgb = [number, number, number];
 
-const DARK_INK: Rgb = [15, 23, 42]; // tailwind slate-900
+// Black, not a dark grey: at mid-brightness cells every bit of contrast counts.
+const DARK_INK: Rgb = [0, 0, 0];
 
 /** A colour written "#rgb" or "#rrggbb", as numbers. */
 export function parseColour(value: string | undefined | null): Rgb | undefined {

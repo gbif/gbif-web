@@ -156,9 +156,17 @@ function CrosstabMain(props: CrosstabProps) {
       messages.push(
         <FormattedMessage key={key} id={`dashboard.crosstab.notes.${id}`} values={values} />
       );
-    const rowsOther = table ? table.rowsOther : ranked ? ranked.rowsOther : 0;
-    // A number, not formatted text: the message picks its plural from it and formats it itself.
-    if (rowsOther > 0) note('rowsOther', { count: rowsOther });
+    // Records outside the rows shown: in rows not shown, and with no row value, when those are known;
+    // otherwise together.
+    const outside = table ?? ranked;
+    if (outside && outside.noRowValue !== null) {
+      if (outside.rowsNotShown) note('rowsNotShown', { count: outside.rowsNotShown });
+      if (outside.noRowValue > 0) {
+        note('noRowValue', { count: outside.noRowValue, dimension: name(loaded.rows.dim) });
+      }
+    } else if (outside && outside.rowsOther > 0) {
+      note('rowsOther', { count: outside.rowsOther });
+    }
     if (!fits) {
       note('tooManyColumns', {
         dimension: name(loaded.cols.dim),

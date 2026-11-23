@@ -86,12 +86,13 @@ rename.
   has the same columns. A multi-valued column has no "other": one record can be in several cells.
 - **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not
   turn the rest pale. The rank picks a colour along the theme's `heatmapColors` (colour stops from
-  fewest to most records, `#rgb` or `#rrggbb`; default in `config/theme/heatmapColors.ts`, the
-  "plasma" scale from yellow to deep purple). `src/gbif/config.ts` lists two other scales, commented
-  out, to try. Ink is white or dark, whichever contrasts more with the cell (`colour.ts`).
+  fewest to most records, `#rgb` or `#rrggbb`; default in `config/theme/heatmapColors.ts`, a
+  softened "plasma" scale from cream to deep indigo). `src/gbif/config.ts` lists three other scales,
+  commented out, to try. Ink is white or black, whichever contrasts more with the cell (`colour.ts`).
 - **Cells** sit on a light grey, with a thin line around every cell and label. An empty cell shows a
-  muted 0. With a share shown, cells show only the share (the count is in the tooltip) and the column
-  headers are slanted, so the columns can be narrow.
+  muted 0. With a share shown, cells show only the share (the count is in the hover bar) and the
+  column headers are slanted: each label ends at its column and rises to the left over the columns
+  before it and the corner cell, so the columns can be narrow and nothing sticks out on the right.
 - Logic that does not need React is in `plan.ts` and tested in `plan.test.ts`. A GraphQL variable
   that is declared and unused makes the whole query fail, so `buildQuery` declares `$language` and
   `$checklistKey` only when used.

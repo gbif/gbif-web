@@ -166,8 +166,10 @@ export const gbifConfig: Config = {
       EX: '#231F20',
     },
     // Dashboard heatmap colours, from fewest to most records. Keep one active.
+    // Plasma, softened: cream, apricot, coral, rose, purple, indigo.
+    heatmapColors: ['#fbf0c2', '#f6c88f', '#eb9a82', '#d07196', '#8f4a9c', '#35206e'],
     // Plasma: yellow, orange, red, magenta, purple.
-    heatmapColors: ['#f0f921', '#fca636', '#e16462', '#b12a90', '#6a00a8', '#0d0887'],
+    // heatmapColors: ['#f0f921', '#fca636', '#e16462', '#b12a90', '#6a00a8', '#0d0887'],
     // Viridis: yellow, green, teal, blue, purple.
     // heatmapColors: ['#fde725', '#addc30', '#5ec962', '#28ae80', '#21918c', '#2c728e', '#3b528b', '#472d7b', '#440154'],
     // Red, yellow, green, as in spreadsheet colour scales.

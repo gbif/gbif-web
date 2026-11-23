@@ -12,6 +12,7 @@ import {
   LIMITS,
   needsValueCounts,
   pagesRows,
+  rowValuePredicate,
   valueCountPredicate,
   valueTotalPredicate,
   planAxes,
@@ -128,6 +129,11 @@ export function useCrosstab({
       const from = pagesRows(plan.rows) ? { from: rowPage * LIMITS.rows } : {};
       const { data, errors } = await run<CrosstabData>(query, {
         predicate: tablePredicate,
+        rowValuePredicate: rowValuePredicate(
+          tablePredicate,
+          plan.rows,
+          needsChecklist ? checklistKey : undefined
+        ),
         q,
         language,
         ...from,
