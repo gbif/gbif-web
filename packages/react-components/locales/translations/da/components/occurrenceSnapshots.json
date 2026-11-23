@@ -1,15 +1,15 @@
 {
   "occurrenceSnapshots": {
-    "title": "",
-    "intro": "",
-    "description": "",
+    "title": "Forekomst øjebliksbilleder",
+    "intro": "Periodiske eksport af GBIF-forekomstdata",
+    "description": "Hver måned tager GBIF et fuldt øjebliksbillede af forekomster, gemt i forskellige formater for at lette brugen. Alle øjebliksbilleder laves med en DOI for at forenkle citering, og nogle formater kopieres til offentlige skyer for nem brug i disse miljøer.",
     "cloudDatasets": {
-      "title": "",
-      "description": ""
+      "title": "Skybaserede datasæt",
+      "description": "GBIF stiller data til rådighed i <azure>Microsoft Planetary Computer (Azure)</azure>, som et <aws>Amazon AWS Open Dataset</aws> samt i en Google <gcs>GCS-bucket</gcs> og <bq>en BigQuery-tabel</bq>. Når du bruger skybaserede øjebliksbilleder, anbefaler vi altid, at du opretter en <derived>kildehenvisning til et afledt datasæt</derived> for de optegnelser, du bruger. Når du henviser til det fulde datasæt, bedes du bruge den relevante kildehenvisning, som du finder nedenfor."
     },
     "monthly": {
-      "title": "",
-      "description": ""
+      "title": "Månedlige øjebliksbillede-datasæt",
+      "description": "De månedlige eksport af GBIF-forekomstdata er angivet nedenfor, tilgængelige i forskellige formater. Se venligst kildehenvisningen på hver side."
     },
     "table": {
       "columns": {
@@ -18,9 +18,9 @@
         "citation": "Citation",
         "filters": "Filtre"
       },
-      "citation": "",
-      "hasFilters": "",
-      "downloadDetails": ""
+      "citation": "GBIF download af forekomster",
+      "hasFilters": "Ja",
+      "downloadDetails": "Downloaddetaljer"
     }
   }
 }
