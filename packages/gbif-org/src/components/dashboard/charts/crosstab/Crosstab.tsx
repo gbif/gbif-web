@@ -26,7 +26,6 @@ type Params = {
   cols?: unknown;
   rInt?: unknown;
   cInt?: unknown;
-  layout?: unknown;
   shade?: unknown;
 };
 
@@ -69,24 +68,15 @@ function CrosstabMain(props: CrosstabProps) {
     rows: rows.kind === 'histogram' ? positive(get('rInt')) : undefined,
     cols: cols.kind === 'histogram' ? positive(get('cInt')) : undefined,
   };
-  // "Top per row" lists each row's own biggest values, which only means something for a terms column.
-  const wantedLayout: Layout =
-    get('layout') === 'perRow' && cols.kind === 'terms' ? 'perRow' : 'overall';
-
-  const state = useCrosstab({ predicate, q, rows, cols, ask, layout: wantedLayout });
+  const state = useCrosstab({ predicate, q, rows, cols, ask });
   const { loaded } = state;
 
-  // "Top overall" is only exact when the column has few enough values; otherwise the same data is shown
-  // as each row's own top values, which are exact (`fitsOverall`).
+  // The columns that are biggest overall, when that is exact: the column has few enough values
+  // (`fitsOverall`). Otherwise the same data is shown as each row's own biggest values, which are exact.
   const fits = loaded ? fitsOverall(loaded.data, loaded.rows, loaded.cols) : true;
-  const shownLayout: Layout | undefined = loaded
-    ? loaded.layout === 'overall' && fits
-      ? 'overall'
-      : 'perRow'
-    : undefined;
-  // Only the data for the column chosen now says whether overall is possible.
-  const tooMany = !!loaded && loaded.cols.dim.id === cols.id && !fits;
-  const layout: Layout = tooMany ? 'perRow' : wantedLayout;
+  const shownLayout: Layout | undefined = loaded ? (fits ? 'overall' : 'perRow') : undefined;
+  // The title and colour choices follow the column chosen now; only data for it says how it is shown.
+  const layout: Layout = loaded && loaded.cols.dim.id === cols.id && !fits ? 'perRow' : 'overall';
   const wantedShade = get('shade');
   const shade: Shade =
     wantedShade === 'row' || (wantedShade === 'column' && layout === 'overall')
@@ -148,10 +138,9 @@ function CrosstabMain(props: CrosstabProps) {
         dimension: name(loaded.cols.dim),
         count: fmt(columnCardinality(loaded.data) ?? LIMITS.nested),
         n: LIMITS.nested,
+        rank: LIMITS.rank,
       });
-    }
-    if (shownLayout === 'perRow') note('perRow', { n: LIMITS.rank });
-    else if (loaded.cols.dim.kind === 'terms') note('columns', { n: LIMITS.cols });
+    } else if (loaded.cols.dim.kind === 'terms') note('columns', { n: LIMITS.cols });
     if (rows.multi || cols.multi) note('multi');
     if (shade === 'column') note(table?.colTotalsKnown ? 'shadeColumn' : 'shadeColumnShown');
     (['rows', 'cols'] as const).forEach((axis) => {
@@ -219,30 +208,6 @@ function CrosstabMain(props: CrosstabProps) {
           />
         </div>
         <div className="g-flex g-flex-wrap g-items-center g-gap-2 g-mb-3">
-          {cols.kind === 'terms' && (
-            <Segmented<Layout>
-              label={intl.formatMessage({ id: 'dashboard.crosstab.layout' })}
-              value={layout}
-              onChange={(value) => update({ layout: value })}
-              options={[
-                {
-                  id: 'overall',
-                  text: intl.formatMessage({ id: 'dashboard.crosstab.layoutOverall' }),
-                  disabled: tooMany,
-                  title: tooMany
-                    ? intl.formatMessage(
-                        { id: 'dashboard.crosstab.layoutOverallUnavailable' },
-                        { dimension: name(cols), n: LIMITS.nested }
-                      )
-                    : undefined,
-                },
-                {
-                  id: 'perRow',
-                  text: intl.formatMessage({ id: 'dashboard.crosstab.layoutPerRow' }),
-                },
-              ]}
-            />
-          )}
           <Segmented<Shade>
             label={intl.formatMessage({ id: 'dashboard.crosstab.shade' })}
             value={shade}

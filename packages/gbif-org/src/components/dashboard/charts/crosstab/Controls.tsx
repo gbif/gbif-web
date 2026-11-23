@@ -10,7 +10,7 @@ const field =
 type SegmentedProps<T extends string> = {
   label: string;
   value: T;
-  options: { id: T; text: string; title?: string; disabled?: boolean }[];
+  options: { id: T; text: string; title?: string }[];
   onChange: (value: T) => void;
 };
 
@@ -33,15 +33,12 @@ export function Segmented<T extends string>({
           type="button"
           aria-pressed={value === o.id}
           title={o.title}
-          disabled={o.disabled}
           onClick={() => onChange(o.id)}
           className={cn(
             'g-px-2 g-py-1 g-text-sm g-border-e g-border-slate-300 last:g-border-e-0',
             value === o.id
               ? 'g-bg-primary-500 g-text-white'
-              : o.disabled
-                ? 'g-bg-white g-text-slate-400 g-cursor-not-allowed'
-                : 'g-bg-white g-text-slate-600 hover:g-bg-slate-100'
+              : 'g-bg-white g-text-slate-600 hover:g-bg-slate-100'
           )}
         >
           {o.text}

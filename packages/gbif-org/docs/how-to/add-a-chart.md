@@ -9,11 +9,11 @@ level dropdown, `Custom.tsx`).
 
 ## First decide: standard or custom
 
-| Kind | Build with | When |
-|---|---|---|
-| Standard enum | `StandardEnumChart` in `charts/enumCharts.tsx`: `fieldName`, `options`, `includeMapPredicate`, optional `titleTranslationId`, `enumKeys`, `enableOther` | Field is a facet with enum values; title `filters.<field>.name`, labels `enums.<field>.<KEY>` |
-| Standard key | `KeyChartGenerator` in `charts/keyCharts.tsx`: `fieldName`, `gqlEntity`, `transform` returning `{ key, title, count, filter: { <handle>: [key] } }` | Field is a facet on an entity key (dataset, publisher, ...) |
-| Custom | Component in `Custom.tsx` or a folder under `charts/`, reusing `Card`, `CardHeader`, `ChartViewOptions`, `ChartView`, `ChartMessages` (`charts/OneDimensionalChart.tsx`), `useFacets` (`charts/GroupByTable.tsx`), wrapped in `ChartClickWrapper` | Own query, own controls (rank or level dropdown), own layout. Examples: `Taxa`, `GadmGid`, `Iucn` |
+| Kind          | Build with                                                                                                                                                                                                                                        | When                                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Standard enum | `StandardEnumChart` in `charts/enumCharts.tsx`: `fieldName`, `options`, `includeMapPredicate`, optional `titleTranslationId`, `enumKeys`, `enableOther`                                                                                           | Field is a facet with enum values; title `filters.<field>.name`, labels `enums.<field>.<KEY>`     |
+| Standard key  | `KeyChartGenerator` in `charts/keyCharts.tsx`: `fieldName`, `gqlEntity`, `transform` returning `{ key, title, count, filter: { <handle>: [key] } }`                                                                                               | Field is a facet on an entity key (dataset, publisher, ...)                                       |
+| Custom        | Component in `Custom.tsx` or a folder under `charts/`, reusing `Card`, `CardHeader`, `ChartViewOptions`, `ChartView`, `ChartMessages` (`charts/OneDimensionalChart.tsx`), `useFacets` (`charts/GroupByTable.tsx`), wrapped in `ChartClickWrapper` | Own query, own controls (rank or level dropdown), own layout. Examples: `Taxa`, `GadmGid`, `Iucn` |
 
 Standard builders assemble GraphQL as a runtime string, so no codegen. The facet field must exist in
 graphql-api first (see [add-an-occurrence-filter.md](./add-an-occurrence-filter.md)). Custom charts
@@ -31,7 +31,7 @@ using typed `graphql()` need `npm run codegen`.
    addressable by id there.
 3. **Register** in `src/routes/occurrence/search/views/dashboard/dashboard.jsx`
    (`preconfiguredCharts`): `id: { translation?, r?: true, component: ({ predicate, ...props }) =>
-   <charts.Name predicate={predicate} interactive {...props} /> }`. `translation` defaults to
+<charts.Name predicate={predicate} interactive {...props} /> }`. `translation` defaults to
    `filters.<id>.name`; `r` makes it resizable.
 4. **Allow the id.** `dash.jsx` passes `chartsTypes` = hardcoded list + available filter handles.
    `Dashboard` drops ids not in that list. A non-filter id goes in the hardcoded list.
@@ -66,9 +66,13 @@ rename.
   row (`useCrosstab.ts`): minimum and maximum, a fine histogram to find the 1st to 99th percentile,
   then the table. When a few outliers (elevation typos) stretch the scale, the table shows only that
   range (the `window`) and says so; ordinary data is left whole.
-- **Columns** are the 8 values with most records among the rows shown (all 12 for months). "Top per
-  row" lists each row's own 8 instead. A row's column facet asks for 40 values, so on a column with
-  more than that a small cell can be missing; the card says so.
+- **Columns** are the 8 values with most records under the filter (all 12 for months), counted from
+  a top-level facet on the column field. Each row's column facet asks for 40 values, so this is only
+  exact when the column has at most 40 values: the query also asks for the column's cardinality
+  (`fitsOverall`). Above that, the same data is shown as each row's own 8 most frequent values,
+  which are exact, and the card says why. There is no setting for this.
+- **Shares** divide by true totals: a row's count from the row facet, a column's from the top-level
+  column facet. With a multi-valued field a row's or column's shares can add up to more than 100%.
 - **Colour** is by rank among the cells shown (`makeIntensity`), not by value: one huge cell must not
   turn the rest pale. Ink is white or dark by contrast against the theme's `--primary500`.
 - Logic that does not need React is in `plan.ts` and tested in `plan.test.ts`. A GraphQL variable
