@@ -13,8 +13,9 @@ const toggleVariants = cva(
       variant: {
         default: 'g-bg-transparent',
         primary:
-          // Focus in a darker tone of the primary colour, text unchanged, rather than the base's blue.
-          'data-[state=on]:g-border-primary-600 data-[state=on]:g-bg-primary-500 data-[state=on]:g-text-primaryContrast-500 hover:g-bg-primary-50 hover:g-text-primaryContrast-100 focus:g-ring-primary-600 focus:g-text-gray-900 data-[state=on]:focus:g-text-primaryContrast-500',
+          // A ring in a darker tone of the primary colour, only for keyboard focus, and the text unchanged,
+          // rather than the base's blue on any focus.
+          'data-[state=on]:g-border-primary-600 data-[state=on]:g-bg-primary-500 data-[state=on]:g-text-primaryContrast-500 hover:g-bg-primary-50 hover:g-text-primaryContrast-100 focus:g-ring-0 focus-visible:g-ring-2 focus-visible:g-ring-primary-600 focus:g-text-gray-900 data-[state=on]:focus:g-text-primaryContrast-500',
       },
       size: {
         default: 'g-px-2 g-min-w-9 g-text-sm',
