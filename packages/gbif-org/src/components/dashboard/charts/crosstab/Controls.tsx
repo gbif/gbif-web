@@ -254,9 +254,9 @@ export function SwapButton({
       title={label}
       onClick={onClick}
       disabled={disabled}
-      className={cn(segmentGroup, segment, 'g-items-center')}
+      className={cn(segmentGroup, segment, 'g-items-center g-justify-center')}
     >
-      <MdSwapHoriz />
+      <MdSwapHoriz className="g-h-4 g-w-4" />
     </button>
   );
 }
