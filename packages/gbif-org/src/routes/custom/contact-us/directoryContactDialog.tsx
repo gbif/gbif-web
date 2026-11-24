@@ -100,6 +100,17 @@ export function DirectoryContactDialogContent({ personId }: Props) {
     return prepareData(data.directoryContact);
   }, [data?.directoryContact]);
 
+  return <DirectoryContactDialogView person={person} loading={loading} />;
+}
+
+// Presentational part, so the dialog can be shown with data that doesn't come from the API (e.g. a demo page).
+export function DirectoryContactDialogView({
+  person,
+  loading,
+}: {
+  person?: PreparedData;
+  loading?: boolean;
+}) {
   return (
     <DialogContent className="g-max-h-[90dvh] g-overflow-y-auto g-bg-white g-max-w-[calc(100dvw-4rem)] g-p-4 md:g-p-10 md:g-max-w-lg">
       {loading && !person && <DirectoryContactDialogSkeleton />}
@@ -270,7 +281,7 @@ type Role = {
   participantName?: string;
 };
 
-type PreparedData = {
+export type PreparedData = {
   id: string;
   name: string;
   institutionName?: string;

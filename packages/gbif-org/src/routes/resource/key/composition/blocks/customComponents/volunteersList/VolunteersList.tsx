@@ -62,24 +62,59 @@ export function VolunteersList({
   settings?: VolunteersListSettings | null;
   className?: string;
 }) {
-  const intl = useIntl();
   const role = settings?.role?.trim().toUpperCase();
-  const badgeType = settings?.badgeType;
-  const badgeMaxAgeYears = parsePositiveInt(settings?.badgeMaxAgeYears);
-  const onlyWithBadges = parseBoolean(settings?.onlyWithBadges);
-
   const { data, error, loading, load } = useQuery<
     DirectoryVolunteersQuery,
     DirectoryVolunteersQueryVariables
   >(DIRECTORY_VOLUNTEERS_QUERY, { lazyLoad: true });
-  // default sort as requested in the issue: country, then name
-  const [sortKey, setSortKey] = useState<ColumnKey>('countryCode');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
   const [personId, setPersonId] = useState<string | undefined>();
 
   useEffect(() => {
     if (role) load({ variables: { role } });
   }, [load, role]);
+
+  return (
+    <>
+      <VolunteersTable
+        title={title}
+        settings={settings}
+        className={className}
+        data={data}
+        error={error}
+        loading={loading}
+        onSelectPerson={setPersonId}
+      />
+      <DirectoryContactDialog personId={personId} onClose={() => setPersonId(undefined)} />
+    </>
+  );
+}
+
+// Presentational part: all data is passed in, which also makes it usable with mock data.
+export function VolunteersTable({
+  title,
+  settings,
+  className,
+  data,
+  error,
+  loading,
+  onSelectPerson,
+}: {
+  title?: string;
+  settings?: VolunteersListSettings | null;
+  className?: string;
+  data?: DirectoryVolunteersQuery;
+  error?: { message: string } | null;
+  loading?: boolean;
+  onSelectPerson: (personId?: string) => void;
+}) {
+  const intl = useIntl();
+  const role = settings?.role?.trim().toUpperCase();
+  const badgeType = settings?.badgeType;
+  const badgeMaxAgeYears = parsePositiveInt(settings?.badgeMaxAgeYears);
+  const onlyWithBadges = parseBoolean(settings?.onlyWithBadges);
+  // default sort as requested in the issue: country, then name
+  const [sortKey, setSortKey] = useState<ColumnKey>('countryCode');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
 
   const rows = useMemo(
     () =>
@@ -203,7 +238,7 @@ export function VolunteersList({
                   <tr
                     key={row.personId ?? idx}
                     className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900 g-cursor-pointer"
-                    onClick={() => setPersonId(row.personId)}
+                    onClick={() => onSelectPerson(row.personId)}
                   >
                     <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                       <button
@@ -211,7 +246,7 @@ export function VolunteersList({
                         className="g-text-start g-text-blue-600 hover:g-text-blue-800"
                         onClick={(e) => {
                           e.stopPropagation();
-                          setPersonId(row.personId);
+                          onSelectPerson(row.personId);
                         }}
                       >
                         {row.name}
@@ -241,7 +276,6 @@ export function VolunteersList({
           </table>
         </div>
       </Card>
-      <DirectoryContactDialog personId={personId} onClose={() => setPersonId(undefined)} />
     </div>
   );
 }
