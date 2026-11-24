@@ -430,6 +430,7 @@ export default function TermsStep({
             {error && <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">{error}</div>}
 
             <Button
+              data-testid="download-create"
               disabled={!allTermsAccepted || preparingDownload || blockedByMissingSequences}
               className={`g-w-full g-flex g-items-center g-justify-center g-gap-2`}
               onClick={handleDownload}

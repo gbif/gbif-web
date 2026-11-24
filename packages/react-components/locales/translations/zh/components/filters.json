@@ -101,6 +101,10 @@
     "name": "生物个体数量类型",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "路径",
     "description": ""
@@ -489,7 +493,7 @@
   },
   "occurrenceStatus": {
     "name": "出现记录状态",
-    "description": "某一分类单元中任何生物体的存在或缺失。"
+    "description": ""
   },
   "gadmGid": {
     "name": "行政区域",

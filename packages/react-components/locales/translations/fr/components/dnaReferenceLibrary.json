@@ -1,0 +1,4 @@
+{
+  "noResults": "Aucune bibliothèque de référence d'ADN n'a été trouvée",
+  "truncated": "Seule {total, plural, one {la première librairie est visible} other {les premières # librairies sont visibles}}, la liste peut donc être incomplète."
+}

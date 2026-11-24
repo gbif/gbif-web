@@ -18,7 +18,7 @@
   "yearRange": "Rozsah let",
   "identifiedToSpecies": "Identifikováno podle druhu",
   "withCoordinates": "Se souřadnicemi",
-  "withYear": "S rokem",
+  "withEventDate": "",
   "withCollector": "Se sběratelem",
   "withMedia": "S médii",
   "withSequence": "Sekvencované",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Tyto metriky vycházejí ze záznamů sdílených prostřednictvím GBIF.",
   "notVocabularyWarning": "Spolufinancováno",
   "taxonomicBreakdown": "Spolufinancováno",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "Zobrazení",
     "record": "Záznam",
@@ -56,8 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerField": "Výskyty na {FIELD}",
-  "kingdom": "Říše",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

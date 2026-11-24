@@ -101,6 +101,10 @@
     "name": "Organism quantity type",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "ניתוב",
     "description": ""
@@ -489,7 +493,7 @@
   },
   "occurrenceStatus": {
     "name": "תצפית status",
-    "description": "The presence or absence of any organisms of the given taxon."
+    "description": ""
   },
   "gadmGid": {
     "name": "Administrative area",

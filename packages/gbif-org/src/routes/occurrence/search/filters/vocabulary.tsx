@@ -5,6 +5,7 @@ import {
   PathwayLabel,
   SexLabel,
   TargetGeneLabel,
+  datasetCategoryLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -13,7 +14,7 @@ import {
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import { parseSequenceFilterValue } from '@/utils/sequenceSearch';
-import { pathwaySuggest } from '@/utils/suggestEndpoints';
+import { datasetCategorySuggest, pathwaySuggest } from '@/utils/suggestEndpoints';
 // import { establishmentMeansSuggest } from '@/utils/suggestEndpoints';
 
 export const establishmentMeansConfig: filterEnumConfig = {
@@ -139,6 +140,30 @@ export const pathwayConfig: filterSuggestConfig = {
   about: () => <Message id="filters.preservationType.description" />,
   group: 'occurrence',
   allowExistence: true,
+  allowNegations: true,
+};
+
+export const datasetCategoryConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'datasetCategory',
+  displayName: datasetCategoryLabel,
+  filterTranslation: 'filters.datasetCategory.name',
+  suggestConfig: datasetCategorySuggest,
+  facetQuery: /* GraphQL */ `
+    query OccurrenceDatasetCategoryFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        facet {
+          field: datasetCategory(size: 20) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.datasetCategory.description" />,
+  group: 'provenance',
+  allowExistence: false,
   allowNegations: true,
 };
 

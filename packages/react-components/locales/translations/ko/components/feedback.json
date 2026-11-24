@@ -5,6 +5,8 @@
     "contactDataProvider": "데이터 제공자 연락하기",
     "contactUsDescription": "웹사이트 이슈, 데이터 처리 문제 혹은 문의를 위하여",
     "contactDataProviderDescription": "이 페이지에 발간된 기록과 관련한 이슈를 위하여",
+    "annotationRule": "",
+    "annotationRuleDescription": "",
     "seeAlsoFaq": "{faqLink}도 확인하기",
     "faq": "자주 묻는 질문",
     "pleaseLogin": "피드백을 남기려면 로그인해주세요.",

@@ -1,4 +1,4 @@
 {
-    "PRESENT": "Presente",
-    "ABSENT": "Ausente"
+    "DETECTED": "Detectado",
+    "NOT_DETECTED": "No detectado"
 }

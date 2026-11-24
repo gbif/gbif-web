@@ -18,7 +18,7 @@
   "yearRange": "Årsinterval",
   "identifiedToSpecies": "Bestemt til artsniveau",
   "withCoordinates": "Med koordinater",
-  "withYear": "Med år",
+  "withEventDate": "Med dato for fundet",
   "withCollector": "Med indsamler",
   "withMedia": "Med medie",
   "withSequence": "Sekventeret",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "Disse nøgletal er baseret på data, der er delt via GBIF",
   "notVocabularyWarning": "Ikke-fortolket felt. Det samme koncept kan forekomme med flere stavemåder.",
   "taxonomicBreakdown": "Taksonomisk opdeling",
+  "showMoreInfo": "Vis mere information",
+  "help": {
+    "dataQuality": {
+      "intro": "Hver række angiver antallet af forekomstoptegnelser, der har en bestemt egenskab, blandt alle optegnelser, der matcher det aktuelle filter. Søjlen viser den samme andel.",
+      "identifiedToSpecies": "Identificeret til art: Optegnelser, der er identificeret til artsniveau efter GBIF-fortolkning, hvilket betyder, at de er blevet matchet med en artsnøgle. Den oprindelige optegnelse kan muligvis nævne en art, men hvis navnet ikke genkendes, tæller den ikke med.",
+      "withCollector": "Med indsamler: Optegnelser, hvor feltet »indsamlet af« er udfyldt. En værdi som f.eks. »ingen indsamler« betragtes ikke som manglende."
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "Forekomstoptegnelser: Antallet af forekomster, der matcher det aktuelle filter.",
+      "species": "Art: Antallet af forskellige artsnøgler efter fortolkning. Et navn, der ikke genkendes, tæller ikke som en art.",
+      "yearRange": "Årsinterval: Den tidligste og seneste værdi i feltet År for de matchende poster. Dette er feltet År, ikke begivenshedsDato-feltet."
+    }
+  },
   "group": {
     "views": "Visninger",
     "record": "Optegnelse",
@@ -56,8 +69,7 @@
     "materialCollected": "Indsamlet materiale",
     "samplingEffort": "Prøvetagningsindsats"
   },
-  "occurrencesPerField": "Observationer per {FIELD}",
-  "kingdom": "Rige",
+  "occurrencesPerGroup": "Forekomster pr. gruppe",
   "sequenceDendrogram": "Sekvensdendrogram",
   "sequencePhylogeny.downloadAlignment": "Overensstemmelse (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",

@@ -1,3 +1,10 @@
 {
+  "TAXONOMIC_AUTHORITY": "Taksonomisk autoritet",
+  "NOMENCLATOR_AUTHORITY": "Nomenklaturautoritet",
+  "INVENTORY_THEMATIC": "Inventartema",
+  "INVENTORY_REGIONAL": "Regionalt inventar",
+  "GLOBAL_SPECIES_DATASET": "Globalt artsdatasæt",
+  "DERIVED_FROM_OCCURRENCE": "Afledt af forekomst",
+  "SPECIMEN": "Eksemplar",
   "OBSERVATION": "Observation_xxx"
 }

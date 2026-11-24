@@ -3,8 +3,12 @@
 import { Root } from '@/components/root';
 import { gbifConfig } from '@/gbif/config';
 import { createGbifRoutes } from '@/gbif/routes';
+import { enableClientErrorReporting } from '@/utils/clientErrorReporting';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+// The server failed to render this page (it logged why); report what goes wrong in the browser.
+enableClientErrorReporting();
 
 // Configure the routes
 const routes = createGbifRoutes(gbifConfig);

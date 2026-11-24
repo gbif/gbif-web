@@ -50,6 +50,7 @@ export const EnumFilter = React.forwardRef<HTMLButtonElement, EnumProps>(
       allowNegations,
       allowExistence,
       extraFacetVariables,
+      hideCounts,
     },
     ref
   ) => {
@@ -359,11 +360,13 @@ export const EnumFilter = React.forwardRef<HTMLButtonElement, EnumProps>(
                             <span className="g-flex-auto">
                               <DisplayName id={x} />
                             </span>
-                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              {facetSuggestions && (
-                                <FormattedNumber value={facetSuggestions[x] ?? 0} />
-                              )}
-                            </span>
+                            {!hideCounts && (
+                              <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                                {facetSuggestions && (
+                                  <FormattedNumber value={facetSuggestions[x] ?? 0} />
+                                )}
+                              </span>
+                            )}
                           </div>
                         </Option>
                       );
@@ -400,13 +403,15 @@ export const EnumFilter = React.forwardRef<HTMLButtonElement, EnumProps>(
                             <span className="g-flex-auto">
                               <DisplayName id={x} />
                             </span>
-                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              {loading ? (
-                                <Skeleton className="g-w-8 g-h-4" />
-                              ) : facetSuggestions ? (
-                                <FormattedNumber value={facetSuggestions[x] ?? 0} />
-                              ) : null}
-                            </span>
+                            {!hideCounts && (
+                              <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                                {loading ? (
+                                  <Skeleton className="g-w-8 g-h-4" />
+                                ) : facetSuggestions ? (
+                                  <FormattedNumber value={facetSuggestions[x] ?? 0} />
+                                ) : null}
+                              </span>
+                            )}
                           </div>
                         </Option>
                       );

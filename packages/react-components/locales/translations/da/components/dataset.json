@@ -60,9 +60,9 @@
   "noStatsForMetadata": "Ingen statistik tilgængelig for datasæt kun med metadata",
   "metadataOnlyWithData": {
     "title": "Dataset kun med metadata",
-    "description": ""
+    "description": "Dette datasæt blev offentliggjort som et datasæt, der udelukkende består af metadata, men indeholder data om forekomster. Dette tyder på, at dataene muligvis er blevet kortlagt forkert."
   },
-  "siteScopeSmallerThanDataset": "",
+  "siteScopeSmallerThanDataset": "Ikke alle optegnelser fra datasættet er medtaget på denne hjemmeside. Besøg [GBIF.org]({datasetUrl}) for at se hele datasættet.",
   "viewArticle": "Se artikel",
   "registeredDate": "Registreret {DATE}",
   "constituentOf": "Bestanddel af",
@@ -129,7 +129,7 @@
   "license": "Licens",
   "recommended": "Anbefalet",
   "processedOccurrences": "GBIF annoteret Arkiv",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "Download forekomstregistreringerne efter GBIF-behandlingen. Under behandlingen normaliseres navne, datoer osv. Dataene beriges desuden med oplysninger fra andre kilder.\n\nBemærk, at der kræves en konto for at kunne downloade indholdet.",
   "noDescriptionProvided": "Ingen beskrivelse tilgængelig",
   "pNetwork": "{NUMBER, select, 1{Netværk} other{Netværk}}",
   "parentEvent": "Overordnet event",
@@ -143,17 +143,17 @@
   "verbatim": "Original",
   "occurrenceCount": "Antal observationer",
   "inDataset": "I",
-  "samplingArticleLink": "",
+  "samplingArticleLink": "Mere om undersøgelsesbegivenheder på GBIF.org",
   "includesDna": "Inkluderer DNA",
-  "includesDnaDescription": "",
-  "containsSamplingEvents": "",
-  "containsSamplingEventsDescription": "",
+  "includesDnaDescription": "Dette datasæt indeholder optegnelser med sekvensdata.",
+  "containsSamplingEvents": "Indeholder undersøgelsesbegivenheder",
+  "containsSamplingEventsDescription": "Dette datasæt indeholder undersøgelsesdata. Nærmere oplysninger om undersøgelsesmetoden findes i afsnittet om metode i beskrivelsen af datasættet.",
   "griddedData": "Data i gitter",
-  "griddedDataDescription": "",
+  "griddedDataDescription": "Baseret på vores analyse af optegnelserne, så indeholder dette data sandsynligvis data i gitter. Læs mere om dette [blogindlæg om gitter-datasæt] (https://data-blog.gbif.org/post/gridded-datasets-update/)",
   "metricsLink": "Observations-grafer",
   "trustedContactRegistryLink": "Håndtering af datasæt",
   "registry": {
-    "failedSinceSuccess": "",
+    "failedSinceSuccess": "Mislykkede forsøg siden sidste vellykkede indtagelse",
     "lastFailed": "Seneste mislykkede forsøg",
     "registrationDate": "Registreringsdato",
     "lastSuccess": "Seneste vellykkede indtagelse",
@@ -194,10 +194,10 @@
   },
   "errors": {
     "evenList": "Fejl i indlæsning af liste over begivenheder",
-    "occurrenceInfo": ""
+    "occurrenceInfo": "Fejl ved hentningen af forekomstinformation"
   },
   "eventTaxonomy": "Taksonomisk distribution af observationer",
   "noCitations": "Endnu ingen citationer",
   "noOccurrences": "Ingen observationer",
-  "eventWarning": ""
+  "eventWarning": "Søgning og filtrering af begivenheder er eksperimentelle funktioner, der er under aktiv udvikling"
 }

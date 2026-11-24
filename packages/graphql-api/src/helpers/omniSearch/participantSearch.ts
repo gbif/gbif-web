@@ -30,7 +30,7 @@ function reduceResults(results: Participant[]) {
 export async function getParticipants() {
   if (participants) return participants;
 
-  const header = createSignedGetHeader('/directory/participant', config);
+  const header = createSignedGetHeader('/directory/participant', config, { asApp: true });
   const data = await fetch(`${config.apiv1}/directory/participant?limit=1000`, {
     headers: header,
   }).then((res) => res.json());
@@ -56,7 +56,7 @@ type ResponseType = {
 };
 
 export async function searchParticipants(str: string): Promise<ResponseType> {
-  const header = createSignedGetHeader('/directory/participant', config);
+  const header = createSignedGetHeader('/directory/participant', config, { asApp: true });
   const controller = new AbortController();
   const { signal } = controller;
   setTimeout(() => controller.abort(), OMNI_SEARCH_TIMEOUT);

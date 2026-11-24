@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react-swc';
 import { createRequire } from 'module';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig, UserConfig } from 'vite';
+import { BUILD_INFO_FILE, resolveCommit } from './config/buildInfo.mjs';
 
 // `queue-promise` does `require('events')`, which the browser doesn't have. We resolve `events`
 // to the npm `events` polyfill (a transitive dep, API-compatible with Node's built-in) via a
@@ -38,11 +39,33 @@ export default defineConfig(({ command, isSsrBuild }) => {
     return eager;
   }
 
+  // Written to build-info.json next to the client build. The server reads it to know which commit
+  // it is serving (for logs, and to pass on to the browser), and anyone can check it at
+  // /build-info.json. It is deliberately not baked into the JS: that would give every chunk a new
+  // hash on every commit, and users would download the whole site again after each deploy.
+  const commit = resolveCommit();
+
   const config: UserConfig = {
     envPrefix: 'PUBLIC_',
-    plugins: [react()],
+    plugins: [
+      react(),
+      {
+        name: 'gbif-build-info',
+        apply: 'build',
+        generateBundle() {
+          if (isSsrBuild) return;
+          this.emitFile({
+            type: 'asset',
+            fileName: BUILD_INFO_FILE,
+            source: JSON.stringify({ commit: commit ?? null }),
+          });
+        },
+      },
+    ],
     build: {
       emptyOutDir: true,
+      // Public source maps (with sourceMappingURL), so minified stack traces from production can
+      // be mapped back to the source, in the browser's dev tools and from logs.
       sourcemap: true,
       outDir: './dist/gbif/client',
       rollupOptions: {

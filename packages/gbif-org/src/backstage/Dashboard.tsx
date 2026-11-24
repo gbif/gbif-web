@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   applyEsSettings,
+  applyWebSettings,
   applySettings,
   EsSettingsPatch,
   fetchEsHealth,
   fetchEsSettings,
+  fetchWebSettings,
   fetchHealth,
   fetchSettings,
   NotAuthorisedError,
@@ -14,6 +16,7 @@ import {
   EsHealthResult,
   EsSettings,
   EsSettingsResult,
+  WebSettingsResult,
   HealthResult,
   Settings,
   SettingsResult,
@@ -822,11 +825,94 @@ function EsSettingsEditor({
   );
 }
 
+// gbif-web's own switches. For now one: logging errors from browsers, to switch off if it floods
+// the logs. Applies to every instance at once; a restart goes back to the configured value.
+function WebSettingsPanel({
+  results,
+  onApplied,
+}: {
+  results: WebSettingsResult[];
+  onApplied: () => void;
+}) {
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const setReporting = useCallback(
+    async (clientErrorReporting: boolean) => {
+      setSubmitting(true);
+      setError(null);
+      try {
+        const { results: r } = await applyWebSettings({ clientErrorReporting });
+        const failed = r.filter((result) => !result.ok);
+        if (failed.length) setError(`Not applied on ${failed.map((f) => f.node).join(', ')}`);
+        onApplied();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [onApplied]
+  );
+
+  const button =
+    'g-rounded g-border g-border-zinc-700 g-px-3 g-py-1 g-text-xs g-text-zinc-300 hover:g-bg-zinc-800 disabled:g-opacity-50';
+
+  return (
+    <div className="g-rounded-lg g-border g-border-zinc-800 g-bg-zinc-950 g-p-4">
+      <div className="g-flex g-items-center g-justify-between g-mb-4">
+        <h2 className="g-text-sm g-font-semibold g-text-zinc-100">Error reporting from browsers</h2>
+        <span className="g-text-[11px] g-text-zinc-500">
+          live &amp; ephemeral — reset on restart
+        </span>
+      </div>
+      <ul className="g-space-y-1 g-mb-4 g-text-sm">
+        {results.map((r) => (
+          <li key={r.url || r.node} className="g-flex g-justify-between g-gap-4">
+            <span className="g-text-zinc-400">{r.node}</span>
+            {r.ok && r.settings ? (
+              <span
+                className={
+                  r.settings.clientErrorReporting ? 'g-text-emerald-400' : 'g-text-amber-400'
+                }
+              >
+                {r.settings.clientErrorReporting ? 'on' : 'off'}
+              </span>
+            ) : (
+              <span className="g-text-red-400">unreachable</span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div className="g-flex g-gap-2">
+        <button
+          type="button"
+          disabled={submitting}
+          onClick={() => setReporting(false)}
+          className={button}
+        >
+          turn off everywhere
+        </button>
+        <button
+          type="button"
+          disabled={submitting}
+          onClick={() => setReporting(true)}
+          className={button}
+        >
+          turn on everywhere
+        </button>
+      </div>
+      {error && <div className="g-mt-2 g-text-sm g-text-red-400">{error}</div>}
+    </div>
+  );
+}
+
 export default function Dashboard() {
   const [healthResults, setHealthResults] = useState<HealthResult[]>([]);
   const [settingsResults, setSettingsResults] = useState<SettingsResult[]>([]);
   const [esResults, setEsResults] = useState<EsHealthResult[]>([]);
   const [esSettingsResults, setEsSettingsResults] = useState<EsSettingsResult[]>([]);
+  const [webSettingsResults, setWebSettingsResults] = useState<WebSettingsResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [unauthorised, setUnauthorised] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -849,6 +935,9 @@ export default function Dashboard() {
       .catch(() => undefined);
     fetchEsSettings()
       .then((r) => setEsSettingsResults(r.results))
+      .catch(() => undefined);
+    fetchWebSettings()
+      .then((r) => setWebSettingsResults(r.results))
       .catch(() => undefined);
   }, []);
 
@@ -913,6 +1002,13 @@ export default function Dashboard() {
           {esSettingsResults.length > 0 && (
             <EsSettingsEditor results={esSettingsResults} onApplied={load} />
           )}
+        </section>
+      )}
+
+      {webSettingsResults.length > 0 && (
+        <section className="g-space-y-4 g-pt-2">
+          <h1 className="g-text-lg g-font-semibold g-text-zinc-100">gbif-web</h1>
+          <WebSettingsPanel results={webSettingsResults} onApplied={load} />
         </section>
       )}
     </div>

@@ -101,6 +101,10 @@
     "name": "Rodzaj liczebności organizmów",
     "description": "Sposób pomiaru liczebności organizmów"
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Ścieżka",
     "description": "Droga którą organizm został wprowadzony"
@@ -489,7 +493,7 @@
   },
   "occurrenceStatus": {
     "name": "Status stwierdzenia",
-    "description": "Obecność lub nieobecność jakichkolwiek organizmów z danego taksonu."
+    "description": ""
   },
   "gadmGid": {
     "name": "Obszar administracyjny",

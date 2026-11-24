@@ -162,7 +162,12 @@ export default function FormatSelection({
                         </div>
 
                         <div className="g-flex g-flex-col g-items-stretch g-gap-3">
-                          <Button size="default" disabled={disabled} onClick={selectFormat}>
+                          <Button
+                            size="default"
+                            data-testid={`download-format-${format.id.toLowerCase().replace(/_/g, '-')}`}
+                            disabled={disabled}
+                            onClick={selectFormat}
+                          >
                             <FormattedMessage
                               id="occurrenceDownloadFlow.configure"
                               defaultMessage="Configure"

@@ -32,7 +32,7 @@
     "description": ""
   },
   "taxonRank": {
-    "name": "",
+    "name": "Rang",
     "description": ""
   },
   "numberSpecimens": {
@@ -101,6 +101,10 @@
     "name": "",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "",
     "description": ""
@@ -126,7 +130,7 @@
     "description": ""
   },
   "lastInterpreted": {
-    "name": "",
+    "name": "Sidst fortolket",
     "description": ""
   },
   "alternativeCode": {
@@ -215,7 +219,7 @@
     "description": ""
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Udgivende land eller område",
     "description": ""
   },
   "q": {
@@ -226,7 +230,7 @@
     "name": "Koordinater"
   },
   "elevation": {
-    "name": "",
+    "name": "Højde",
     "description": ""
   },
   "license": {
@@ -268,7 +272,7 @@
     "name": "Forskers land eller område"
   },
   "typeStatus": {
-    "name": "",
+    "name": "Typestatus",
     "isNotNull": "",
     "isNull": "",
     "description": ""
@@ -278,7 +282,7 @@
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Enhed for prøvestørrelse",
     "description": ""
   },
   "coordinateUncertainty": {
@@ -290,7 +294,7 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Dybde",
     "description": ""
   },
   "organismQuantity": {
@@ -298,7 +302,7 @@
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Værdi for prøvestørrelse",
     "description": ""
   },
   "relativeOrganismQuantity": {
@@ -318,7 +322,7 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Etableringsmåde",
     "description": ""
   },
   "sex": {
@@ -384,7 +388,7 @@
     "description": ""
   },
   "georeferencedBy": {
-    "name": "",
+    "name": "Georefereret af",
     "description": ""
   },
   "datasetName": {
@@ -396,7 +400,7 @@
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Optegnelsesnummer",
     "description": ""
   },
   "collectionCode": {
@@ -488,7 +492,7 @@
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Forekomststatus",
     "description": ""
   },
   "gadmGid": {
@@ -571,7 +575,7 @@
     "description": ""
   },
   "humboldtBooleans": {
-    "name": "",
+    "name": "Humboldt-udvidelsen",
     "description": ""
   },
   "siteCount": {

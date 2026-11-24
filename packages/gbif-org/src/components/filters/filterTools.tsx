@@ -75,6 +75,9 @@ export type filterConfigShared = {
   about?: React.FC;
   group?: string;
   order?: number;
+  // Hide the counts next to the options, e.g. when the counts are of something other than the
+  // results listed (occurrence counts on a list of datasets). Supported by the enum and taxon filters.
+  hideCounts?: boolean;
 };
 
 export type filterBoolConfig = filterConfigShared & {
@@ -380,6 +383,7 @@ const getEnumFilter = ({
           allowExistence={config.allowExistence}
           allowNegations={config.allowNegations}
           extraFacetVariables={config.extraFacetVariables}
+          hideCounts={config.hideCounts}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}

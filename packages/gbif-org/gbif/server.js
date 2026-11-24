@@ -9,7 +9,9 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
-import logger from './config/logger.mjs';
+import { renderCommitScript } from './config/buildInfo.mjs';
+import { DIST_DIR } from './config/distDir.mjs';
+import logger, { commit } from './config/logger.mjs';
 import { helmetConfig } from './helmetConfig.js';
 import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
@@ -17,21 +19,37 @@ import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
+import { getRuntimeSettings } from './config/runtimeSettings.mjs';
+import { renderEarlyErrorScript } from './routes/clientErrors/clientErrors.mjs';
+import { register as registerClientErrors } from './routes/clientErrors/endpoints.mjs';
 import { escapeForScript as escapeScriptText } from '../src/utils/escapeForScript.js';
+import { toSafeLocation } from '../src/utils/localPath.js';
 import {
   createGetPostRenderRedirect,
   createGetPreRenderRedirect,
   getRenamedSearchParamRedirect,
 } from './middleware/redirects.mjs';
 import { requestLogger } from './middleware/requestLogger.mjs';
+import { createStaticHeaders } from './middleware/staticHeaders.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
 
 const IS_PRODUCTION = env.NODE_ENV === 'production';
+// The server bundle is built with source maps. Use them so logged stack traces from server-side
+// rendering point at src/ files rather than the bundled entry.server.js. Not free: Node parses the
+// ~7 MB map when the bundle loads, and the first stack trace read takes about 100 ms. Measured
+// at roughly 50 MB extra heap per process.
+if (IS_PRODUCTION) process.setSourceMapsEnabled(true);
+// Read by the server render (graphQLService sends it to graphql-api) and inlined into each page
+// for the browser. See getBuildCommit.
+globalThis.__GBIF_COMMIT__ = commit;
 const PORT = parseInt(env.PORT || 3000);
-// Overridden by e2e tests so their mock-endpoint build does not replace the regular one.
-const DIST_DIR = path.resolve(env.GBIF_DIST_DIR || 'dist/gbif');
+
+// The early error script, which also switches on error reporting in the page (see
+// src/utils/clientErrorReporting.ts). Left out while reporting is switched off from Backstage.
+const earlyErrorScript = (nonce) =>
+  getRuntimeSettings().clientErrorReporting ? renderEarlyErrorScript(nonce) : '';
 
 const getPostRenderRedirect = createGetPostRenderRedirect(env);
 const getPreRenderRedirect = createGetPreRenderRedirect(env);
@@ -49,6 +67,9 @@ async function main() {
   // browser-side HMR client can't reach it — repeated WS reconnect failures cause
   // @vite/client to fall back to full reloads in a loop when PORT is not the default.
   const httpServer = createHttpServer(app);
+
+  // Errors reported by browsers. Before the body parsers below, so its own size limit applies.
+  registerClientErrors(app, { logger });
 
   // Add middleware for parsing requests
   app.use(
@@ -174,22 +195,9 @@ async function main() {
 
     app.use(viteDevServer.middlewares);
   } else {
-    // Content-hashed and retained across releases on the host, so they can be cached forever.
-    // Stable names (index.html, public/ copies) keep the default 10 minute cache.
-    // Must be set via setHeaders: the default Cache-Control middleware above already set the
-    // header, and send() only applies its own maxAge/immutable options when none is present.
     const clientDir = path.join(DIST_DIR, 'client');
-    const assetsDir = path.join(clientDir, 'assets') + path.sep;
-
     app.use(
-      express.static(clientDir, {
-        index: false,
-        setHeaders: (res, filePath) => {
-          if (filePath.startsWith(assetsDir)) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-          }
-        },
-      })
+      express.static(clientDir, { index: false, setHeaders: createStaticHeaders(clientDir) })
     );
     app.use(express.static('public', { index: false }));
   }
@@ -252,7 +260,7 @@ async function main() {
   app.use((req, res, next) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
     const redirectTo = getRenamedSearchParamRedirect(req) ?? getPreRenderRedirect(req);
-    if (redirectTo) return res.redirect(302, redirectTo);
+    if (redirectTo) return res.redirect(302, toSafeLocation(redirectTo));
     next();
   });
 
@@ -316,6 +324,10 @@ async function main() {
             `</script>`
           : '';
 
+        // First in <head>: the commit, and catching errors from before the app starts.
+        const commitScript =
+          renderCommitScript(commit, res.locals.cspNonce) + earlyErrorScript(res.locals.cspNonce);
+
         // Predicate posted to */download/request (see the referer-source middleware above),
         // inlined so the client can pick it up once on this response - see consumeInitialPredicate.
         const predicateScript = res.locals.initialPredicate
@@ -337,7 +349,7 @@ async function main() {
             '<div id="app" class="gbif">',
             `<div id="app" class="gbif" dir="${rootDir ?? 'ltr'}">`
           )
-          .replace('<!--head-html-->', headHtml + i18nScript + predicateScript)
+          .replace('<!--head-html-->', headHtml + commitScript + i18nScript + predicateScript)
           .replace('<!--app-html-->', appHtml);
 
         res.setHeader('Content-Type', 'text/html');
@@ -350,15 +362,16 @@ async function main() {
         // (e.g. query-param redirects like /resource/search?contentType=literature) target a path
         // that may be a valid route on its own, so they must fire even on a 200 response.
         if (redirectTo && (force || statusCode === 404)) {
-          res.redirect(302, redirectTo);
+          res.redirect(302, toSafeLocation(redirectTo));
         } else {
           res.status(statusCode).end(html);
         }
         // return statusCode === 404 ? res.status(statusCode).end(html);
       } catch (e) {
-        // Handle possible redirections thrown by the render function.
+        // Handle possible redirections thrown by the render function. Loaders can build the
+        // Location from URL params, so it is checked before it is sent.
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {
-          return res.redirect(e.status, e.headers.get('Location'));
+          return res.redirect(e.status, toSafeLocation(e.headers.get('Location')));
         }
 
         // Try to extract a status property from the error. If no status is provided just fall back to status 500.
@@ -406,6 +419,11 @@ async function main() {
         if (!IS_PRODUCTION) {
           fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
         }
+        // The fallback renders the whole app in the browser, so it needs the commit too.
+        fallbackHtmlFile = fallbackHtmlFile.replace(
+          '<!--head-html-->',
+          renderCommitScript(commit, res.locals.cspNonce) + earlyErrorScript(res.locals.cspNonce)
+        );
 
         res
           .setHeader('Content-Type', 'text/html')

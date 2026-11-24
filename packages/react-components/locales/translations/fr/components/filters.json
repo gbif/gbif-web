@@ -101,6 +101,10 @@
     "name": "Type de quantité d’organisme",
     "description": "Le type de mesure pour la \"quantité d'organismes\"."
   },
+  "datasetCategory": {
+    "name": "Catégorie de jeu de données",
+    "description": "Catégorie du jeu de données à laquelle appartient l’enregistrement d'occurrence, basée sur le vocabulaire DatasetCategory. Des exemples incluent : science citoyenne, eDNA et bibliothèque de référence ADN."
+  },
   "pathway": {
     "name": "Chemin",
     "description": "La voie par laquelle l'organisme a été introduit."
@@ -489,7 +493,7 @@
   },
   "occurrenceStatus": {
     "name": "Statut de l'occurrence",
-    "description": "La présence ou l'absence d'organismes du taxon donné."
+    "description": "Si des organismes du taxon donné ont été détectés ou non."
   },
   "gadmGid": {
     "name": "Zone administrative",

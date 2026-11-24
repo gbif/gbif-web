@@ -124,3 +124,10 @@ export type EsSettings = {
 };
 
 export type EsSettingsResult = NodeResult<{ settings?: EsSettings }>;
+
+// Runtime settings of the gbif-web instances themselves (gbif/config/runtimeSettings.mjs).
+export type WebSettings = {
+  clientErrorReporting: boolean;
+};
+
+export type WebSettingsResult = NodeResult<{ settings?: WebSettings }>;

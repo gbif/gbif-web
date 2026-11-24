@@ -101,6 +101,10 @@
     "name": "유기체 양 유형",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "",
     "description": ""
@@ -318,7 +322,7 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "정착 수단",
+    "name": "서식 상태",
     "description": ""
   },
   "sex": {
@@ -364,7 +368,7 @@
     "description": ""
   },
   "recordedBy": {
-    "name": "에 의해 기록됨",
+    "name": "기록 제공자",
     "description": ""
   },
   "fieldNumber": {

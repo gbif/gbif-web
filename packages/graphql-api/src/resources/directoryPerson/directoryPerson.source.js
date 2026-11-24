@@ -88,7 +88,7 @@ class DirectoryPersonAPI extends RESTDataSource {
   }
 
   willSendRequest(path, request) {
-    const header = createSignedGetHeader(path, this.config);
+    const header = createSignedGetHeader(path, this.config, { asApp: true });
     Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
     request.headers['User-Agent'] = this.context.userAgent;
     if (this.context.referer) request.headers['referer'] = this.context.referer;

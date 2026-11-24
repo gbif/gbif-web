@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "GADM level 3 ID",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "最古の期または最下部の階（地質学）",
         "DEGREE_OF_ESTABLISHMENT": "",
+        "DATASET_CATEGORY": "",
         "DEPTH": "深度",
         "RELATIVE_ORGANISM_QUANTITY": "相対生物数",
         "ORGANISM_ID": "生物 ID",

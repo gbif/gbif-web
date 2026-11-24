@@ -77,7 +77,9 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'parentevent/:parentEventID',
       element: <DatasetEventID />,
-      loader: ({ params }: LoaderArgs) => redirectDocument(`../event/${params.parentEventID}`),
+      // params are decoded, so an ID like ..%2F..%2F%2Fevil.com must be encoded again
+      loader: ({ params }: LoaderArgs) =>
+        redirectDocument(`../event/${encodeURIComponent(params.parentEventID ?? '')}`),
     },
     {
       path: 'download',

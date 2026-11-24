@@ -18,7 +18,7 @@
   "yearRange": "",
   "identifiedToSpecies": "Geïdentificeerd tot soort",
   "withCoordinates": "Met coördinaten",
-  "withYear": "Met jaar",
+  "withEventDate": "",
   "withCollector": "",
   "withMedia": "Met media",
   "withSequence": "",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "",
   "notVocabularyWarning": "Co-Gefinancierd door",
   "taxonomicBreakdown": "Co-Gefinancierd door",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "",
     "record": "Record",
@@ -56,8 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerField": "",
-  "kingdom": "Rijk",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

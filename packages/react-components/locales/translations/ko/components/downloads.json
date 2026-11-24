@@ -99,7 +99,7 @@
         "DATASET_NAME": "데이터셋 이름",
         "GEOLOGICAL_TIME": "지질학적 시간",
         "ISLAND": "섬",
-        "INSTITUTION_KEY": "",
+        "INSTITUTION_KEY": "GRSciColl 기관",
         "GADM_LEVEL_0_GID": "GADM 레벨 0 ID",
         "GADM_LEVEL_2_GID": "GADM 레벨 2 ID",
         "LATEST_AGE_OR_HIGHEST_STAGE": "최근 절 혹은 최상 층서 계",
@@ -153,6 +153,7 @@
         "GADM_LEVEL_3_GID": "GADM 레벨 3 ID",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "최고 절 혹은 최하부 계",
         "DEGREE_OF_ESTABLISHMENT": "정착 정도",
+        "DATASET_CATEGORY": "데이터셋 카테고리",
         "DEPTH": "깊이",
         "RELATIVE_ORGANISM_QUANTITY": "상대적 유기체 양",
         "ORGANISM_ID": "유기체 ID",
@@ -181,7 +182,7 @@
         "SCIENTIFIC_NAME": "학명",
         "PHYLUM_KEY": "문",
         "FAMILY_KEY": "과",
-        "ESTABLISHMENT_MEANS": "정착 수단",
+        "ESTABLISHMENT_MEANS": "서식 상태",
         "WATER_BODY": "수체",
         "HIGHER_GEOGRAPHY": "상위 지리",
         "COLLECTION_CODE": "모음집 코드",
@@ -190,7 +191,7 @@
         "RECORD_NUMBER": "기록 번호",
         "PUBLISHING_ORG": "발행 조직",
         "PROGRAMME": "프로그램",
-        "COLLECTION_KEY": "",
+        "COLLECTION_KEY": "GRSciColl 컬렉션",
         "LICENSE": "라이센스",
         "LAST_INTERPRETED": "가장 최근에 해석됨",
         "KINGDOM_KEY": "계",
@@ -210,7 +211,7 @@
         "GBIF_REGION": "GBIF 지역",
         "COORDINATE_UNCERTAINTY_IN_METERS": "미터로 좌표 불확실",
         "PARENT_EVENT_ID": "상위 이벤트 ID",
-        "RECORDED_BY": "에 의해 기록됨",
+        "RECORDED_BY": "기록 제공자",
         "BASIS_OF_RECORD": "기록 기준",
         "BIOSTRATIGRAPHY": "생물층서학",
         "DATASET_KEY": "데이터셋"
@@ -266,9 +267,9 @@
     "back": "뒤로가기",
     "slowDown": "동시 다운로드 수가 너무 많습니다. 잠시 후 다시 시도해주세요.",
     "unableToCreateDownload": "다운로드를 생성할 수 없습니다. 잠시 후 다시 시도해주세요.",
-    "invalidDownloadRequest": "",
-    "notAuthorizedForDownload": "",
-    "downloadServiceUnavailable": "",
+    "invalidDownloadRequest": "다운로드 요청이 유효하지 않아 거부되었습니다. 쿼리를 확인하신 후 다시 시도해 주십시오.",
+    "notAuthorizedForDownload": "다운로드를 생성하려면 로그인해야 합니다. 로그인 후 다시 시도해 주세요.",
+    "downloadServiceUnavailable": "현재 다운로드 서비스를 이용하실 수 없습니다. 잠시 후 다시 시도해 주십시오.",
     "backToFormatSelection": "포맷 선택으로 돌아가기",
     "backToConfiguration": "구성으로 돌아가기",
     "estimatedSize": "예상 용량",
@@ -339,8 +340,8 @@
         "description": "상세하거나 특수한 용도로 사용할 수 있는 여러 파일(핵심 파일, 원시 값, 해석된 데이터, 확장 파일)이 포함되어 있습니다. 특정 확장 파일을 선택하여 다운로드를 맞춤 설정할 수 있습니다."
       },
       "FASTA_ARCHIVE": {
-        "title": "",
-        "description": ""
+        "title": "FASTA 아카이브",
+        "description": "DNA 서열이 포함된 기록들을 담은 다윈 코어 아카이브로, 서열 자체는 FASTA 파일로 추가되어 있습니다. DNA 서열이 있는 기록만 포함되어 있습니다."
       },
       "SPECIES_LIST": {
         "title": "종 목록",
@@ -364,8 +365,8 @@
         "individualOccurrences": "개별 출현값",
         "multimediaLinks": "멀티미디어 링크",
         "occurrenceCounts": "출현 집계",
-        "dnaSequences": "",
-        "sequencedRecordsOnly": ""
+        "dnaSequences": "DNA 서열 (FASTA)",
+        "sequencedRecordsOnly": "시퀀스 기록만"
       }
     },
     "taxonomySelector": {
@@ -375,10 +376,10 @@
       "version": "버전"
     },
     "sequences": {
-      "noSequencesTitle": "",
-      "noSequencesDescription": "",
-      "someSequencesTitle": "",
-      "someSequencesDescription": "",
+      "noSequencesTitle": "이 검색 결과에는 DNA 서열이 없습니다.",
+      "noSequencesDescription": "이 형식은 DNA 서열이 포함된 검색에만 사용할 수 있습니다.",
+      "someSequencesTitle": "DNA 서열 정보가 포함된 기록만 포함됩니다.",
+      "someSequencesDescription": "{total}개 검색 결과 중 {included}개 에 해당하는 기록에 DNA 서열이 포함되어 있습니다. 나머지 {discarded}개 기록은 다운로드 대상에서 제외됩니다.",
       "recordsIncluded": ""
     }
   },

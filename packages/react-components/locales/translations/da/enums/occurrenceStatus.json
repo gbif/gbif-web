@@ -1,3 +1,4 @@
 {
-    "ABSENT": "Fraværende"
+    "DETECTED": "Opdaget",
+    "NOT_DETECTED": "Ikke opdaget"
 }

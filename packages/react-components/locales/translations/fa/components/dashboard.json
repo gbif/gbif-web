@@ -18,7 +18,7 @@
   "yearRange": "",
   "identifiedToSpecies": "",
   "withCoordinates": "",
-  "withYear": "",
+  "withEventDate": "",
   "withCollector": "",
   "withMedia": "",
   "withSequence": "",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "",
   "notVocabularyWarning": "",
   "taxonomicBreakdown": "",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "",
     "record": "",
@@ -56,8 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerField": "",
-  "kingdom": "پادشاهی",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

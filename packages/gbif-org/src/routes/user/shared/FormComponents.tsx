@@ -64,7 +64,11 @@ export function FormInput({
           disabled={disabled}
         />
       </div>
-      {hasError && <p className="g-mt-1 g-text-sm g-text-red-600">{error}</p>}
+      {hasError && (
+        <p className="g-mt-1 g-text-sm g-text-red-600" data-testid={`${id}-error`}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -118,6 +122,7 @@ export function FormSelect({
           }}
         >
           <SelectTrigger
+            data-testid={`${id}-select`}
             className={cn(
               'g-ps-10',
               hasError
@@ -136,7 +141,11 @@ export function FormSelect({
           </SelectContent>
         </Select>
       </div>
-      {hasError && <p className="g-mt-1 g-text-sm g-text-red-600">{error}</p>}
+      {hasError && (
+        <p className="g-mt-1 g-text-sm g-text-red-600" data-testid={`${id}-error`}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -149,6 +158,7 @@ interface FormButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
+  testId?: string;
 }
 
 export function FormButton({
@@ -159,6 +169,7 @@ export function FormButton({
   children,
   onClick,
   className,
+  testId,
 }: FormButtonProps) {
   return (
     <Button
@@ -166,6 +177,7 @@ export function FormButton({
       type={type}
       onClick={onClick}
       className={className}
+      data-testid={testId}
       disabled={disabled || isLoading}
       isLoading={isLoading}
     >

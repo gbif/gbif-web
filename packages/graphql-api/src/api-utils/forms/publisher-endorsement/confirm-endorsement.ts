@@ -17,6 +17,7 @@ export async function confirmEndorsement(
     const organizationResponse = await authenticatedRequest({
       method: 'GET',
       url: config.apiv1 + urlPath`/organization/${dto.key}`,
+      asApp: true,
     });
 
     // Handle organization allready confirmed
@@ -31,6 +32,8 @@ export async function confirmEndorsement(
       body: { confirmationKey: dto.code },
       url: config.apiv1 + urlPath`/organization/${dto.key}/endorsement`,
       canonicalPath: urlPath`organization/${dto.key}/endorsement`,
+      // The endorsing node has no login here; the confirmation key is what proves the request.
+      asApp: true,
     });
 
     // Handle failed to confirm organization

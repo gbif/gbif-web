@@ -44,11 +44,7 @@ export default function ClassificationCard({
             <FormattedMessage id="taxon.classificationAndDescendants" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback
-              taxonId={taxonKey}
-              datasetKey={datasetKey}
-              checklistbankURL={checklistbankURL}
-            />
+            <ColFeedback checklistbankURL={checklistbankURL} />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-pb-2 md:g-pb-2">

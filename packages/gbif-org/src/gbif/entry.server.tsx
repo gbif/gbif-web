@@ -4,6 +4,7 @@ import { createGbifRoutes } from '@/gbif/routes';
 import { extractLocaleFromPathname } from '@/reactRouterPlugins/i18n/extractLocaleFromURL';
 import { getMessagesForLocale, resolveMessagesPath } from '@/reactRouterPlugins/i18n/loadMessages';
 import { MessagesProvider } from '@/reactRouterPlugins/i18n/messagesContext';
+import { toLocalPath } from '@/utils/localPath';
 import type { Request as ExpressRequest } from 'express';
 import ReactDOMServer from 'react-dom/server';
 import { FilledContext, HelmetServerState } from 'react-helmet-async';
@@ -104,8 +105,11 @@ function createHeadHtml(helmet: HelmetServerState) {
 
 function createFetchRequest(req: ExpressRequest): Request {
   const origin = `${req.protocol}://${req.get('host')}`;
-  // Note: This had to take originalUrl into account for presumably vite's proxying
-  const url = new URL(req.originalUrl || req.url, origin);
+  // Note: This had to take originalUrl into account for presumably vite's proxying.
+  // Resolving a path like //evil.com against our origin would replace the host, and loaders that
+  // redirect based on request.url would then send the visitor there. toLocalPath collapses the
+  // leading slashes, so the request always stays on our origin.
+  const url = new URL(`${origin}${toLocalPath(req.originalUrl || req.url)}`);
 
   const controller = new AbortController();
   req.on('close', () => controller.abort());

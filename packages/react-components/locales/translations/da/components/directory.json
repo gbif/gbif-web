@@ -14,7 +14,7 @@
       "description": ""
     },
     "nsg": {
-      "title": "",
+      "title": "Nodes Styregruppe",
       "description": ""
     },
     "nodesCommittee": {
@@ -26,11 +26,11 @@
       "description": ""
     },
     "voting": {
-      "title": "",
-      "description": ""
+      "title": "Stemmeberettigede deltagere",
+      "description": "Lande, der har undertegnet GBIF’s hensigtserklæring og indvilliger i at yde et grundlæggende økonomisk bidrag til GBIF’s kernefond."
     },
     "associateCountries": {
-      "title": "",
+      "title": "Deltagende associerede lande",
       "description": ""
     },
     "associateParticipants": {

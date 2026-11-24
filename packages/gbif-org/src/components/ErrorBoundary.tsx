@@ -1,4 +1,5 @@
 import { OccurrenceSortBy, SortOrder } from '@/gql/graphql';
+import { reportClientError } from '@/utils/clientErrorReporting';
 import { cn } from '@/utils/shadcn';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -38,8 +39,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // We do not have a service to do client logging. Could be nice at some point.
     console.error(error, errorInfo);
+    reportClientError(error, 'boundary', { componentStack: errorInfo.componentStack });
   }
 
   componentDidUpdate(prevProps: Readonly<ErrorBoundaryProps>) {

@@ -101,6 +101,10 @@
     "name": "生物數量類型",
     "description": "“生物體數量”的測量形式。"
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "路徑",
     "description": "該生物體被引入的路徑。"
@@ -489,7 +493,7 @@
   },
   "occurrenceStatus": {
     "name": "出現紀錄狀態",
-    "description": "給定分類群中的任何生物體的存在或不存在。"
+    "description": ""
   },
   "gadmGid": {
     "name": "行政區域",

@@ -126,6 +126,7 @@ export function UserProfileLayout() {
                       <div className="g-mt-2 md:g-mt-0">
                         <Button
                           variant="outline"
+                          data-testid="logout"
                           onClick={logoutHandler}
                           className="g-flex g-items-center g-gap-2"
                         >

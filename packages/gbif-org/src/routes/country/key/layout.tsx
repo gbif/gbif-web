@@ -36,7 +36,8 @@ export async function countryKeyLoader({ params, request, graphql }: LoaderArgs)
       `/country/${countryCode}`,
       `/country/${countryCode.toUpperCase()}`
     );
-    return redirect(url.toString());
+    // a path, not url.toString(), so the host from the request never ends up in the redirect
+    return redirect(`${url.pathname}${url.search}`);
   }
 
   // Validate country code

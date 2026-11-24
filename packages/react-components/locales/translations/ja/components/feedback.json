@@ -5,6 +5,8 @@
     "contactDataProvider": "データ提供者に連絡します",
     "contactUsDescription": "ウェブサイト内の問題、データ処理の問題、またはご質問について",
     "contactDataProviderDescription": "このページに掲載されている記録に関する問題について",
+    "annotationRule": "",
+    "annotationRuleDescription": "",
     "seeAlsoFaq": "{faqLink}も参照してください",
     "faq": "よくある質問",
     "pleaseLogin": "フィードバックを送信するにはログインしてください",

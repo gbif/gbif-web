@@ -18,7 +18,7 @@
   "yearRange": "نطاق السنة",
   "identifiedToSpecies": "",
   "withCoordinates": "مع إحداثيات",
-  "withYear": "مع سنة",
+  "withEventDate": "",
   "withCollector": "",
   "withMedia": "",
   "withSequence": "",
@@ -33,6 +33,19 @@
   "metricsFromGbifData": "",
   "notVocabularyWarning": "تمويل مشترك بواسطة",
   "taxonomicBreakdown": "تمويل مشترك بواسطة",
+  "showMoreInfo": "",
+  "help": {
+    "dataQuality": {
+      "intro": "",
+      "identifiedToSpecies": "",
+      "withCollector": ""
+    },
+    "occurrenceSummary": {
+      "occurrenceRecords": "",
+      "species": "",
+      "yearRange": ""
+    }
+  },
   "group": {
     "views": "",
     "record": "سجل",
@@ -56,8 +69,7 @@
     "materialCollected": "",
     "samplingEffort": ""
   },
-  "occurrencesPerField": "التكرارات لكل {FIELD}",
-  "kingdom": "مملكة",
+  "occurrencesPerGroup": "",
   "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",

@@ -1,11 +1,11 @@
 {
   "durationUnit": {
-    "SECONDS": "",
+    "SECONDS": "Sekunder",
     "MINUTES": "Minutter",
     "HOURS": "Timer",
-    "DAYS": "",
-    "WEEKS": "",
-    "MONTHS": "",
-    "YEARS": ""
+    "DAYS": "Dage",
+    "WEEKS": "Uger",
+    "MONTHS": "Måneder",
+    "YEARS": "År"
   }
 }

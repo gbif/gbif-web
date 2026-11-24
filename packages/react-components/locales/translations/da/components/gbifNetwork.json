@@ -7,22 +7,22 @@
       "FORMER": "Tidligere",
       "OBSERVER": "Observatør",
       "UNKNOWN": "Ukendt",
-      "AFFILIATE": ""
+      "AFFILIATE": "GBIF-tilknyttet"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Institutioner med en formel partnerskabsaftale med GBIF.",
+    "mapCaptionPublishers": "Aktive organisationer, der offentliggør GBIF-data, opdelt efter land eller område.",
     "role": "Rolle",
     "name": "Navn",
     "participant": "Deltager",
     "type": "Type",
     "memberSince": "Medlem siden",
     "all": "Alle",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
-    "clear": "",
-    "noDescriptionProvided": "",
+    "countryParticipants": "Landedeltagere",
+    "publishersPerCountry": "Udgivere pr. land",
+    "clear": "Ryd",
+    "noDescriptionProvided": "Ingen beskrivelse af dette netværk",
     "headlines": {
-      "nodesSteeringGroup": "",
+      "nodesSteeringGroup": "Nodes Styregruppe",
       "participants": "Deltagere"
     }
   }

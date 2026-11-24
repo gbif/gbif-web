@@ -101,6 +101,10 @@
     "name": "Aantal organismen type",
     "description": ""
   },
+  "datasetCategory": {
+    "name": "",
+    "description": ""
+  },
   "pathway": {
     "name": "Pad",
     "description": ""
@@ -489,7 +493,7 @@
   },
   "occurrenceStatus": {
     "name": "Aanwezigheid",
-    "description": "De aanwezigheid of afwezigheid van het object."
+    "description": ""
   },
   "gadmGid": {
     "name": "",
