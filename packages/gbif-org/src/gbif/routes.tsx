@@ -26,7 +26,6 @@ import { derivedDatasetRoute } from '@/routes/tools/derivedDataset';
 import { nameParserRoute } from '@/routes/tools/nameParser';
 import { sequenceIdRoute } from '@/routes/tools/sequenceId';
 import { speciesLookupRoute } from '@/routes/tools/speciesLookup';
-import { volunteersDemoRoute } from '@/routes/custom/volunteersDemo';
 import { backstageRoute } from '@/backstage';
 
 export function createGbifRoutes(config: Config) {
@@ -69,7 +68,6 @@ export function createGbifRoutes(config: Config) {
               iptRoute,
               speciesLookupRoute,
               nameParserRoute,
-              volunteersDemoRoute, // TEMPORARY
               sequenceIdRoute,
               derivedDatasetRoute,
               ...notImplementedRoutes,
