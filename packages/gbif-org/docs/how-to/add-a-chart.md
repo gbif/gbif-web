@@ -95,9 +95,9 @@ rename.
   softened "plasma" scale from cream to deep indigo). `src/gbif/config.ts` runs from GBIF's chart orange to its purple and lists three other scales,
   commented out, to try. Ink is white below a relative luminance of 0.31 and black above (`colour.ts`): white reads better on saturated mid tones than the WCAG contrast ratio suggests.
 - **Cells** sit on a light grey, with a thin line around every cell and label. An empty cell shows a
-  muted 0. With a share shown, cells show only the share (the count is in the hover bar). Column
-  labels longer than 60 characters end in "…" (`MAX_LABEL`), and long row labels are cut at 16rem;
-  the whole label shows in the hover bar.
+  muted 0. With a share shown, cells show only the share. A cell's tooltip has its column label, the
+  count and the share of the row (or column). Column labels longer than 60 characters end in "…"
+  (`MAX_LABEL`), and long row labels are cut at 16rem; the whole label is in the tooltip.
 - Logic that does not need React is in `plan.ts` and tested in `plan.test.ts`. A GraphQL variable
   that is declared and unused makes the whole query fail, so `buildQuery` declares `$language` and
   `$checklistKey` only when used.

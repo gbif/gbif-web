@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CardHeader } from '../../shared';
 import ChartClickWrapper from '../ChartClickWrapper';
 import { ChartMessages } from '../OneDimensionalChart';
 import { AxisControl, Segmented, SwapButton } from './Controls';
 import { getDimension, type Dimension } from './dimensions';
-import { Heatmap, HoverBar, Legend, RankedHeatmap, type Hover } from './Heatmap';
+import { Heatmap, Legend, RankedHeatmap } from './Heatmap';
 import {
   columnCardinality,
   fitsOverall,
@@ -183,10 +183,6 @@ function CrosstabMain(props: CrosstabProps) {
     });
   }
 
-  // The cell under the pointer, for the bar at the bottom of the card. New data clears it.
-  const [hover, setHover] = useState<Hover | null>(null);
-  useEffect(() => setHover(null), [loaded]);
-
   const common = {
     caption: title,
     rows: loaded?.rows ?? { dim: rows },
@@ -196,11 +192,10 @@ function CrosstabMain(props: CrosstabProps) {
     onPick: (filter: Record<string, unknown[]>) => handleRedirect?.({ filter }),
     rowLabel: name((loaded?.rows ?? { dim: rows }).dim),
     colLabel: name((loaded?.cols ?? { dim: cols }).dim),
-    onHover: setHover,
   };
 
   return (
-    <Card className="g-relative" loading={state.loading} error={!!state.error && !loaded}>
+    <Card loading={state.loading} error={!!state.error && !loaded}>
       <CardHeader>
         <div className="g-flex g-flex-col g-gap-1">
           <CardTitle>{title}</CardTitle>
@@ -293,7 +288,6 @@ function CrosstabMain(props: CrosstabProps) {
           <ChartMessages messages={messages} />
         </div>
       </CardContent>
-      <HoverBar hover={hover} />
     </Card>
   );
 }

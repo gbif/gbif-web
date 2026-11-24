@@ -1,7 +1,10 @@
 import { cn } from '@/utils/shadcn';
 import { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Portal as TooltipPortal } from '@radix-ui/react-tooltip';
 import { useConfig } from '@/config/config';
+import { usePortalContainer } from '@/utils/getPortalContainer';
 import { cssColour, inkFor, makeScale } from './colour';
 import {
   canFilter,
@@ -32,15 +35,7 @@ type CommonProps = {
   onPick: PickFilter;
   rowLabel: string;
   colLabel: string;
-  /** The cell under the pointer or focus, or none: shown in the bar at the bottom of the card. */
-  onHover?: (hover: Hover | null) => void;
 };
-
-/** What the bar at the bottom of the card says about the cell under the pointer. */
-export type Hover =
-  | { row: string; column: string; count: number; share: number; of: string }
-  /** A row or column label, whole: it may be cut in the table. */
-  | { label: string };
 
 // The table sits on a very light grey, with a slightly darker line around every cell, header and
 // label, so empty cells and rows still read as a grid.
@@ -70,7 +65,7 @@ function useFormatters() {
     otherLabel: intl.formatMessage({ id: 'dashboard.crosstab.other' }),
     noValueLabel: intl.formatMessage({ id: 'dashboard.crosstab.noValue' }),
     totalLabel: intl.formatMessage({ id: 'dashboard.crosstab.total' }),
-    /** What the totals count, for the hover bar: the label alone doesn't say. */
+    /** What the totals count, for their tooltips: the label alone doesn't say. */
     rowTotalHint: intl.formatMessage({ id: 'dashboard.crosstab.rowTotalHint' }),
     columnTotalHint: intl.formatMessage({ id: 'dashboard.crosstab.columnTotalHint' }),
     allHint: intl.formatMessage({ id: 'dashboard.crosstab.allHint' }),
@@ -78,6 +73,26 @@ function useFormatters() {
       intl.formatMessage({ id: 'dashboard.crosstab.otherHint' }, { dimension }),
     noValueHint: (dimension: string) =>
       intl.formatMessage({ id: 'dashboard.crosstab.noValueHint' }, { dimension }),
+    /**
+     * A cell's tooltip: its column, which a cut label or a ranked cell may not show whole, then the
+     * count and its share of the row or column. The row is plain from the row label.
+     */
+    cellTip: (column: string, n: number, part: number, of: 'row' | 'column') => (
+      <>
+        <div className="g-font-semibold">{column}</div>
+        <div>
+          {count(n)}
+          {' · '}
+          {intl.formatMessage(
+            {
+              id:
+                of === 'row' ? 'dashboard.crosstab.shareOfRow' : 'dashboard.crosstab.shareOfColumn',
+            },
+            { share: share(part) }
+          )}
+        </div>
+      </>
+    ),
     corner: (rows: string, cols: string) =>
       intl.formatMessage({ id: 'dashboard.crosstab.corner' }, { rows, cols }),
   };
@@ -127,33 +142,43 @@ function Cell({
   intensity,
   scale,
   className,
-  onHover,
-  onLeave,
+  tip,
   children,
 }: {
   intensity: number;
   scale: Scale;
   className?: string;
-  /** Shows the cell in the bar at the bottom of the card, at once, unlike a tooltip. */
-  onHover?: () => void;
-  /** Hides it again. */
-  onLeave?: () => void;
+  tip: React.ReactNode;
   children: React.ReactNode;
 }) {
   const fill = intensity ? scale(intensity) : undefined;
   const style = fill ? { backgroundColor: cssColour(fill) } : undefined;
   const ink = fill ? (inkFor(fill) === 'light' ? 'g-text-white' : 'g-text-black') : '';
   return (
-    <td
-      className={cn(cellBase, ink, className)}
-      style={style}
-      onMouseEnter={onHover}
-      onFocus={onHover}
-      onMouseLeave={onLeave}
-      onBlur={onLeave}
-    >
-      {children}
-    </td>
+    <Tip title={tip}>
+      <td className={cn(cellBase, ink, className)} style={style}>
+        {children}
+      </td>
+    </Tip>
+  );
+}
+
+/**
+ * A tooltip on a cell or header, shown at once. Its content goes in a portal: rendered beside the
+ * cell, inside the row, the table would lay it out as one more cell.
+ */
+function Tip({ title, children }: { title: React.ReactNode; children: React.ReactElement }) {
+  const container = usePortalContainer();
+  return (
+    <Tooltip delayDuration={0} disableHoverableContent>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipPortal container={container}>
+        {/* The site's styles (font and all) apply inside .gbif, as for popovers. */}
+        <div className="gbif">
+          <TooltipContent className="g-max-w-96 g-pointer-events-none">{title}</TooltipContent>
+        </div>
+      </TooltipPortal>
+    </Tooltip>
   );
 }
 
@@ -169,35 +194,37 @@ const Folded = ({ children }: { children: React.ReactNode }) => (
   <span className="g-inline-block g-w-min">{children}</span>
 );
 
-/** Column labels longer than this are cut, with the whole label in the bar on hover. */
+/** Column labels longer than this are cut, with the whole label in the tooltip. */
 const MAX_LABEL = 60;
 const cutLabel = (label: string) =>
   label.length > MAX_LABEL ? `${label.slice(0, MAX_LABEL - 1).trimEnd()}…` : label;
 
-/** A column header; the whole label shows in the bar at the bottom of the card on hover. */
+/** A column header, with the whole label (or what the column holds) in its tooltip. */
 function ColumnHeader({
   label,
-  onHover,
   className,
   children,
 }: {
   label: string;
-  onHover?: (hover: Hover | null) => void;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
-    <th scope="col" className={cn(th, 'g-text-end', className)} {...labelHover(label, onHover)}>
-      {children}
-    </th>
+    <Tip title={label}>
+      <th scope="col" className={cn(th, 'g-text-end', className)}>
+        {children}
+      </th>
+    </Tip>
   );
 }
 
-/** Shows a label whole in the bar at the bottom of the card while the pointer or focus is on it. */
-function labelHover(label: string, onHover?: (hover: Hover | null) => void) {
-  const show = () => onHover?.({ label });
-  const hide = () => onHover?.(null);
-  return { onMouseEnter: show, onFocus: show, onMouseLeave: hide, onBlur: hide };
+/** A total, with what it counts in its tooltip. */
+function TotalCell({ hint, children }: { hint: string; children: React.ReactNode }) {
+  return (
+    <Tip title={hint}>
+      <td className={totalCell}>{children}</td>
+    </Tip>
+  );
 }
 
 function RowHeader({
@@ -207,23 +234,21 @@ function RowHeader({
 }: {
   line: Line;
   axis: AxisPlan;
-  common: Pick<CommonProps, 'interactive' | 'onPick' | 'onHover'>;
+  common: Pick<CommonProps, 'interactive' | 'onPick'>;
 }) {
   return (
-    <th
-      scope="row"
-      className={cn(th, 'g-align-middle g-whitespace-nowrap')}
-      {...labelHover(line.label, common.onHover)}
-    >
-      <Pickable
-        on={common.interactive && canFilter(axis)}
-        label={line.label}
-        onClick={() => common.onPick(lineFilter(axis, line.key))}
-      >
-        {/* Long labels (dataset titles) would push the table wide: cut them, the whole one on hover. */}
-        <span className="g-block g-max-w-[16rem] g-truncate">{line.label}</span>
-      </Pickable>
-    </th>
+    <Tip title={line.label}>
+      <th scope="row" className={cn(th, 'g-align-middle g-whitespace-nowrap')}>
+        <Pickable
+          on={common.interactive && canFilter(axis)}
+          label={line.label}
+          onClick={() => common.onPick(lineFilter(axis, line.key))}
+        >
+          {/* Long labels (dataset titles) would push the table wide: cut them, the whole one on hover. */}
+          <span className="g-block g-max-w-[16rem] g-truncate">{line.label}</span>
+        </Pickable>
+      </th>
+    </Tip>
   );
 }
 
@@ -241,135 +266,114 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
   );
 
   return (
-    <div className="g-overflow-auto">
-      <table
-        aria-label={common.caption}
-        className="g-w-full g-text-sm g-border-collapse"
-        onMouseLeave={() => common.onHover?.(null)}
-      >
-        <thead>
-          <tr>
-            <th scope="col" className={th}>
-              {f.corner(common.rowLabel, common.colLabel)}
-            </th>
-            {table.cols.map((c, j) => (
-              <ColumnHeader key={j} onHover={common.onHover} label={c.label}>
-                <Pickable
-                  on={interactive && canFilter(cols)}
-                  label={c.label}
-                  onClick={() => onPick(lineFilter(cols, c.key))}
-                >
-                  {cutLabel(c.label)}
-                </Pickable>
-              </ColumnHeader>
-            ))}
-            {table.showOther && (
-              <ColumnHeader
-                onHover={common.onHover}
-                label={f.otherHint(common.colLabel)}
-                className={narrow}
-              >
-                <Folded>{f.otherLabel}</Folded>
-              </ColumnHeader>
-            )}
-            {table.showNoValue && (
-              <ColumnHeader
-                onHover={common.onHover}
-                label={f.noValueHint(common.colLabel)}
-                className={narrow}
-              >
-                <Folded>{f.noValueLabel}</Folded>
-              </ColumnHeader>
-            )}
-            <ColumnHeader onHover={common.onHover} label={f.rowTotalHint} className={totalLabel}>
-              {f.totalLabel}
-            </ColumnHeader>
-          </tr>
-        </thead>
-        <tbody>
-          {table.rows.map((r, i) => (
-            <tr key={i}>
-              <RowHeader line={r} axis={rows} common={common} />
-              {table.cols.map((c, j) => {
-                const n = table.counts[i][j];
-                const title = f.cell(r.label, c.label, n, r.count);
-                return (
-                  <Cell
-                    key={j}
-                    intensity={intensity(cell(i, j))}
-                    scale={scale}
-                    onLeave={() => common.onHover?.(null)}
-                    onHover={() =>
-                      common.onHover?.({
-                        row: r.label,
-                        column: c.label,
-                        count: n,
-                        share: shade === 'column' ? cell(i, j) : r.count ? n / r.count : 0,
-                        of: shade === 'column' ? c.label : r.label,
-                      })
-                    }
-                    // An empty cell shows the table's grey with a muted 0.
-                    className={n > 0 ? undefined : 'g-text-slate-400'}
+    <TooltipProvider delayDuration={0}>
+      <div className="g-overflow-auto">
+        <table aria-label={common.caption} className="g-w-full g-text-sm g-border-collapse">
+          <thead>
+            <tr>
+              <th scope="col" className={th}>
+                {f.corner(common.rowLabel, common.colLabel)}
+              </th>
+              {table.cols.map((c, j) => (
+                <ColumnHeader key={j} label={c.label}>
+                  <Pickable
+                    on={interactive && canFilter(cols)}
+                    label={c.label}
+                    onClick={() => onPick(lineFilter(cols, c.key))}
                   >
-                    {n > 0 ? (
-                      <Pickable
-                        on={interactive && canFilterCell(rows, r.key, cols, c.key)}
-                        label={title}
-                        onClick={() => onPick(cellFilter(rows, r.key, cols, c.key))}
-                      >
-                        <Value shade={shade} count={n} share={cell(i, j)} f={f} />
-                      </Pickable>
-                    ) : (
-                      <Value shade={shade} count={0} share={0} f={f} />
-                    )}
-                  </Cell>
-                );
-              })}
+                    {cutLabel(c.label)}
+                  </Pickable>
+                </ColumnHeader>
+              ))}
               {table.showOther && (
-                <RestCell shade={shade} count={table.other[i]} of={r.count} f={f} />
+                <ColumnHeader label={f.otherHint(common.colLabel)} className={narrow}>
+                  <Folded>{f.otherLabel}</Folded>
+                </ColumnHeader>
               )}
               {table.showNoValue && (
-                <RestCell shade={shade} count={table.noValue[i]} of={r.count} f={f} />
+                <ColumnHeader label={f.noValueHint(common.colLabel)} className={narrow}>
+                  <Folded>{f.noValueLabel}</Folded>
+                </ColumnHeader>
               )}
-              <td className={totalCell} {...labelHover(f.rowTotalHint, common.onHover)}>
-                {f.count(r.count)}
-              </td>
+              <ColumnHeader label={f.rowTotalHint} className={totalLabel}>
+                {f.totalLabel}
+              </ColumnHeader>
             </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            {/* Each column's records in all rows, including rows not shown. */}
-            <th
-              scope="row"
-              className={cn(th, totalLabel)}
-              {...labelHover(f.columnTotalHint, common.onHover)}
-            >
-              {f.totalLabel}
-            </th>
-            {table.cols.map((c, j) => (
-              <td key={j} className={totalCell} {...labelHover(f.columnTotalHint, common.onHover)}>
-                {f.count(c.count)}
-              </td>
+          </thead>
+          <tbody>
+            {table.rows.map((r, i) => (
+              <tr key={i}>
+                <RowHeader line={r} axis={rows} common={common} />
+                {table.cols.map((c, j) => {
+                  const n = table.counts[i][j];
+                  const title = f.cell(r.label, c.label, n, r.count);
+                  return (
+                    <Cell
+                      key={j}
+                      intensity={intensity(cell(i, j))}
+                      scale={scale}
+                      tip={
+                        shade === 'column'
+                          ? f.cellTip(c.label, n, measure('column', n, r.count, c.count), 'column')
+                          : f.cellTip(c.label, n, measure('row', n, r.count, c.count), 'row')
+                      }
+                      // An empty cell shows the table's grey with a muted 0.
+                      className={n > 0 ? undefined : 'g-text-slate-400'}
+                    >
+                      {n > 0 ? (
+                        <Pickable
+                          on={interactive && canFilterCell(rows, r.key, cols, c.key)}
+                          label={title}
+                          onClick={() => onPick(cellFilter(rows, r.key, cols, c.key))}
+                        >
+                          <Value shade={shade} count={n} share={cell(i, j)} f={f} />
+                        </Pickable>
+                      ) : (
+                        <Value shade={shade} count={0} share={0} f={f} />
+                      )}
+                    </Cell>
+                  );
+                })}
+                {table.showOther && (
+                  <RestCell shade={shade} count={table.other[i]} of={r.count} f={f} />
+                )}
+                {table.showNoValue && (
+                  <RestCell shade={shade} count={table.noValue[i]} of={r.count} f={f} />
+                )}
+                <TotalCell hint={f.rowTotalHint}>{f.count(r.count)}</TotalCell>
+              </tr>
             ))}
-            {table.showOther && (
-              <td className={totalCell} {...labelHover(f.columnTotalHint, common.onHover)}>
-                {table.otherTotal === null ? '' : f.count(table.otherTotal)}
-              </td>
-            )}
-            {table.showNoValue && (
-              <td className={totalCell} {...labelHover(f.columnTotalHint, common.onHover)}>
-                {table.noValueTotal === null ? '' : f.count(table.noValueTotal)}
-              </td>
-            )}
-            {/* All records under the filter. */}
-            <td className={totalCell} {...labelHover(f.allHint, common.onHover)}>
-              {f.count(table.total)}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
+          </tbody>
+          <tfoot>
+            <tr>
+              {/* Each column's records in all rows, including rows not shown. */}
+              <Tip title={f.columnTotalHint}>
+                <th scope="row" className={cn(th, totalLabel)}>
+                  {f.totalLabel}
+                </th>
+              </Tip>
+              {table.cols.map((c, j) => (
+                <TotalCell key={j} hint={f.columnTotalHint}>
+                  {f.count(c.count)}
+                </TotalCell>
+              ))}
+              {table.showOther && (
+                <TotalCell hint={f.columnTotalHint}>
+                  {table.otherTotal === null ? '' : f.count(table.otherTotal)}
+                </TotalCell>
+              )}
+              {table.showNoValue && (
+                <TotalCell hint={f.columnTotalHint}>
+                  {table.noValueTotal === null ? '' : f.count(table.noValueTotal)}
+                </TotalCell>
+              )}
+              {/* All records under the filter. */}
+              <TotalCell hint={f.allHint}>{f.count(table.total)}</TotalCell>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </TooltipProvider>
   );
 }
 
@@ -425,99 +429,76 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
   const ranks = Array.from({ length: table.width }, (_, i) => i + 1);
 
   return (
-    <div className="g-overflow-auto">
-      <table
-        aria-label={common.caption}
-        className="g-w-full g-text-sm g-border-collapse"
-        onMouseLeave={() => common.onHover?.(null)}
-      >
-        <thead>
-          <tr>
-            <th scope="col" className={th}>
-              {f.corner(common.rowLabel, common.colLabel)}
-            </th>
-            {/* Each row's values in order, most frequent first. */}
-            {ranks.map((k) => (
-              <th key={k} scope="col" className={th}>
-                {f.count(k)}
+    <TooltipProvider delayDuration={0}>
+      <div className="g-overflow-auto">
+        <table aria-label={common.caption} className="g-w-full g-text-sm g-border-collapse">
+          <thead>
+            <tr>
+              <th scope="col" className={th}>
+                {f.corner(common.rowLabel, common.colLabel)}
               </th>
-            ))}
-            {table.showOther && (
-              <th
-                scope="col"
-                className={cn(th, 'g-text-end', narrow)}
-                {...labelHover(f.otherHint(common.colLabel), common.onHover)}
-              >
-                <Folded>{f.otherLabel}</Folded>
-              </th>
-            )}
-            {table.showNoValue && (
-              <th
-                scope="col"
-                className={cn(th, 'g-text-end', narrow)}
-                {...labelHover(f.noValueHint(common.colLabel), common.onHover)}
-              >
-                <Folded>{f.noValueLabel}</Folded>
-              </th>
-            )}
-            <th
-              scope="col"
-              className={cn(th, 'g-text-end', totalLabel)}
-              {...labelHover(f.rowTotalHint, common.onHover)}
-            >
-              {f.totalLabel}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {table.rows.map((r, i) => (
-            <tr key={i}>
-              <RowHeader line={r} axis={rows} common={common} />
-              {ranks.map((k) => {
-                const item = r.items[k - 1];
-                if (!item) return <td key={k} className={grid} />;
-                const share = r.count ? item.count / r.count : 0;
-                const title = f.cell(r.label, item.label, item.count, r.count);
-                return (
-                  <Cell
-                    key={k}
-                    intensity={intensity(value(item.count, r.count)) || MIN_INTENSITY}
-                    scale={scale}
-                    onLeave={() => common.onHover?.(null)}
-                    onHover={() =>
-                      common.onHover?.({
-                        row: r.label,
-                        column: item.label,
-                        count: item.count,
-                        share,
-                        of: r.label,
-                      })
-                    }
-                    className="g-text-start g-min-w-[7rem] g-max-w-[10rem]"
-                  >
-                    <Pickable
-                      on={interactive && canFilterCell(rows, r.key, cols, item.key)}
-                      label={title}
-                      onClick={() => onPick(cellFilter(rows, r.key, cols, item.key))}
-                    >
-                      <span className="g-block g-truncate">{item.label}</span>
-                      <span className="g-block g-text-xs g-truncate">
-                        <Value shade={shade} count={item.count} share={share} f={f} />
-                      </span>
-                    </Pickable>
-                  </Cell>
-                );
-              })}
-              {table.showOther && <RestCell shade={shade} count={r.other} of={r.count} f={f} />}
-              {table.showNoValue && <RestCell shade={shade} count={r.noValue} of={r.count} f={f} />}
-              <td className={totalCell} {...labelHover(f.rowTotalHint, common.onHover)}>
-                {f.count(r.count)}
-              </td>
+              {/* Each row's values in order, most frequent first. */}
+              {ranks.map((k) => (
+                <th key={k} scope="col" className={th}>
+                  {f.count(k)}
+                </th>
+              ))}
+              {table.showOther && (
+                <ColumnHeader label={f.otherHint(common.colLabel)} className={narrow}>
+                  <Folded>{f.otherLabel}</Folded>
+                </ColumnHeader>
+              )}
+              {table.showNoValue && (
+                <ColumnHeader label={f.noValueHint(common.colLabel)} className={narrow}>
+                  <Folded>{f.noValueLabel}</Folded>
+                </ColumnHeader>
+              )}
+              <ColumnHeader label={f.rowTotalHint} className={totalLabel}>
+                {f.totalLabel}
+              </ColumnHeader>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {table.rows.map((r, i) => (
+              <tr key={i}>
+                <RowHeader line={r} axis={rows} common={common} />
+                {ranks.map((k) => {
+                  const item = r.items[k - 1];
+                  if (!item) return <td key={k} className={grid} />;
+                  const share = r.count ? item.count / r.count : 0;
+                  const title = f.cell(r.label, item.label, item.count, r.count);
+                  return (
+                    <Cell
+                      key={k}
+                      intensity={intensity(value(item.count, r.count)) || MIN_INTENSITY}
+                      scale={scale}
+                      tip={f.cellTip(item.label, item.count, share, 'row')}
+                      className="g-text-start g-min-w-[7rem] g-max-w-[10rem]"
+                    >
+                      <Pickable
+                        on={interactive && canFilterCell(rows, r.key, cols, item.key)}
+                        label={title}
+                        onClick={() => onPick(cellFilter(rows, r.key, cols, item.key))}
+                      >
+                        <span className="g-block g-truncate">{item.label}</span>
+                        <span className="g-block g-text-xs g-truncate">
+                          <Value shade={shade} count={item.count} share={share} f={f} />
+                        </span>
+                      </Pickable>
+                    </Cell>
+                  );
+                })}
+                {table.showOther && <RestCell shade={shade} count={r.other} of={r.count} f={f} />}
+                {table.showNoValue && (
+                  <RestCell shade={shade} count={r.noValue} of={r.count} f={f} />
+                )}
+                <TotalCell hint={f.rowTotalHint}>{f.count(r.count)}</TotalCell>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </TooltipProvider>
   );
 }
 
@@ -539,45 +520,6 @@ export function Legend({ shade }: { shade: Shade }) {
         }}
       />
       <FormattedMessage id={`dashboard.crosstab.legend.${id}High`} />
-    </div>
-  );
-}
-
-/**
- * The cell under the pointer, in a black bar floating at the bottom centre of the card: shown at once,
- * where a tooltip would wait. "Denmark × Human observation", then "145 occurrences · 87% of Denmark".
- */
-export function HoverBar({ hover }: { hover: Hover | null }) {
-  const intl = useIntl();
-  const f = useFormatters();
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      className={cn(
-        'g-pointer-events-none g-absolute g-bottom-3 g-left-1/2 -g-translate-x-1/2 g-z-10 g-max-w-[90%] g-rounded-md g-bg-slate-900 g-px-3 g-py-2 g-text-center g-text-sm g-text-white g-shadow-lg',
-        !hover && 'g-hidden'
-      )}
-    >
-      {hover && 'label' in hover && <div className="g-font-semibold">{hover.label}</div>}
-      {hover && 'row' in hover && (
-        <>
-          <div className="g-truncate g-font-semibold">
-            {intl.formatMessage(
-              { id: 'dashboard.crosstab.title' },
-              { rows: hover.row, cols: hover.column }
-            )}
-          </div>
-          <div>
-            {intl.formatMessage({ id: 'dashboard.crosstab.hoverCount' }, { count: hover.count })}
-            {' · '}
-            {intl.formatMessage(
-              { id: 'dashboard.crosstab.hoverShare' },
-              { share: f.share(hover.share), of: hover.of }
-            )}
-          </div>
-        </>
-      )}
     </div>
   );
 }

@@ -61,8 +61,8 @@
     "otherHint": "Records with a value for {dimension} that isn't one of the columns.",
     "noValueHint": "Records with no value for {dimension}.",
     "rowsShown": "Rows {from}–{to} of {total}",
-    "hoverCount": "{count, plural, one {# occurrence} other {# occurrences}}",
-    "hoverShare": "{share} of {of}",
+    "shareOfRow": "{share} of row",
+    "shareOfColumn": "{share} of column",
     "legend": {
       "countLow": "Fewer records",
       "countHigh": "More records",
