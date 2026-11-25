@@ -364,6 +364,9 @@ export function EstablishmentMeans({
         detailsRoute,
         currentFilter,
         fieldName: 'establishmentMeans',
+        // Facets count by lineage, so a record is counted under its concept and every broader one:
+        // the slices overlap and an Other slice would be wrong.
+        disableOther: true,
         facetSize: 10,
         options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
         includeMapPredicate: true,
@@ -404,6 +407,9 @@ export function Pathway({
         detailsRoute,
         currentFilter,
         fieldName: 'pathway',
+        // Facets count by lineage, so a record is counted under its concept and every broader one:
+        // the slices overlap and an Other slice would be wrong.
+        disableOther: true,
         facetSize: 10,
         options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
         includeMapPredicate: true,
@@ -439,6 +445,9 @@ export function DegreeOfEstablishment({
         detailsRoute,
         currentFilter,
         fieldName: 'degreeOfEstablishment',
+        // Facets count by lineage, so a record is counted under its concept and every broader one:
+        // the slices overlap and an Other slice would be wrong.
+        disableOther: true,
         facetSize: 10,
         options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
         includeMapPredicate: true,
@@ -774,6 +783,9 @@ export function Sex({
         detailsRoute,
         currentFilter,
         fieldName: 'sex',
+        // Facets count by lineage, so a record is counted under its concept and every broader one:
+        // the slices overlap and an Other slice would be wrong.
+        disableOther: true,
         facetSize: 10,
         options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
         includeMapPredicate: true,

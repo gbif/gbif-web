@@ -99,6 +99,9 @@ export const InstitutionCodes = getStringChart({
 
 export const NucleotideSequenceTargetGene = getStringChart({
   fieldName: 'nucleotideSequenceTargetGene',
+  // Facets count by lineage, so a record is counted under its concept and every broader one: the
+  // slices overlap and an Other slice would be wrong.
+  disableOther: true,
   title: (
     <FormattedMessage id="filters.nucleotideSequenceTargetGene.name" defaultMessage="Target gene" />
   ),
@@ -428,6 +431,9 @@ export const GeoreferencedBy = getStringChart({
 
 export const LifeStage = getStringChart({
   fieldName: 'lifeStage',
+  // Facets count by lineage, so a record is counted under its concept and every broader one: the
+  // slices overlap and an Other slice would be wrong.
+  disableOther: true,
   title: <FormattedMessage id="filters.lifeStage.name" defaultMessage="Life stage" />,
   options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
