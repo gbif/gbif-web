@@ -186,12 +186,12 @@ function Tip({ title, children }: { title: React.ReactNode; children: React.Reac
 const totalLabel = 'g-font-medium g-text-slate-700';
 const totalCell = cn(rest, 'g-text-slate-700 g-font-medium');
 /**
- * A column only as wide as its longest word or number, with its label folded onto a line per word
- * ("No / value"), so the short Other and No value columns don't take room from the values.
+ * A column only as wide as its label, kept on one line ("No value"), so the short Other and No value
+ * columns don't take spare width from the values.
  */
 const narrow = 'g-w-[1%]';
-const Folded = ({ children }: { children: React.ReactNode }) => (
-  <span className="g-inline-block g-w-min">{children}</span>
+const OneLine = ({ children }: { children: React.ReactNode }) => (
+  <span className="g-whitespace-nowrap">{children}</span>
 );
 
 /** Column labels longer than this are cut, with the whole label in the tooltip. */
@@ -287,12 +287,12 @@ export function Heatmap({ table, ...common }: CommonProps & { table: Table }) {
               ))}
               {table.showOther && (
                 <ColumnHeader label={f.otherHint(common.colLabel)} className={narrow}>
-                  <Folded>{f.otherLabel}</Folded>
+                  <OneLine>{f.otherLabel}</OneLine>
                 </ColumnHeader>
               )}
               {table.showNoValue && (
                 <ColumnHeader label={f.noValueHint(common.colLabel)} className={narrow}>
-                  <Folded>{f.noValueLabel}</Folded>
+                  <OneLine>{f.noValueLabel}</OneLine>
                 </ColumnHeader>
               )}
               <ColumnHeader label={f.rowTotalHint} className={totalLabel}>
@@ -445,12 +445,12 @@ export function RankedHeatmap({ table, ...common }: CommonProps & { table: Ranke
               ))}
               {table.showOther && (
                 <ColumnHeader label={f.otherHint(common.colLabel)} className={narrow}>
-                  <Folded>{f.otherLabel}</Folded>
+                  <OneLine>{f.otherLabel}</OneLine>
                 </ColumnHeader>
               )}
               {table.showNoValue && (
                 <ColumnHeader label={f.noValueHint(common.colLabel)} className={narrow}>
-                  <Folded>{f.noValueLabel}</Folded>
+                  <OneLine>{f.noValueLabel}</OneLine>
                 </ColumnHeader>
               )}
               <ColumnHeader label={f.rowTotalHint} className={totalLabel}>
