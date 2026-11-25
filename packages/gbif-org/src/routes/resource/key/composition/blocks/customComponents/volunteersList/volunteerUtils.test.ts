@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { getBadgeYears, parseBoolean, parsePositiveInt } from './volunteerUtils';
+import {
+  getBadgeYears,
+  isActiveTerm,
+  parseBoolean,
+  parsePositiveInt,
+  resolveVolunteerSettings,
+} from './volunteerUtils';
 
 const badges = [
   { title: 'Translator', year: 2026 },
@@ -40,5 +46,43 @@ describe('settings parsing', () => {
     expect(parseBoolean(true)).toBe(true);
     expect(parseBoolean('no')).toBe(false);
     expect(parseBoolean(undefined)).toBe(false);
+  });
+});
+
+describe('isActiveTerm', () => {
+  const now = new Date('2026-06-15T12:00:00Z');
+  it('hides ended terms only', () => {
+    expect(isActiveTerm(null, now)).toBe(true);
+    expect(isActiveTerm({ end: null }, now)).toBe(true);
+    expect(isActiveTerm({ end: '2026-06-15' }, now)).toBe(true);
+    expect(isActiveTerm({ end: '2026-06-14' }, now)).toBe(false);
+  });
+});
+
+describe('resolveVolunteerSettings', () => {
+  it('defaults the role of the legacy block types', () => {
+    expect(resolveVolunteerSettings('translatorsList', { tablestyle: 'x' }).role).toBe(
+      'TRANSLATOR'
+    );
+    expect(resolveVolunteerSettings('ambassadorsList', null).role).toBe('AMBASSADOR');
+    expect(resolveVolunteerSettings('mentorsList', undefined).role).toBe('MENTOR');
+  });
+
+  it('lets a role in the settings win, but not an empty or null one', () => {
+    expect(resolveVolunteerSettings('translatorsList', { role: 'REVIEWER' }).role).toBe('REVIEWER');
+    expect(resolveVolunteerSettings('translatorsList', { role: null }).role).toBe('TRANSLATOR');
+    expect(resolveVolunteerSettings('translatorsList', { role: '  ' }).role).toBe('TRANSLATOR');
+    expect(resolveVolunteerSettings('translatorsList', { role: 5 }).role).toBe('TRANSLATOR');
+  });
+
+  it('has no role for the generic block type unless configured', () => {
+    expect(resolveVolunteerSettings('volunteersList', {}).role).toBeUndefined();
+    expect(resolveVolunteerSettings('volunteersList', { role: 'TRAINER' }).role).toBe('TRAINER');
+  });
+
+  it('keeps the other settings', () => {
+    expect(
+      resolveVolunteerSettings('volunteersList', { role: 'TRAINER', badgeType: 'Trainer' })
+    ).toMatchObject({ badgeType: 'Trainer' });
   });
 });

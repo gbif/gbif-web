@@ -1,6 +1,7 @@
 import { GraphQLError } from 'graphql';
 import { NotFoundError } from '../../helpers/GraphQL404Error';
-import { isPublicDirectoryPerson } from './publicDirectoryPersons';
+import { getDirectoryAccess } from './publicDirectoryPersons';
+import { isActiveTerm } from './activeTerm';
 import { VOLUNTEER_ROLES } from './validGbifRoles';
 
 /**
@@ -10,6 +11,10 @@ import { VOLUNTEER_ROLES } from './validGbifRoles';
  * context: An object shared by all resolvers in a GraphQL operation. We use the context to contain per-request state such as authentication information and access our data sources.
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
+// every row of a list resolves its person with a separate upstream call, so the page size is capped
+const MAX_LIMIT = 1000;
+const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+
 export default {
   Query: {
     directoryVolunteers: (parent, { role, limit, offset }, { dataSources }) => {
@@ -19,7 +24,11 @@ export default {
           extensions: { code: 'BAD_USER_INPUT' },
         });
       }
-      return dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role } });
+      return dataSources.directoryPersonAPI
+        .searchPeopleByRole({
+          query: { limit: clamp(limit ?? MAX_LIMIT, 1, MAX_LIMIT), offset: Math.max(offset ?? 0, 0), role },
+        })
+        .then((response) => ({ ...response, results: response.results.filter((r) => isActiveTerm(r.term)) }));
     },
     directoryAwardWinners: (parent, { award = [] }, { dataSources }) =>
       dataSources.directoryPersonAPI
@@ -50,11 +59,13 @@ export default {
           );
         }),
     directoryContact: async (parent, { id }, { dataSources }) => {
-      if (!(await isPublicDirectoryPerson(id, dataSources))) {
+      const access = await getDirectoryAccess(id, dataSources);
+      if (!access) {
         throw new NotFoundError();
       }
       return dataSources.directoryPersonAPI.getDirectoryContactByKey({
         key: id,
+        restricted: access === 'volunteer',
       });
     },
   },
@@ -63,11 +74,13 @@ export default {
       dataSources.directoryPersonAPI.getVolunteerByKey({ key: personId }),
   },
   DirectoryContact: {
-    profilePicture: ({ id }, args, { dataSources }) =>
-      dataSources.directoryPersonAPI.getProfilePicture({
-        key: id,
-        query: { ...args, base64: true },
-      }),
+    profilePicture: ({ id, restricted }, args, { dataSources }) =>
+      restricted
+        ? null
+        : dataSources.directoryPersonAPI.getProfilePicture({
+            key: id,
+            query: { ...args, base64: true },
+          }),
     participants: ({ participants }, args, { dataSources }) => {
       return Promise.all(
         participants.map((participant) =>

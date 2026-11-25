@@ -33,7 +33,9 @@ function createDataSources({ failNodes = false } = {}) {
   const directoryPersonAPI = {
     searchPeopleByRole: async ({ query }) => {
       calls.volunteerRoles.push(query.role);
-      return { results: query.role === 'TRANSLATOR' ? [{ personId: 11 }] : [] };
+      return {
+        results: query.role === 'TRANSLATOR' ? [{ personId: 11 }, { personId: 12, term: { end: '2015-01-01' } }] : [],
+      };
     },
   };
   return { calls, dataSources: { participantAPI: { directoryAPI }, nodeAPI, directoryPersonAPI } };
@@ -54,7 +56,7 @@ describe('isPublicDirectoryPerson', () => {
 
   it('rejects people not shown on the website', async () => {
     const { dataSources } = createDataSources();
-    const ids = ['10', '0', 'abc', '1 ', undefined];
+    const ids = ['10', '12', '0', 'abc', '1 ', undefined];
     const results = await Promise.all(ids.map((id) => isPublicDirectoryPerson(id, dataSources)));
     assert.deepStrictEqual(
       results,
@@ -74,13 +76,7 @@ describe('isPublicDirectoryPerson', () => {
   it('includes volunteers for every volunteer role', async () => {
     const { calls, dataSources } = createDataSources();
     await isPublicDirectoryPerson('11', dataSources);
-    assert.deepStrictEqual(calls.volunteerRoles.sort(), [
-      'AMBASSADOR',
-      'MENTOR',
-      'REVIEWER',
-      'TRAINER',
-      'TRANSLATOR',
-    ]);
+    assert.deepStrictEqual(calls.volunteerRoles.sort(), ['AMBASSADOR', 'MENTOR', 'REVIEWER', 'TRAINER', 'TRANSLATOR']);
   });
 
   it('caches the allowlist and shares concurrent loads', async () => {

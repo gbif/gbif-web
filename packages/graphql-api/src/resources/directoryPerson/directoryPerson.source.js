@@ -11,7 +11,7 @@ import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey } from '@/helpers/utils';
 import { urlPath } from '@/helpers/urlPath';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
-import { VALID_GBIF_ROLES } from './validGbifRoles';
+import { VALID_GBIF_ROLES, VOLUNTEER_ROLES } from './validGbifRoles';
 
 // The directory person id is always an integer. Reject anything else so it can
 // never be used to shape the signed upstream path.
@@ -37,15 +37,7 @@ export function reducePersonRole(personRole) {
 // One shape for all volunteer lists (ambassadors, mentors, trainers, translators, reviewers).
 export function reduceVolunteer(person) {
   return {
-    ...pick(person, [
-      'firstName',
-      'surname',
-      'email',
-      'orcidId',
-      'institutionName',
-      'countryCode',
-      'languages',
-    ]),
+    ...pick(person, ['firstName', 'surname', 'email', 'orcidId', 'institutionName', 'countryCode', 'languages']),
     certifications: person.certifications?.map((c) => pick(c, ['title', 'year'])),
   };
 }
@@ -83,6 +75,28 @@ export function reduceDirectoryContact(person) {
   };
 }
 
+// Volunteers are published under privacy policy 2.8: name, email, ORCID, affiliation, languages, country
+// and the recognitions they received. Phone, address, job title, picture and non-volunteer roles stay private.
+export function reduceVolunteerContact(person) {
+  const contact = reduceDirectoryContact(person);
+  return {
+    ...pick(contact, [
+      'id',
+      'firstName',
+      'surname',
+      'orcidId',
+      'institutionName',
+      'email',
+      'countryCode',
+      'languages',
+      'certifications',
+    ]),
+    roles: contact.roles.filter((r) => VOLUNTEER_ROLES.includes(r.role)),
+    participants: [],
+    restricted: true,
+  };
+}
+
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {
     super();
@@ -92,7 +106,9 @@ class DirectoryPersonAPI extends RESTDataSource {
 
   willSendRequest(path, request) {
     const header = createSignedGetHeader(path, this.config, { asApp: true });
-    Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
+    Object.keys(header).forEach((x) => {
+      request.headers[x] = header[x];
+    });
     request.headers['User-Agent'] = this.context.userAgent;
     if (this.context.referer) request.headers['referer'] = this.context.referer;
     if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
@@ -103,10 +119,7 @@ class DirectoryPersonAPI extends RESTDataSource {
   }
 
   async searchPeopleByRole({ query }) {
-    const response = await this.get(
-      '/directory/person_role',
-      stringify(query, { indices: false }),
-    );
+    const response = await this.get('/directory/person_role', stringify(query, { indices: false }));
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     response.results = response.results.map(reducePersonRole);
     return response;
@@ -125,8 +138,9 @@ class DirectoryPersonAPI extends RESTDataSource {
     return reduceAwardWinner(await this.getPersonByKey(key));
   }
 
-  async getDirectoryContactByKey({ key }) {
-    return reduceDirectoryContact(await this.getPersonByKey(key));
+  async getDirectoryContactByKey({ key, restricted = false }) {
+    const person = await this.getPersonByKey(key);
+    return restricted ? reduceVolunteerContact(person) : reduceDirectoryContact(person);
   }
 
   async getProfilePicture({ key, query }) {

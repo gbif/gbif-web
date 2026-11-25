@@ -3,6 +3,7 @@
 // Only these may be looked up directly through `directoryContact(id)`.
 
 import { VOLUNTEER_ROLES } from './validGbifRoles';
+import { isActiveTerm } from './activeTerm';
 
 const TTL_MS = 10 * 60 * 1000;
 
@@ -28,12 +29,14 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI, directoryPersonAPI
     directory.getNsgReport(),
     directory.getSecretariatReport(),
     nodeAPI.searchNodes({ query: { limit: 1000 } }),
-    Promise.all(
-      VOLUNTEER_ROLES.map((role) =>
-        directoryPersonAPI.searchPeopleByRole({ query: { limit: 1000, role } }),
-      ),
-    ),
+    Promise.all(VOLUNTEER_ROLES.map((role) => directoryPersonAPI.searchPeopleByRole({ query: { limit: 1000, role } }))),
   ]);
+
+  // People that are only listed as volunteers get a reduced contact (see reduceVolunteerContact).
+  const volunteerIds = volunteers
+    .flatMap((response) => response.results.filter((r) => isActiveTerm(r.term)).map((r) => r.personId))
+    .filter((id) => id != null)
+    .map(String);
 
   const ids = [
     ...participantGroups.flatMap((response) =>
@@ -43,19 +46,21 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI, directoryPersonAPI
     ...nsg.map((member) => member.id),
     ...secretariat.map((member) => member.id),
     ...nodes.results.flatMap((node) => (node.contacts ?? []).map((c) => c.key)),
-    ...volunteers.flatMap((response) => response.results.map((r) => r.personId)),
   ];
 
-  return new Set(ids.filter((id) => id != null).map(String));
+  return {
+    ids: new Set(ids.filter((id) => id != null).map(String)),
+    volunteerIds: new Set(volunteerIds),
+  };
 }
 
 async function getPublicPersonIds(dataSources) {
-  if (cached && cached.expires > Date.now()) return cached.ids;
+  if (cached && cached.expires > Date.now()) return cached;
   if (!pending) {
     pending = loadPublicPersonIds(dataSources)
       .then((ids) => {
-        cached = { ids, expires: Date.now() + TTL_MS };
-        return ids;
+        cached = { ...ids, expires: Date.now() + TTL_MS };
+        return cached;
       })
       .finally(() => {
         pending = null;
@@ -64,9 +69,18 @@ async function getPublicPersonIds(dataSources) {
   return pending;
 }
 
+// 'full': listed in the directory tables or as a node contact, so the whole contact may be shown.
+// 'volunteer': only listed as a volunteer, so only the fields of the volunteer policy may be shown.
+// null: not public.
+export async function getDirectoryAccess(id, dataSources) {
+  const { ids, volunteerIds } = await getPublicPersonIds(dataSources);
+  if (ids.has(String(id))) return 'full';
+  if (volunteerIds.has(String(id))) return 'volunteer';
+  return null;
+}
+
 export async function isPublicDirectoryPerson(id, dataSources) {
-  const ids = await getPublicPersonIds(dataSources);
-  return ids.has(String(id));
+  return (await getDirectoryAccess(id, dataSources)) !== null;
 }
 
 export function clearPublicDirectoryPersonCache() {

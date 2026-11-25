@@ -9,6 +9,7 @@ import { MdtForm } from './customComponents/mdtForm';
 import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
 import { VolunteersList } from './customComponents/volunteersList';
+import { resolveVolunteerSettings } from './customComponents/volunteersList/volunteerUtils';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -52,12 +53,6 @@ export function CustomComponentBlock({ resource }: Props) {
   );
 }
 
-const LEGACY_VOLUNTEER_ROLES: Record<string, string | undefined> = {
-  translatorsList: 'TRANSLATOR',
-  ambassadorsList: 'AMBASSADOR',
-  mentorsList: 'MENTOR',
-};
-
 function CustomComponent({
   resource,
 }: {
@@ -78,10 +73,7 @@ function CustomComponent({
       return (
         <VolunteersList
           title={resource?.title ?? undefined}
-          settings={{
-            role: LEGACY_VOLUNTEER_ROLES[resource.componentType],
-            ...resource?.settings,
-          }}
+          settings={resolveVolunteerSettings(resource.componentType, resource?.settings)}
         />
       );
     case 'graList':

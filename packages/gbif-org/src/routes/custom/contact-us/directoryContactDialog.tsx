@@ -76,18 +76,19 @@ export function DirectoryContactDialog({
 }) {
   return (
     <Dialog open={!!personId} onOpenChange={(open) => !open && onClose()}>
-      <DirectoryContactDialogContent personId={personId} />
+      {/* keyed so that opening another person starts from a clean state instead of showing the previous one */}
+      <DirectoryContactDialogContent key={personId} personId={personId} />
     </Dialog>
   );
 }
 
 export function DirectoryContactDialogContent({ personId }: Props) {
-  const { data, loading, load } = useQuery<DirectoryContactQuery, DirectoryContactQueryVariables>(
-    DIRECTORY_CONTACT_QUERY,
-    {
-      lazyLoad: true,
-    }
-  );
+  const { data, error, loading, load } = useQuery<
+    DirectoryContactQuery,
+    DirectoryContactQueryVariables
+  >(DIRECTORY_CONTACT_QUERY, {
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     if (personId) {
@@ -100,7 +101,9 @@ export function DirectoryContactDialogContent({ personId }: Props) {
     return prepareData(data.directoryContact);
   }, [data?.directoryContact]);
 
-  return <DirectoryContactDialogView person={person} loading={loading} />;
+  // Before the first response nothing has been loaded, which should look the same as loading.
+  const isLoading = loading || (!data && !error);
+  return <DirectoryContactDialogView person={person} loading={isLoading} />;
 }
 
 // Presentational part, so the dialog can be shown with data that doesn't come from the API (e.g. a demo page).
@@ -113,7 +116,21 @@ export function DirectoryContactDialogView({
 }) {
   return (
     <DialogContent className="g-max-h-[90dvh] g-overflow-y-auto g-bg-white g-max-w-[calc(100dvw-4rem)] g-p-4 md:g-p-10 md:g-max-w-lg">
-      {loading && !person && <DirectoryContactDialogSkeleton />}
+      {loading && <DirectoryContactDialogSkeleton />}
+      {!loading && !person && (
+        <>
+          <VisuallyHidden>
+            <DialogHeader>
+              <DialogTitle>
+                <FormattedMessage id="directory.notFound" defaultMessage="Contact not found" />
+              </DialogTitle>
+            </DialogHeader>
+          </VisuallyHidden>
+          <p className="g-text-slate-500">
+            <FormattedMessage id="directory.notFound" defaultMessage="Contact not found" />
+          </p>
+        </>
+      )}
       {!loading && person && (
         <>
           <VisuallyHidden>

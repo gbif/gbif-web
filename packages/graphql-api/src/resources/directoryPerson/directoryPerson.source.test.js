@@ -5,6 +5,7 @@ import {
   reduceDirectoryContact,
   reducePersonRole,
   reduceVolunteer,
+  reduceVolunteerContact,
 } from './directoryPerson.source';
 
 const term = { start: '2020-01-01', end: '2022-01-01', createdBy: 'staff@x' };
@@ -99,6 +100,34 @@ describe('directory person reducers', () => {
         { role: 'INVOICE_CONTACT', term: cleanTerm },
       ],
       participants: [{ participantId: 5 }],
+    });
+  });
+
+  it('limits the contact of volunteers to the fields of the volunteer policy', () => {
+    const person = {
+      ...fullPerson,
+      roles: [
+        { role: 'TRANSLATOR', term },
+        { role: 'INVOICE_CONTACT', term },
+        { role: 'MENTOR', term },
+      ],
+    };
+    assert.deepStrictEqual(reduceVolunteerContact(person), {
+      id: 1,
+      firstName: 'Ada',
+      surname: 'Lovelace',
+      orcidId: '0000-0001',
+      institutionName: 'Institute',
+      email: 'ada@example.org',
+      countryCode: 'DK',
+      languages: ['en'],
+      certifications: [{ title: 'Cert', year: 2021 }],
+      roles: [
+        { role: 'TRANSLATOR', term: cleanTerm },
+        { role: 'MENTOR', term: cleanTerm },
+      ],
+      participants: [],
+      restricted: true,
     });
   });
 

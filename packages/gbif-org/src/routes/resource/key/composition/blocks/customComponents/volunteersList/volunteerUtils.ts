@@ -35,3 +35,30 @@ export function parsePositiveInt(value: unknown): number | undefined {
 export function parseBoolean(value: unknown): boolean {
   return value === true || (typeof value === 'string' && value.trim().toLowerCase() === 'true');
 }
+
+// Same rule as the API: no end date, or an end date of today or later, means the term is active.
+export function isActiveTerm(
+  term?: { end?: string | null } | null,
+  now: Date = new Date()
+): boolean {
+  const end = term?.end;
+  if (!end) return true;
+  return String(end).slice(0, 10) >= now.toISOString().slice(0, 10);
+}
+
+export const LEGACY_VOLUNTEER_ROLES: Record<string, string | undefined> = {
+  translatorsList: 'TRANSLATOR',
+  ambassadorsList: 'AMBASSADOR',
+  mentorsList: 'MENTOR',
+};
+
+// Block settings win over the legacy default role, but an empty or null role in the settings does not.
+export function resolveVolunteerSettings<T extends Record<string, unknown>>(
+  componentType: string,
+  settings?: T | null
+): Omit<T, 'role'> & { role?: string } {
+  const role = typeof settings?.role === 'string' ? settings.role.trim() : '';
+  return { ...settings, role: role || LEGACY_VOLUNTEER_ROLES[componentType] } as Omit<T, 'role'> & {
+    role?: string;
+  };
+}

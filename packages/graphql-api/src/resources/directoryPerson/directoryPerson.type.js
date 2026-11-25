@@ -3,11 +3,7 @@ import { gql } from 'graphql-tag';
 // Each list has its own types with only the fields the website shows.
 const typeDef = gql`
   extend type Query {
-    directoryVolunteers(
-      role: String!
-      limit: Int
-      offset: Int
-    ): DirectoryVolunteerSearchResults
+    directoryVolunteers(role: String!, limit: Int, offset: Int): DirectoryVolunteerSearchResults
     directoryAwardWinners(award: [String]): [DirectoryAwardWinner]!
     directoryContact(id: ID!): DirectoryContact
   }

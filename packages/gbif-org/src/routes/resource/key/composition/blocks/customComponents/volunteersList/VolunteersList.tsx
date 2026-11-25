@@ -9,13 +9,16 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { DirectoryContactDialog } from '@/routes/custom/contact-us/directoryContactDialog';
 import { parseTableStyle } from '../tableUtils';
-import { getBadgeYears, parseBoolean, parsePositiveInt } from './volunteerUtils';
+import { getBadgeYears, isActiveTerm, parseBoolean, parsePositiveInt } from './volunteerUtils';
 
 const DIRECTORY_VOLUNTEERS_QUERY = /* GraphQL */ `
   query DirectoryVolunteers($role: String!) {
     directoryVolunteers(role: $role, limit: 1000) {
       results {
         personId
+        term {
+          end
+        }
         Person {
           firstName
           surname
@@ -62,7 +65,7 @@ export function VolunteersList({
   settings?: VolunteersListSettings | null;
   className?: string;
 }) {
-  const role = settings?.role?.trim().toUpperCase();
+  const role = typeof settings?.role === 'string' ? settings.role.trim().toUpperCase() : undefined;
   const { data, error, loading, load } = useQuery<
     DirectoryVolunteersQuery,
     DirectoryVolunteersQueryVariables
@@ -108,7 +111,7 @@ export function VolunteersTable({
   onSelectPerson: (personId?: string) => void;
 }) {
   const intl = useIntl();
-  const role = settings?.role?.trim().toUpperCase();
+  const role = typeof settings?.role === 'string' ? settings.role.trim().toUpperCase() : undefined;
   const badgeType = settings?.badgeType;
   const badgeMaxAgeYears = parsePositiveInt(settings?.badgeMaxAgeYears);
   const onlyWithBadges = parseBoolean(settings?.onlyWithBadges);
@@ -118,28 +121,30 @@ export function VolunteersTable({
 
   const rows = useMemo(
     () =>
-      (data?.directoryVolunteers?.results ?? []).map((r) => {
-        const p = r?.Person;
-        const countryName = p?.countryCode
-          ? intl.formatMessage({
-              id: `enums.countryCode.${p.countryCode}`,
-              defaultMessage: p.countryCode,
-            })
-          : '';
-        return {
-          personId: r?.personId != null ? String(r.personId) : undefined,
-          name: [p?.firstName, p?.surname].filter(Boolean).join(' '),
-          surname: p?.surname ?? '',
-          countryCode: p?.countryCode,
-          countryName,
-          languages: p?.languages?.filter((l): l is string => !!l) ?? [],
-          badgeYears: getBadgeYears({
-            badges: p?.certifications,
-            badgeType,
-            maxAgeYears: badgeMaxAgeYears,
-          }),
-        };
-      }),
+      (data?.directoryVolunteers?.results ?? [])
+        .filter((r) => isActiveTerm(r?.term))
+        .map((r) => {
+          const p = r?.Person;
+          const countryName = p?.countryCode
+            ? intl.formatMessage({
+                id: `enums.countryCode.${p.countryCode}`,
+                defaultMessage: p.countryCode,
+              })
+            : '';
+          return {
+            personId: r?.personId != null ? String(r.personId) : undefined,
+            name: [p?.firstName, p?.surname].filter(Boolean).join(' '),
+            surname: p?.surname ?? '',
+            countryCode: p?.countryCode,
+            countryName,
+            languages: p?.languages?.filter((l): l is string => !!l) ?? [],
+            badgeYears: getBadgeYears({
+              badges: p?.certifications,
+              badgeType,
+              maxAgeYears: badgeMaxAgeYears,
+            }),
+          };
+        }),
     [data, intl, badgeType, badgeMaxAgeYears]
   );
 
@@ -214,7 +219,14 @@ export function VolunteersTable({
                         : 'none'
                     }
                     className="g-p-4 g-text-start g-whitespace-nowrap g-cursor-pointer hover:g-bg-gray-100"
+                    tabIndex={0}
                     onClick={() => handleSort(col.key)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleSort(col.key);
+                      }
+                    }}
                   >
                     {col.label}
                     <span className="g-ms-1 g-inline-block">
