@@ -728,7 +728,16 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         });
         apiTokenRequest.current = request;
       }
-      const fresh = await apiTokenRequest.current;
+      let fresh: ApiToken;
+      try {
+        fresh = await apiTokenRequest.current;
+      } catch (error) {
+        if (error instanceof UserError && error.type === 'UNKNOWN_USER') {
+          apiToken.current = null;
+          setUser(null);
+        }
+        throw error;
+      }
       apiToken.current = { ...fresh, userName };
       return fresh.token;
     },
