@@ -31,6 +31,6 @@
   "searchTaxa": "Suche nach Taxa.",
   "matchSpecies": "Einen Namen mit der GBIF Backbone Taxonomie abgleichen",
   "singleDerivedDataset": "Einen einzelnen abgeleiteten Datensatz abrufen",
-  "parseName": "",
+  "parseName": "Einen einzelnen wissenschaftlichen Namen analysieren",
   "derivedDatasetContributingDatasets": "Datensätze abrufen, die Einträge zu einem abgeleiteten Datensatz beitragen"
 }
