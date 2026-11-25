@@ -3,27 +3,27 @@
   "group": {
     "executiveCommittee": {
       "title": "Direktionen",
-      "description": ""
+      "description": "Forretningsudvalget handler på vegne af bestyrelsen, når denne ikke er samlet, og inden for de ansvarsområder, som bestyrelsen har delegeret til den. Blandt dets opgaver er at overvåge sekretariatets arbejde med at gennemføre de beslutninger, som bestyrelsen har truffet, herunder gennemførelsen af den strategiske plan og arbejdsprogrammet samt forvaltningen af budgettet."
     },
     "scienceCommittee": {
       "title": "Videnskabelig komité",
-      "description": ""
+      "description": "GBIF’s Videnskabsudvalg er et rådgivende udvalg, der fører tilsyn med udviklingen og fremskridtene i GBIF’s arbejdsprogram og fremsætter anbefalinger til bestyrelsen, forretningsudvalget og sekretariatet. Du kan læse udvalgets kommissorium [her.](/document/80877/current-terms-of-reference-for-the-science-committee)"
     },
     "budgetCommittee": {
       "title": "Budgetudvalg",
-      "description": ""
+      "description": "Budgetudvalget er et rådgivende udvalg, der beskæftiger sig med forskellige økonomiske spørgsmål i forbindelse med forvaltningen af GBIF’s midler. Udvalget har blandt andet til opgave at føre tilsyn med revisionen af årsregnskabet, der forelægges bestyrelsen, og at give vejledning i forbindelse med udvælgelsen af GBIF’s revisionsfirma. Udvalget fremsætter anbefalinger til bestyrelsen, forretningsudvalget og sekretariatet. Dets kommissorium kan findes [her.](/document/80669/terms-of-reference-for-the-gbif-budget-committee)"
     },
     "nsg": {
       "title": "Nodes Styregruppe",
-      "description": ""
+      "description": "Node-styringsgruppen (NSG), der blev etableret i 2011, består af formanden og næstformændene for [Deltagernode-managerudvalget](/contact-us/directory?group=nodesCommittee) ledsaget af en regional repræsentant fra hver af GBIF's seks regioner ([Afrika](/the-gbif-network/africa), [Asien](/the-gbif-network/asia), [Europa og Centralasien](/the-gbif-network/europe), [Latinamerika/Caribien](/the-gbif-network/latin-america), [Nordamerika](/the-gbif-network/north-america) og [Oceanien](/the-gbif-network/oceania)). NSG's mål er at formulere specifikke anbefalinger til relevante GBIF-organer baseret på feedback fra deltagerknudepunkter og at give rådgivning om GBIF's årlige arbejdsprogrammer, som vedrører GBIF-nodernes indsats."
     },
     "nodesCommittee": {
-      "title": "",
-      "description": ""
+      "title": "Udvalget for nodeadministratorer",
+      "description": "Udvalget for deltagernodestyrere (eller Nodekomitéen) er en dynamisk gruppe, der består af de nodestyrere, der er udpeget af alle deltagere (lande og internationale organisationer). Udvalget omfatter tre forpersonsposter, der besættes ved afstemning i bestyrelsen for højst to toårige mandatperioder. Du kan læse udvalgets kommissorium [her](/document/80571/terms-of-reference-for-the-participant-node-managers-committee-nodes)."
     },
     "secretariat": {
       "title": "GBIF sekretariatet",
-      "description": ""
+      "description": "GBIF-sekretariatet, der har til huse på Naturhistorisk Museum i København, Danmark, har til opgave at udarbejde, gennemføre og aflægge rapport om GBIF’s arbejdsprogram. Sekretariatets opgaver omfatter:\n - drift af GBIF-portalen og tilhørende it-\n - koordinering af netværkets aktiviteter vedrørende dataindsamling, offentliggørelse og forvaltning\n - overvågning af datahuller og brugen af GBIF-formidlede data til videnskabelige formål, samt\n - drift af centrale kommunikations- og samarbejdstjenester"
     },
     "voting": {
       "title": "Stemmeberettigede deltagere",
@@ -31,11 +31,11 @@
     },
     "associateCountries": {
       "title": "Deltagende associerede lande",
-      "description": ""
+      "description": "Lande, der har underskrevet GBIFs hensigtserklæring, men ikke yder et økonomisk bidrag til GBIF's kernefonde og ikke har stemmeret i GBIF's bestyrelse."
     },
     "associateParticipants": {
       "title": "Andre associerede deltagere",
-      "description": ""
+      "description": "Mellemstatslige organisationer, internationale organisationer og andre organisationer med international omfangskraft samt økonomier, der har underskrevet GBIFs hensigtserklæring."
     }
   },
   "columns": {
@@ -62,7 +62,7 @@
     "email": "E-mail"
   },
   "award": {
-    "GRA": "",
+    "GRA": "GBIF pris til ph.d.-studerende",
     "EBBE1ST": "1. præmie",
     "EBBE2ND": "2. præmie",
     "EBBE3RD": "3. præmie"
