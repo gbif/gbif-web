@@ -27,7 +27,7 @@ const fullPerson = {
   countryCode: 'DK',
   languages: ['en'],
   areasExpertise: ['TAXONOMY'],
-  certifications: [{ key: 9, title: 'Cert', level: 'A', year: 2021, createdBy: 'staff@x' }],
+  badges: [{ key: 9, title: 'Cert', year: 2021, createdBy: 'staff@x', created: '2021-01-01' }],
   profileDescriptions: [{ description: 'bio', createdBy: 'staff@x', modifiedBy: 'staff@x' }],
   participants: [{ participantId: 5, name: 'internal' }],
   roles: [
@@ -67,7 +67,7 @@ describe('directory person reducers', () => {
       institutionName: 'Institute',
       countryCode: 'DK',
       languages: ['en'],
-      certifications: [{ title: 'Cert', year: 2021 }],
+      badges: [{ title: 'Cert', year: 2021 }],
     });
   });
 
@@ -94,7 +94,7 @@ describe('directory person reducers', () => {
       address: 'Street 1',
       countryCode: 'DK',
       languages: ['en'],
-      certifications: [{ title: 'Cert', year: 2021 }],
+      badges: [{ title: 'Cert', year: 2021 }],
       roles: [
         { role: 'AWARD_WINNER', term: cleanTerm },
         { role: 'INVOICE_CONTACT', term: cleanTerm },
@@ -121,7 +121,7 @@ describe('directory person reducers', () => {
       email: 'ada@example.org',
       countryCode: 'DK',
       languages: ['en'],
-      certifications: [{ title: 'Cert', year: 2021 }],
+      badges: [{ title: 'Cert', year: 2021 }],
       roles: [
         { role: 'TRANSLATOR', term: cleanTerm },
         { role: 'MENTOR', term: cleanTerm },
@@ -133,7 +133,7 @@ describe('directory person reducers', () => {
 
   it('handles people without roles, terms or participants', () => {
     const contact = reduceDirectoryContact({ id: 2 });
-    assert.deepStrictEqual(contact, { id: 2, certifications: undefined, roles: [], participants: [] });
+    assert.deepStrictEqual(contact, { id: 2, badges: undefined, roles: [], participants: [] });
     assert.deepStrictEqual(reduceAwardWinner({ roles: [{ role: 'AWARD_WINNER' }] }).roles, [
       { award: undefined, term: undefined },
     ]);

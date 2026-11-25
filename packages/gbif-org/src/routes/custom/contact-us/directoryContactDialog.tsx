@@ -28,7 +28,7 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
       orcidId
       jobTitle
       languages
-      certifications {
+      badges {
         title
         year
       }
@@ -399,7 +399,7 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
     orcidId: data.orcidId ?? undefined,
     roles,
     languages: data.languages?.filter(notNull) ?? [],
-    badges: (data.certifications ?? []).filter(notNull).map((c) => ({
+    badges: (data.badges ?? []).filter(notNull).map((c) => ({
       title: c.title ?? undefined,
       year: c.year ?? undefined,
     })),

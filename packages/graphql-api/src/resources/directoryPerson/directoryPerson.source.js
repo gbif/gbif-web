@@ -38,7 +38,7 @@ export function reducePersonRole(personRole) {
 export function reduceVolunteer(person) {
   return {
     ...pick(person, ['firstName', 'surname', 'email', 'orcidId', 'institutionName', 'countryCode', 'languages']),
-    certifications: person.certifications?.map((c) => pick(c, ['title', 'year'])),
+    badges: person.badges?.map((c) => pick(c, ['title', 'year'])),
   };
 }
 
@@ -67,7 +67,7 @@ export function reduceDirectoryContact(person) {
       'countryCode',
       'languages',
     ]),
-    certifications: person.certifications?.map((c) => pick(c, ['title', 'year'])),
+    badges: person.badges?.map((c) => pick(c, ['title', 'year'])),
     roles: (person.roles ?? [])
       .filter((r) => VALID_GBIF_ROLES.has(r.role))
       .map((r) => ({ role: r.role, term: pickTerm(r.term) })),
@@ -89,7 +89,7 @@ export function reduceVolunteerContact(person) {
       'email',
       'countryCode',
       'languages',
-      'certifications',
+      'badges',
     ]),
     roles: contact.roles.filter((r) => VOLUNTEER_ROLES.includes(r.role)),
     participants: [],

@@ -35,10 +35,10 @@ const typeDef = gql`
     institutionName: String
     countryCode: String
     languages: [String]
-    certifications: [DirectoryCertification]
+    badges: [DirectoryBadge]
   }
 
-  type DirectoryCertification {
+  type DirectoryBadge {
     title: String
     year: Int
   }
@@ -68,7 +68,7 @@ const typeDef = gql`
     address: String
     countryCode: String
     languages: [String]
-    certifications: [DirectoryCertification]
+    badges: [DirectoryBadge]
     roles: [DirectoryRole]
     profilePicture: String
     participants: [Participant]

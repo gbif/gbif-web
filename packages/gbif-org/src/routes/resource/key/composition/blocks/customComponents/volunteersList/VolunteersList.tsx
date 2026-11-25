@@ -24,7 +24,7 @@ const DIRECTORY_VOLUNTEERS_QUERY = /* GraphQL */ `
           surname
           countryCode
           languages
-          certifications {
+          badges {
             title
             year
           }
@@ -139,7 +139,7 @@ export function VolunteersTable({
             countryName,
             languages: p?.languages?.filter((l): l is string => !!l) ?? [],
             badgeYears: getBadgeYears({
-              badges: p?.certifications,
+              badges: p?.badges,
               badgeType,
               maxAgeYears: badgeMaxAgeYears,
             }),
