@@ -1,6 +1,8 @@
 {
   "numberOfOccurrences": "Number of occurrences",
   "addNew": "New",
+  "searchForChart": "Search for a chart",
+  "noMatchingCharts": "No matching charts",
   "removeEmptyGroup": "Remove empty group",
   "newGroup": "Add new group",
   "invalidLayoutWarning": "The layout was created for a larger screen.",
@@ -34,6 +36,56 @@
   "notVocabularyWarning": "Non-interpreted field. The same concept might appear with multiple spellings.",
   "taxonomicBreakdown": "Taxonomic breakdown",
   "showMoreInfo": "Show more information",
+  "crosstab": {
+    "name": "Two-dimensional heatmap",
+    "title": "{rows} × {cols}",
+    "rows": "Rows",
+    "columns": "Columns",
+    "swap": "Swap rows and columns",
+    "searchDimension": "Search for a dimension",
+    "noMatchingDimensions": "No matching dimensions",
+    "bucketSizeFor": "Bucket size for {dimension}",
+    "corner": "{rows} / {cols}",
+    "range": "{from}–{to}",
+    "cell": "{row} · {column}: {count} ({share})",
+    "shade": "Colour by",
+    "shadeCount": "Count",
+    "shadeRow": "% of row",
+    "shadeColumn": "% of column",
+    "other": "Other",
+    "noValue": "No value",
+    "total": "Total",
+    "rowTotalHint": "Total: the row's records in all columns, including Other and No value.",
+    "columnTotalHint": "Total: the column's records in all rows, including rows that are not shown.",
+    "allHint": "All records that match the filter.",
+    "otherHint": "Records with a value for {dimension} that isn't one of the columns.",
+    "noValueHint": "Records with no value for {dimension}.",
+    "rowsShown": "Rows {from}–{to} of {total}",
+    "shareOfRow": "{share} of row",
+    "shareOfColumn": "{share} of column",
+    "legend": {
+      "countLow": "Fewer records",
+      "countHigh": "More records",
+      "shareLow": "Smaller share",
+      "shareHigh": "Larger share"
+    },
+    "dimension": {
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "notes": {
+      "rowsOther": "{count, plural, one {# record is} other {# records are}} in rows that are not shown, or have no value.",
+      "rowsNotShown": "{count, plural, one {# record is} other {# records are}} in rows that are not shown.",
+      "noRowValue": "{count, plural, one {# record has} other {# records have}} no value for {dimension}.",
+      "columns": "The {n} values with most records are shown as columns, the same on every page. The rest are under other.",
+      "tooManyColumns": "{dimension} has {count} values here, more than the {n} that can be compared across all rows, so each row lists its own {rank} most frequent values.",
+      "multi": "A record can have several values, so it can be counted in several cells.",
+      "shadeColumn": "Colours show each cell's share of all records with that column value.",
+      "shadeColumnShown": "Colours show each cell's share of the column total across the rows shown.",
+      "raised": "The bucket size for {dimension} was raised to {size} to keep the number of buckets manageable.",
+      "window": "{dimension}: values from {from} up to {to} are shown, where most records are. Records outside that range are left out."
+    }
+  },
   "help": {
     "dataQuality": {
       "intro": "Each row counts the occurrence records that have a given property, out of all records matching the current filter. The bar shows the same share.",

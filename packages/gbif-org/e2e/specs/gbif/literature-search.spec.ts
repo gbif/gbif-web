@@ -116,8 +116,8 @@ test('applying a filter lowers the count and shows a chip', async ({ page, waitF
 
 test.describe('More filters', () => {
   async function openMore(page: Page) {
-    await page.getByRole('button', { name: 'more', exact: true }).click();
-    const search = page.getByPlaceholder('Search filters');
+    await page.getByRole('button', { name: 'More filters', exact: true }).click();
+    const search = page.getByPlaceholder('Search for a filter');
     await expect(search).toBeVisible();
     return search;
   }
@@ -139,7 +139,7 @@ test.describe('More filters', () => {
     await expect(search).toBeHidden();
 
     await page.getByRole('button', { name: 'Back to filter list' }).click();
-    await expect(page.getByPlaceholder('Search filters')).toBeVisible();
+    await expect(page.getByPlaceholder('Search for a filter')).toBeVisible();
     await expect(page.getByRole('option').first()).toBeVisible();
   });
 

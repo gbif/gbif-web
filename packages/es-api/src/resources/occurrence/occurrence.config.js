@@ -248,6 +248,9 @@ const config = {
     establishmentMeans: {
       type: 'keyword',
       field: 'establishmentMeans.concept',
+      // Facets and cardinality count by lineage, so a concept includes its narrower concepts, as the
+      // filter, the bucket search and the v1 API do.
+      displayField: 'establishmentMeans.lineage',
     },
     datasetCategory: {
       type: 'keyword',
@@ -256,10 +259,16 @@ const config = {
     pathway: {
       type: 'keyword',
       field: 'pathway.concept',
+      // Facets and cardinality count by lineage, so a concept includes its narrower concepts, as the
+      // filter, the bucket search and the v1 API do.
+      displayField: 'pathway.lineage',
     },
     degreeOfEstablishment: {
       type: 'keyword',
       field: 'degreeOfEstablishment.concept',
+      // Facets and cardinality count by lineage, so a concept includes its narrower concepts, as the
+      // filter, the bucket search and the v1 API do.
+      displayField: 'degreeOfEstablishment.lineage',
     },
     // "eventDate": {
     //   "field": "eventDate",
@@ -407,6 +416,9 @@ const config = {
     lifeStage: {
       type: 'keyword',
       field: 'lifeStage.concept',
+      // Facets and cardinality count by lineage, so a concept includes its narrower concepts, as the
+      // filter, the bucket search and the v1 API do.
+      displayField: 'lifeStage.lineage',
     },
     locality: {
       type: 'keyword',
@@ -650,6 +662,9 @@ const config = {
     sex: {
       type: 'keyword',
       field: 'sex.concept',
+      // Facets and cardinality count by lineage, so a concept includes its narrower concepts, as the
+      // filter, the bucket search and the v1 API do.
+      displayField: 'sex.lineage',
     },
     startDayOfYear: {
       type: 'numeric',
@@ -684,6 +699,9 @@ const config = {
     typeStatus: {
       type: 'keyword',
       field: 'typeStatus.concepts',
+      // Facets and cardinality count by lineage, so a concept includes its narrower concepts, as the
+      // filter, the bucket search and the v1 API do.
+      displayField: 'typeStatus.lineage',
     },
     typifiedName: {
       type: 'keyword',
@@ -815,17 +833,12 @@ const config = {
             type: 'keyword',
             field: 'nucleotideSequenceID',
           },
-          // Filtering uses targetGene.lineage so the drill-down stays hierarchical: the v1
-          // search parameter NUCLEOTIDE_SEQUENCE_TARGET_GENE matches on the lineage, e.g.
-          // "Ribosomal_RNA" matches every record whose gene lineage contains it.
-          // Faceting/cardinality (via displayField) use the leaf targetGene.concept, so the
-          // filter list and dashboard only show the gene each record is actually annotated
-          // with — not every ancestor concept (e.g. COI without also listing its parents
-          // "Mitochondrial protein coding gene" and "Protein coding gene").
+          // Filtering, faceting and cardinality all use the lineage, as for the other vocabulary
+          // fields and the v1 API: "Ribosomal_RNA" matches, and counts, every record whose gene
+          // lineage contains it, so a facet's count is what a click on it finds.
           targetGene: {
             type: 'keyword',
             field: 'targetGene.lineage',
-            displayField: 'targetGene.concept',
           },
           sequence: {
             type: 'keyword',

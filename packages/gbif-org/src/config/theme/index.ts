@@ -1,5 +1,6 @@
 import { darkTheme, defaultTheme } from './baseThemes';
 import { colourIsLight, shadeBlend, shadeHexColor } from './colorUtils';
+import { DEFAULT_HEATMAP_COLORS } from './heatmapColors';
 import { Theme } from './theme';
 
 /**
@@ -120,6 +121,7 @@ const build = (theme: Partial<Theme>): Theme => {
     mapPointSizes: fullTheme.mapPointSizes ?? [4, 4, 5, 6, 8],
     chartColors: fullTheme.chartColors ?? chartColors,
     iucnColors: fullTheme.iucnColors ?? iucnColors,
+    heatmapColors: fullTheme.heatmapColors ?? DEFAULT_HEATMAP_COLORS,
 
     color900: shadeBlend(shadeDirection * 1 * 0.075, color, paperBackground),
     color800: shadeBlend(shadeDirection * 2 * 0.075, color, paperBackground),

@@ -1,7 +1,18 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // TODO: this has been changed to a fork. Consider updating to https://atlassian.design/components/pragmatic-drag-and-drop/examples
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { filterSearchScore, getFilterSearchValue } from '@/components/filters/filterSearch';
 import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Card } from '@/components/ui/smallCard';
 import { useToast } from '@/components/ui/use-toast';
 import useBelow from '@/hooks/useBelow';
@@ -9,6 +20,7 @@ import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { Resizable } from 're-resizable';
 import {
   MdAddChart,
+  MdArrowDropDown,
   MdBrokenImage,
   MdDeleteOutline as MdClose,
   MdOutlineDragIndicator as MdDragHandle,
@@ -20,7 +32,7 @@ import { useUncontrolledProp } from 'uncontrollable';
 /**
  * @typedef {import('./layoutSerialization').ChartItem} ChartItem
  * @typedef {import('./layoutSerialization').Layout} Layout
- * @typedef {{ translation?: string, r?: boolean, component: React.ComponentType<any> }} ChartType
+ * @typedef {{ translation?: string, aliasKey?: string, r?: boolean, component: React.ComponentType<any> }} ChartType
  * @typedef {Record<string, ChartType>} ChartTypes
  * @typedef {(value: Layout, useUrl?: boolean) => void} SetLayout
  * @typedef {(item: ChartItem, index: number) => void} UpdateItem
@@ -663,11 +675,12 @@ const chartGroups = {
     values: ['organismId', 'previousIdentifications'],
   },
   materialEntity: {
-    values: ['preparations', 'associatedSequences', 'isSequenced'],
+    values: ['preparations', 'associatedSequences'],
   },
   event: {
     values: [
       'eventId',
+      'parentEventId',
       'fieldNumber',
       'eventDate',
       'startDayOfYear',
@@ -742,13 +755,25 @@ const chartGroups = {
       'publishedByGbifRegion',
       'hostingOrganization',
       'networkKey',
+      'installationKey',
+      'datasetCategory',
       'protocol',
       'projectId',
       'programme',
+      'repatriated',
     ],
   },
   other: {
-    values: ['dataQuality', 'occurrenceSummary', 'datasetId', 'datasetName'],
+    values: [
+      'dataQuality',
+      'occurrenceSummary',
+      'datasetId',
+      'datasetName',
+      'isInCluster',
+      'isSequenced',
+      'taxonomicIssue',
+      'crosstab',
+    ],
   },
 };
 
@@ -757,8 +782,12 @@ const chartGroups = {
  */
 function CreateOptions({ onAdd, chartsTypes }) {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
   const messageNew = intl.formatMessage({ id: 'dashboard.addNew' });
-  const [selectedOption] = useState('');
+  const placeholder = intl.formatMessage({
+    id: 'dashboard.searchForChart',
+    defaultMessage: 'Search for a chart',
+  });
   // get translations for all the dashboard names
   const dashboardTitles = Object.keys(chartsTypes).reduce((acc, type) => {
     acc[type] = intl.formatMessage({
@@ -767,13 +796,6 @@ function CreateOptions({ onAdd, chartsTypes }) {
     });
     return acc;
   }, /** @type {Record<string, string>} */ ({}));
-
-  /** @param {React.ChangeEvent<HTMLSelectElement>} event */
-  const handleSelectChange = (event) => {
-    const selectedValue = event.target.value;
-    if (selectedValue === '') return;
-    onAdd(selectedValue);
-  };
 
   /** @type {Record<string, { value: string, label: string }[]>} */
   const groupOrdering = {
@@ -805,32 +827,74 @@ function CreateOptions({ onAdd, chartsTypes }) {
     return acc;
   }, groupOrdering);
 
+  // The two-dimensional heatmap is last in Other, after the charts of a single field.
+  groupedCharts.other.sort(
+    (a, b) => Number(a.value === 'crosstab') - Number(b.value === 'crosstab')
+  );
+
   // remove empty groups
   Object.keys(groupedCharts).forEach((group) => {
     if (groupedCharts[group].length === 0) {
       delete groupedCharts[group];
     }
   });
+  const groups = Object.keys(groupedCharts);
 
   return (
-    <Button asChild>
-      <select
-        value={selectedOption}
-        onChange={handleSelectChange}
-        className="g-border-e-8 g-border-transparent"
-      >
-        <option value="">{messageNew}</option>
-        {Object.keys(groupedCharts).map((group) => (
-          <optgroup label={intl.formatMessage({ id: `dashboard.group.${group}` })} key={group}>
-            {groupedCharts[group].map((option) => (
-              <option value={option.value} key={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </optgroup>
-        ))}
-      </select>
-    </Button>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button>
+          {messageNew}
+          <MdArrowDropDown className="g-ms-1" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="g-p-0 g-w-80" align="center">
+        {/* Searchable list of charts, like the More filters button */}
+        <Command filter={filterSearchScore}>
+          <CommandInput placeholder={placeholder} />
+          <CommandEmpty>
+            <FormattedMessage id="dashboard.noMatchingCharts" defaultMessage="No matching charts" />
+          </CommandEmpty>
+          <CommandList>
+            {groups.map((group, i) => {
+              const heading = intl.formatMessage({ id: `dashboard.group.${group}` });
+              return (
+                <React.Fragment key={group}>
+                  <CommandGroup heading={heading}>
+                    {groupedCharts[group].map((option) => {
+                      // search aliases are kept per filter; aliasKey names the filter when the
+                      // chart type is keyed differently
+                      const aliasKey = chartsTypes[option.value]?.aliasKey ?? option.value;
+                      const rawAlias = intl.messages[`filterAliases.${aliasKey}`];
+                      const aliases = typeof rawAlias === 'string' ? rawAlias : '';
+                      // cmdk needs a unique value per item, so the chart type ends the search text
+                      const searchValue = `${getFilterSearchValue({
+                        translatedFilterName: option.label,
+                        aliases,
+                        group: heading,
+                      })} ${option.value}`;
+                      return (
+                        <CommandItem
+                          key={option.value}
+                          value={searchValue}
+                          onSelect={() => {
+                            setOpen(false);
+                            onAdd(option.value);
+                          }}
+                        >
+                          {option.label}
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                  {i < groups.length - 1 && <CommandSeparator />}
+                </React.Fragment>
+              );
+            })}
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
 
