@@ -179,6 +179,17 @@ describe('authenticatedRequest identity', () => {
     expect(fetchWithRetry).not.toHaveBeenCalled();
   });
 
+  it('sends the user API token request as the app', async () => {
+    await authenticatedRequest({
+      method: 'GET',
+      url: 'https://registry.test/v1/user/jane/token',
+      canonicalPath: 'user/jane/token',
+      asApp: true,
+    });
+    expect(fetchWithRetry).toHaveBeenCalledTimes(1);
+    expect(sentHeaders()['x-gbif-user']).toBe('test.app');
+  });
+
   it('refuses userName and asApp together', async () => {
     await expect(authenticatedRequest({ ...get, userName: 'jane', asApp: true })).rejects.toThrow(
       'not both'

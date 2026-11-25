@@ -428,6 +428,7 @@ export async function getUserApiToken(userName) {
     method: 'GET',
     url: `${apiConfig.user.url}/${segment}/token`,
     canonicalPath: `${apiConfig.user.canonical}/${segment}/token`,
+    asApp: true,
   });
   if (response.statusCode !== 200) {
     throw new Error(`Token request answered ${response.statusCode}`);

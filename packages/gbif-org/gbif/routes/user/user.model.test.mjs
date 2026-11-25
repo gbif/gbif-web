@@ -365,8 +365,8 @@ describe('getUserApiToken', () => {
       method: 'GET',
       url: 'https://registry.test/v1/user/jane/token',
       canonicalPath: 'user/jane/token',
+      asApp: true,
     });
-    expect(options.userName).toBeUndefined();
   });
 
   it('encodes the user name in both the URL and the signed path', async () => {
