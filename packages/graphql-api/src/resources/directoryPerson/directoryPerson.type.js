@@ -68,6 +68,8 @@ const typeDef = gql`
     address: String
     countryCode: String
     languages: [String]
+    dataExpertise: [String]
+    thematicExpertise: [String]
     badges: [DirectoryBadge]
     roles: [DirectoryRole]
     profilePicture: String

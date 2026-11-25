@@ -27,6 +27,8 @@ const fullPerson = {
   countryCode: 'DK',
   languages: ['en'],
   areasExpertise: ['TAXONOMY'],
+  dataExpertise: ['DATA_MOBILISATION'],
+  thematicExpertise: ['MARINE'],
   badges: [{ key: 9, title: 'Cert', year: 2021, createdBy: 'staff@x', created: '2021-01-01' }],
   profileDescriptions: [{ description: 'bio', createdBy: 'staff@x', modifiedBy: 'staff@x' }],
   participants: [{ participantId: 5, name: 'internal' }],
@@ -94,6 +96,8 @@ describe('directory person reducers', () => {
       address: 'Street 1',
       countryCode: 'DK',
       languages: ['en'],
+      dataExpertise: ['DATA_MOBILISATION'],
+      thematicExpertise: ['MARINE'],
       badges: [{ title: 'Cert', year: 2021 }],
       roles: [
         { role: 'AWARD_WINNER', term: cleanTerm },
@@ -121,6 +125,8 @@ describe('directory person reducers', () => {
       email: 'ada@example.org',
       countryCode: 'DK',
       languages: ['en'],
+      dataExpertise: ['DATA_MOBILISATION'],
+      thematicExpertise: ['MARINE'],
       badges: [{ title: 'Cert', year: 2021 }],
       roles: [
         { role: 'TRANSLATOR', term: cleanTerm },

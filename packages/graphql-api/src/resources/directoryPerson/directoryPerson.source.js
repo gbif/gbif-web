@@ -66,6 +66,8 @@ export function reduceDirectoryContact(person) {
       'address',
       'countryCode',
       'languages',
+      'dataExpertise',
+      'thematicExpertise',
     ]),
     badges: person.badges?.map((c) => pick(c, ['title', 'year'])),
     roles: (person.roles ?? [])
@@ -89,6 +91,8 @@ export function reduceVolunteerContact(person) {
       'email',
       'countryCode',
       'languages',
+      'dataExpertise',
+      'thematicExpertise',
       'badges',
     ]),
     roles: contact.roles.filter((r) => VOLUNTEER_ROLES.includes(r.role)),

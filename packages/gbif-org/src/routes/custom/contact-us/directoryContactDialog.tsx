@@ -28,6 +28,8 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
       orcidId
       jobTitle
       languages
+      dataExpertise
+      thematicExpertise
       badges {
         title
         year
@@ -200,7 +202,10 @@ export function DirectoryContactDialogView({
             {person.phone && <ContactTelephone tel={person.phone} />}
           </div>
 
-          {(person.languages.length > 0 || person.badges.length > 0) && (
+          {(person.languages.length > 0 ||
+            person.dataExpertise.length > 0 ||
+            person.thematicExpertise.length > 0 ||
+            person.badges.length > 0) && (
             <div className="g-w-full g-space-y-2">
               {person.languages.length > 0 && (
                 <p className="g-text-sm">
@@ -213,6 +218,30 @@ export function DirectoryContactDialogView({
                       <FormattedMessage id={`enums.language.${lang}`} defaultMessage={lang} />
                     </span>
                   ))}
+                </p>
+              )}
+              {person.dataExpertise.length > 0 && (
+                <p className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage
+                      id="directory.dataExpertise"
+                      defaultMessage="Data expertise"
+                    />
+                    :
+                  </span>{' '}
+                  {person.dataExpertise.map(humanizeCode).join(', ')}
+                </p>
+              )}
+              {person.thematicExpertise.length > 0 && (
+                <p className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage
+                      id="directory.thematicExpertise"
+                      defaultMessage="Thematic expertise"
+                    />
+                    :
+                  </span>{' '}
+                  {person.thematicExpertise.map(humanizeCode).join(', ')}
                 </p>
               )}
               {person.badges.length > 0 && (
@@ -308,6 +337,8 @@ export type PreparedData = {
   orcidId?: string;
   roles: Role[];
   languages: string[];
+  dataExpertise: string[];
+  thematicExpertise: string[];
   badges: { title?: string; year?: number }[];
   profilePicture?: string;
   countryCode?: string;
@@ -399,6 +430,8 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
     orcidId: data.orcidId ?? undefined,
     roles,
     languages: data.languages?.filter(notNull) ?? [],
+    dataExpertise: data.dataExpertise?.filter(notNull) ?? [],
+    thematicExpertise: data.thematicExpertise?.filter(notNull) ?? [],
     badges: (data.badges ?? []).filter(notNull).map((c) => ({
       title: c.title ?? undefined,
       year: c.year ?? undefined,
@@ -407,6 +440,13 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
   };
 
   return result;
+}
+
+// Expertise values may be enum style codes (DATA_MOBILISATION). Show them as readable text.
+function humanizeCode(value: string) {
+  if (!/^[A-Z0-9_]+$/.test(value)) return value;
+  const text = value.replace(/_/g, ' ').toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 function DirectoryContactDialogSkeleton() {
