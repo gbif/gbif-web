@@ -248,12 +248,24 @@ export function DirectoryContactDialogView({
                 <div className="g-text-sm">
                   <span className="g-font-semibold">
                     <FormattedMessage id="directory.badges" defaultMessage="Badges" />:
-                  </span>{' '}
-                  {person.badges.map((badge) => (
-                    <Tag key={`${badge.title}-${badge.year}`} className="g-me-1 g-mb-1">
-                      {[badge.title, badge.year].filter(Boolean).join(' ')}
-                    </Tag>
-                  ))}
+                  </span>
+                  <ul className="g-flex g-flex-wrap g-gap-1 g-mt-1">
+                    {person.badges.map((badge) => (
+                      <li key={`${badge.title}-${badge.year}`}>
+                        <Tag className="g-inline-block g-whitespace-nowrap">
+                          {badge.title && (
+                            // Badge titles are role codes (TRANSLATOR, MENTOR, ...), so the role translations apply
+                            <FormattedMessage
+                              id={`enums.gbifRole.${badge.title}`}
+                              defaultMessage={humanizeCode(badge.title)}
+                            />
+                          )}
+                          {badge.title && badge.year ? ' ' : ''}
+                          {badge.year}
+                        </Tag>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>
