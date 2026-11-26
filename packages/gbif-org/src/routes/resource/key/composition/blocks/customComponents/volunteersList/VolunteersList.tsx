@@ -255,7 +255,7 @@ export function VolunteersTable({
                     <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                       <button
                         type="button"
-                        className="g-text-start g-text-blue-600 hover:g-text-blue-800"
+                        className="g-text-start g-text-inherit g-underline hover:g-decoration-2"
                         onClick={(e) => {
                           e.stopPropagation();
                           onSelectPerson(row.personId);
