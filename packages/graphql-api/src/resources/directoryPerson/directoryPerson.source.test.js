@@ -1,12 +1,11 @@
 /* eslint-env mocha */
 import assert from 'assert';
 import {
-  reduceAmbassador,
   reduceAwardWinner,
   reduceDirectoryContact,
-  reduceMentor,
   reducePersonRole,
-  reduceTranslator,
+  reduceVolunteer,
+  reduceVolunteerContact,
 } from './directoryPerson.source';
 
 const term = { start: '2020-01-01', end: '2022-01-01', createdBy: 'staff@x' };
@@ -28,7 +27,9 @@ const fullPerson = {
   countryCode: 'DK',
   languages: ['en'],
   areasExpertise: ['TAXONOMY'],
-  certifications: [{ key: 9, title: 'Cert', level: 'A', year: 2021, createdBy: 'staff@x' }],
+  dataExpertise: ['DATA_MOBILISATION'],
+  thematicExpertise: ['MARINE'],
+  badges: [{ key: 9, title: 'Cert', year: 2021, createdBy: 'staff@x', created: '2021-01-01' }],
   profileDescriptions: [{ description: 'bio', createdBy: 'staff@x', modifiedBy: 'staff@x' }],
   participants: [{ participantId: 5, name: 'internal' }],
   roles: [
@@ -42,6 +43,7 @@ const fullPerson = {
   modifiedBy: 'staff@x',
 };
 
+const activeTerm = { start: '2020-01-01' };
 const cleanTerm = { start: '2020-01-01', end: '2022-01-01' };
 
 describe('directory person reducers', () => {
@@ -59,36 +61,16 @@ describe('directory person reducers', () => {
     );
   });
 
-  it('reduces translators to the shown fields', () => {
-    assert.deepStrictEqual(reduceTranslator(fullPerson), {
-      firstName: 'Ada',
-      surname: 'Lovelace',
-      countryCode: 'DK',
-      orcidId: '0000-0001',
-      languages: ['en'],
-      certifications: [{ year: 2021 }],
-    });
-  });
-
-  it('reduces ambassadors to the shown fields', () => {
-    assert.deepStrictEqual(reduceAmbassador(fullPerson), {
+  it('reduces volunteers to the shown fields', () => {
+    assert.deepStrictEqual(reduceVolunteer(fullPerson), {
       firstName: 'Ada',
       surname: 'Lovelace',
       email: 'ada@example.org',
       orcidId: '0000-0001',
       institutionName: 'Institute',
       countryCode: 'DK',
-      areasExpertise: ['TAXONOMY'],
-    });
-  });
-
-  it('reduces mentors to the shown fields', () => {
-    assert.deepStrictEqual(reduceMentor(fullPerson), {
-      firstName: 'Ada',
-      surname: 'Lovelace',
-      email: 'ada@example.org',
-      countryCode: 'DK',
-      areasExpertise: ['TAXONOMY'],
+      languages: ['en'],
+      badges: [{ title: 'Cert', year: 2021 }],
     });
   });
 
@@ -114,17 +96,59 @@ describe('directory person reducers', () => {
       phone: '+45 1234',
       address: 'Street 1',
       countryCode: 'DK',
-      roles: [
-        { role: 'AWARD_WINNER', term: cleanTerm },
-        { role: 'INVOICE_CONTACT', term: cleanTerm },
-      ],
+      languages: ['en'],
+      dataExpertise: ['DATA_MOBILISATION'],
+      thematicExpertise: ['MARINE'],
+      badges: [{ title: 'Cert', year: 2021 }],
+      roles: [{ role: 'AWARD_WINNER', term: cleanTerm }],
       participants: [{ participantId: 5 }],
     });
   });
 
+  it('limits the contact of volunteers to the fields of the volunteer policy', () => {
+    const person = {
+      ...fullPerson,
+      roles: [
+        { role: 'TRANSLATOR', term: activeTerm },
+        { role: 'INVOICE_CONTACT', term },
+        { role: 'MENTOR', term: activeTerm },
+      ],
+    };
+    assert.deepStrictEqual(reduceVolunteerContact(person), {
+      id: 1,
+      firstName: 'Ada',
+      surname: 'Lovelace',
+      orcidId: '0000-0001',
+      institutionName: 'Institute',
+      email: 'ada@example.org',
+      countryCode: 'DK',
+      languages: ['en'],
+      dataExpertise: ['DATA_MOBILISATION'],
+      thematicExpertise: ['MARINE'],
+      badges: [{ title: 'Cert', year: 2021 }],
+      roles: [
+        { role: 'TRANSLATOR', term: activeTerm },
+        { role: 'MENTOR', term: activeTerm },
+      ],
+      participants: [],
+      restricted: true,
+    });
+  });
+
+  it('leaves ended volunteer roles out of the volunteer contact', () => {
+    const roles = [
+      { role: 'TRANSLATOR', term: { start: '2020-01-01' } },
+      { role: 'AMBASSADOR', term: { start: '2010-01-01', end: '2012-01-01' } },
+    ];
+    assert.deepStrictEqual(
+      reduceVolunteerContact({ id: 1, roles }).roles.map((r) => r.role),
+      ['TRANSLATOR'],
+    );
+  });
+
   it('handles people without roles, terms or participants', () => {
     const contact = reduceDirectoryContact({ id: 2 });
-    assert.deepStrictEqual(contact, { id: 2, roles: [], participants: [] });
+    assert.deepStrictEqual(contact, { id: 2, badges: undefined, roles: [], participants: [] });
     assert.deepStrictEqual(reduceAwardWinner({ roles: [{ role: 'AWARD_WINNER' }] }).roles, [
       { award: undefined, term: undefined },
     ]);

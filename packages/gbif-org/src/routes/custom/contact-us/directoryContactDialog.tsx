@@ -1,5 +1,5 @@
 import { ContactAction, ContactEmail, ContactTelephone } from '@/components/contact';
-import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DirectoryContactQuery, DirectoryContactQueryVariables, NodeType } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -12,6 +12,7 @@ import { LongDate } from '@/components/dateFormats';
 import { MdLocationOn, MdPerson } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 import { safeHref } from '@/utils/safeHref';
+import { Tag } from '@/components/resultCards';
 
 const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
   query DirectoryContact($id: ID!) {
@@ -26,6 +27,13 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
       email
       orcidId
       jobTitle
+      languages
+      dataExpertise
+      thematicExpertise
+      badges {
+        title
+        year
+      }
       profilePicture
       participants {
         id
@@ -57,13 +65,32 @@ type Props = {
   personId?: string | null;
 };
 
-export function DirectoryContactDialogContent({ personId }: Props) {
-  const { data, loading, load } = useQuery<DirectoryContactQuery, DirectoryContactQueryVariables>(
-    DIRECTORY_CONTACT_QUERY,
-    {
-      lazyLoad: true,
-    }
+/**
+ * Controlled dialog for a person in the directory. Open it by setting a personId and close it in onClose.
+ * Only one dialog is needed per list, instead of one per row.
+ */
+export function DirectoryContactDialog({
+  personId,
+  onClose,
+}: {
+  personId?: string | null;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={!!personId} onOpenChange={(open) => !open && onClose()}>
+      {/* keyed so that opening another person starts from a clean state instead of showing the previous one */}
+      <DirectoryContactDialogContent key={personId} personId={personId} />
+    </Dialog>
   );
+}
+
+export function DirectoryContactDialogContent({ personId }: Props) {
+  const { data, error, loading, load } = useQuery<
+    DirectoryContactQuery,
+    DirectoryContactQueryVariables
+  >(DIRECTORY_CONTACT_QUERY, {
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     if (personId) {
@@ -76,9 +103,36 @@ export function DirectoryContactDialogContent({ personId }: Props) {
     return prepareData(data.directoryContact);
   }, [data?.directoryContact]);
 
+  // Before the first response nothing has been loaded, which should look the same as loading.
+  const isLoading = loading || (!data && !error);
+  return <DirectoryContactDialogView person={person} loading={isLoading} />;
+}
+
+// Presentational part, so the dialog can be shown with data that doesn't come from the API (e.g. a demo page).
+export function DirectoryContactDialogView({
+  person,
+  loading,
+}: {
+  person?: PreparedData;
+  loading?: boolean;
+}) {
   return (
     <DialogContent className="g-max-h-[90dvh] g-overflow-y-auto g-bg-white g-max-w-[calc(100dvw-4rem)] g-p-4 md:g-p-10 md:g-max-w-lg">
-      {loading && !person && <DirectoryContactDialogSkeleton />}
+      {loading && <DirectoryContactDialogSkeleton />}
+      {!loading && !person && (
+        <>
+          <VisuallyHidden>
+            <DialogHeader>
+              <DialogTitle>
+                <FormattedMessage id="directory.notFound" defaultMessage="Contact not found" />
+              </DialogTitle>
+            </DialogHeader>
+          </VisuallyHidden>
+          <p className="g-text-slate-500">
+            <FormattedMessage id="directory.notFound" defaultMessage="Contact not found" />
+          </p>
+        </>
+      )}
       {!loading && person && (
         <>
           <VisuallyHidden>
@@ -148,6 +202,75 @@ export function DirectoryContactDialogContent({ personId }: Props) {
             {person.phone && <ContactTelephone tel={person.phone} />}
           </div>
 
+          {(person.languages.length > 0 ||
+            person.dataExpertise.length > 0 ||
+            person.thematicExpertise.length > 0 ||
+            person.badges.length > 0) && (
+            <div className="g-w-full g-space-y-2">
+              {person.languages.length > 0 && (
+                <p className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage id="directory.languages" defaultMessage="Languages" />:
+                  </span>{' '}
+                  {person.languages.map((lang, i) => (
+                    <span key={lang}>
+                      {i > 0 && ', '}
+                      <FormattedMessage id={`enums.language.${lang}`} defaultMessage={lang} />
+                    </span>
+                  ))}
+                </p>
+              )}
+              {person.dataExpertise.length > 0 && (
+                <p className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage
+                      id="directory.dataExpertise"
+                      defaultMessage="Data expertise"
+                    />
+                    :
+                  </span>{' '}
+                  {person.dataExpertise.map(humanizeCode).join(', ')}
+                </p>
+              )}
+              {person.thematicExpertise.length > 0 && (
+                <p className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage
+                      id="directory.thematicExpertise"
+                      defaultMessage="Thematic expertise"
+                    />
+                    :
+                  </span>{' '}
+                  {person.thematicExpertise.map(humanizeCode).join(', ')}
+                </p>
+              )}
+              {person.badges.length > 0 && (
+                <div className="g-text-sm">
+                  <span className="g-font-semibold">
+                    <FormattedMessage id="directory.badges" defaultMessage="Badges" />:
+                  </span>
+                  <ul className="g-flex g-flex-wrap g-gap-1 g-mt-1">
+                    {person.badges.map((badge) => (
+                      <li key={`${badge.title}-${badge.year}`}>
+                        <Tag className="g-inline-block g-whitespace-nowrap">
+                          {badge.title && (
+                            // Badge titles are role codes (TRANSLATOR, MENTOR, ...), so the role translations apply
+                            <FormattedMessage
+                              id={`enums.gbifRole.${badge.title}`}
+                              defaultMessage={humanizeCode(badge.title)}
+                            />
+                          )}
+                          {badge.title && badge.year ? ' ' : ''}
+                          {badge.year}
+                        </Tag>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+
           {person.roles.length > 0 && (
             <div>
               <Separator>
@@ -216,7 +339,7 @@ type Role = {
   participantName?: string;
 };
 
-type PreparedData = {
+export type PreparedData = {
   id: string;
   name: string;
   institutionName?: string;
@@ -225,6 +348,10 @@ type PreparedData = {
   email?: string;
   orcidId?: string;
   roles: Role[];
+  languages: string[];
+  dataExpertise: string[];
+  thematicExpertise: string[];
+  badges: { title?: string; year?: number }[];
   profilePicture?: string;
   countryCode?: string;
 };
@@ -314,10 +441,24 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
     email: data.email ?? undefined,
     orcidId: data.orcidId ?? undefined,
     roles,
+    languages: data.languages?.filter(notNull) ?? [],
+    dataExpertise: data.dataExpertise?.filter(notNull) ?? [],
+    thematicExpertise: data.thematicExpertise?.filter(notNull) ?? [],
+    badges: (data.badges ?? []).filter(notNull).map((c) => ({
+      title: c.title ?? undefined,
+      year: c.year ?? undefined,
+    })),
     profilePicture: data.profilePicture ?? undefined,
   };
 
   return result;
+}
+
+// Expertise values may be enum style codes (DATA_MOBILISATION). Show them as readable text.
+function humanizeCode(value: string) {
+  if (!/^[A-Z0-9_]+$/.test(value)) return value;
+  const text = value.replace(/_/g, ' ').toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 function DirectoryContactDialogSkeleton() {

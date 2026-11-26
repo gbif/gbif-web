@@ -3,15 +3,7 @@ import { gql } from 'graphql-tag';
 // Each list has its own types with only the fields the website shows.
 const typeDef = gql`
   extend type Query {
-    directoryTranslators(
-      limit: Int
-      offset: Int
-    ): DirectoryTranslatorSearchResults
-    directoryAmbassadors(
-      limit: Int
-      offset: Int
-    ): DirectoryAmbassadorSearchResults
-    directoryMentors(limit: Int, offset: Int): DirectoryMentorSearchResults
+    directoryVolunteers(role: String!, limit: Int, offset: Int): DirectoryVolunteerSearchResults
     directoryAwardWinners(award: [String]): [DirectoryAwardWinner]!
     directoryContact(id: ID!): DirectoryContact
   }
@@ -21,78 +13,34 @@ const typeDef = gql`
     end: String
   }
 
-  type DirectoryTranslatorSearchResults {
-    results: [DirectoryTranslatorRole]!
+  type DirectoryVolunteerSearchResults {
+    results: [DirectoryVolunteerRole]!
     limit: Int!
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
   }
 
-  type DirectoryTranslatorRole {
+  type DirectoryVolunteerRole {
     personId: Int
     term: DirectoryTerm
-    Person: DirectoryTranslator
+    Person: DirectoryVolunteer
   }
 
-  type DirectoryTranslator {
-    firstName: String
-    surname: String
-    countryCode: String
-    orcidId: String
-    languages: [String]
-    certifications: [DirectoryCertification]
-  }
-
-  type DirectoryCertification {
-    year: Int
-  }
-
-  type DirectoryAmbassadorSearchResults {
-    results: [DirectoryAmbassadorRole]!
-    limit: Int!
-    offset: Int!
-    count: Int!
-    endOfRecords: Boolean!
-  }
-
-  type DirectoryAmbassadorRole {
-    personId: Int
-    term: DirectoryTerm
-    Person: DirectoryAmbassador
-  }
-
-  type DirectoryAmbassador {
+  type DirectoryVolunteer {
     firstName: String
     surname: String
     email: String
     orcidId: String
     institutionName: String
     countryCode: String
-    areasExpertise: [String]
+    languages: [String]
+    badges: [DirectoryBadge]
   }
 
-  type DirectoryMentorSearchResults {
-    results: [DirectoryMentorRole]!
-    limit: Int!
-    offset: Int!
-    count: Int!
-    endOfRecords: Boolean!
-  }
-
-  type DirectoryMentorRole {
-    personId: Int
-    award: String
-    term: DirectoryTerm
-    Person: DirectoryMentor
-  }
-
-  type DirectoryMentor {
-    firstName: String
-    surname: String
-    email: String
-    countryCode: String
-    areasExpertise: [String]
+  type DirectoryBadge {
+    title: String
+    year: Int
   }
 
   type DirectoryAwardWinner {
@@ -119,6 +67,10 @@ const typeDef = gql`
     phone: String
     address: String
     countryCode: String
+    languages: [String]
+    dataExpertise: [String]
+    thematicExpertise: [String]
+    badges: [DirectoryBadge]
     roles: [DirectoryRole]
     profilePicture: String
     participants: [Participant]

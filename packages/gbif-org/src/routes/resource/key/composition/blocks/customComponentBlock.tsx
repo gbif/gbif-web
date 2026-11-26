@@ -1,16 +1,15 @@
 import { CustomComponentBlockDetailsFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { backgroundColorMap, BlockContainer, getAnchorId } from './_shared';
-import { AmbassadorsList } from './customComponents/ambassadorsList';
 import { EbbeWinnersTable } from './customComponents/ebbeWinnersList';
 import { DnaReferenceLibraryList } from './customComponents/dnaReferenceLibraries';
 import { GraList } from './customComponents/graList';
 import { HostedPortalForm } from './customComponents/hostedPortalForm';
 import { MdtForm } from './customComponents/mdtForm';
-import { MentorsList } from './customComponents/mentorsList';
 import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
-import { TranslatorsList } from './customComponents/translatorsList';
+import { VolunteersList } from './customComponents/volunteersList';
+import { resolveVolunteerSettings } from './customComponents/volunteersList/volunteerUtils';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -65,25 +64,16 @@ function CustomComponent({
   switch (resource.componentType) {
     // We could add the other forms as custom components in the future,
     // but our contentful data does not have them yet and adding them would make the transition to the new gbif.org less smooth.
+    // The volunteer lists share one component. The legacy component types are kept so existing
+    // contentful blocks keep working, they just default to their role. Settings on the block win.
+    case 'volunteersList':
     case 'translatorsList':
-      return (
-        <TranslatorsList
-          title={resource?.title ?? undefined}
-          tableStyle={resource?.settings?.tablestyle}
-        />
-      );
     case 'ambassadorsList':
-      return (
-        <AmbassadorsList
-          title={resource?.title ?? undefined}
-          tableStyle={resource?.settings?.tablestyle}
-        />
-      );
     case 'mentorsList':
       return (
-        <MentorsList
+        <VolunteersList
           title={resource?.title ?? undefined}
-          tableStyle={resource?.settings?.tablestyle}
+          settings={resolveVolunteerSettings(resource.componentType, resource?.settings)}
         />
       );
     case 'graList':
