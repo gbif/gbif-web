@@ -27,7 +27,12 @@ function createDataSources({ failNodes = false } = {}) {
     searchNodes: async () => {
       calls.nodes += 1;
       if (failNodes) throw new Error('upstream down');
-      return { results: [{ contacts: [{ key: 9 }] }, {}] };
+      return {
+        results: [
+          { contacts: [{ key: 9 }, { key: 13, type: 'NODE_MANAGER' }, { key: 14, type: 'INVOICE_CONTACT' }] },
+          {},
+        ],
+      };
     },
   };
   const directoryPersonAPI = {
@@ -46,7 +51,7 @@ describe('isPublicDirectoryPerson', () => {
 
   it('allows people listed in the directory tables and node contacts', async () => {
     const { dataSources } = createDataSources();
-    const ids = ['1', '2', '3', '4', '5', '6', '7', 8, '9', 11];
+    const ids = ['1', '2', '3', '4', '5', '6', '7', 8, '9', 11, 13];
     const results = await Promise.all(ids.map((id) => isPublicDirectoryPerson(id, dataSources)));
     assert.deepStrictEqual(
       results,
@@ -56,7 +61,7 @@ describe('isPublicDirectoryPerson', () => {
 
   it('rejects people not shown on the website', async () => {
     const { dataSources } = createDataSources();
-    const ids = ['10', '12', '0', 'abc', '1 ', undefined];
+    const ids = ['10', '12', '14', '0', 'abc', '1 ', undefined];
     const results = await Promise.all(ids.map((id) => isPublicDirectoryPerson(id, dataSources)));
     assert.deepStrictEqual(
       results,

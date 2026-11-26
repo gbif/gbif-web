@@ -1,8 +1,12 @@
 // Person ids that the website lists publicly: the contact-us directory tables,
 // the node contacts shown on country and participant pages and the volunteer lists.
 // Only these may be looked up directly through `directoryContact(id)`.
+//
+// Default is not public: every source below is named explicitly, a role has to be listed in
+// VALID_GBIF_ROLES (or be a volunteer role) to count, and a new role or list is not exposed until it is
+// added here on purpose.
 
-import { VOLUNTEER_ROLES } from './validGbifRoles';
+import { VALID_GBIF_ROLES, VOLUNTEER_ROLES } from './validGbifRoles';
 import { isActiveTerm } from './activeTerm';
 
 const TTL_MS = 10 * 60 * 1000;
@@ -45,7 +49,10 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI, directoryPersonAPI
     ...committees.flat().map((member) => member.personId),
     ...nsg.map((member) => member.id),
     ...secretariat.map((member) => member.id),
-    ...nodes.results.flatMap((node) => (node.contacts ?? []).map((c) => c.key)),
+    // node contacts shown on country pages; a contact with a role outside the public roles is not
+    ...nodes.results.flatMap((node) =>
+      (node.contacts ?? []).filter((c) => !c.type || VALID_GBIF_ROLES.has(c.type)).map((c) => c.key),
+    ),
   ];
 
   return {
