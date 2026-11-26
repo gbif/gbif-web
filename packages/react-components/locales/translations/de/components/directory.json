@@ -1,16 +1,16 @@
 {
-  "title": "",
+  "title": "Verzeichnis",
   "group": {
     "executiveCommittee": {
-      "title": "",
-      "description": ""
+      "title": "Vorstand",
+      "description": "Der Vorstand handelt im Namen des Verwaltungsrats, wenn dieser nicht tagt, und innerhalb der ihm vom Verwaltungsrat übertragenen Zuständigkeitsbereiche. Zu seinen Aufgaben gehören die Überwachung der Arbeit des Sekretariats bei der Umsetzung der vom Verwaltungsrat getroffenen Beschlüsse, einschließlich der Umsetzung des Strategieplans und des Arbeitsprogramms, sowie die Verwaltung des Haushalts."
     },
     "scienceCommittee": {
-      "title": "",
-      "description": ""
+      "title": "Wissenschaftsausschuss",
+      "description": "Der GBIF-Wissenschaftsausschuss ist ein beratendes Gremium, das die Entwicklung und den Fortschritt des GBIF-Arbeitsprogramms beaufsichtigt und Empfehlungen an den Verwaltungsrat, den Exekutivausschuss und das Sekretariat ausspricht. Die Aufgabenbeschreibung des Ausschusses kann [hier](/document/80877/current-terms-of-reference-for-the-science-committee ) eingesehen werden."
     },
     "budgetCommittee": {
-      "title": "",
+      "title": "Haushaltsausschuss",
       "description": ""
     },
     "nsg": {
@@ -26,47 +26,47 @@
       "description": ""
     },
     "voting": {
-      "title": "",
-      "description": ""
+      "title": "Stimmberechtigte Teilnehmende",
+      "description": "Länder, die die GBIF-Absichtserklärung unterzeichnet haben und sich bereit erklären, einen finanziellen Beitrag zu den GBIF-Kernmitteln zu leisten."
     },
     "associateCountries": {
-      "title": "",
-      "description": ""
+      "title": "Teilnehmende assoziierte Länder",
+      "description": "Länder, die die GBIF-Absichtserklärung unterzeichnet haben, jedoch keinen finanziellen Beitrag zu den GBIF-Kernmitteln leisten und kein Stimmrecht im GBIF-Verwaltungsrat haben."
     },
     "associateParticipants": {
-      "title": "",
+      "title": "Weitere assoziierte Teilnehmende",
       "description": ""
     }
   },
   "columns": {
-    "role": "",
-    "name": "",
-    "participant": "",
-    "participationStatus": ""
+    "role": "Rolle",
+    "name": "Name",
+    "participant": "Teilnehmende",
+    "participationStatus": "Teilnehmerstatus"
   },
-  "details": "",
-  "roles": "",
-  "sinceDate": "",
-  "showAllContacts": "",
+  "details": "Details",
+  "roles": "Rollen",
+  "sinceDate": "Seit {DATE}",
+  "showAllContacts": "Alle",
   "person": {
-    "volunteer": "",
-    "name": "",
-    "annualBadges": "",
-    "language": "",
-    "country": "",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
-    "year": "",
+    "volunteer": "Ehrenamtliche Person",
+    "name": "Name",
+    "annualBadges": "Jährliche Abzeichen",
+    "language": "Sprache",
+    "country": "Land oder Region",
+    "affiliation": "Zugehörigkeit",
+    "recipient": "Empfänger",
+    "areasExpertise": "Fachgebiet",
+    "orcId": "ORCID-ID",
+    "year": "Jahr",
     "email": "E-Mail"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "GBIF Auszeichnung für Nachwuchsforschende",
+    "EBBE1ST": "1. Preis",
+    "EBBE2ND": "2. Preis",
+    "EBBE3RD": "3. Preis"
   },
-  "prize": "",
-  "year": ""
+  "prize": "Preis",
+  "year": "Jahr"
 }
