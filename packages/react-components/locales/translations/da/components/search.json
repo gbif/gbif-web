@@ -1,101 +1,101 @@
 {
   "tabs": {
     "table": "Tabel",
-    "tree": "",
+    "tree": "Træ",
     "gallery": "Galleri",
-    "media": "",
+    "media": "Medie",
     "map": "Kort",
     "datasets": "Datasæt",
     "events": "Arrangementer",
     "download": "Download",
-    "clusters": "",
+    "clusters": "Relateret",
     "dashboard": "Instrumentbræt",
-    "sites": "",
-    "list": ""
+    "sites": "Websteder",
+    "list": "Liste"
   },
   "table": {
-    "lockColumn": "",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "lockColumn": "Lås kolonne",
+    "unlockColumn": "Lås kolonne op",
+    "columnVisibility": "Vis/skjul kolonner",
+    "resetColumnVisibility": "Nulstil",
+    "openFilter": "Åbn filter"
   },
   "placeholders": {
     "default": "Søg",
-    "searchForFilter": "",
-    "range": "",
-    "rangeExample": "",
-    "wildcard": "",
-    "dateTemplate": "",
-    "locationID": ""
+    "searchForFilter": "Søg efter et filter",
+    "range": "Område eller enkeltværdi",
+    "rangeExample": "F.eks. 1000, 2000",
+    "wildcard": "Søg ved hjælp af * og ? som jokertegn",
+    "dateTemplate": "yyyy-mm-dd",
+    "locationID": "Søg efter placerings-ID (skelner mellem store og små bogstaver)"
   },
   "ternary": {
-    "yes": "",
-    "no": "",
-    "either": ""
+    "yes": "Ja",
+    "no": "Nej",
+    "either": "Enten"
   },
   "loadMore": "Flere",
   "loading": "Indlæser",
-  "noResults": "",
-  "startTyping": "",
-  "addFilters": "",
+  "noResults": "Ingen resultater",
+  "startTyping": "Skriv for at søge",
+  "addFilters": "Tilføj filtre",
   "apply": "Anvend",
   "cancel": "Annuller",
-  "rankInGroup": "",
+  "rankInGroup": "{rank} i {group}",
   "options": "Valg",
   "sort": {
-    "sortBy": "",
-    "yearDesc": "",
-    "yearAsc": ""
+    "sortBy": "Sortér efter",
+    "yearDesc": "År (nyeste først)",
+    "yearAsc": "År (ældste først)"
   },
   "group": {
-    "groupBy": "",
+    "groupBy": "Gruppér efter",
     "default": "Standard",
-    "random": "",
-    "showMore": "",
+    "random": "Tilfældigt",
+    "showMore": "Vis {count} mere",
     "moreImagesHint": "For at se flere billeder af en gruppe, se {link}.",
     "moreImagesLink": "Deaktiver gruppering og vis et tilfældigt udvalg",
-    "cappedHint": "",
-    "useAsFilter": "",
+    "cappedHint": "Viser {shown} af {total} grupper. Anvend flere filtre for at indsnævre søgningen yderligere.",
+    "useAsFilter": "Brug som filter",
     "unspecified": "Uspecificeret"
   },
   "occurrenceClustersView": {
     "about": "Om",
-    "clusters": "",
-    "legend": "",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "clusters": "Relateret",
+    "legend": "Forklaring",
+    "differentPublishers": "Forskellig udgiver",
+    "samePublishers": "Samme udgiver",
+    "entryPoint": "Indgang",
+    "hasMultipleTaxonKeys": "Indeholder forskellige identifikationer",
+    "aboutLink": "Om linket",
+    "isCapped": "Denne node har flere forbindelser end vist her. Gå til optegnelsen for at se den fulde liste.",
+    "isDeleted": "Denne optengelse er siden blevet slettet.",
+    "similarities": "Ligheder",
+    "currentRecord": "Nuværende optegnelse",
     "nodeType": {
       "IMAGE": "Billede",
-      "TYPE": "",
-      "TREATMENT": "",
+      "TYPE": "Typeeksemplar",
+      "TREATMENT": "Behandling",
       "OBSERVATION": "Observation_xxx",
-      "SPECIMEN": "",
-      "SEQUENCE": ""
+      "SPECIMEN": "Eksemplar",
+      "SEQUENCE": "Sekvens"
     }
   },
   "crossContentSearch": {
     "title": "Søg",
-    "description": "",
+    "description": "Søg på tværs af arter, forekomster, datasæt, udgivere, artikler og meget mere",
     "noSearchTermsEntered": "Intet søgeord indtastet",
-    "placeholder": "",
+    "placeholder": "Søg på tværs af indhold...",
     "categories": {
       "speciesSearch": "Art",
       "taxonSearch": "Taxa",
       "datasetSearch": "Datasæt",
       "publisherSearch": "Forlæggere",
       "occurrenceSearch": "Observationer",
-      "resourceSearch": ""
+      "resourceSearch": "Ressourcer og artikler"
     },
     "seeAll": "Se alle",
-    "searchFor": "",
-    "noResults": ""
+    "searchFor": "Søg efter \"{query}”",
+    "noResults": "Vi kan ikke finde noget, der matcher din søgning. For yderligere resultater, prøv en mere specifik søgning i en af de kategorier, der vises her."
   }
 }

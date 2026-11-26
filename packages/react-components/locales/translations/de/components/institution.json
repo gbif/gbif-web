@@ -1,5 +1,8 @@
 {
   "institutionalGovernance": "Institutionelle Führungsform",
+  "type": "Art der Institution",
+  "addCollection": "Sammlung hinzufügen",
   "disciplines": "Institutionelle Disziplinen",
-  "numberSpecimens": "Anzahl der Exemplare in der Institution"
+  "numberSpecimens": "Anzahl der Exemplare in der Institution",
+  "unknownCollectionCodesForInstitution": "Diese unbekannten Sammlungscodes sind mit dieser Einrichtung verknüpft"
 }

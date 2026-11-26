@@ -1,5 +1,10 @@
 {
   "nResults": "{total, plural, one {# Ergebnis} other {# Ergebnisse}}",
+  "nDocuments": "{total, plural, one {# Dokument} other {# Dokumente}}",
+  "nTools": "{total, plural, one {# Werkzeug} other {# Werkzeuge}}",
+  "nProgrammes": "{total, plural,one {# Programm} other {# Programme}}",
+  "nProjects": "{total, plural,one {# Projekt} other {# Projekte}}",
+  "nEvents": "{total, plural, one {# Event} other {# Events}}",
   "nOccurrences": "{total, plural, one {# Vorkommnis} other {# Vorkommnisse}}",
   "nRecords": "{total, plural, one {# Aufzeichnung} other {# Aufzeichnungen}}",
   "nSpecimensInGbif": "{total, plural, one {# Exemplar in GBIF} other {# Exemplare in GBIF}}",
@@ -8,10 +13,16 @@
   "nCollections": "{total, plural, one {# Sammlung} other {# Sammlungen}}",
   "nRecordsTotal": "{total, plural, one {# Datensatz insgesamt} other {# Datensätze insgesamt}}",
   "nSelected": "{total, plural, other {# ausgewählt}}",
-  "nQualityFlags": "{total, plural, one {# Qualitätsflag} other {# Qualitätsflags}}",
+  "nQualityFlags": "{total, plural, one {# Qualitätsanmerkung} other {# Qualitätsanmerkungen}}",
   "nAudioFiles": "{total, plural, one {# Tondatei} other {# Tondateien}}",
   "nVideos": "{total, plural, one {# Video} other {# Videos}}",
   "nImages": "{total, plural, one {# Bild} other {# Bilder}}",
   "nResultsWithCoordinates": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Koordinaten\n",
-  "nResultsWithImages": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Bildern"
+  "nResultsWithImages": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Bildern",
+  "nPublishersInCountry": "{total, plural,one {Es gibt # Datenherausgeber} other {Es gibt # Datenherausgeber}} in {country}",
+  "nStaffMembers": "{total, plural,one {# mitarbeitende Person} other {# Mitarbeitende}}",
+  "nOccurrencesHosted": "{total, plural,one {# gehostetes Vorkommen} other {# gehostete Vorkommen}}",
+  "nPercentOfTotal": "{percentage, plural,other {# % der Gesamtzahl}}",
+  "nMoreDatasets": "{total, plural, one {# weiterer Datensatz} other {# weitere Datensätze}}",
+  "nInstallations": "{total, plural, one {# Installation} other {# Installationen}}"
 }

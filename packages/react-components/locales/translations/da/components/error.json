@@ -1,1 +1,17 @@
-{}
+{
+  "generic": "Der opstod en fejl",
+  "genericRequestFailed": "Anmodning fejlede",
+  "genericDescription": "Der opstod en uventet fejl. Prøv venligst igen senere.",
+  "unknown": "Ukendt fejl",
+  "report": "Rapportér problem",
+  "retry": "Prøv igen",
+  "partialData": "Ikke alle data kunne indlæses",
+  "reloadPage": "Opdatér siden",
+  "hideDetails": "Skjul detaljer",
+  "showDetails": "Vis detaljer",
+  "mapFailed": "Kan ikke indlæse kort",
+  "partialMapFailure": "Nogle stykker kunne ikke indlæses",
+  "maximumResultLimitExceeded": "Det maksimale antal resultater pr. side er: {MAX_RESULTS}. Du bedes præcisere din søgning eller benytte download-funktionen for at få adgang til alle resultater.",
+  "mapBrowserIssue": "Hvis problemet fortsætter, skyldes det højst sandsynligt browserudvidelser eller indstillinger, der forhindrer brugen af nødvendige API'er (f.eks. WebGL og Canvas).",
+  "webglUnavailable": "WebGL er ikke tilgængeligt. Tjek venligst dine browserindstillinger eller prøv en anden browser. Plugins eller udvidelser kan også blokere WebGL."
+}
