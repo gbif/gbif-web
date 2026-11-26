@@ -1,5 +1,8 @@
 // Valid GBIF roles that have corresponding translations in gbifRole.json.
 // Roles not in this set are filtered out to prevent raw enum strings in the UI.
+// This set is also what makes a role public: people are only listed, and their contact only looked up,
+// through these roles. Keep non-public roles out of it (e.g. FUNDING_CONTACT, INVOICE_CONTACT and
+// FINANCIAL_CONTACT, which are administrative contacts and not published).
 export const VALID_GBIF_ROLES = new Set([
   'GOVERNING_BOARD_CHAIR',
   'GOVERNING_BOARD_1ST_VICE_CHAIR',
@@ -36,9 +39,6 @@ export const VALID_GBIF_ROLES = new Set([
   'RULES_COMMITTEE_CHAIR',
   'RULES_COMMITTEE_VICE_CHAIR',
   'RULES_COMMITTEE_MEMBER',
-  'FUNDING_CONTACT',
-  'INVOICE_CONTACT',
-  'FINANCIAL_CONTACT',
   'TRAINER',
   'MENTOR',
   'AMBASSADOR',

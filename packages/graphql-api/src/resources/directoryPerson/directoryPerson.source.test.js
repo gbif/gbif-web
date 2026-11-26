@@ -99,10 +99,7 @@ describe('directory person reducers', () => {
       dataExpertise: ['DATA_MOBILISATION'],
       thematicExpertise: ['MARINE'],
       badges: [{ title: 'Cert', year: 2021 }],
-      roles: [
-        { role: 'AWARD_WINNER', term: cleanTerm },
-        { role: 'INVOICE_CONTACT', term: cleanTerm },
-      ],
+      roles: [{ role: 'AWARD_WINNER', term: cleanTerm }],
       participants: [{ participantId: 5 }],
     });
   });
