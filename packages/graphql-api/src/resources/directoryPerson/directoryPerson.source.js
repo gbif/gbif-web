@@ -10,6 +10,7 @@ import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey } from '@/helpers/utils';
 import { urlPath } from '@/helpers/urlPath';
+import { sanitizeUpstreamError } from './upstreamError';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES, VOLUNTEER_ROLES } from './validGbifRoles';
 
@@ -106,6 +107,15 @@ class DirectoryPersonAPI extends RESTDataSource {
     super();
     this.baseURL = config.apiv1;
     this.config = config;
+  }
+
+  // Directory errors must not reveal the private upstream (url, status or response body) to clients.
+  async get(path, params, init) {
+    try {
+      return await super.get(path, params, init);
+    } catch (err) {
+      throw sanitizeUpstreamError(err);
+    }
   }
 
   willSendRequest(path, request) {
