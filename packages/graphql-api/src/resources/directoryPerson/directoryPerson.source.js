@@ -10,6 +10,7 @@ import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey } from '@/helpers/utils';
 import { urlPath } from '@/helpers/urlPath';
+import { isActiveTerm } from './activeTerm';
 import { sanitizeUpstreamError } from './upstreamError';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES, VOLUNTEER_ROLES } from './validGbifRoles';
@@ -96,7 +97,7 @@ export function reduceVolunteerContact(person) {
       'thematicExpertise',
       'badges',
     ]),
-    roles: contact.roles.filter((r) => VOLUNTEER_ROLES.includes(r.role)),
+    roles: contact.roles.filter((r) => VOLUNTEER_ROLES.includes(r.role) && isActiveTerm(r.term)),
     participants: [],
     restricted: true,
   };

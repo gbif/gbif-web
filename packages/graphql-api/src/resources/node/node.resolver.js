@@ -1,5 +1,6 @@
 import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { isValidUuid } from '@/helpers/utils';
+import { getDirectoryAccess } from '@/resources/directoryPerson/publicDirectoryPersons';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -118,7 +119,9 @@ export default {
     },
   },
   Contact: {
+    // Directory data of a node contact follows the same access rules as `directoryContact`.
     institutionName: async (contact, args, { dataSources }) => {
+      if (!(await getDirectoryAccess(contact.key, dataSources))) return null;
       const directoryPerson =
         await dataSources.directoryPersonAPI.getDirectoryContactByKey({
           key: contact.key,
@@ -127,6 +130,7 @@ export default {
       return directoryPerson?.institutionName;
     },
     profilePicture: async (contact, args, { dataSources }) => {
+      if ((await getDirectoryAccess(contact.key, dataSources)) !== 'full') return null;
       return dataSources.directoryPersonAPI.getProfilePicture({
         key: contact.key,
         query: args,

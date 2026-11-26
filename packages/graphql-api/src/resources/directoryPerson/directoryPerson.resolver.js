@@ -2,6 +2,7 @@ import { GraphQLError } from 'graphql';
 import { NotFoundError } from '../../helpers/GraphQL404Error';
 import { getDirectoryAccess } from './publicDirectoryPersons';
 import { isActiveTerm } from './activeTerm';
+import { sanitizeUpstreamError } from './upstreamError';
 import { VOLUNTEER_ROLES } from './validGbifRoles';
 
 /**
@@ -59,7 +60,10 @@ export default {
           );
         }),
     directoryContact: async (parent, { id }, { dataSources }) => {
-      const access = await getDirectoryAccess(id, dataSources);
+      // the allowlist is built from several directory and registry sources, none of their errors may reach the client
+      const access = await getDirectoryAccess(id, dataSources).catch((err) => {
+        throw sanitizeUpstreamError(err);
+      });
       if (!access) {
         throw new NotFoundError();
       }

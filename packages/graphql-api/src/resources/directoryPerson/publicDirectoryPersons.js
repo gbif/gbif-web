@@ -42,6 +42,12 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI, directoryPersonAPI
     .filter((id) => id != null)
     .map(String);
 
+  // A node contact without a role can't be matched to a public role, so it only gets the reduced contact.
+  const untypedNodeContactIds = nodes.results
+    .flatMap((node) => (node.contacts ?? []).filter((c) => !c.type).map((c) => c.key))
+    .filter((id) => id != null)
+    .map(String);
+
   const ids = [
     ...participantGroups.flatMap((response) =>
       response.results.flatMap((p) => (p.people ?? []).map((x) => x.person?.id)),
@@ -49,15 +55,15 @@ async function loadPublicPersonIds({ participantAPI, nodeAPI, directoryPersonAPI
     ...committees.flat().map((member) => member.personId),
     ...nsg.map((member) => member.id),
     ...secretariat.map((member) => member.id),
-    // node contacts shown on country pages; a contact with a role outside the public roles is not
+    // node contacts shown on country pages, only with a public role
     ...nodes.results.flatMap((node) =>
-      (node.contacts ?? []).filter((c) => !c.type || VALID_GBIF_ROLES.has(c.type)).map((c) => c.key),
+      (node.contacts ?? []).filter((c) => VALID_GBIF_ROLES.has(c.type)).map((c) => c.key),
     ),
   ];
 
   return {
     ids: new Set(ids.filter((id) => id != null).map(String)),
-    volunteerIds: new Set(volunteerIds),
+    volunteerIds: new Set([...volunteerIds, ...untypedNodeContactIds]),
   };
 }
 
@@ -77,7 +83,8 @@ async function getPublicPersonIds(dataSources) {
 }
 
 // 'full': listed in the directory tables or as a node contact, so the whole contact may be shown.
-// 'volunteer': only listed as a volunteer, so only the fields of the volunteer policy may be shown.
+// 'volunteer': only listed as a volunteer (or as a node contact without a role), so only the fields of the
+// volunteer policy may be shown.
 // null: not public.
 export async function getDirectoryAccess(id, dataSources) {
   const { ids, volunteerIds } = await getPublicPersonIds(dataSources);

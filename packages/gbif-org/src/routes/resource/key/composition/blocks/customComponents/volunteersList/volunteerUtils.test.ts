@@ -75,6 +75,16 @@ describe('resolveVolunteerSettings', () => {
     expect(resolveVolunteerSettings('translatorsList', { role: 5 }).role).toBe('TRANSLATOR');
   });
 
+  it('counts the badges of the role for legacy blocks unless a badge type is set', () => {
+    expect(resolveVolunteerSettings('translatorsList', {}).badgeType).toBe('TRANSLATOR');
+    expect(resolveVolunteerSettings('translatorsList', { badgeType: 'Other' }).badgeType).toBe(
+      'Other'
+    );
+    expect(
+      resolveVolunteerSettings('volunteersList', { role: 'TRAINER' }).badgeType
+    ).toBeUndefined();
+  });
+
   it('has no role for the generic block type unless configured', () => {
     expect(resolveVolunteerSettings('volunteersList', {}).role).toBeUndefined();
     expect(resolveVolunteerSettings('volunteersList', { role: 'TRAINER' }).role).toBe('TRAINER');

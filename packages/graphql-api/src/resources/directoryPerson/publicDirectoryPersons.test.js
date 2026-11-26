@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import assert from 'assert';
-import { clearPublicDirectoryPersonCache, isPublicDirectoryPerson } from './publicDirectoryPersons';
+import { clearPublicDirectoryPersonCache, getDirectoryAccess, isPublicDirectoryPerson } from './publicDirectoryPersons';
 
 function createDataSources({ failNodes = false } = {}) {
   const calls = { participants: [], nodes: 0, volunteerRoles: [] };
@@ -76,6 +76,17 @@ describe('isPublicDirectoryPerson', () => {
       calls.participants.map((q) => `${q.type}:${q.participation_status}`),
       ['COUNTRY:VOTING', 'COUNTRY:ASSOCIATE', 'OTHER:ASSOCIATE'],
     );
+  });
+
+  it('gives each source its access level and untyped node contacts the reduced one', async () => {
+    const { dataSources } = createDataSources();
+    const level = async (id) => getDirectoryAccess(id, dataSources);
+    assert.strictEqual(await level('1'), 'full'); // participant table
+    assert.strictEqual(await level('13'), 'full'); // node contact with a public role
+    assert.strictEqual(await level('11'), 'volunteer'); // volunteer only
+    assert.strictEqual(await level('9'), 'volunteer'); // node contact without a role
+    assert.strictEqual(await level('14'), null); // node contact with a non-public role
+    assert.strictEqual(await level('12'), null); // ended volunteer
   });
 
   it('includes volunteers for every volunteer role', async () => {

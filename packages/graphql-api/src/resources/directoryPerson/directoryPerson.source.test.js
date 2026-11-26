@@ -43,6 +43,7 @@ const fullPerson = {
   modifiedBy: 'staff@x',
 };
 
+const activeTerm = { start: '2020-01-01' };
 const cleanTerm = { start: '2020-01-01', end: '2022-01-01' };
 
 describe('directory person reducers', () => {
@@ -108,9 +109,9 @@ describe('directory person reducers', () => {
     const person = {
       ...fullPerson,
       roles: [
-        { role: 'TRANSLATOR', term },
+        { role: 'TRANSLATOR', term: activeTerm },
         { role: 'INVOICE_CONTACT', term },
-        { role: 'MENTOR', term },
+        { role: 'MENTOR', term: activeTerm },
       ],
     };
     assert.deepStrictEqual(reduceVolunteerContact(person), {
@@ -126,12 +127,23 @@ describe('directory person reducers', () => {
       thematicExpertise: ['MARINE'],
       badges: [{ title: 'Cert', year: 2021 }],
       roles: [
-        { role: 'TRANSLATOR', term: cleanTerm },
-        { role: 'MENTOR', term: cleanTerm },
+        { role: 'TRANSLATOR', term: activeTerm },
+        { role: 'MENTOR', term: activeTerm },
       ],
       participants: [],
       restricted: true,
     });
+  });
+
+  it('leaves ended volunteer roles out of the volunteer contact', () => {
+    const roles = [
+      { role: 'TRANSLATOR', term: { start: '2020-01-01' } },
+      { role: 'AMBASSADOR', term: { start: '2010-01-01', end: '2012-01-01' } },
+    ];
+    assert.deepStrictEqual(
+      reduceVolunteerContact({ id: 1, roles }).roles.map((r) => r.role),
+      ['TRANSLATOR'],
+    );
   });
 
   it('handles people without roles, terms or participants', () => {

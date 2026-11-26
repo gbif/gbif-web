@@ -108,6 +108,21 @@ describe('directoryContact resolver', () => {
     await assert.rejects(call(ctx, '10'), /404/);
   });
 
+  it('does not echo upstream errors raised while building the allowlist', async () => {
+    const ctx = createContext();
+    ctx.context.dataSources.participantAPI.directoryAPI.getNsgReport = async () => {
+      throw Object.assign(new Error('boom'), {
+        extensions: { response: { url: 'http://internal/v1/directory/report/5', status: 500, body: 'SECRET' } },
+      });
+    };
+    await assert.rejects(call(ctx, '1'), (err) => {
+      const json = JSON.stringify(err.toJSON());
+      assert.strictEqual(json.includes('internal'), false);
+      assert.strictEqual(json.includes('SECRET'), false);
+      return true;
+    });
+  });
+
   it('does not load the profile picture of restricted contacts', async () => {
     const ctx = createContext();
     const picture = resolver.DirectoryContact.profilePicture;

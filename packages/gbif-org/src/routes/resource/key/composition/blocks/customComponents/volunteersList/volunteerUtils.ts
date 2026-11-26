@@ -52,13 +52,17 @@ export const LEGACY_VOLUNTEER_ROLES: Record<string, string | undefined> = {
   mentorsList: 'MENTOR',
 };
 
-// Block settings win over the legacy default role, but an empty or null role in the settings does not.
+// Block settings win over the legacy defaults, but an empty or null value in the settings does not.
+// Badge titles are role codes, so a legacy block also counts the badges of its own role.
 export function resolveVolunteerSettings<T extends Record<string, unknown>>(
   componentType: string,
   settings?: T | null
-): Omit<T, 'role'> & { role?: string } {
-  const role = typeof settings?.role === 'string' ? settings.role.trim() : '';
-  return { ...settings, role: role || LEGACY_VOLUNTEER_ROLES[componentType] } as Omit<T, 'role'> & {
+): Omit<T, 'role' | 'badgeType'> & { role?: string; badgeType?: string } {
+  const text = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+  const role = text(settings?.role) || LEGACY_VOLUNTEER_ROLES[componentType];
+  const badgeType = text(settings?.badgeType) || LEGACY_VOLUNTEER_ROLES[componentType];
+  return { ...settings, role, badgeType } as Omit<T, 'role' | 'badgeType'> & {
     role?: string;
+    badgeType?: string;
   };
 }
