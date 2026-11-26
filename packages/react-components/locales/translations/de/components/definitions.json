@@ -4,11 +4,11 @@
       "http://rs.tdwg.org/ac/terms/Multimedia": "Bilder, Tonaufnahmen oder Videos, einschließlich dazugehöriger Metadaten und Lizenzinformationen – http://rs.tdwg.org/ac/terms/Multimedia",
       "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "Informationen zur DNA-Amplifikation eines Probenmaterials – http://data.ggbn.org/schemas/ggbn/terms/Amplification",
       "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "Beschreibt Zugänge in Genbanken für pflanzengenetische Ressourcen – http://purl.org/germplasm/germplasmTerm#GermplasmAccession",
-      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "",
-      "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "",
-      "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "",
+      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "Merkmalsmessungen für pflanzengenetische Ressourcen – http://purl.org/germplasm/germplasmTerm#MeasurementScore",
+      "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "Merkmalsbeschreibungen, auf denen die verwendeten Methoden und Protokolle basieren, die bei der Messung von Merkmalen an pflanzengenetischen Ressourcen angewandt wurden – http://purl.org/germplasm/germplasmTerm#MeasurementTrait",
+      "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "Messversuch (im Freiland oder im Gewächshaus) zur Erfassung von Merkmalswerten für pflanzengenetische Ressourcen – http://purl.org/germplasm/germplasmTerm#MeasurementTrial",
       "http://rs.tdwg.org/dwc/terms/Identification": "Informationen zur Mehrfachbestimmung desselben Organismus – http://rs.tdwg.org/dwc/terms/Identification",
-      "http://rs.gbif.org/terms/1.0/Identifier": "",
+      "http://rs.gbif.org/terms/1.0/Identifier": "Alternative Identifikatoren für ein Taxon – http://rs.gbif.org/terms/1.0/Identifier",
       "http://rs.gbif.org/terms/1.0/Image": "Bilder und zugehörige Metadaten – http://rs.gbif.org/terms/1.0/Image",
       "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Mit einem Datensatz verbundene Messwerte oder Fakten – http://rs.tdwg.org/dwc/terms/MeasurementOrFact",
       "http://rs.gbif.org/terms/1.0/Multimedia": "Bilder, Tonaufnahmen oder Videos, einschließlich dazugehöriger Metadaten und Lizenzinformationen – http://rs.gbif.org/terms/1.0/Multimedia",
@@ -17,13 +17,13 @@
       "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "Informationen zum DNA-Klonen eines Materials – http://data.ggbn.org/schemas/ggbn/terms/Cloning",
       "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "Informationen zum Gelbild eines Materials – http://data.ggbn.org/schemas/ggbn/terms/GelImage",
       "http://data.ggbn.org/schemas/ggbn/terms/Loan": "Informationen darüber, wie und unter welchen Bedingungen ein Sammlungsobjekt ausgeliehen werden kann – http://data.ggbn.org/schemas/ggbn/terms/Loan",
-      "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Permit": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "",
+      "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Informationen zu den Eigenschaften von Materialproben (z. B. Gewebe, DNA, RNA) – http://data.ggbn.org/schemas/ggbn/terms/MaterialSample",
+      "http://data.ggbn.org/schemas/ggbn/terms/Permit": "Informationen zu Genehmigungen im Zusammenhang mit einem Material – http://data.ggbn.org/schemas/ggbn/terms/Permit",
+      "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Informationen zur Präparation des Materials – http://data.ggbn.org/schemas/ggbn/terms/Preparation",
       "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Informationen zur Konservierung des Materials – http://data.ggbn.org/schemas/ggbn/terms/Preservation",
       "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact": "Erweiterte Messungen oder Fakten in Bezug auf ein biologisches Vorkommen, Umweltmessungen oder Fakten sowie Merkmale der Probenahmeverfahren – http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact",
-      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "",
-      "http://rs.gbif.org/terms/1.0/DNADerivedData": ""
+      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "Chronometrische Altersinformationen in Fällen, in denen der Zeitpunkt der Probenentnahme nicht mit der Lebenszeit des Organismus zusammenfällt – http://rs.tdwg.org/chrono/terms/ChronometricAge",
+      "http://rs.gbif.org/terms/1.0/DNADerivedData": "Enthält relevante Informationen zu Datensätzen, die auf der Grundlage von DNA-Analysen erstellt wurden – http://rs.gbif.org/terms/1.0/DNADerivedData"
     }
   }
 }
